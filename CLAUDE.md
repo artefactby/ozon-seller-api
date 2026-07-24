@@ -35,11 +35,20 @@ dependencies; Node.js >= 18 (relies on native `fetch`).
 
 ## Generated types
 
-`src/types/generated.ts` (once present) is generated with `openapi-typescript` from a
-local copy of the Ozon Seller API OpenAPI spec. The spec itself is a local generator
-input (`temp/swagger.json`, gitignored) and is not part of the repository — only the
-generated output is committed. Do not edit generated files by hand; do not try to fetch
-docs.ozon.ru automatically (it is bot-protected — spec updates are manual).
+`src/types/generated.ts` is produced by `npm run codegen` (openapi-typescript) from a
+local copy of the Ozon Seller API OpenAPI spec. The spec itself is a generator input
+(`temp/swagger.json`, gitignored) and is not part of the repository — only the generated
+output is committed. It is large (~70k lines: 458 operations, 2083 schemas), so treat it
+as an opaque artifact: never edit it by hand, and review API updates as a regenerated
+diff. Do not try to fetch docs.ozon.ru automatically — it is bot-protected; spec updates
+are manual.
+
+The generated shape is standard openapi-typescript v7: `paths` maps a path to its
+method, each pointing at an entry in `operations`, where the request body lives at
+`requestBody.content["application/json"]` and the response at
+`responses[200].content["application/json"]`. Every operation also declares `Client-Id`
+and `Api-Key` header parameters — the client supplies those, so they must never surface
+in the public call signature.
 
 ## Rules
 
