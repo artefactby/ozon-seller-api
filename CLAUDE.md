@@ -49,11 +49,14 @@ option references it) while `src/limiter/` holds the implementation.
    client (only it can re-send); the limiter owns the *policy* — `notify()` records a
    cooldown, and the next `acquire()` blocks for as long as it lasts.
 
-Only two rate limits are actually documented by Ozon: 50 rps per Client ID globally, and
-80 requests per minute for `/v2/products/stocks`. Those are the shipped defaults —
-resist adding limits that cannot be pointed at in the docs. Retries are restricted to
-429 and "Circle is open" because only a rejected request is safe to repeat; almost every
-operation is a POST.
+The limiter's defaults are exactly the limits Ozon documents and nothing else: 50 rps
+per Client ID globally, plus the per-method rates stated in the spec's own operation
+descriptions — five paths today, each quoted at its entry in `DEFAULT_PATH_BUDGETS`
+(`src/limiter/limiter.ts`). Resist adding limits that cannot be pointed at in the docs.
+On every spec update, rescan the operation descriptions for new rate statements (the
+wording varies: «не больше N запросов в секунду», «до N запросов в минуту», «N раз в
+минуту»). Retries are restricted to 429 and "Circle is open" because only a rejected
+request is safe to repeat; almost every operation is a POST.
 
 **The package is transport-only — a settled decision, not an interim state.** One call
 owns one logical request; a 429/"Circle is open" retry re-sends that same request, so it

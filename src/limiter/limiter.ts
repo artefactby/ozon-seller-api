@@ -21,9 +21,9 @@ export interface TokenBucketLimiterOptions {
   /** Global budget for the Client ID. Defaults to Ozon's documented 50 rps. */
   global?: RateBudget;
   /**
-   * Extra budgets for individual paths, applied on top of the global one.
-   * Defaults to the single documented per-method limit: 80 requests per minute
-   * for `/v2/products/stocks`.
+   * Extra budgets for individual paths, applied on top of the global one and
+   * merged over {@link DEFAULT_PATH_BUDGETS} (the rates Ozon documents in the
+   * spec's operation descriptions).
    */
   perPath?: Record<string, RateBudget>;
   /** Maximum queue depth before calls are rejected. Unlimited by default. */
@@ -44,12 +44,21 @@ export interface TokenBucketLimiterOptions {
 export const DEFAULT_GLOBAL_BUDGET: RateBudget = { limit: 50, intervalMs: 1_000 };
 
 /**
- * Per-method budgets Ozon documents explicitly. Only one is documented as a
- * request rate; everything else is governed by the global budget. Pass your own
- * map to add limits you have measured yourself.
+ * Every per-method request rate Ozon documents, straight from the spec's own
+ * operation descriptions (quoted below). Everything else is governed only by
+ * the global budget; pass `perPath` to add limits you have measured yourself.
  */
 export const DEFAULT_PATH_BUDGETS: Readonly<Record<string, RateBudget>> = {
+  // «Вы можете отправить не больше 10 запросов в секунду.»
+  '/v1/product/placement-zone/info': { limit: 10, intervalMs: 1_000 },
+  // «С одного аккаунта продавца можно отправить до 80 запросов в минуту.»
   '/v2/products/stocks': { limit: 80, intervalMs: 60_000 },
+  // «С одного аккаунта продавца можно отправить 1 запрос в минуту.»
+  '/v1/report/discounted/create': { limit: 1, intervalMs: 60_000 },
+  // «Вы можете делать не больше 1 запроса в минуту по одному кабинету Client-Id.»
+  '/v1/analytics/turnover/stocks': { limit: 1, intervalMs: 60_000 },
+  // «Метод можно использовать 1 раз в минуту.» (deprecated, shutdown announced for 2026)
+  '/v1/warehouse/list': { limit: 1, intervalMs: 60_000 },
 };
 
 interface QueueEntry {

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { isOzonQueueError, OzonQueueError } from './errors';
-import { TokenBucketLimiter } from './limiter';
+import { DEFAULT_PATH_BUDGETS, TokenBucketLimiter } from './limiter';
 import type { RateLimitMeta } from '../types';
 
 function meta(path: string, overrides: Partial<RateLimitMeta> = {}): RateLimitMeta {
@@ -199,6 +199,18 @@ describe('TokenBucketLimiter', () => {
       .catch((error: unknown) => error);
 
     expect((rejected as OzonQueueError).reason).toBe('aborted');
+  });
+
+  it('ships exactly the per-method rates the spec documents', () => {
+    // One entry per rate statement in the spec's operation descriptions; a
+    // change here must come from a spec update, not from anyone's usage.
+    expect(DEFAULT_PATH_BUDGETS).toEqual({
+      '/v1/product/placement-zone/info': { limit: 10, intervalMs: 1_000 },
+      '/v2/products/stocks': { limit: 80, intervalMs: 60_000 },
+      '/v1/report/discounted/create': { limit: 1, intervalMs: 60_000 },
+      '/v1/analytics/turnover/stocks': { limit: 1, intervalMs: 60_000 },
+      '/v1/warehouse/list': { limit: 1, intervalMs: 60_000 },
+    });
   });
 
   it('defaults to the documented budgets', async () => {

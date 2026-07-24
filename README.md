@@ -91,8 +91,11 @@ const client = new OzonClient({
   clientId,
   apiKey,
   limiter: new TokenBucketLimiter({
-    global: { limit: 50, intervalMs: 1_000 }, // default
-    perPath: { '/v2/products/stocks': { limit: 80, intervalMs: 60_000 } }, // default
+    global: { limit: 50, intervalMs: 1_000 }, // default: Ozon's documented 50 rps
+    // Merged over DEFAULT_PATH_BUDGETS — every per-method rate the spec documents
+    // (e.g. /v2/products/stocks 80/min, /v1/product/placement-zone/info 10 rps).
+    // Add limits you have measured yourself:
+    perPath: { '/v3/product/list': { limit: 20, intervalMs: 1_000 } },
     maxSize: 5_000, // reject once the queue is this deep
     waitTimeoutMs: 30_000, // reject calls that wait longer than this
     hooks: {
