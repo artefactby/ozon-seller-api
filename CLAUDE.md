@@ -15,11 +15,24 @@ dependencies; Node.js >= 18 (relies on native `fetch`).
 - `npm run build` / `npm run dev` — tsup (CJS + ESM + `.d.ts` into `dist/`)
 - `prepublishOnly` chains typecheck + test + build automatically
 
+## Layout
+
+```
+src/
+  index.ts          public exports
+  client.ts         OzonClient: transport, headers, timeouts, payload decoding
+  errors.ts         OzonApiError, isOzonApiError, parseRetryAfter
+  types.ts          public type helpers over the generated paths
+  generated/        codegen output — never edit by hand
+```
+
 ## Architecture
 
 1. **Typed core**: `client.request('/v5/product/info/prices', body)` — the path is a
    literal type; request/response types are inferred from a generated path map
-   (openapi-fetch-style pattern). This covers every API operation.
+   (openapi-fetch-style pattern). This covers every API operation. `requestRaw()` is the
+   escape hatch returning the raw `Response` (binary payloads, multipart uploads,
+   operations the spec describes inaccurately).
 2. **Tag-based wrapper modules** (e.g. `client.prices.getPrices(...)`) add ergonomics
    (pagination, chunking, progress) on top of the core; full coverage via wrappers is a
    non-goal — the core already provides it.
@@ -49,6 +62,18 @@ method, each pointing at an entry in `operations`, where the request body lives 
 `responses[200].content["application/json"]`. Every operation also declares `Client-Id`
 and `Api-Key` header parameters — the client supplies those, so they must never surface
 in the public call signature.
+
+`scripts/emit-http-methods.mjs` (part of `npm run codegen`) emits the runtime method map
+the type system cannot provide. It fails loudly if a spec update introduces a method
+other than GET/POST, or more than one method per path — both assumptions the client
+relies on.
+
+Facts about the spec worth knowing before touching the type helpers: no operation
+declares path or query parameters; 415 operations answer with JSON, 35 with an empty
+body, 8 with a PDF or a PNG; 30 take no request body; two take `multipart/form-data`.
+Beware that `never` vacuously satisfies any `extends` check — in `ResponseOf` the
+empty-body case must be tested before the JSON one, or every void response silently
+becomes `unknown`.
 
 ## Rules
 

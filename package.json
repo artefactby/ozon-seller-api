@@ -43,7 +43,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "codegen": "openapi-typescript temp/swagger.json -o src/types/generated.ts",
+    "codegen": "openapi-typescript temp/swagger.json -o src/generated/types.ts && node scripts/emit-http-methods.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
