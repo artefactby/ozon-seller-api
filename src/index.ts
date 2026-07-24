@@ -1,13 +1,16 @@
 export { OzonClient } from './client';
 export type { FetchLike, OzonClientOptions } from './client';
 
-export { OzonApiError, isOzonApiError, parseRetryAfter } from './errors';
+export { isCircuitOpen, isOzonApiError, OzonApiError, parseRetryAfter } from './errors';
 export type { OzonErrorBody } from './errors';
 
 export type {
   ApiPath,
+  OzonRateLimiter,
   PathWithBody,
   PathWithoutBody,
+  RateLimitMeta,
+  RateLimitOutcome,
   RequestBodyOf,
   RequestOptions,
   ResponseOf,

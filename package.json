@@ -35,6 +35,16 @@
         "default": "./dist/index.js"
       }
     },
+    "./limiter": {
+      "import": {
+        "types": "./dist/limiter/index.d.mts",
+        "default": "./dist/limiter/index.mjs"
+      },
+      "require": {
+        "types": "./dist/limiter/index.d.ts",
+        "default": "./dist/limiter/index.js"
+      }
+    },
     "./package.json": "./package.json"
   },
   "files": [

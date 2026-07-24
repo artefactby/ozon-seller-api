@@ -20,11 +20,16 @@ dependencies; Node.js >= 18 (relies on native `fetch`).
 ```
 src/
   index.ts          public exports
-  client.ts         OzonClient: transport, headers, timeouts, payload decoding
-  errors.ts         OzonApiError, isOzonApiError, parseRetryAfter
-  types.ts          public type helpers over the generated paths
+  client.ts         OzonClient: transport, headers, timeouts, retries, decoding
+  errors.ts         OzonApiError, isOzonApiError, parseRetryAfter, isCircuitOpen
+  types.ts          public type helpers + the OzonRateLimiter contract
   generated/        codegen output — never edit by hand
+  limiter/          built-in limiter, published as the /limiter subpath
 ```
+
+The two entry points share no runtime code, so the limiter costs nothing to consumers
+who bring their own. `src/types.ts` holds the `OzonRateLimiter` contract (the client
+option references it) while `src/limiter/` holds the implementation.
 
 ## Architecture
 
@@ -41,10 +46,17 @@ src/
 4. **Errors**: typed `OzonApiError` (code + response body). The client returns typed
    data or throws — no envelope wrapping.
 5. **Rate limiter**: separate subpath export (`artefactby-ozon-seller-api/limiter`) —
-   token bucket (global + per-method budgets), reactive 429/`Retry-After` retries,
-   "Circle is open" detection with per-method cooldown, backpressure, `AbortSignal`,
-   priorities; swappable via the `OzonRateLimiter` interface. The built-in limiter is
-   in-process only.
+   token bucket (global + per-path budgets), per-path cooldowns fed by what the API
+   reports, backpressure, `AbortSignal`, priorities; swappable via the `OzonRateLimiter`
+   interface. The built-in limiter is in-process only. The retry *loop* lives in the
+   client (only it can re-send); the limiter owns the *policy* — `notify()` records a
+   cooldown, and the next `acquire()` blocks for as long as it lasts.
+
+Only two rate limits are actually documented by Ozon: 50 rps per Client ID globally, and
+80 requests per minute for `/v2/products/stocks`. Those are the shipped defaults —
+resist adding limits that cannot be pointed at in the docs. Retries are restricted to
+429 and "Circle is open" because only a rejected request is safe to repeat; almost every
+operation is a POST.
 
 ## Generated types
 

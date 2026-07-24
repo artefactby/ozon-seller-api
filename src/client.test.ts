@@ -161,7 +161,9 @@ describe('error handling', () => {
       }),
     );
 
-    const error = (await clientWith(fetchImpl)
+    // Retries are exercised separately; this is about how the error is parsed.
+    const client = new OzonClient({ ...CREDENTIALS, fetch: fetchImpl, maxRetries: 0 });
+    const error = (await client
       .request('/v1/seller/info')
       .catch((caught: unknown) => caught)) as OzonApiError;
 
@@ -239,9 +241,12 @@ describe('cancellation', () => {
 
   it('propagates the caller reason when both a signal and a timeout are set', async () => {
     const controller = new AbortController();
+    // Mirrors fetch: a signal that is already aborted rejects straight away,
+    // since an `abort` listener added afterwards never fires.
     const fetchImpl = vi.fn<FetchLike>(
       (_url, init) =>
         new Promise((_resolve, reject) => {
+          if (init.signal?.aborted) reject(init.signal.reason);
           init.signal?.addEventListener('abort', () => reject(init.signal?.reason));
         }),
     );
@@ -251,6 +256,156 @@ describe('cancellation', () => {
     controller.abort(new Error('caller changed their mind'));
 
     await expect(pending).rejects.toThrow(/caller changed their mind/);
+  });
+});
+
+describe('rate limiting', () => {
+  const rateLimited = () =>
+    new Response(JSON.stringify({ code: 8, message: 'You have reached request rate limit' }), {
+      status: 429,
+      headers: { 'content-type': 'application/json', 'retry-after': '1' },
+    });
+
+  it('asks the limiter for a slot before each attempt and reports the outcome', async () => {
+    const acquire = vi.fn(async () => {});
+    const notify = vi.fn();
+    const responses = [rateLimited(), jsonResponse({ ok: true })];
+    const fetchImpl = vi.fn<FetchLike>(async () => responses.shift()!);
+
+    const client = new OzonClient({
+      ...CREDENTIALS,
+      fetch: fetchImpl,
+      limiter: { acquire, notify },
+    });
+
+    await client.request('/v1/seller/info');
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(acquire).toHaveBeenCalledTimes(2);
+    expect(acquire).toHaveBeenCalledWith({ path: '/v1/seller/info', priority: 0 });
+    expect(notify).toHaveBeenCalledWith({
+      path: '/v1/seller/info',
+      status: 429,
+      retryAfterMs: 1_000,
+      circuitOpen: false,
+    });
+  });
+
+  it('passes the call priority and signal to the limiter', async () => {
+    const acquire = vi.fn(async () => {});
+    const controller = new AbortController();
+    const client = new OzonClient({
+      ...CREDENTIALS,
+      fetch: stubFetch(jsonResponse({})),
+      limiter: { acquire },
+    });
+
+    await client.request('/v1/seller/info', undefined, {
+      priority: 5,
+      signal: controller.signal,
+    });
+
+    expect(acquire).toHaveBeenCalledWith({
+      path: '/v1/seller/info',
+      priority: 5,
+      signal: controller.signal,
+    });
+  });
+
+  it('flags "Circle is open" so the limiter can cool the method down', async () => {
+    const notify = vi.fn();
+    const responses = [
+      new Response(JSON.stringify({ code: 3, message: 'Circle is open' }), {
+        status: 400,
+        headers: { 'content-type': 'application/json' },
+      }),
+      jsonResponse({ ok: true }),
+    ];
+    const fetchImpl = vi.fn<FetchLike>(async () => responses.shift()!);
+
+    const client = new OzonClient({
+      ...CREDENTIALS,
+      fetch: fetchImpl,
+      limiter: { acquire: async () => {}, notify },
+    });
+
+    await client.request('/v1/seller/info');
+
+    expect(notify).toHaveBeenCalledWith(
+      expect.objectContaining({ status: 400, circuitOpen: true }),
+    );
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+  });
+
+  it('gives up after maxRetries and throws the last error', async () => {
+    const fetchImpl = stubFetch(rateLimited);
+    const client = new OzonClient({
+      ...CREDENTIALS,
+      fetch: fetchImpl,
+      limiter: { acquire: async () => {} },
+      maxRetries: 1,
+    });
+
+    const error = (await client
+      .request('/v1/seller/info')
+      .catch((caught: unknown) => caught)) as OzonApiError;
+
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(error.status).toBe(429);
+  });
+
+  it('does not retry statuses the API may already have acted on', async () => {
+    const fetchImpl = stubFetch(new Response('boom', { status: 500 }));
+    const client = new OzonClient({
+      ...CREDENTIALS,
+      fetch: fetchImpl,
+      limiter: { acquire: async () => {} },
+    });
+
+    await expect(client.request('/v1/seller/info')).rejects.toThrow(OzonApiError);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+
+  it('waits out Retry-After itself when no limiter is installed', async () => {
+    vi.useFakeTimers();
+    try {
+      const responses = [rateLimited(), jsonResponse({ ok: true })];
+      const fetchImpl = vi.fn<FetchLike>(async () => responses.shift()!);
+      const client = clientWith(fetchImpl);
+
+      const pending = client.request('/v1/seller/info');
+      await vi.advanceTimersByTimeAsync(1_000);
+
+      await expect(pending).resolves.toEqual({ ok: true });
+      expect(fetchImpl).toHaveBeenCalledTimes(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('leaves the response body intact for the caller after inspecting it', async () => {
+    const fetchImpl = stubFetch(rateLimited);
+    const client = new OzonClient({ ...CREDENTIALS, fetch: fetchImpl, maxRetries: 0 });
+
+    const error = (await client
+      .request('/v1/seller/info')
+      .catch((caught: unknown) => caught)) as OzonApiError;
+
+    expect(error.body).toEqual({ code: 8, message: 'You have reached request rate limit' });
+    expect(error.retryAfterMs).toBe(1_000);
+  });
+
+  it('lets a limiter rejection through instead of calling the API', async () => {
+    const fetchImpl = stubFetch(jsonResponse({}));
+    const rejection = new Error('queue is full');
+    const client = new OzonClient({
+      ...CREDENTIALS,
+      fetch: fetchImpl,
+      limiter: { acquire: () => Promise.reject(rejection) },
+    });
+
+    await expect(client.request('/v1/seller/info')).rejects.toBe(rejection);
+    expect(fetchImpl).not.toHaveBeenCalled();
   });
 });
 

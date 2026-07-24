@@ -1,8 +1,19 @@
 import { GET_PATHS } from './generated/http-methods';
-import { OzonApiError } from './errors';
-import type { ApiPath, RequestArgs, RequestOptions, ResponseOf } from './types';
+import { isCircuitOpen, OzonApiError, parseRetryAfter } from './errors';
+import type {
+  ApiPath,
+  OzonRateLimiter,
+  RateLimitMeta,
+  RateLimitOutcome,
+  RequestArgs,
+  RequestOptions,
+  ResponseOf,
+} from './types';
 
 const DEFAULT_BASE_URL = 'https://api-seller.ozon.ru';
+
+/** Used between retries when no limiter is installed and no `Retry-After` came back. */
+const DEFAULT_RETRY_DELAY_MS = 1_000;
 
 /** The subset of `fetch` the client relies on. */
 export type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
@@ -26,6 +37,18 @@ export interface OzonClientOptions {
   headers?: Record<string, string>;
   /** Aborts requests that take longer than this. Off by default. */
   timeoutMs?: number;
+  /**
+   * Schedules outgoing calls and absorbs the API's backoff signals. The
+   * built-in one lives in `artefactby-ozon-seller-api/limiter`; without it the
+   * client still honours `Retry-After`, it just cannot pace calls in advance.
+   */
+  limiter?: OzonRateLimiter;
+  /**
+   * How many times a call rejected with 429 or "Circle is open" is repeated.
+   * Defaults to 2. Only rejected calls are retried — never ones the API may
+   * have already acted on.
+   */
+  maxRetries?: number;
 }
 
 /**
@@ -50,6 +73,8 @@ export class OzonClient {
   readonly #fetch: FetchLike;
   readonly #headers: Record<string, string>;
   readonly #timeoutMs: number;
+  readonly #limiter: OzonRateLimiter | undefined;
+  readonly #maxRetries: number;
 
   constructor(options: OzonClientOptions) {
     if (!options?.clientId) throw new TypeError('OzonClient: clientId is required');
@@ -69,6 +94,8 @@ export class OzonClient {
     this.#fetch = fetchImpl;
     this.#headers = { ...options.headers };
     this.#timeoutMs = options.timeoutMs ?? 0;
+    this.#limiter = options.limiter;
+    this.#maxRetries = options.maxRetries ?? 2;
   }
 
   /**
@@ -113,6 +140,41 @@ export class OzonClient {
     }
 
     const method = GET_PATHS.has(path) ? 'GET' : 'POST';
+    const meta: RateLimitMeta = {
+      path,
+      priority: options?.priority ?? 0,
+      ...(options?.signal === undefined ? {} : { signal: options.signal }),
+    };
+
+    for (let attempt = 0; ; attempt++) {
+      await this.#limiter?.acquire(meta);
+
+      const response = await this.#send(path, method, headers, payload, options);
+      if (response.ok) return response;
+
+      const outcome = await inspectFailure(response, path);
+      this.#limiter?.notify?.(outcome);
+
+      // Only a rejected request is safe to repeat: the API did not process it.
+      // Anything else — including 5xx on these non-idempotent POSTs — is the
+      // caller's to decide about.
+      const retriable = outcome.status === 429 || outcome.circuitOpen;
+      if (!retriable || attempt >= this.#maxRetries) return response;
+
+      // Without a limiter to hold the path back, wait here instead.
+      if (!this.#limiter) {
+        await delay(outcome.retryAfterMs ?? DEFAULT_RETRY_DELAY_MS, options?.signal);
+      }
+    }
+  }
+
+  async #send(
+    path: string,
+    method: string,
+    headers: Record<string, string>,
+    payload: RawBody | undefined,
+    options: RequestOptions | undefined,
+  ): Promise<Response> {
     const timeout = withTimeout(options?.signal, options?.timeoutMs ?? this.#timeoutMs, path);
 
     try {
@@ -131,6 +193,50 @@ export class OzonClient {
       timeout.dispose();
     }
   }
+}
+
+/**
+ * Reads a failed response through a clone, so the caller still receives an
+ * untouched body, and reports what the limiter needs to know.
+ */
+async function inspectFailure(response: Response, path: string): Promise<RateLimitOutcome> {
+  const retryAfterMs = parseRetryAfter(response.headers.get('retry-after'));
+  const text = await response
+    .clone()
+    .text()
+    .catch(() => '');
+
+  let body: unknown = text;
+  try {
+    body = JSON.parse(text);
+  } catch {
+    /* not JSON — the raw text is what we have */
+  }
+
+  return {
+    path,
+    status: response.status,
+    ...(retryAfterMs === undefined ? {} : { retryAfterMs }),
+    circuitOpen: isCircuitOpen(body),
+  };
+}
+
+function delay(ms: number, signal: AbortSignal | undefined): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(finish, ms);
+    const onAbort = () => {
+      clearTimeout(timer);
+      reject(signal?.reason ?? new Error('aborted'));
+    };
+
+    function finish() {
+      signal?.removeEventListener('abort', onAbort);
+      resolve();
+    }
+
+    if (signal?.aborted) onAbort();
+    else signal?.addEventListener('abort', onAbort, { once: true });
+  });
 }
 
 async function readPayload(response: Response): Promise<unknown> {

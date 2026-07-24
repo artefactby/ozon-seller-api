@@ -70,6 +70,30 @@ export class OzonApiError extends Error {
   get retryAfterMs(): number | undefined {
     return parseRetryAfter(this.headers.get('retry-after'));
   }
+
+  /**
+   * Whether Ozon answered "Circle is open", meaning it has blocked this method
+   * for the next few minutes after a burst of requests.
+   */
+  get circuitOpen(): boolean {
+    return isCircuitOpen(this.body);
+  }
+}
+
+/**
+ * Detects Ozon's "Circle is open" marker: the API blocks a method for several
+ * minutes when it sees too many requests. The marker travels in the error
+ * message rather than in a status code.
+ */
+export function isCircuitOpen(body: unknown): boolean {
+  const message =
+    typeof body === 'string'
+      ? body
+      : typeof body === 'object' && body !== null && 'message' in body
+        ? String((body as { message: unknown }).message)
+        : '';
+
+  return /circle is open/i.test(message);
 }
 
 /**

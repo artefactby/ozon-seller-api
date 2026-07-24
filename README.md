@@ -73,6 +73,59 @@ await client.request('/v1/actions', undefined, {
 The injectable `fetch` is the seam for tests: pass your own implementation to record and
 replay traffic. The package ships no mocks of its own.
 
+### Rate limiting
+
+Ozon allows 50 requests per second per Client ID, answers 429 with `Retry-After`, and
+blocks a method for a few minutes with "Circle is open" when it sees a burst. The client
+honours `Retry-After` on its own — a call rejected with 429 or "Circle is open" is
+retried up to `maxRetries` times (2 by default). Nothing else is ever retried: the API
+may already have acted on it.
+
+To pace calls *before* they are rejected, install the built-in limiter:
+
+```ts
+import { OzonClient } from 'artefactby-ozon-seller-api';
+import { TokenBucketLimiter } from 'artefactby-ozon-seller-api/limiter';
+
+const client = new OzonClient({
+  clientId,
+  apiKey,
+  limiter: new TokenBucketLimiter({
+    global: { limit: 50, intervalMs: 1_000 }, // default
+    perPath: { '/v2/products/stocks': { limit: 80, intervalMs: 60_000 } }, // default
+    maxSize: 5_000, // reject once the queue is this deep
+    waitTimeoutMs: 30_000, // reject calls that wait longer than this
+    hooks: {
+      onEnqueue: ({ path, size }) => metrics.gauge('ozon.queue', size),
+      onRateLimited: ({ path, until }) => log.warn({ path, until }, 'ozon 429'),
+      onCircuitOpen: ({ path, until }) => log.error({ path, until }, 'circle is open'),
+    },
+  }),
+});
+```
+
+Calls are served by priority (higher first, `priority` in the call options), then by
+arrival. A call held back by its own path budget does not block calls to other paths.
+Backpressure surfaces as a typed `OzonQueueError` with `reason` of `queue-full`,
+`wait-timeout`, or `aborted`.
+
+**The built-in limiter is in-process.** Several Node processes sharing one Client ID
+each get their own budget. For a limit that spans instances, implement the
+`OzonRateLimiter` interface over shared storage:
+
+```ts
+import type { OzonRateLimiter } from 'artefactby-ozon-seller-api';
+
+const redisLimiter: OzonRateLimiter = {
+  async acquire({ path, priority, signal }) {
+    /* wait for a slot in Redis */
+  },
+  notify({ path, status, retryAfterMs, circuitOpen }) {
+    /* record the backoff so every instance sees it */
+  },
+};
+```
+
 ### Escape hatch
 
 `client.request()` covers the JSON operations. For the handful that return a PDF or a
@@ -100,9 +153,6 @@ type PriceItem = components['schemas']['productv5GetProductInfoPricesV5Item'];
 
 ## Planned
 
-- Built-in rate limiter as a subpath export (`artefactby-ozon-seller-api/limiter`):
-  token bucket, 429/`Retry-After` retries, "Circle is open" cooldown, swappable via an
-  `OzonRateLimiter` interface
 - Ergonomic per-tag wrapper modules (pagination, chunking) over the typed core
 
 ## License
