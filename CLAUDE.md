@@ -106,6 +106,10 @@ becomes `unknown`.
   package — only transport-level limits do.
 - `typescript` stays pinned to 5.x for now: the TS 7 native compiler breaks tsup's
   `.d.ts` build (rollup-plugin-dts).
+- The dev toolchain (vitest 4 / vite 7) requires Node >= 20.19, while the package
+  itself supports Node >= 18. CI therefore tests on 20/22/24 and separately verifies
+  the Node 18 claim by running `scripts/runtime-smoke.mjs` (dependency-free, exercises
+  the built `dist/`) on Node 18. Keep that script free of devDependency imports.
 
 ## Code style
 
