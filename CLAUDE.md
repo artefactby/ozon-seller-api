@@ -38,14 +38,11 @@ option references it) while `src/limiter/` holds the implementation.
    (openapi-fetch-style pattern). This covers every API operation. `requestRaw()` is the
    escape hatch returning the raw `Response` (binary payloads, multipart uploads,
    operations the spec describes inaccurately).
-2. **Tag-based wrapper modules** (e.g. `client.prices.getPrices(...)`) add ergonomics
-   (pagination, chunking, progress) on top of the core; full coverage via wrappers is a
-   non-goal — the core already provides it.
-3. **Transport**: injectable `fetch` (defaults to the global one), `Client-Id`/`Api-Key`
+2. **Transport**: injectable `fetch` (defaults to the global one), `Client-Id`/`Api-Key`
    auth headers. One client instance == one Client ID.
-4. **Errors**: typed `OzonApiError` (code + response body). The client returns typed
+3. **Errors**: typed `OzonApiError` (code + response body). The client returns typed
    data or throws — no envelope wrapping.
-5. **Rate limiter**: separate subpath export (`artefactby-ozon-seller-api/limiter`) —
+4. **Rate limiter**: separate subpath export (`artefactby-ozon-seller-api/limiter`) —
    token bucket (global + per-path budgets), per-path cooldowns fed by what the API
    reports, backpressure, `AbortSignal`, priorities; swappable via the `OzonRateLimiter`
    interface. The built-in limiter is in-process only. The retry *loop* lives in the
@@ -57,6 +54,12 @@ Only two rate limits are actually documented by Ozon: 50 rps per Client ID globa
 resist adding limits that cannot be pointed at in the docs. Retries are restricted to
 429 and "Circle is open" because only a rejected request is safe to repeat; almost every
 operation is a POST.
+
+**The package is transport-only — a settled decision, not an interim state.** One call
+owns one logical request; a 429/"Circle is open" retry re-sends that same request, so it
+stays inside the client. Anything that issues several requests and merges their results
+— pagination loops, dataset assembly, chunked writes, per-tag convenience modules — is
+the consumer's layer and must not be added to this package.
 
 ## Generated types
 

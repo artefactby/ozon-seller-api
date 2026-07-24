@@ -6,8 +6,8 @@ result are inferred from the path literal.
 
 Zero runtime dependencies. Node.js >= 18 (uses the native `fetch`).
 
-> **Status: early development (0.0.x).** The core is in place, but the package is not
-> published yet and the API may still change. Not affiliated with Ozon.
+> **Status: 0.x.** The public API may still change between minor releases. Unofficial —
+> not affiliated with Ozon.
 
 ## Usage
 
@@ -151,9 +151,27 @@ type Prices = ResponseOf<'/v5/product/info/prices'>;
 type PriceItem = components['schemas']['productv5GetProductInfoPricesV5Item'];
 ```
 
-## Planned
+## Scope: transport only
 
-- Ergonomic per-tag wrapper modules (pagination, chunking) over the typed core
+The package deliberately stops at the transport line: one call is one logical API
+request (a 429 / "Circle is open" retry re-sends the same request, so it stays inside).
+Anything that issues several requests and merges their results — pagination loops,
+dataset assembly, batch splitting — belongs to your code, where the typed core keeps it
+to a few lines:
+
+```ts
+const items = [];
+let cursor = '';
+do {
+  const page = await client.request('/v5/product/info/prices', {
+    cursor,
+    limit: 1000,
+    filter: { visibility: 'ALL' },
+  });
+  items.push(...(page.items ?? []));
+  cursor = page.cursor ?? '';
+} while (cursor !== '');
+```
 
 ## License
 
