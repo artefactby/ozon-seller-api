@@ -1,6 +1,6 @@
 {
   "name": "artefactby-ozon-seller-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unofficial typed TypeScript client for the Ozon Seller API. Zero runtime dependencies.",
   "keywords": [
     "ozon",
@@ -24,6 +24,13 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "limiter": [
+        "dist/limiter/index.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": {
       "import": {
