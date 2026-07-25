@@ -1,15 +1,9 @@
 # artefactby-ozon-seller-api
 
-Unofficial typed TypeScript client for the [Ozon Seller API](https://docs.ozon.ru/api/seller/).
-Every path in the API is callable and typed from day one — the request body and the
-result are inferred from the path literal.
+Неофициальный типизированный клиент [Ozon Seller API](https://docs.ozon.ru/api/seller/)
+для TypeScript и JavaScript.
 
-Zero runtime dependencies. Node.js >= 18 (uses the native `fetch`).
-
-> **Status: 0.x.** The public API may still change between minor releases. Unofficial —
-> not affiliated with Ozon.
-
-## Usage
+[README in English](./README.en.md)
 
 ```ts
 import { OzonClient } from 'artefactby-ozon-seller-api';
@@ -19,7 +13,7 @@ const client = new OzonClient({
   apiKey: process.env.OZON_API_KEY!,
 });
 
-// `items` is typed from the path — no casts, no generics to pass.
+// `items` типизирован из литерала пути — без generics и приведения типов
 const { items } = await client.request('/v5/product/info/prices', {
   cursor: '',
   limit: 100,
@@ -27,61 +21,34 @@ const { items } = await client.request('/v5/product/info/prices', {
 });
 ```
 
-One client instance is bound to one Client ID. Credentials are never read from the
-environment by the package itself — pass them explicitly.
+- **Покрыт весь API, а не выборка методов.** Типы сгенерированы из официальной
+  OpenAPI-спеки (версия API 2.1): 458 операций, 2083 схемы. Любой путь спеки
+  вызывается одинаково, тело запроса и ответ выводятся из литерала пути.
+- **Ноль зависимостей в рантайме.** Только нативный `fetch`. Node.js >= 18, CJS и ESM.
+- **Встроенный rate limiter со знанием лимитов Ozon** — 50 rps на Client-Id плюс
+  пометодные лимиты из спеки — отдельным сабпатом: не подключили — не платите ничего.
+- **Осторожные ретраи.** Почти все операции Ozon — POST, поэтому повторяются только
+  запросы, отклонённые с 429 или «Circle is open»: их API гарантированно не обработал.
+  «Повторить на всякий случай» клиент не умеет намеренно.
 
-### Errors
+Статус: 0.x — публичный API может меняться между минорными версиями. Пакет не
+аффилирован с Ozon.
 
-A non-2xx response throws an `OzonApiError`; transport failures propagate untouched.
+## Установка
 
-```ts
-import { isOzonApiError } from 'artefactby-ozon-seller-api';
-
-try {
-  await client.request('/v1/product/import/prices', { prices });
-} catch (error) {
-  if (isOzonApiError(error)) {
-    error.status; // 429
-    error.code; // Ozon's error code, when present
-    error.message; // 'Ozon API /v1/product/import/prices: ...'
-    error.retryAfterMs; // parsed Retry-After, when present
-    error.body; // parsed payload (object, or the raw text)
-  }
-  throw error;
-}
+```bash
+npm install artefactby-ozon-seller-api
 ```
 
-### Options
+Один экземпляр клиента привязан к одному Client-Id. Пакет никогда не читает ключи из
+окружения сам — передавайте их явно в конструктор.
 
-```ts
-const client = new OzonClient({
-  clientId,
-  apiKey,
-  baseUrl: 'https://api-seller.ozon.ru', // default
-  fetch: customFetch, // default: the global fetch
-  headers: { 'User-Agent': 'my-app/1.0' }, // sent with every request
-  timeoutMs: 30_000, // off by default
-});
+## Ограничение частоты запросов
 
-await client.request('/v1/actions', undefined, {
-  signal: controller.signal,
-  timeoutMs: 5_000, // overrides the client-level timeout; 0 disables it
-  headers: { 'X-Request-Id': id },
-});
-```
-
-The injectable `fetch` is the seam for tests: pass your own implementation to record and
-replay traffic. The package ships no mocks of its own.
-
-### Rate limiting
-
-Ozon allows 50 requests per second per Client ID, answers 429 with `Retry-After`, and
-blocks a method for a few minutes with "Circle is open" when it sees a burst. The client
-honours `Retry-After` on its own — a call rejected with 429 or "Circle is open" is
-retried up to `maxRetries` times (2 by default). Nothing else is ever retried: the API
-may already have acted on it.
-
-To pace calls *before* they are rejected, install the built-in limiter:
+Ozon отвечает 429 с `Retry-After` при превышении лимита и блокирует метод на несколько
+минут («Circle is open») при шквале запросов. Клиент сам выдерживает `Retry-After` и
+повторяет отклонённый запрос до `maxRetries` раз (по умолчанию 2). Чтобы не упираться
+в лимиты вовсе, подключите встроенный лимитер — он выстраивает вызовы заранее:
 
 ```ts
 import { OzonClient } from 'artefactby-ozon-seller-api';
@@ -91,15 +58,14 @@ const client = new OzonClient({
   clientId,
   apiKey,
   limiter: new TokenBucketLimiter({
-    global: { limit: 50, intervalMs: 1_000 }, // default: Ozon's documented 50 rps
-    // Merged over DEFAULT_PATH_BUDGETS — every per-method rate the spec documents
-    // (e.g. /v2/products/stocks 80/min, /v1/product/placement-zone/info 10 rps).
-    // Add limits you have measured yourself:
+    // Дефолты — ровно то, что документирует Ozon: 50 rps глобально плюс
+    // пометодные лимиты из спеки (например, /v2/products/stocks — 80 в минуту).
+    // Сюда можно добавить лимиты, измеренные вами самостоятельно:
     perPath: { '/v3/product/list': { limit: 20, intervalMs: 1_000 } },
-    maxSize: 5_000, // reject once the queue is this deep
-    waitTimeoutMs: 30_000, // reject calls that wait longer than this
+    maxSize: 5_000, // отклонять вызовы, когда очередь глубже
+    waitTimeoutMs: 30_000, // отклонять вызовы, ждущие дольше
     hooks: {
-      onEnqueue: ({ path, size }) => metrics.gauge('ozon.queue', size),
+      onEnqueue: ({ size }) => metrics.gauge('ozon.queue', size),
       onRateLimited: ({ path, until }) => log.warn({ path, until }, 'ozon 429'),
       onCircuitOpen: ({ path, until }) => log.error({ path, until }, 'circle is open'),
     },
@@ -107,60 +73,100 @@ const client = new OzonClient({
 });
 ```
 
-Calls are served by priority (higher first, `priority` in the call options), then by
-arrival. A call held back by its own path budget does not block calls to other paths.
-Backpressure surfaces as a typed `OzonQueueError` with `reason` of `queue-full`,
-`wait-timeout`, or `aborted`.
+Вызовы обслуживаются по приоритету (`priority` в опциях вызова, выше — раньше), внутри
+приоритета — по очереди. Путь, упёршийся в собственный лимит, не блокирует остальные.
+Backpressure приходит типизированной ошибкой `OzonQueueError` с `reason`:
+`queue-full`, `wait-timeout` или `aborted`.
 
-**The built-in limiter is in-process.** Several Node processes sharing one Client ID
-each get their own budget. For a limit that spans instances, implement the
-`OzonRateLimiter` interface over shared storage:
+Лимитер работает в пределах одного процесса. Несколько процессов с одним Client-Id
+получат каждый свой бюджет — для общего лимита реализуйте интерфейс `OzonRateLimiter`
+поверх разделяемого хранилища:
 
 ```ts
 import type { OzonRateLimiter } from 'artefactby-ozon-seller-api';
 
 const redisLimiter: OzonRateLimiter = {
   async acquire({ path, priority, signal }) {
-    /* wait for a slot in Redis */
+    /* дождаться слота в Redis */
   },
   notify({ path, status, retryAfterMs, circuitOpen }) {
-    /* record the backoff so every instance sees it */
+    /* записать backoff, чтобы его увидели все инстансы */
   },
 };
 ```
 
-### Escape hatch
+## Обработка ошибок
 
-`client.request()` covers the JSON operations. For the handful that return a PDF or a
-PNG, upload `multipart/form-data`, or that the spec describes inaccurately, use
-`requestRaw()` — it returns the untouched `Response` and does not throw on a non-2xx
-status.
+Не-2xx ответ — это `OzonApiError`; транспортные сбои (DNS, TLS, обрыв) пролетают как
+есть, их пакет не заворачивает.
 
 ```ts
-const response = await client.requestRaw('/v2/posting/fbs/package-label', {
-  posting_number: ['0001-1'],
+import { isOzonApiError } from 'artefactby-ozon-seller-api';
+
+try {
+  await client.request('/v1/product/import/prices', { prices });
+} catch (error) {
+  if (isOzonApiError(error)) {
+    error.status; // HTTP-статус, например 429
+    error.code; // код ошибки Ozon, если был в ответе
+    error.retryAfterMs; // разобранный Retry-After, если был
+    error.body; // тело ответа (объект или сырой текст)
+  }
+  throw error;
+}
+```
+
+## Опции
+
+```ts
+const client = new OzonClient({
+  clientId,
+  apiKey,
+  baseUrl: 'https://api-seller.ozon.ru', // по умолчанию
+  fetch: customFetch, // по умолчанию — глобальный fetch
+  headers: { 'User-Agent': 'my-app/1.0' }, // добавляются к каждому запросу
+  timeoutMs: 30_000, // выключен по умолчанию
+});
+
+await client.request('/v1/actions', undefined, {
+  signal: controller.signal,
+  timeoutMs: 5_000, // важнее клиентского; 0 отключает
+  headers: { 'X-Request-Id': id },
+  priority: 10, // для лимитера: выше — раньше
 });
 ```
 
-## What is typed
+Инжектируемый `fetch` — это шов для тестов: подставьте свою реализацию для записи и
+воспроизведения трафика. Собственных моков пакет не содержит.
 
-Types are generated from the official OpenAPI spec (API version 2.1): 458 operations,
-2083 schemas. Helper types are exported for building your own signatures:
+## Запросы мимо типов
+
+`request()` покрывает JSON-операции. Для остального есть `requestRaw()` — он возвращает
+нетронутый `Response` и не бросает на не-2xx статусе:
 
 ```ts
-import type { ApiPath, RequestBodyOf, ResponseOf, components } from 'artefactby-ozon-seller-api';
+// PDF с этикетками отправлений
+const response = await client.requestRaw('/v2/posting/fbs/package-label', {
+  posting_number: ['0001-1'],
+});
+const pdf = await response.blob();
 
-type Prices = ResponseOf<'/v5/product/info/prices'>;
-type PriceItem = components['schemas']['productv5GetProductInfoPricesV5Item'];
+// Единственный путь спеки с параметром в URL требует явного метода:
+// подставленный guid уже не совпадает с литералом из спеки
+const label = await client.requestRaw(`/v1/cargoes-label/file/${guid}`, undefined, {
+  method: 'GET',
+});
 ```
 
-## Scope: transport only
+`multipart/form-data` (передайте `FormData`), бинарные тела и `ReadableStream`
+уходят как есть; всё остальное сериализуется в JSON. Стрим не ретраится никогда —
+его потребляет первая же попытка отправки.
 
-The package deliberately stops at the transport line: one call is one logical API
-request (a 429 / "Circle is open" retry re-sends the same request, so it stays inside).
-Anything that issues several requests and merges their results — pagination loops,
-dataset assembly, batch splitting — belongs to your code, where the typed core keeps it
-to a few lines:
+## Пагинация — на вашей стороне
+
+Пакет сознательно заканчивается на границе транспорта: один вызов — один логический
+запрос к API. Циклы пагинации, сборка датасетов, нарезка на батчи — это ваш код,
+которому типизированное ядро оставляет совсем немного работы:
 
 ```ts
 const items = [];
@@ -176,6 +182,15 @@ do {
 } while (cursor !== '');
 ```
 
-## License
+## Известные ограничения
 
-[GPL-3.0](./LICENSE)
+- Типы ровно настолько точны, насколько точна спека Ozon. Там, где она расходится с
+  реальностью, выручает `requestRaw()`.
+- Спека обновляется в пакете вручную — новые методы API могут появляться с задержкой.
+- Декларации типов корневого входа весят около 3 МБ (это вся спека): первый проход
+  тайпчекера их заметит. Сабпат `/limiter` от этого свободен.
+- Встроенный лимитер не разделяет бюджет между процессами (см. выше).
+
+## Лицензия
+
+[MIT](./LICENSE)
