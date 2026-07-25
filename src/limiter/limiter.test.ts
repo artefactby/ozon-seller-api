@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { isOzonQueueError, OzonQueueError } from './errors';
 import { DEFAULT_PATH_BUDGETS, TokenBucketLimiter } from './limiter';
-import type { RateLimitMeta } from '../types';
+import type { RateLimitMeta } from '../rate-limit';
 
 function meta(path: string, overrides: Partial<RateLimitMeta> = {}): RateLimitMeta {
   return { path, priority: 0, ...overrides };

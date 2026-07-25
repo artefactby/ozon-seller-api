@@ -1,10 +1,9 @@
 import { GET_PATHS } from './generated/http-methods';
 import { isCircuitOpen, OzonApiError, parseRetryAfter } from './errors';
+import type { OzonRateLimiter, RateLimitMeta, RateLimitOutcome } from './rate-limit';
 import type {
   ApiPath,
-  OzonRateLimiter,
-  RateLimitMeta,
-  RateLimitOutcome,
+  RawRequestOptions,
   RequestArgs,
   RequestOptions,
   ResponseOf,
@@ -117,29 +116,38 @@ export class OzonClient {
    * inaccurately. Unlike {@link request}, it does not throw on a non-2xx
    * status — inspect `response.ok` yourself.
    *
-   * A `body` that fetch already understands (`FormData`, `Blob`, string, …) is
-   * passed through untouched; anything else is serialized as JSON.
+   * A `body` that fetch already understands (`FormData`, `Blob`, a
+   * `ReadableStream`, string, …) is passed through untouched; anything else is
+   * serialized as JSON. A stream body is never retried — it is consumed by the
+   * attempt that sends it.
+   *
+   * The method comes from the spec (GET for the few GET paths, POST otherwise);
+   * pass `options.method` to override it, e.g. for a templated path whose
+   * substituted URL no longer matches the spec literal.
    */
-  async requestRaw(path: string, body?: unknown, options?: RequestOptions): Promise<Response> {
+  async requestRaw(path: string, body?: unknown, options?: RawRequestOptions): Promise<Response> {
     // Auth headers go last: a client instance is bound to one Client ID, so
     // per-call headers must not be able to swap credentials underneath it.
-    const headers: Record<string, string> = {
-      Accept: 'application/json',
-      ...this.#headers,
-      ...options?.headers,
-      'Client-Id': this.#clientId,
-      'Api-Key': this.#apiKey,
-    };
+    const headers = mergeHeaders(
+      { Accept: 'application/json' },
+      this.#headers,
+      options?.headers,
+      { 'Client-Id': this.#clientId, 'Api-Key': this.#apiKey },
+    );
 
     let payload: RawBody | undefined;
     if (isRawBody(body)) {
       payload = body;
     } else if (body !== undefined) {
       payload = JSON.stringify(body);
-      headers['Content-Type'] ??= 'application/json';
+      if (!Object.keys(headers).some((name) => name.toLowerCase() === 'content-type')) {
+        headers['Content-Type'] = 'application/json';
+      }
     }
 
-    const method = GET_PATHS.has(path) ? 'GET' : 'POST';
+    const method = options?.method ?? (GET_PATHS.has(path) ? 'GET' : 'POST');
+    // A stream is consumed by the attempt that sends it, so it cannot be re-sent.
+    const oneShotBody = payload !== undefined && isStreamBody(payload);
     const meta: RateLimitMeta = {
       path,
       priority: options?.priority ?? 0,
@@ -158,11 +166,12 @@ export class OzonClient {
       // Only a rejected request is safe to repeat: the API did not process it.
       // Anything else — including 5xx on these non-idempotent POSTs — is the
       // caller's to decide about.
-      const retriable = outcome.status === 429 || outcome.circuitOpen;
+      const retriable = (outcome.status === 429 || outcome.circuitOpen) && !oneShotBody;
       if (!retriable || attempt >= this.#maxRetries) return response;
 
-      // Without a limiter to hold the path back, wait here instead.
-      if (!this.#limiter) {
+      // A limiter that accepts notify() will hold the path back on the next
+      // acquire(); with no limiter, or one that cannot be told, wait here.
+      if (!this.#limiter?.notify) {
         await delay(outcome.retryAfterMs ?? DEFAULT_RETRY_DELAY_MS, options?.signal);
       }
     }
@@ -182,6 +191,8 @@ export class OzonClient {
         method,
         headers,
         ...(payload === undefined ? {} : { body: payload }),
+        // Node's fetch refuses a stream body unless half-duplex is declared.
+        ...(payload !== undefined && isStreamBody(payload) ? { duplex: 'half' as const } : {}),
         ...(timeout.signal === undefined ? {} : { signal: timeout.signal }),
       });
     } catch (cause) {
@@ -263,8 +274,36 @@ function isRawBody(body: unknown): body is RawBody {
     ArrayBuffer.isView(body) ||
     (typeof FormData !== 'undefined' && body instanceof FormData) ||
     (typeof Blob !== 'undefined' && body instanceof Blob) ||
-    (typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams)
+    (typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams) ||
+    isStreamBody(body)
   );
+}
+
+function isStreamBody(body: unknown): body is ReadableStream {
+  return typeof ReadableStream !== 'undefined' && body instanceof ReadableStream;
+}
+
+/**
+ * Merges header records left to right, treating names case-insensitively: a
+ * later source replaces an earlier header instead of adding a case-variant
+ * duplicate, which fetch would join into one comma-separated value.
+ */
+function mergeHeaders(
+  ...sources: ReadonlyArray<Record<string, string> | undefined>
+): Record<string, string> {
+  const merged: Record<string, string> = {};
+  const names = new Map<string, string>();
+
+  for (const source of sources) {
+    for (const [name, value] of Object.entries(source ?? {})) {
+      const previous = names.get(name.toLowerCase());
+      if (previous !== undefined && previous !== name) delete merged[previous];
+      names.set(name.toLowerCase(), name);
+      merged[name] = value;
+    }
+  }
+
+  return merged;
 }
 
 interface Timeout {

@@ -12,7 +12,10 @@ dependencies; Node.js >= 18 (relies on native `fetch`).
 
 - `npm run typecheck` — strict `tsc --noEmit`
 - `npm test` / `npm run test:watch` — vitest
-- `npm run build` / `npm run dev` — tsup (CJS + ESM + `.d.ts` into `dist/`)
+- `npm run build` — tsup (CJS + ESM + `.d.ts` into `dist/`), then
+  `scripts/dedupe-dts.mjs` replaces each `.d.mts` with a one-line re-export of its
+  `.d.ts` twin (the generated types weigh ~3 MB; shipping them twice doubled the
+  package). `npm run dev` is tsup only — dev output keeps the duplicates.
 - `prepublishOnly` chains typecheck + test + build automatically
 
 ## Layout
@@ -22,14 +25,21 @@ src/
   index.ts          public exports
   client.ts         OzonClient: transport, headers, timeouts, retries, decoding
   errors.ts         OzonApiError, isOzonApiError, parseRetryAfter, isCircuitOpen
-  types.ts          public type helpers + the OzonRateLimiter contract
+  types.ts          public type helpers over the generated path map
+  rate-limit.ts     the OzonRateLimiter contract (no generated imports)
   generated/        codegen output — never edit by hand
   limiter/          built-in limiter, published as the /limiter subpath
 ```
 
 The two entry points share no runtime code, so the limiter costs nothing to consumers
-who bring their own. `src/types.ts` holds the `OzonRateLimiter` contract (the client
-option references it) while `src/limiter/` holds the implementation.
+who bring their own. `src/rate-limit.ts` holds the `OzonRateLimiter` contract (the
+client option references it) while `src/limiter/` holds the implementation. The
+contract lives apart from `src/types.ts` deliberately: the `/limiter` declarations
+must not pull the multi-megabyte generated types into consumers' type checkers —
+keep `rate-limit.ts` free of imports from `generated/`.
+
+README.md (Russian, the default — the audience is Russian-speaking) and README.en.md
+(English) are translations of each other; edit both or neither.
 
 ## Architecture
 
@@ -66,7 +76,7 @@ the consumer's layer and must not be added to this package.
 
 ## Generated types
 
-`src/types/generated.ts` is produced by `npm run codegen` (openapi-typescript) from a
+`src/generated/types.ts` is produced by `npm run codegen` (openapi-typescript) from a
 local copy of the Ozon Seller API OpenAPI spec. The spec itself is a generator input
 (`temp/swagger.json`, gitignored) and is not part of the repository — only the generated
 output is committed. It is large (~70k lines: 458 operations, 2083 schemas), so treat it
@@ -84,10 +94,15 @@ in the public call signature.
 `scripts/emit-http-methods.mjs` (part of `npm run codegen`) emits the runtime method map
 the type system cannot provide. It fails loudly if a spec update introduces a method
 other than GET/POST, or more than one method per path — both assumptions the client
-relies on.
+relies on. It also warns about templated paths (see below); if new ones appear, update
+the README's escape-hatch section.
 
 Facts about the spec worth knowing before touching the type helpers: no operation
-declares path or query parameters; 415 operations answer with JSON, 35 with an empty
+declares path or query parameters, but one deprecated path carries a template segment
+in the path string itself (`/v1/cargoes-label/file/{file_guid}`, GET, shutdown
+announced for 2026-04-10) — the typed `request()` cannot substitute it, and the
+substituted URL misses the `GET_PATHS` lookup, so consumers call it via `requestRaw`
+with `method: 'GET'`. 415 operations answer with JSON, 35 with an empty
 body, 8 with a PDF or a PNG; 30 take no request body; two take `multipart/form-data`.
 Beware that `never` vacuously satisfies any `extends` check — in `ResponseOf` the
 empty-body case must be tested before the JSON one, or every void response silently

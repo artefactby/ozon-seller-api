@@ -1,4 +1,4 @@
-import type { OzonRateLimiter, RateLimitMeta, RateLimitOutcome } from '../types';
+import type { OzonRateLimiter, RateLimitMeta, RateLimitOutcome } from '../rate-limit';
 import { OzonQueueError } from './errors';
 import { TokenBucket } from './token-bucket';
 

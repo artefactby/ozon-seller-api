@@ -107,6 +107,38 @@ describe('request', () => {
     });
   });
 
+  it('merges headers case-insensitively so no case-variant duplicates reach fetch', async () => {
+    // fetch joins duplicate header names into one comma-separated value, so a
+    // lowercase 'client-id' next to the canonical 'Client-Id' would corrupt auth.
+    const fetchImpl = stubFetch(jsonResponse({}));
+
+    await clientWith(fetchImpl).request('/v1/seller/info', undefined, {
+      headers: { 'client-id': 'spoofed', 'api-key': 'spoofed', accept: 'text/csv' },
+    });
+
+    const headers = fetchImpl.mock.calls[0]?.[1]?.headers as Record<string, string>;
+    expect(headers['Client-Id']).toBe('test-client-id');
+    expect(headers['Api-Key']).toBe('test-api-key');
+    expect(headers).not.toHaveProperty('client-id');
+    expect(headers).not.toHaveProperty('api-key');
+    expect(headers['accept']).toBe('text/csv');
+    expect(headers).not.toHaveProperty('Accept');
+  });
+
+  it('respects a Content-Type set in any casing instead of adding a second one', async () => {
+    const fetchImpl = stubFetch(jsonResponse({}));
+
+    await clientWith(fetchImpl).requestRaw(
+      '/v1/seller/info',
+      { a: 1 },
+      { headers: { 'content-type': 'application/json; charset=utf-8' } },
+    );
+
+    const headers = fetchImpl.mock.calls[0]?.[1]?.headers as Record<string, string>;
+    expect(headers['content-type']).toBe('application/json; charset=utf-8');
+    expect(headers).not.toHaveProperty('Content-Type');
+  });
+
   it('resolves to undefined when the API answers with an empty body', async () => {
     const fetchImpl = stubFetch(new Response(null, { status: 204 }));
 
@@ -342,7 +374,7 @@ describe('rate limiting', () => {
     const client = new OzonClient({
       ...CREDENTIALS,
       fetch: fetchImpl,
-      limiter: { acquire: async () => {} },
+      limiter: { acquire: async () => {}, notify: () => {} },
       maxRetries: 1,
     });
 
@@ -376,6 +408,31 @@ describe('rate limiting', () => {
       const pending = client.request('/v1/seller/info');
       await vi.advanceTimersByTimeAsync(1_000);
 
+      await expect(pending).resolves.toEqual({ ok: true });
+      expect(fetchImpl).toHaveBeenCalledTimes(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('waits out Retry-After itself when the limiter cannot be told about the 429', async () => {
+    vi.useFakeTimers();
+    try {
+      const responses = [rateLimited(), jsonResponse({ ok: true })];
+      const fetchImpl = vi.fn<FetchLike>(async () => responses.shift()!);
+      // A limiter without notify() has no way to learn about the 429, so the
+      // client must not retry through it immediately.
+      const client = new OzonClient({
+        ...CREDENTIALS,
+        fetch: fetchImpl,
+        limiter: { acquire: async () => {} },
+      });
+
+      const pending = client.request('/v1/seller/info');
+      await vi.advanceTimersByTimeAsync(0);
+      expect(fetchImpl).toHaveBeenCalledTimes(1);
+
+      await vi.advanceTimersByTimeAsync(1_000);
       await expect(pending).resolves.toEqual({ ok: true });
       expect(fetchImpl).toHaveBeenCalledTimes(2);
     } finally {
@@ -427,6 +484,42 @@ describe('requestRaw', () => {
 
     const [, init] = fetchImpl.mock.calls[0] ?? [];
     expect(init?.body).toBe(form);
+    expect(init?.headers).not.toHaveProperty('Content-Type');
+  });
+
+  it('lets the method be overridden for templated paths', async () => {
+    // '/v1/cargoes-label/file/{file_guid}' is GET in the spec, but the URL with
+    // the guid substituted no longer matches the literal and would fall back to
+    // POST without the override.
+    const fetchImpl = stubFetch(new Response('%PDF-1.7', { status: 200 }));
+
+    await clientWith(fetchImpl).requestRaw('/v1/cargoes-label/file/abc-123', undefined, {
+      method: 'GET',
+    });
+
+    const [url, init] = fetchImpl.mock.calls[0] ?? [];
+    expect(url).toBe('https://api-seller.ozon.ru/v1/cargoes-label/file/abc-123');
+    expect(init?.method).toBe('GET');
+  });
+
+  it('passes a ReadableStream body through half-duplex and never retries it', async () => {
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode('{}'));
+        controller.close();
+      },
+    });
+    const fetchImpl = stubFetch(() => new Response('slow down', { status: 429 }));
+
+    const response = await clientWith(fetchImpl).requestRaw('/v1/seller/info', stream);
+
+    // A stream is consumed by the first attempt, so re-sending it would fail.
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(response.status).toBe(429);
+
+    const [, init] = fetchImpl.mock.calls[0] ?? [];
+    expect(init?.body).toBe(stream);
+    expect((init as { duplex?: string } | undefined)?.duplex).toBe('half');
     expect(init?.headers).not.toHaveProperty('Content-Type');
   });
 });

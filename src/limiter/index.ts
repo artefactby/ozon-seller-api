@@ -10,4 +10,4 @@ export type { QueueRejection } from './errors';
 
 export { TokenBucket } from './token-bucket';
 
-export type { OzonRateLimiter, RateLimitMeta, RateLimitOutcome } from '../types';
+export type { OzonRateLimiter, RateLimitMeta, RateLimitOutcome } from '../rate-limit';

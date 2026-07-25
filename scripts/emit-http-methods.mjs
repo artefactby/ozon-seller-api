@@ -15,8 +15,10 @@ const SUPPORTED = new Set(['get', 'post']);
 
 const spec = JSON.parse(readFileSync(SPEC, 'utf8'));
 const getPaths = [];
+const templatedPaths = [];
 
 for (const [path, item] of Object.entries(spec.paths ?? {})) {
+  if (path.includes('{')) templatedPaths.push(path);
   const methods = Object.keys(item).filter((key) => key !== 'parameters' && key !== 'servers');
 
   const unsupported = methods.filter((method) => !SUPPORTED.has(method));
@@ -53,3 +55,14 @@ ${getPaths.map((path) => `  '${path}',`).join('\n')}
 
 writeFileSync(OUT, contents);
 console.log(`🚀 ${SPEC} → ${OUT} [${getPaths.length} GET paths, POST default]`);
+
+// A templated path cannot be called through the typed request(): the URL with
+// the parameter substituted no longer matches the spec literal, so the method
+// lookup misses too. Consumers go through requestRaw with an explicit method.
+// Keep the README's escape-hatch section in sync with this list.
+if (templatedPaths.length > 0) {
+  console.warn(
+    `⚠ ${templatedPaths.length} templated path(s) need requestRaw with an explicit method:\n` +
+      templatedPaths.map((path) => `  ${path}`).join('\n'),
+  );
+}
