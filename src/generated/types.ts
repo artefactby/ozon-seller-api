@@ -6618,7 +6618,9 @@ export interface paths {
         put?: never;
         /**
          * Получить начисления за день
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.
+         * @description Если укажете `last_id` в запросе, передайте значение `date` из предыдущего запроса, иначе вернётся ошибка `400 Bad Request`.
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["GetFinanceAccrualByDay"];
         delete?: never;
@@ -6661,6 +6663,28 @@ export interface paths {
          * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2237-Novyi-metod-polucheniia-FBP-postingov-po-identifikatoru-otpravleniia/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["GetFbpPosting"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/report/realization/posting/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить позаказный отчёт о реализации товаров
+         * @description Отчёт о реализации доставленных и возвращённых товаров с детализацией по каждому заказу. Не включает отмены и невыкупы. Отчёт доступен с настоящего времени по август 2023 года включительно.
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2280-Novyi-beta-metod-dlia-polucheniia-otcheta-o-realizatsii-po-postingam/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["CreateCompanyFinanceRealizationPostingReport"];
         delete?: never;
         options?: never;
         head?: never;
@@ -26217,11 +26241,19 @@ export interface components {
             /** @description Уникальный идентификатор отчёта. */
             code: string;
         };
+        "report.common.Report.AdditionalDataItem": {
+            /** @description Ключ дополнительного параметра. */
+            key?: string;
+            /** @description Значение дополнительного параметра. */
+            value?: string;
+        };
         /**
          * Common
          * @description Информация об отчёте.
          */
         reportReportinfo: {
+            /** @description Дополнительные параметры. */
+            additional_data?: components["schemas"]["report.common.Report.AdditionalDataItem"][];
             /** @description Уникальный идентификатор отчёта. */
             code?: string;
             /**
@@ -26316,6 +26348,8 @@ export interface components {
          * @description Информация об отчёте.
          */
         reportReport: {
+            /** @description Дополнительные параметры. */
+            additional_data?: components["schemas"]["report.common.Report.AdditionalDataItem"][];
             /** @description Уникальный идентификатор отчёта. Чтобы получить отчёт, передайте это значение в метод [/v1/report/info](#operation/ReportAPI_ReportInfo). */
             code?: string;
             /**
@@ -27657,6 +27691,25 @@ export interface components {
             header?: components["schemas"]["GetRealizationReportResponseV2Header"];
             /** @description Таблица отчёта. */
             rows?: components["schemas"]["v1GetRealizationReportPostingResponseRow"][];
+        };
+        /** object */
+        rpcStatus_v1FinanceRealizationPosting: {
+            /**
+             * Format: int32
+             * @description Код ошибки.
+             */
+            code?: number;
+            /** @description Дополнительная информация об ошибке. */
+            details?: components["schemas"]["protobufAny"][];
+            /**
+             * @description Описание ошибки:
+             *
+             *     - `The requested report is too large. Use /v1/report/realization/posting/create.` — отчёт нельзя получить методом [/v1/finance/realization/posting](#operation/FinanceAPI_GetRealizationReportV1). Используйте метод [/v1/report/realization/posting/create](#operation/CreateCompanyFinanceRealizationPostingReport).
+             *     - `Request validation error: invalid GetRealizationReportPostingRequest.Month: value must be inside range [1, 12]` — некорректное значение месяца.
+             *     - `Year, Month, and Day parameters describe an un-representable DateTime.` — некорректная дата.
+             *     - `Request validation error: invalid GetRealizationReportPostingRequest.Year: value must be greater than or equal to 2023` — некорректный год. Отчёт доступен с настоящего времени по август 2023 года включительно.
+             */
+            message?: string;
         };
         /**
          * object
@@ -31160,30 +31213,50 @@ export interface components {
             accrual_types?: components["schemas"]["finance.v1.GetFinanceAccrualTypesResponse.AccrualType"][];
         };
         "finance.v1.GetFinanceAccrualByDayRequest": {
-            /** @description Дата начислений. Самая ранняя — 1 января 2022 года. */
+            /**
+             * @description Дата начислений. Самая ранняя — 1 января 2022 года.
+             *
+             *     Если укажете `last_id`, передайте значение `date` из предыдущего запроса.
+             */
             date: string;
             /**
              * @description Идентификатор последнего значения на странице. При первом запросе оставьте это поле пустым.
              *
              *     Чтобы получить следующие значения, укажите `last_id` из ответа предыдущего запроса.
+             *
+             *     Срок жизни идентификатора — 15 минут.
              */
             last_id: string;
         };
         /**
          * @description Тип начисления:
          *     - `UNSPECIFIED` — не определён;
-         *     - `POSTING` — начисления по отправлению;
-         *     - `ITEM` — начисления по товару;
-         *     - `NON_ITEM` — начисление по продавцу без привязки к товару.
+         *     - `POSTING` — начисление по отправлению;
+         *     - `ITEM` — начисление по товару;
+         *     - `NON_ITEM` — начисление по продавцу без привязки к товару;
+         *     - `CONTAINER_FEES` — начисление по контейнеру.
          * @default UNSPECIFIED
          * @enum {string}
          */
-        "finance.v1.GetFinanceAccrualByDayResponse.Accrual.AccruedCategory.Enum": "UNSPECIFIED" | "POSTING" | "ITEM" | "NON_ITEM";
+        "finance.v1.GetFinanceAccrualByDayResponse.Accrual.AccruedCategory.Enum": "UNSPECIFIED" | "POSTING" | "ITEM" | "NON_ITEM" | "CONTAINER_FEES";
+        "finance.v1.GetFinanceAccrualByDayResponse.Accrual.ContainerFees.ContainerFee": {
+            accrued?: components["schemas"]["money.MoneyAccrued"];
+            /**
+             * Format: int32
+             * @description Идентификатор типа начисления. Получите значение параметра методом [/v1/finance/accrual/types](#operation/GetFinanceAccrualTypes).
+             */
+            type_id?: number;
+        };
+        /** @description Начисления по контейнеру. */
+        "finance.v1.GetFinanceAccrualByDayResponse.Accrual.ContainerFees": {
+            /** @description Начисления. */
+            fees?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.ContainerFees.ContainerFee"][];
+        };
         "finance.v1.GetFinanceAccrualByDayResponse.Accrual.ItemFees.ItemFee.Fee": {
             accrued?: components["schemas"]["money.MoneyAccrued"];
             /**
              * Format: int32
-             * @description Идентификатор типа начисления. Можно получить методом [/v1/finance/accrual/types](#operation/GetFinanceAccrualTypes).
+             * @description Идентификатор типа начисления. Получите значение параметра методом [/v1/finance/accrual/types](#operation/GetFinanceAccrualTypes).
              */
             type_id?: number;
         };
@@ -31268,7 +31341,7 @@ export interface components {
             accrued?: components["schemas"]["money.MoneyAccrued"];
             /**
              * Format: int32
-             * @description Идентификатор типа начисления. Можно получить методом [/v1/finance/accrual/types](#operation/GetFinanceAccrualTypes).
+             * @description Идентификатор типа начисления. Получите значение параметра методом [/v1/finance/accrual/types](#operation/GetFinanceAccrualTypes).
              */
             type_id?: number;
         };
@@ -31315,6 +31388,7 @@ export interface components {
         };
         "finance.v1.GetFinanceAccrualByDayResponse.Accrual": {
             accrued_category?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.AccruedCategory.Enum"];
+            container_fees?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.ContainerFees"];
             /** @description Дата начислений. */
             date?: string;
             item_fees?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.ItemFees"];
@@ -31330,9 +31404,13 @@ export interface components {
             unit_number?: string;
         };
         "finance.v1.GetFinanceAccrualByDayResponse": {
-            /** @description Список начислений. */
+            /** @description Список начислений по отправлению. */
             accruals?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual"][];
-            /** @description Идентификатор последнего значения на странице. */
+            /**
+             * @description Идентификатор последнего значения на странице.
+             *
+             *     Срок жизни идентификатора — 15 минут.
+             */
             last_id?: string;
         };
         "product.v1.ProductVisibilityInfoRequest": {
@@ -31612,6 +31690,22 @@ export interface components {
         };
         "posting.v1.GetFbpPostingResponse": {
             posting?: components["schemas"]["posting.v1.GetFbpPostingResponse.Posting"];
+        };
+        "report.v1.CreateCompanyFinanceRealizationPostingReportRequest": {
+            /**
+             * Format: int32
+             * @description Месяц.
+             */
+            month: number;
+            /**
+             * Format: int32
+             * @description Год.
+             */
+            year: number;
+        };
+        "report.v1.CreateCompanyFinanceRealizationPostingReportResponse": {
+            /** @description Уникальный идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
+            code?: string;
         };
         /** @description Координаты. */
         v1ListDropOffPointsForCreateFBSWarehouseRequestCoordinates: {
@@ -57714,6 +57808,12 @@ export interface operations {
                     /**
                      * @example {
                      *       "result": {
+                     *         "additional_data": [
+                     *           {
+                     *             "key": "key",
+                     *             "value": "value"
+                     *           }
+                     *         ],
                      *         "code": "REPORT_seller_products_924336_1720170405_a9ea2f27",
                      *         "status": "success",
                      *         "error": "",
@@ -57811,6 +57911,12 @@ export interface operations {
                      *       "result": {
                      *         "reports": [
                      *           {
+                     *             "additional_data": [
+                     *               {
+                     *                 "key": "key",
+                     *                 "value": "value"
+                     *               }
+                     *             ],
                      *             "code": "REPORT_seller_products_924336_1720170405_a9ea2f27-a473-4b13-99f9-d0cfcb5b1a69",
                      *             "status": "success",
                      *             "error": "",
@@ -58991,7 +59097,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["rpcStatus"];
+                    /**
+                     * @example {
+                     *       "message": "The requested report is too large. Use /v1/report/realization/posting/create."
+                     *     }
+                     */
+                    "application/json": components["schemas"]["rpcStatus_v1FinanceRealizationPosting"];
                 };
             };
             /** @description Доступ запрещён */
@@ -61959,6 +62070,80 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CreateCompanyFinanceRealizationPostingReport: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Позаказный отчёт о реализации */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
