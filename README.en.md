@@ -22,7 +22,7 @@ const { items } = await client.request('/v5/product/info/prices', {
 ```
 
 - **The whole API, not a curated subset.** Types are generated from the official
-  OpenAPI spec (API version 2.1): 458 operations, 2083 schemas. Every path is called
+  OpenAPI spec (API version 2.1): 459 operations, 2089 schemas. Every path is called
   the same way, with the request body and response inferred from the path literal.
 - **Zero runtime dependencies.** Native `fetch` only. Node.js >= 18, CJS and ESM.
 - **A built-in rate limiter that knows Ozon's limits** — 50 rps per Client-Id plus the
