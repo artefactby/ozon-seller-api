@@ -5668,9 +5668,9 @@ export interface paths {
         put?: never;
         /**
          * Отчёт о выкупленных товарах
-         * @description Возвращает отчёт о товарах, которые выкупил Ozon для продажи в ЕАЭС и другие страны. Соответствует разделу **Финансы → Документы → УПД по сделкам с юр. лицами → УПД по выкупленным товарам** в личном кабинете.
+         * @description Возвращает отчёт о товарах, которые выкупил Ozon. Соответствует разделу **Финансы → Документы → УПД по сделкам с юр. лицами → УПД по выкупленным товарам** в личном кабинете.
          *
-         *     [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany?search=выкупленные+товары)
+         *     [Подробнее о выкупе товаров в Базе знаний](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany?search=выкупленные+товары)
          */
         post: operations["GetFinanceProductsBuyout"];
         delete?: never;
@@ -15671,7 +15671,11 @@ export interface components {
             currency_code?: string;
             /** @description Цена товара. */
             price?: string;
-            /** @description Признак выкупа товара в ЕАЭС и другие страны. <br> [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#%D0%BA%D0%B0%D0%BA%D0%B8%D0%B5-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D1%8B-%D0%B2%D1%8B%D0%BA%D1%83%D0%BF%D0%B0%D0%B5%D1%82-ozon) */
+            /**
+             * @description `true`, если Ozon выкупил товар.
+             *
+             *     [Подробнее о выкупе товаров в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
+             */
             is_marketplace_buyout?: boolean;
             /**
              * Format: int64
@@ -15963,9 +15967,9 @@ export interface components {
             /** @description Коды активации для услуг и цифровых товаров. */
             digital_codes?: string[];
             /**
-             * @description `true`, если Ozon выкупил товар для доставки в ЕАЭС и другие страны.
+             * @description `true`, если Ozon выкупил товар.
              *
-             *     [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
+             *     [Подробнее о выкупе товаров в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
              */
             is_marketplace_buyout?: boolean;
             /** @description Название товара. */
@@ -21595,7 +21599,11 @@ export interface components {
             currency_code?: string;
             /** @description Признак прослеживаемости товара. */
             is_blr_traceable?: boolean;
-            /** @description Признак выкупа товара в ЕАЭС и другие страны. <br> [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#%D0%BA%D0%B0%D0%BA%D0%B8%D0%B5-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D1%8B-%D0%B2%D1%8B%D0%BA%D1%83%D0%BF%D0%B0%D0%B5%D1%82-ozon) */
+            /**
+             * @description `true`, если Ozon выкупил товар.
+             *
+             *     [Подробнее о выкупе товаров в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
+             */
             is_marketplace_buyout?: boolean;
             /** @description Список IMEI мобильных устройств. */
             imei?: string[];
@@ -22337,9 +22345,9 @@ export interface components {
             /** @description `true`, если товар отслеживаемый. */
             is_blr_traceable?: boolean;
             /**
-             * @description `true`, если Ozon выкупил товар для доставки в ЕАЭС и другие страны.
+             * @description `true`, если Ozon выкупил товар.
              *
-             *     [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
+             *     [Подробнее о выкупе товаров в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
              */
             is_marketplace_buyout?: boolean;
             /** @description Название товара. */
@@ -23223,9 +23231,9 @@ export interface components {
             /** @description `true`, если товар отслеживаемый. */
             is_blr_traceable?: boolean;
             /**
-             * @description `true`, если Ozon выкупил товар для доставки в ЕАЭС и другие страны.
+             * @description `true`, если Ozon выкупил товар.
              *
-             *     [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
+             *     [Подробнее о выкупе товаров в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
              */
             is_marketplace_buyout?: boolean;
             /** @description Название товара. */
@@ -23755,7 +23763,11 @@ export interface components {
             currency_code?: string;
             /** @description Признак прослеживаемости товара. */
             is_blr_traceable?: boolean;
-            /** @description Признак выкупа товара в ЕАЭС и другие страны. <br> [Подробнее о продаже товаров в ЕАЭС и другие страны в Базе знаний](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#%D0%BA%D0%B0%D0%BA%D0%B8%D0%B5-%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D1%8B-%D0%B2%D1%8B%D0%BA%D1%83%D0%BF%D0%B0%D0%B5%D1%82-ozon) */
+            /**
+             * @description `true`, если Ozon выкупил товар.
+             *
+             *     [Подробнее о выкупе товаров в Базе знаний продавца](https://seller-edu.ozon.ru/commissions-tariffs/commissions-tariffs-ozon/prodaji-tovarov-v-eaes-i-drugie-strany#какие-товары-выкупает-ozon)
+             */
             is_marketplace_buyout?: boolean;
             /**
              * Format: int32
@@ -34512,7 +34524,7 @@ export interface components {
             updated_ids?: string[];
         };
         /** @enum {string} */
-        "notification.v1.SetNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED";
+        "notification.v1.SetNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
         "notification.v1.SetNotificationRequest": {
             /**
              * @description Типы уведомлений:
@@ -34528,14 +34540,22 @@ export interface components {
              *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
              *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
              *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца.
+             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+             *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+             *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+             *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+             *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+             *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+             *     - `TYPE_ORDER_NEW` — новый заказ;
+             *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+             *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
              */
             types: components["schemas"]["notification.v1.SetNotificationRequest.Type.Enum"][];
             /** @description URL-адрес. */
             url: string;
         };
         /** @enum {string} */
-        "notification.v1.UpdateNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED";
+        "notification.v1.UpdateNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
         "notification.v1.UpdateNotificationRequest": {
             /**
              * Format: int64
@@ -34556,7 +34576,15 @@ export interface components {
              *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
              *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
              *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца.
+             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+             *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+             *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+             *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+             *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+             *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+             *     - `TYPE_ORDER_NEW` — новый заказ;
+             *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+             *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
              */
             types?: components["schemas"]["notification.v1.UpdateNotificationRequest.Type.Enum"][];
             /** @description Новый URL-адрес. */
@@ -34625,10 +34653,18 @@ export interface components {
          *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
          *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
          *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца.
+         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+         *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+         *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+         *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+         *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+         *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+         *     - `TYPE_ORDER_NEW` — новый заказ;
+         *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+         *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
          * @enum {string}
          */
-        "notification.v1.NotificationListResponse.Notification.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED";
+        "notification.v1.NotificationListResponse.Notification.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
         "notification.v1.NotificationListResponse.Notification.NotificationType": {
             /** @description Описание типа уведомлений. */
             description: string;
@@ -34680,10 +34716,18 @@ export interface components {
          *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
          *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
          *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца.
+         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+         *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+         *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+         *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+         *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+         *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+         *     - `TYPE_ORDER_NEW` — новый заказ;
+         *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+         *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
          * @enum {string}
          */
-        "notification.v1.GetNotificationPushTypeListResponse.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED";
+        "notification.v1.GetNotificationPushTypeListResponse.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
         "notification.v1.GetNotificationPushTypeListResponse.NotificationType": {
             /** @description Описание. */
             description: string;

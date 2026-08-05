@@ -5,6 +5,22 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.2.1] - 2026-08-05
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 4 августа 2026.
+Число путей и схем не изменилось. Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- Восемь типов пуш-уведомлений в enum `types` / `urls.types.type` / `types.type` для `/v1/notification/set`, `/v1/notification/update`, `/v1/notification/list`, `/v1/notification/push-type/list`:
+  `TYPE_FBO_POSTING_NEW`, `TYPE_FBO_POSTING_CANCELLED`, `TYPE_FBO_POSTING_STATE_CHANGED`, `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED`, `TYPE_FBO_STOCKS_CHANGED`, `TYPE_ORDER_NEW`, `TYPE_ORDER_CANCELLED`, `TYPE_ORDER_STATE_CHANGED`.
+
+### Changed
+
+- Уточнены описания `types` (запрос) и `urls.types.type` / `types.type` (ответ) в методах notification выше.
+- Уточнено описание `is_marketplace_buyout` в ответах FBS/FBO list/get (`/v4/posting/fbs/*`, `/v3/posting/fbs/*`, `/v3/posting/fbo/list`, `/v2/posting/fbo/*`): признак выкупа товара Ozon, без привязки только к ЕАЭС.
+- Уточнено описание `/v1/finance/products/buyout`.
+
 ## [0.2.0] - 2026-08-01
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon за 16–30 июля 2026.
