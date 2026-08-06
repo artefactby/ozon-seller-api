@@ -103,4 +103,4 @@ const aborted = await pending.then(
 assert.ok(aborted instanceof Error, 'expected the aborted call to reject');
 
 server.close();
-console.log(`✅ runtime smoke passed on Node ${process.version}`);
+console.log(`runtime smoke passed on Node ${process.version}`);

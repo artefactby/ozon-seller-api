@@ -18,12 +18,11 @@ npm-debug.log*
 # Environment
 .env
 .env.*
-!.env.example
 
 # Local-only inputs (never published)
 temp/
 
-# AI assistant / editor-agent internals (root CLAUDE.md is public and committed)
+# AI assistant / editor-agent internals (root AGENTS.md / CLAUDE.md are committed)
 .claude/
 .cursor/
 .codex/

@@ -35,4 +35,4 @@ for (const file of files) {
   }
 }
 
-console.log(`🚀 deduplicated ${files.length} .d.mts file(s), saved ${(saved / 1e6).toFixed(1)} MB`);
+console.log(`deduplicated ${files.length} .d.mts file(s), saved ${(saved / 1e6).toFixed(1)} MB`);

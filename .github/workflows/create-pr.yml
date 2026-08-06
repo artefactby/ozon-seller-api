@@ -1,0 +1,59 @@
+# Opens a pull request for a pushed api-sync/** branch (see MAINTAINER.md).
+# Note: a PR opened with GITHUB_TOKEN does not fire pull_request
+# workflows, which is why ci.yml also triggers on pushes to api-sync/**.
+#
+# Requires the repository setting "Allow GitHub Actions to create and approve
+# pull requests" (Settings → Actions → General).
+name: Create sync PR
+
+on:
+  push:
+    branches: ['api-sync/**']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const head = context.ref.replace('refs/heads/', '');
+
+            const { data: open } = await github.rest.pulls.list({
+              owner, repo, base: 'main', head: `${owner}:${head}`, state: 'open',
+            });
+            if (open.length > 0) {
+              core.info(`PR already open: ${open[0].html_url}`);
+              return;
+            }
+
+            // The sync script carries its report in the commit body (see
+            // scripts/api-sync.mjs); lift it into the PR description so the
+            // review does not depend on a file that only exists locally.
+            const message = context.payload.head_commit?.message ?? '';
+            const report = message.split('\n\n').slice(1).join('\n\n').trim();
+
+            const body = [
+              `Автоматически созданный PR из ветки синхронизации \`${head}\`.`,
+              '',
+              'Перед merge в ветке должны появиться (коммитом мини-ревью `/api-sync-release`):',
+              '',
+              '- [ ] раздел новой версии в `CHANGELOG.md`',
+              '- [ ] новая версия в `package.json`',
+              '',
+              'После merge release-workflow опубликует пакет в npm, поставит тег',
+              'и создаст GitHub Release — если версия из `package.json` ещё не выпускалась.',
+              ...(report ? ['', '---', '', report] : []),
+            ].join('\n');
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner, repo, base: 'main', head,
+              title: `Sync Ozon Seller API (${head.replace('api-sync/', '')})`,
+              body,
+            });
+            core.info(`Opened ${pr.html_url}`);

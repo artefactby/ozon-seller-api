@@ -59,13 +59,17 @@
     "README.en.md"
   ],
   "scripts": {
+    "api-sync": "node scripts/api-sync.mjs",
     "build": "tsup && node scripts/dedupe-dts.mjs",
+    "codegen": "node scripts/codegen.mjs",
     "dev": "tsup --watch",
-    "codegen": "openapi-typescript temp/swagger.json -o src/generated/types.ts && node scripts/emit-http-methods.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "publishConfig": {
+    "provenance": true
   },
   "engines": {
     "node": ">=18"

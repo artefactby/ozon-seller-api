@@ -2,7 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    # api-sync/** is covered by push, not pull_request: the sync PR is opened
+    # by a workflow with GITHUB_TOKEN, and such PRs do not fire pull_request
+    # events. Status checks land on the same SHA and show up in the PR anyway.
+    branches: [main, 'api-sync/**']
   pull_request:
 
 jobs:

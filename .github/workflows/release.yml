@@ -1,0 +1,80 @@
+# Publishes a release when a new version reaches main: npm publish via trusted
+# publishing (OIDC, no tokens — configured on npmjs.com: package → Settings →
+# Trusted Publisher → GitHub Actions, this repository, release.yml), then the
+# git tag and the GitHub Release with the CHANGELOG section as notes.
+#
+# The guard is the tag: if v<package.json version> already exists, the run is
+# a no-op. The npm-side check inside the publish step makes a re-run after a
+# partial failure idempotent.
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The version guard needs the tags.
+          fetch-depth: 0
+
+      - name: Check for an unreleased version
+        id: guard
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if git rev-parse --verify --quiet "refs/tags/v$version" > /dev/null; then
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "v$version is already tagged; nothing to release."
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+            echo "v$version is not tagged yet; releasing."
+          fi
+
+      - uses: actions/setup-node@v5
+        if: steps.guard.outputs.release == 'true'
+        with:
+          node-version: 24
+          cache: npm
+
+      # Trusted publishing needs npm >= 11.5.1.
+      - run: npm install -g npm@latest
+        if: steps.guard.outputs.release == 'true'
+
+      - run: npm ci
+        if: steps.guard.outputs.release == 'true'
+
+      # prepublishOnly chains typecheck + test + build; no separate check steps.
+      - name: Publish to npm (trusted publishing)
+        if: steps.guard.outputs.release == 'true'
+        run: |
+          version="${{ steps.guard.outputs.version }}"
+          name="$(node -p "require('./package.json').name")"
+          if npm view "$name@$version" version > /dev/null 2>&1; then
+            echo "$name@$version is already on npm; skipping publish."
+          else
+            npm publish
+          fi
+
+      - name: Create the tag and the GitHub Release
+        if: steps.guard.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="${{ steps.guard.outputs.version }}"
+          node scripts/extract-changelog.mjs "$version" > /tmp/release-notes.md
+          gh release create "v$version" \
+            --target "$GITHUB_SHA" \
+            --title "v$version" \
+            --notes-file /tmp/release-notes.md

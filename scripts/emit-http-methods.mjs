@@ -8,9 +8,8 @@
  * fails instead of silently sending the wrong request.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
+import { HTTP_METHODS as OUT, SPEC } from './lib/paths.mjs';
 
-const SPEC = 'temp/swagger.json';
-const OUT = 'src/generated/http-methods.ts';
 const SUPPORTED = new Set(['get', 'post']);
 
 const spec = JSON.parse(readFileSync(SPEC, 'utf8'));
@@ -54,7 +53,7 @@ ${getPaths.map((path) => `  '${path}',`).join('\n')}
 `;
 
 writeFileSync(OUT, contents);
-console.log(`🚀 ${SPEC} → ${OUT} [${getPaths.length} GET paths, POST default]`);
+console.log(`${SPEC} → ${OUT} [${getPaths.length} GET paths, POST default]`);
 
 // A templated path cannot be called through the typed request(): the URL with
 // the parameter substituted no longer matches the spec literal, so the method
@@ -62,7 +61,7 @@ console.log(`🚀 ${SPEC} → ${OUT} [${getPaths.length} GET paths, POST default
 // Keep the README's escape-hatch section in sync with this list.
 if (templatedPaths.length > 0) {
   console.warn(
-    `⚠ ${templatedPaths.length} templated path(s) need requestRaw with an explicit method:\n` +
+    `warning: ${templatedPaths.length} templated path(s) need requestRaw with an explicit method:\n` +
       templatedPaths.map((path) => `  ${path}`).join('\n'),
   );
 }
