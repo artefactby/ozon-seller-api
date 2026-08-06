@@ -15,7 +15,11 @@
  * (see lib/api-surface.mjs). The version decision on a breaking change stays
  * with a human.
  *
- * Flags: --no-push (prepare the branch and the report, skip the push).
+ * Flags:
+ *   --no-push         prepare the branch and the report, skip the push
+ *   --branch=<name>   start from a non-main base branch — a test mode: the
+ *                     sync branch will carry the base branch's commits, so
+ *                     close the resulting pull request without merging
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -45,6 +49,31 @@ function branchExists(name) {
   }
 }
 
+function remoteBranchExists(name) {
+  try {
+    return git('ls-remote', '--heads', 'origin', name) !== '';
+  } catch {
+    return false;
+  }
+}
+
+// --- The base branch ---
+
+const branchFlag = process.argv.find((arg) => arg.startsWith('--branch='));
+const baseBranch = branchFlag ? branchFlag.slice('--branch='.length) : 'main';
+// A typo in an explicitly requested branch must fail, never silently fall
+// back to main: that would turn a test run into a production one.
+if (!baseBranch) fail('--branch expects a name: --branch=<branch>.');
+if (branchFlag && !branchExists(baseBranch)) {
+  fail(`--branch: no local branch named ${baseBranch}.`);
+}
+if (baseBranch !== 'main') {
+  console.warn(
+    `api-sync: starting from ${baseBranch}, not main — a test run. The sync branch ` +
+      'will carry every commit of the base branch; close its pull request without merging.',
+  );
+}
+
 // --- The fresh snapshot ---
 
 let spec;
@@ -67,8 +96,16 @@ if (git('status', '--porcelain') !== '') {
   fail('the working tree is not clean; commit or stash before syncing.');
 }
 const currentBranch = git('rev-parse', '--abbrev-ref', 'HEAD');
-if (currentBranch !== 'main') fail(`expected to start from main, found ${currentBranch}.`);
-run('git', ['pull', '--ff-only', 'origin', 'main']);
+if (currentBranch !== baseBranch) {
+  fail(`expected to start from ${baseBranch}, found ${currentBranch}.`);
+}
+// main must always be up to date with origin (and fail loudly when origin is
+// unreachable); a test base branch may exist only locally — skip the pull.
+if (baseBranch === 'main' || remoteBranchExists(baseBranch)) {
+  run('git', ['pull', '--ff-only', 'origin', baseBranch]);
+} else {
+  console.warn(`api-sync: origin has no branch ${baseBranch}; skipping the pull.`);
+}
 
 // --- The previous surface, from the manifest committed at HEAD ---
 
@@ -78,7 +115,7 @@ try {
 } catch {
   fail(
     `HEAD carries no readable ${MANIFEST}. Bootstrap it first: run \`npm run codegen\` ` +
-      'on the snapshot matching HEAD and commit the manifest to main.',
+      `on the snapshot matching HEAD and commit the manifest to ${baseBranch}.`,
   );
 }
 
@@ -103,7 +140,7 @@ function printRecovery() {
       `api-sync: the branch ${branch} and the regenerated files are left in place for diagnostics.`,
       'To roll back:',
       `  git restore ${GENERATED}`,
-      '  git switch main',
+      `  git switch ${baseBranch}`,
       `  git branch -D ${branch}`,
     ].join('\n'),
   );
@@ -114,7 +151,7 @@ run('git', ['switch', '-c', branch]);
 step('npm', ['run', 'codegen']);
 
 if (git('status', '--porcelain', '--', GENERATED) === '') {
-  run('git', ['switch', 'main']);
+  run('git', ['switch', baseBranch]);
   run('git', ['branch', '-d', branch]);
   console.log('api-sync: the snapshot does not change the generated types; nothing to release.');
   process.exit(0);

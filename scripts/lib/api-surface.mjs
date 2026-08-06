@@ -41,7 +41,9 @@ export function signature(schema) {
     const required = new Set(schema.required ?? []);
     const fields = Object.keys(schema.properties ?? {})
       .sort()
-      .map((name) => `${name}${required.has(name) ? '!' : ''}:${signature(schema.properties[name])}`);
+      .map(
+        (name) => `${name}${required.has(name) ? '!' : ''}:${signature(schema.properties[name])}`,
+      );
     let objectSignature = `object{${fields.join(',')}}`;
     if (schema.additionalProperties) {
       objectSignature += `+map<${signature(schema.additionalProperties)}>`;
