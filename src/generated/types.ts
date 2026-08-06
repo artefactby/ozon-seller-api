@@ -17462,12 +17462,11 @@ export interface components {
          * @description Режим удаления SKU, которые не попали в поставку.
          *
          *     Возможные значения:
-         *      - `PARTIAL` — система удалит только те единицы SKU, которые не прошли проверку;
-         *      - `FULL` — система удалит все единицы SKU, если хотя бы 1 единица этого SKU не прошла проверку.
-         * @default PARTIAL
+         *     - `PARTIAL` — система удалит только те единицы SKU, которые не прошли проверку;
+         *     - `FULL` — система удалит все единицы SKU, если хотя бы одна единица этого SKU не прошла проверку.
          * @enum {string}
          */
-        v1DraftCrossdockCreateRequestDeleteSkuModeEnum: "PARTIAL" | "FULL";
+        v1DraftCrossdockCreateRequestDeleteSkuModeEnum: "FULL" | "PARTIAL";
         /**
          * @description Тип склада, пункта выдачи заказов или сортировочного центра:
          *      - `DELIVERY_POINT` — пункт выдачи заказов;
@@ -17508,7 +17507,7 @@ export interface components {
         };
         v1DraftCrossdockCreateRequest: {
             cluster_info: components["schemas"]["v1DraftCrossdockCreateRequestClusterInfo"];
-            deletion_sku_mode?: components["schemas"]["v1DraftCrossdockCreateRequestDeleteSkuModeEnum"];
+            deletion_sku_mode: components["schemas"]["v1DraftCrossdockCreateRequestDeleteSkuModeEnum"];
             delivery_info: components["schemas"]["v1DraftCrossdockCreateRequestDeliveryInfo"];
         };
         /**
@@ -17647,15 +17646,14 @@ export interface components {
          * @description Режим удаления SKU, которые не попали в поставку.
          *
          *     Возможные значения:
-         *      - `PARTIAL` — система удалит только те единицы SKU, которые не прошли проверку;
-         *      - `FULL` — система удалит все единицы SKU, если хотя бы 1 единица этого SKU не прошла проверку.
-         * @default PARTIAL
+         *     - `PARTIAL` — система удалит только те единицы SKU, которые не прошли проверку;
+         *     - `FULL` — система удалит все единицы SKU, если хотя бы одна единица этого SKU не прошла проверку.
          * @enum {string}
          */
-        v1DraftDirectCreateRequestDeleteSkuModeEnum: "PARTIAL" | "FULL";
+        v1DraftDirectCreateRequestDeleteSkuModeEnum: "FULL" | "PARTIAL";
         v1DraftDirectCreateRequest: {
             cluster_info: components["schemas"]["v1DraftDirectCreateRequestClusterInfo"];
-            deletion_sku_mode?: components["schemas"]["v1DraftDirectCreateRequestDeleteSkuModeEnum"];
+            deletion_sku_mode: components["schemas"]["v1DraftDirectCreateRequestDeleteSkuModeEnum"];
         };
         v1DraftMultiClusterCreateRequestClusterInfoItem: {
             /**
@@ -17682,12 +17680,11 @@ export interface components {
          * @description Режим удаления SKU, которые не попали в поставку.
          *
          *     Возможные значения:
-         *      - `PARTIAL` — система удалит только те единицы SKU, которые не прошли проверку;
-         *      - `FULL` — система удалит все единицы SKU, если хотя бы 1 единица этого SKU не прошла проверку.
-         * @default PARTIAL
+         *     - `PARTIAL` — система удалит только те единицы SKU, которые не прошли проверку;
+         *     - `FULL` — система удалит все единицы SKU, если хотя бы одна единица этого SKU не прошла проверку.
          * @enum {string}
          */
-        v1DraftMultiClusterCreateRequestDeleteSkuModeEnum: "PARTIAL" | "FULL";
+        v1DraftMultiClusterCreateRequestDeleteSkuModeEnum: "FULL" | "PARTIAL";
         /**
          * @description Тип пункта отгрузки:
          *      - `DELIVERY_POINT` — пункт выдачи заказов;
@@ -17729,7 +17726,7 @@ export interface components {
         v1DraftMultiClusterCreateRequest: {
             /** @description Информация о кластерах. */
             clusters_info: components["schemas"]["v1DraftMultiClusterCreateRequestClusterInfo"][];
-            deletion_sku_mode?: components["schemas"]["v1DraftMultiClusterCreateRequestDeleteSkuModeEnum"];
+            deletion_sku_mode: components["schemas"]["v1DraftMultiClusterCreateRequestDeleteSkuModeEnum"];
             delivery_info: components["schemas"]["v1DraftMultiClusterCreateRequestDeliveryInfo"];
         };
         v2DraftCreateInfoRequest: {
