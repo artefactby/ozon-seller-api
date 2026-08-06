@@ -5,6 +5,21 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.3.0] - 2026-08-07
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 7 августа 2026. Сверка с анонсом Ozon не проводилась.
+Число путей и схем не изменилось. Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Breaking
+
+- `deletion_sku_mode` стал обязательным в `v1DraftCrossdockCreateRequest`, `v1DraftDirectCreateRequest` и `v1DraftMultiClusterCreateRequest`.
+- В комментариях к сгенерированным типам для `deletion_sku_mode` больше не указан `@default PARTIAL`, поэтому на неявное значение по умолчанию полагаться нельзя.
+
+### Notes
+
+- Миграция: все вызовы создания черновиков поставок должны явно задавать `deletion_sku_mode` со значением `PARTIAL` или `FULL`.
+- В диффе также уточнено текстовое описание `deletion_sku_mode`; допустимые значения enum не изменились.
+
 ## [0.2.1] - 2026-08-05
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 4 августа 2026.
