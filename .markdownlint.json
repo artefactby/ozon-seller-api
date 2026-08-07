@@ -1,0 +1,10 @@
+{
+    "line-length": {
+        "tables": false,
+        "line_length": 999
+    },
+    "no-duplicate-heading": false,
+    "code-block-style": {
+        "style": "fenced"
+    }
+}
