@@ -4560,131 +4560,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v2/returns/rfbs/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Отклонить заявку на возврат
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод позволяет отклонить заявку на возврат rFBS-заказа. Вы можете объяснить своё решение в параметре `comment`.
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsRejectV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/compensate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Вернуть часть стоимости товара
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод для частичной компенсации стоимости товара: вы возвращаете часть денег покупателю, товар остаётся у него.
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsCompensateV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/verify": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Одобрить заявку на возврат
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод позволяет одобрить заявку и согласиться на получение товара для проверки.
-         *
-         *     Подтвердите получение товара с помощью метода [/v2/returns/rfbs/receive-return](#operation/RFBSReturnsAPI_ReturnsRfbsReceiveReturnV2).
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsVerifyV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/receive-return": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Подтвердить получение товара на проверку
-         * @description <aside class="warning">
-         *       В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsReceiveReturnV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/return-money": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Вернуть деньги покупателю
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод подтверждает возврат полной стоимости товара.
-         *     Используйте метод, если согласны:
-         *     - сразу вернуть стоимость товара и оставить его покупателю;
-         *     - вернуть стоимость после получения и проверки товара.
-         *
-         *     Если товар оказался ненадлежащего качества или с браком, вы возмещаете покупателю стоимость пересылки товара.
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsReturnMoneyV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v1/returns/rfbs/action/set": {
         parameters: {
             query?: never;
@@ -6685,6 +6560,86 @@ export interface paths {
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2280-Novyi-beta-metod-dlia-polucheniia-otcheta-o-realizatsii-po-postingam/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["CreateCompanyFinanceRealizationPostingReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/summary/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию об акте
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActSummaryGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/product/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о товарах в акте
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActProductGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Согласовать акт
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActAccept"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/accept/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить статус согласования акта
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActAcceptStatus"];
         delete?: never;
         options?: never;
         head?: never;
@@ -24883,7 +24838,10 @@ export interface components {
             rejection_comment?: string;
             /** @description Данные о причине отклонения заявки. */
             rejection_reason?: components["schemas"]["ReturnsRfbsGetV2ResponseRejectionReason"][];
-            /** @description Способ возврата товара. */
+            /**
+             * @deprecated
+             * @description Способ возврата товара.
+             */
             return_method_description?: string;
             /** @description Номер заявки на возврат. */
             return_number?: string;
@@ -24900,68 +24858,6 @@ export interface components {
         /** object */
         v2ReturnsRfbsGetResponse: {
             returns?: components["schemas"]["ReturnsRfbsGetResponseReturns"];
-        };
-        /** object */
-        v2ReturnsRfbsRejectRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-            /**
-             * @description Комментарий.
-             *
-             *     Передайте комментарий, если в ответе метода [/v2/returns/rfbs/get](#operation/RFBSReturnsAPI_ReturnsRfbsGetV2) параметр `rejection_reason.is_comment_required` — `true`.
-             */
-            comment?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор причины отмены.
-             *
-             *     Передайте идентификатор из списка причин, полученного в ответе метода [/v2/returns/rfbs/get](#operation/RFBSReturnsAPI_ReturnsRfbsGetV2) в параметре `rejection_reason`.
-             */
-            rejection_reason_id: number;
-        };
-        /** object */
-        v2ReturnsRfbsCompensateRequest: {
-            /** @description Сумма компенсации. */
-            compensation_amount?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-        };
-        /** object */
-        v2ReturnsRfbsVerifyRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-            /** @description Способ возврата товара. */
-            return_method_description?: string;
-        };
-        /** object */
-        v2ReturnsRfbsReceiveReturnRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-        };
-        /** object */
-        v2ReturnsRfbsReturnMoneyRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-            /**
-             * Format: int64
-             * @description Сумма, возмещаемая покупателю за пересылку товара.
-             */
-            return_for_back_way?: number;
         };
         v1ReturnsRfbsActionSetRequest: {
             /**
@@ -31715,6 +31611,287 @@ export interface components {
         "report.v1.CreateCompanyFinanceRealizationPostingReportResponse": {
             /** @description Уникальный идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
             code?: string;
+        };
+        "supply_order.v1.SupplyOrderActSummaryGetRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор заявки на поставку из метода [/v3/supply-order/list](#operation/SupplyOrderList).
+             */
+            order_id: number;
+        };
+        /**
+         * @description Статус акта:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `AWAITING_APPROVAL_BY_SELLER` — ожидает согласования продавца;
+         *     - `REJECT_BY_SELLER` — отклонён продавцом;
+         *     - `AGREEMENT_WITH_SELLER` — согласован продавцом;
+         *     - `ACCEPTED` — согласование завершено.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.ActState.Enum": "UNSPECIFIED" | "AWAITING_APPROVAL_BY_SELLER" | "REJECT_BY_SELLER" | "AGREEMENT_WITH_SELLER" | "ACCEPTED";
+        /** @description Сумма с НДС. */
+        "money.MoneySupplyActAmount": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Сумма НДС. */
+        "money.MoneySupplyActAmountVat": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Сумма без НДС. */
+        "money.MoneySupplyActAmountWithoutVat": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Согласованная стоимость товаров. */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.ApprovedAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Фактическая стоимость товаров. */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.FactAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Информация о товарах в акте. */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary": {
+            approved_amount?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.ApprovedAmount"];
+            /**
+             * Format: int32
+             * @description Количество согласованных товаров.
+             */
+            approved_quantity?: number;
+            /**
+             * Format: int32
+             * @description Количество заявленных товаров.
+             */
+            declared_quantity?: number;
+            fact_amount?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.FactAmount"];
+            /**
+             * Format: int32
+             * @description Количество принятых товаров.
+             */
+            fact_quantity?: number;
+            /**
+             * Format: int32
+             * @description Общее количество товаров.
+             */
+            sku_quantity?: number;
+            /**
+             * Format: int32
+             * @description Количество неопознанных излишков.
+             */
+            unidentified_quantity?: number;
+        };
+        /**
+         * @description Тип акта:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `ACCEPTANCE` — акт приёмки;
+         *     - `DEFECT` — акт о браке;
+         *     - `SURPLUS` — акт об излишках;
+         *     - `SHORTCOMING` — акт о недостаче.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Type.Enum": "UNSPECIFIED" | "ACCEPTANCE" | "DEFECT" | "SURPLUS" | "SHORTCOMING";
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs": {
+            /**
+             * Format: int64
+             * @description Идентификатор акта.
+             */
+            act_id?: number;
+            /** @description Номер акта. */
+            act_number?: string;
+            act_state?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.ActState.Enum"];
+            /** @description Дата создания акта. */
+            created_date?: string;
+            /**
+             * Format: date-time
+             * @description Дата и время, до которой можно работать с актом.
+             */
+            deadline_utc?: string;
+            summary?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary"];
+            type?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Type.Enum"];
+        };
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs": {
+            /** @description `true`, если все акты согласованы. */
+            is_agreement_completed?: boolean;
+            /** @description Информация об актах. */
+            supply_acts?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs"][];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+        };
+        "supply_order.v1.SupplyOrderActSummaryGetResponse": {
+            /** @description Список актов. */
+            supplies_acts?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs"][];
+        };
+        "supply_order.v1.SupplyOrderActProductGetRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id: number;
+        };
+        "supply_order.v1.SupplyOrderActProductGetResponse.SkusDefects": {
+            /** @description Причины брака. */
+            defect_reasons?: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор товара.
+             */
+            sku?: number;
+        };
+        /** @description Согласованная стоимость товаров. */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.ApprovedAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Фактическая стоимость товаров. */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.FactAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Цена товара без НДС. */
+        "money.MoneyPriceWithoutVat": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Информация о товаре. */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.SkuInfo": {
+            /** @description Штрихкод товара. */
+            barcode?: string;
+            /** @description Ссылка на изображение товара. */
+            image_link?: string;
+            /** @description Название товара. */
+            name?: string;
+            /** @description Артикул товара. */
+            offer_id?: string;
+            price_without_vat?: components["schemas"]["money.MoneyPriceWithoutVat"];
+            /**
+             * Format: int64
+             * @description Идентификатор товара.
+             */
+            sku?: number;
+            /**
+             * Format: float
+             * @description Ставка НДС.
+             */
+            vat?: number;
+        };
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items": {
+            approved_amount?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.ApprovedAmount"];
+            /**
+             * Format: int32
+             * @description Количество согласованного товара в акте.
+             */
+            approved_quantity?: number;
+            /**
+             * Format: int32
+             * @description Количество заявленного товара в акте.
+             */
+            declared_quantity?: number;
+            fact_amount?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.FactAmount"];
+            /**
+             * Format: int32
+             * @description Количество принятого товара.
+             */
+            fact_quantity?: number;
+            sku_info?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.SkuInfo"];
+        };
+        /**
+         * @description Тип акта:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `ACCEPTANCE` — акт приёмки;
+         *     - `DEFECT` — акт о браке;
+         *     - `SURPLUS` — акт об излишках;
+         *     - `SHORTCOMING` — акт о недостаче.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Type.Enum": "UNSPECIFIED" | "ACCEPTANCE" | "DEFECT" | "SURPLUS" | "SHORTCOMING";
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs": {
+            /**
+             * Format: int64
+             * @description Идентификатор акта.
+             */
+            act_id?: number;
+            /** @description Список товаров в акте. */
+            items?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items"][];
+            type?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Type.Enum"];
+            /**
+             * Format: int32
+             * @description Количество неопознанных излишков.
+             */
+            unidentified_quantity?: number;
+        };
+        "supply_order.v1.SupplyOrderActProductGetResponse": {
+            /** @description Список товаров с браком. */
+            skus_defects?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SkusDefects"][];
+            /** @description Список актов в поставке. */
+            supply_acts?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs"][];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+        };
+        "supply_order.v1.SupplyOrderActAcceptRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор акта из методов [/v1/supply-order/act/summary/get](#operation/SupplyOrderActSummaryGet) или [/v1/supply-order/act/product/get](#operation/SupplyOrderActProductGet).
+             */
+            act_id: number;
+        };
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActAcceptResponse.ErrorReasons.Enum": "UNSPECIFIED" | "INVALID_STATE" | "SUPPLY_WITH_UTD";
+        "supply_order.v1.SupplyOrderActAcceptResponse": {
+            /**
+             * @description Ошибки при принятии акта:
+             *      - `UNSPECIFIED` — не определена;
+             *      - `INVALID_STATE` — некорректный статус;
+             *      - `SUPPLY_WITH_UTD` — поставка с УПД.
+             */
+            error_reasons?: components["schemas"]["supply_order.v1.SupplyOrderActAcceptResponse.ErrorReasons.Enum"][];
+            /** @description Идентификатор операции. */
+            operation_id?: string;
+        };
+        "supply_order.v1.SupplyOrderActAcceptStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/supply-order/act/accept](#operation/SupplyOrderActAccept). */
+            operation_id: string;
+        };
+        /**
+         * @description Статус операции:
+         *     - `SUCCESS` — акт согласован;
+         *     - `IN_PROGRESS` — согласование в процессе;
+         *     - `FAILED` — ошибка при согласовании акта.
+         * @default SUCCESS
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActAcceptStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "supply_order.v1.SupplyOrderActAcceptStatusResponse": {
+            status?: components["schemas"]["supply_order.v1.SupplyOrderActAcceptStatusResponse.Status.Enum"];
+            /** @description Причина ошибки. */
+            error_message?: string;
         };
         /** @description Координаты. */
         v1ListDropOffPointsForCreateFBSWarehouseRequestCoordinates: {
@@ -56226,376 +56403,6 @@ export interface operations {
             };
         };
     };
-    RFBSReturnsAPI_ReturnsRfbsRejectV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsRejectRequest"];
-            };
-        };
-        responses: {
-            /** @description Заявка отклонена */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsCompensateV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsCompensateRequest"];
-            };
-        };
-        responses: {
-            /** @description Частичная компенсация подтверждена */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsVerifyV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsVerifyRequest"];
-            };
-        };
-        responses: {
-            /** @description Заявка одобрена */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsReceiveReturnV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsReceiveReturnRequest"];
-            };
-        };
-        responses: {
-            /** @description Получение подтверждено */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsReturnMoneyV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsReturnMoneyRequest"];
-            };
-        };
-        responses: {
-            /** @description Возврат денег подтверждён */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
     ReturnsAPI_ReturnsRfbsActionSet: {
         parameters: {
             query?: never;
@@ -62145,6 +61952,302 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActSummaryGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация об акте */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActProductGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActProductGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о товарах в акте */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActAccept: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptRequest"];
+            };
+        };
+        responses: {
+            /** @description Акт согласован */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActAcceptStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус согласования акта */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptStatusResponse"];
                 };
             };
             /** @description Неверный параметр */
