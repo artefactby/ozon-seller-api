@@ -5,6 +5,51 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.5.0] - 2026-08-14
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13–14 августа 2026.
+Пути: 458 → 463 (+5 / −0); схемы: 2112 → 2136 (+24 / −0); новые поля в существующих схемах: 6.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/carriage/courier-contact/set` и `POST /v1/carriage/courier-contact/get` —
+  контактные данные продавца для курьера.
+- Бета-методы сертификатов:
+  `POST /v2/product/certification/options`,
+  `POST /v2/product/certification/params`,
+  `POST /v2/product/certificate/create`.
+- В `/v1/analytics/stocks`: запрос — `placement_zone`, `unmarked_stocks_only`;
+  ответ — `items.waiting_docs_to_export_stock_count`, `items.placement_zone`.
+- В ответе `/v2/delivery/checkout`: `splits.commissions`.
+- В bind/unbind сертификата: параметр `skus`.
+- В `/v1/product/certificate/products/list`: параметры `last_id`, `limit`;
+  в ответе — `result.items.sku`.
+
+### Changed
+
+- `/v1/product/certificate/create` помечен `@deprecated` (отключение 31 августа 2026).
+- В bind/unbind: `product_id` помечен `@deprecated`.
+- В products/list: `page` и `page_size` помечены `@deprecated`.
+- В `/v1/analytics/stocks` обновлены описания и enum `item_tags`
+  (в запросе добавлен `MARKABLE`, в ответе — `MARKABLE` и `UNSPECIFIED`).
+
+### Breaking
+
+- В запросах bind/unbind `product_id` больше не всегда required: схема — `oneOf`
+  (`product_id` | `skus`); в типах `product_id` стал optional.
+- В запросе products/list `page`/`page_size` больше не всегда required: схема — `oneOf`
+  (`page`+`page_size` | `limit`); в типах эти поля стали optional.
+- Расширены enum `item_tags` в запросе и ответе `/v1/analytics/stocks`
+  (новые значения в подписи типа).
+
+### Notes
+
+- Миграция по анонсу Ozon: для bind/unbind предпочитать `skus`; для products/list —
+  `last_id`/`limit`; вместо `/v1/product/certificate/create` — v2 options/params/create
+  до 31 августа 2026.
+- Сверка с анонсом Ozon за 13–14 августа 2026 проведена: все пункты отражены в снимке.
+
 ## [0.4.0] - 2026-08-11
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 августа 2026.
