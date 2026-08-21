@@ -897,11 +897,11 @@ export interface paths {
         put?: never;
         /**
          * Информация о количестве товаров
-         * @description Возвращает информацию о ĸоличестве товаров по схемам FBS, rFBS и FBP:
+         * @description Возвращает информацию о ĸоличестве товаров по схемам FBO, FBS, rFBS и FBP:
          *       - сĸольĸо единиц есть в наличии,
          *       - сĸольĸо зарезервировано поĸупателями.
          *
-         *     Чтобы получить информацию об остатках по схеме FBO, используйте метод [/v1/analytics/stocks](#operation/AnalyticsAPI_AnalyticsStocks).
+         *     Чтобы получить аналитику по остаткам по схеме FBO, используйте метод [/v1/analytics/stocks](#operation/AnalyticsAPI_AnalyticsStocks).
          */
         post: operations["ProductAPI_GetProductInfoStocks"];
         delete?: never;
@@ -3267,9 +3267,6 @@ export interface paths {
          * Создание отгрузки
          * @description <aside class="warning">
          *     Если вы продавец не из России, обратите внимание на доступность <a href="https://seller-edu.ozon.ru/fbs/ozon-logistika/sobrat-zakazy#шаг-2-сформируите-отгрузку">рекомендованного времени</a> в личном кабинете.
-         *     Если вам не доступен этот функционал, создайте отгрузку через метод <a href="#operation/PostingAPI_PostingFBSActCreate">/v2/posting/fbs/act/create</a>.
-         *     Подтверждать отгрузку, которую создали через этот метод, не нужно. Вы не сможете отредактировать состав отгрузки.
-         *
          *     </aside>
          *
          *     Используйте метод для создания первой FBS отгрузки. В неё попадут все отправления со статусом «Готов к отгрузке». Созданная отгрузка получит статус `new`.
@@ -11118,8 +11115,14 @@ export interface components {
             id?: number;
         };
         GetProductInfoListResponseAvailability: {
-            /** @description Доступность товара. */
-            availability?: string;
+            /**
+             * @description Доступность товара:
+             *     - `HIDDEN` — скрыт;
+             *     - `AVAILABLE` — доступен;
+             *     - `UNAVAILABLE` — недоступен, SKU удалён.
+             * @enum {string}
+             */
+            availability?: "HIDDEN" | "AVAILABLE" | "UNAVAILABLE";
             /** @description Причина, почему товар скрыт. */
             reasons?: components["schemas"]["AvailabilityReason"][];
             /**
@@ -20494,7 +20497,7 @@ export interface components {
         postingPostingFBSActGetContainerLabelsRequest: {
             /**
              * Format: int64
-             * @description Номер задания на формирование документов (также идентификатор перевозки) из метода [POST /v2/posting/fbs/act/create](#operation/PostingAPI_PostingFBSActCreate).
+             * @description Идентификатор перевозки из метода [/v1/carriage/create](#operation/CarriageAPI_CarriageCreate).
              */
             id: number;
         };
@@ -26070,11 +26073,13 @@ export interface components {
          *       - `SELLER_API_UPDATES` — чат с обновлениями Seller API;
          *       - `SELLER_API_NOTIFICATIONS` — чат с уведомлениями Seller API;
          *       - `SELLER_NOTIFICATION_LOGISTICS` — чат с уведомлениями Ozon Доставки;
-         *       - `SELLER_NOTIFICATION_UPDATE_CONTENT` — чат с уведомлениями об изменениях в атрибутно-категорийной модели.
+         *       - `SELLER_NOTIFICATION_UPDATE_CONTENT` — чат с уведомлениями об изменениях в атрибутно-категорийной модели;
+         *       - `SELLER_PERSONAL_MANAGER_UNITY_CRM` — чат с персональным менеджером Ozon;
+         *       - `SELLER_BUSINESS_DEVELOPMENT_GROUP` — чат с группой бизнес-развития Ozon.
          * @default UNSPECIFIED
          * @enum {string}
          */
-        ChatInfoChatTypeEnum: "UNSPECIFIED" | "SELLER_SUPPORT" | "BUYER_SELLER" | "BUYER_SELLER_SELECT" | "SELLER_API_UPDATES" | "SELLER_API_NOTIFICATIONS" | "SELLER_NOTIFICATION_LOGISTICS" | "SELLER_NOTIFICATION_UPDATE_CONTENT";
+        ChatInfoChatTypeEnum: "UNSPECIFIED" | "SELLER_SUPPORT" | "BUYER_SELLER" | "BUYER_SELLER_SELECT" | "SELLER_API_UPDATES" | "SELLER_API_NOTIFICATIONS" | "SELLER_NOTIFICATION_LOGISTICS" | "SELLER_NOTIFICATION_UPDATE_CONTENT" | "SELLER_PERSONAL_MANAGER_UNITY_CRM" | "SELLER_BUSINESS_DEVELOPMENT_GROUP";
         /** @description Информация о чате. */
         v3ChatDetailsInfo: {
             /**
@@ -26643,7 +26648,7 @@ export interface components {
              *     * `fbo` — чтобы получить отчёт по схеме FBO,
              *     * `fbs` — чтобы получить отчёт по схеме FBS.
              */
-            delivery_schema?: string[];
+            delivery_schema: string[];
             /** @description Идентификатор товара в системе продавца — артикул. */
             offer_id?: string;
             /**
@@ -40968,13 +40973,13 @@ export interface operations {
                      *           "id": 5055881,
                      *           "value": "Sunshine",
                      *           "info": "Здоровье и красота",
-                     *           "picture": "https://ir.ozone.ru/s3/multimedia-i/6010930878.jpg"
+                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-i/6010930878.jpg"
                      *         },
                      *         {
                      *           "id": 5056737,
                      *           "value": "Essence",
                      *           "info": "Красота и здоровье",
-                     *           "picture": "https://ir.ozone.ru/s3/multimedia-v/6088253599.jpg"
+                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-v/6088253599.jpg"
                      *         }
                      *       ],
                      *       "has_next": true
@@ -42063,7 +42068,7 @@ export interface operations {
                      *         {
                      *           "availabilities": [
                      *             {
-                     *               "availability": "in_stock",
+                     *               "availability": "AVAILABLE",
                      *               "reasons": [
                      *                 {
                      *                   "human_text": {
@@ -42320,15 +42325,15 @@ export interface operations {
                      *           "dimension_unit": "mm",
                      *           "weight": 50,
                      *           "weight_unit": "g",
-                     *           "primary_image": "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *           "primary_image": "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
                      *           "sku": 423434534,
                      *           "model_info": {
                      *             "model_id": 43445453,
                      *             "count": 4
                      *           },
                      *           "images": [
-                     *             "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
-                     *             "https://ir.ozone.ru/s3/multimedia-j/6835412647.jpg"
+                     *             "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *             "https://ir-3.ozone.ru/s3/multimedia-j/6835412647.jpg"
                      *           ],
                      *           "pdf_list": [],
                      *           "attributes": [
@@ -55902,7 +55907,7 @@ export interface operations {
                      *       "result": {
                      *         "error": "",
                      *         "status": "completed",
-                     *         "file_url": "https://ir.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
+                     *         "file_url": "https://ir-3.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
                      *         "printed_postings_count": 1,
                      *         "unprinted_postings_count": 0,
                      *         "unprinted_postings": []
@@ -58287,7 +58292,7 @@ export interface operations {
                      *         "status": "success",
                      *         "error": "",
                      *         "expires_at": "2025-11-10T11:16:00.267Z",
-                     *         "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *         "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *         "report_type": "seller_products",
                      *         "params": {},
                      *         "created_at": "2021-11-25T14:54:55.688260Z"
@@ -58390,7 +58395,7 @@ export interface operations {
                      *             "status": "success",
                      *             "error": "",
                      *             "expires_at": "2025-11-10T11:35:10.028Z",
-                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
+                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -58401,7 +58406,7 @@ export interface operations {
                      *             "code": "REPORT_seller_products_924336_1720170405_a9ea2f27-a473-4b13-99f9-d0cfcb5b1a69",
                      *             "status": "success",
                      *             "error": "",
-                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
