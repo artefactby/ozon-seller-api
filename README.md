@@ -6,7 +6,6 @@
 [![license](https://img.shields.io/npm/l/artefactby-ozon-seller-api.svg)](./LICENSE)
 [![CI](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml/badge.svg)](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/artefactby-ozon-seller-api)](https://socket.dev/npm/package/artefactby-ozon-seller-api)
-[![Package Health](https://snyk.io/advisor/npm-package/artefactby-ozon-seller-api/badge.svg)](https://security.snyk.io/package/npm/artefactby-ozon-seller-api)
 
 Неофициальный типизированный клиент [Ozon Seller API](https://docs.ozon.ru/api/seller/)
 для TypeScript и JavaScript.
