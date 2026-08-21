@@ -1753,7 +1753,13 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Добавить сертификаты для товаров */
+        /**
+         * Добавить сертификаты для товаров
+         * @deprecated
+         * @description <aside class="warning">
+         *     31 августа 2026 года отключим метод. Переключитесь на методы <a href="#operation/ProductCertificateOptions">/v2/product/certification/options</a>, <a href="#operation/ProductCertificateParams">/v2/product/certification/params</a> и <a href="#operation/ProductCertificateCreate">/v2/product/certificate/create</a>.
+         *     </aside>
+         */
         post: operations["ProductAPI_ProductCertificateCreate"];
         delete?: never;
         options?: never;
@@ -3470,6 +3476,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/carriage/courier-contact/set": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Добавить или обновить контактные данные продавца для курьера
+         * @description Используйте метод, чтобы добавить или обновить контактные данные продавца, которые передаются курьеру для перевозок с `first_mile_type = pickup` и `integration_type = ozon_outsourced`.
+         *     Получите значения параметров `first_mile_type` и `integration_type` в ответе метода [/v1/carriage/get](#operation/CarriageGet).
+         */
+        post: operations["CarriageCourierContactSet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/carriage/courier-contact/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить контактные данные продавца для курьера
+         * @description Возвращает контактные данные продавца, которые добавили или обновили методом [/v1/carriage/courier-contact/set](#operation/CarriageCourierContactSet).
+         */
+        post: operations["CarriageCourierContactGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/posting/fbs/split": {
         parameters: {
             query?: never;
@@ -4554,131 +4601,6 @@ export interface paths {
         put?: never;
         /** Информация о заявке на возврат */
         post: operations["RFBSReturnsAPI_ReturnsRfbsGetV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/reject": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Отклонить заявку на возврат
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод позволяет отклонить заявку на возврат rFBS-заказа. Вы можете объяснить своё решение в параметре `comment`.
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsRejectV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/compensate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Вернуть часть стоимости товара
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод для частичной компенсации стоимости товара: вы возвращаете часть денег покупателю, товар остаётся у него.
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsCompensateV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/verify": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Одобрить заявку на возврат
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод позволяет одобрить заявку и согласиться на получение товара для проверки.
-         *
-         *     Подтвердите получение товара с помощью метода [/v2/returns/rfbs/receive-return](#operation/RFBSReturnsAPI_ReturnsRfbsReceiveReturnV2).
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsVerifyV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/receive-return": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Подтвердить получение товара на проверку
-         * @description <aside class="warning">
-         *       В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsReceiveReturnV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/returns/rfbs/return-money": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Вернуть деньги покупателю
-         * @description <aside class="warning">
-         *     В будущем метод будет отключён. Переключитесь на <a href="#operation/ReturnsAPI_ReturnsRfbsActionSet">/v1/returns/rfbs/action/set</a>.
-         *     </aside>
-         *
-         *     Метод подтверждает возврат полной стоимости товара.
-         *     Используйте метод, если согласны:
-         *     - сразу вернуть стоимость товара и оставить его покупателю;
-         *     - вернуть стоимость после получения и проверки товара.
-         *
-         *     Если товар оказался ненадлежащего качества или с браком, вы возмещаете покупателю стоимость пересылки товара.
-         */
-        post: operations["RFBSReturnsAPI_ReturnsRfbsReturnMoneyV2"];
         delete?: never;
         options?: never;
         head?: never;
@@ -6685,6 +6607,150 @@ export interface paths {
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2280-Novyi-beta-metod-dlia-polucheniia-otcheta-o-realizatsii-po-postingam/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["CreateCompanyFinanceRealizationPostingReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/product/certification/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить параметры для создания сертификата качества
+         * @description Используйте информацию о параметрах в запросе метода [/v2/product/certification/params](#operation/ProductCertificateParams).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ProductCertificateOptions"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/product/certification/params": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить обязательные параметры для создания сертификата качества
+         * @description Используйте информацию о параметрах в запросе метода [/v2/product/certificate/create](#operation/ProductCertificateCreate).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ProductCertificateParams"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/product/certificate/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Создать сертификат качества
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ProductCertificateCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/summary/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию об акте
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActSummaryGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/product/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о товарах в акте
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActProductGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Согласовать акт
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActAccept"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/act/accept/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить статус согласования акта
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderActAcceptStatus"];
         delete?: never;
         options?: never;
         head?: never;
@@ -14271,9 +14337,14 @@ export interface components {
              * @description Идентификатор сертификата, который был присвоен при его загрузке.
              */
             certificate_id: number;
-            /** @description Массив идентификаторов товаров, к которым относится этот сертификат. */
-            product_id: number[];
-        };
+            /**
+             * @deprecated
+             * @description Массив идентификаторов товаров в системе Ozon — `product_id`, к которым относится этот сертификат.
+             */
+            product_id?: number[];
+            /** @description Список идентификаторов товаров в системе Ozon — SKU, к которым относится этот сертификат. */
+            skus?: string[];
+        } & (unknown | unknown);
         /** object */
         v1ProductCertificateDeleteRequest: {
             /**
@@ -14404,19 +14475,33 @@ export interface components {
              * @description Идентификатор сертификата.
              */
             certificate_id: number;
+            /**
+             * Format: int64
+             * @description Идентификатор последнего значения на странице. При первом запросе оставьте это поле пустым.
+             *
+             *     Чтобы получить следующие значения, укажите `last_id` из ответа предыдущего запроса.
+             */
+            last_id?: number;
+            /**
+             * Format: int64
+             * @description Количество значений на странице.
+             */
+            limit?: number;
             /** @description Статус проверки товара при привязке к сертификату. */
             product_status_code?: string;
             /**
              * Format: int32
+             * @deprecated
              * @description Номер страницы, с которой выводить список. Минимальное значение — 1.
              */
-            page: number;
+            page?: number;
             /**
              * Format: int32
+             * @deprecated
              * @description Количество объектов на странице.
              */
-            page_size: number;
-        };
+            page_size?: number;
+        } & (unknown | unknown);
         /** object */
         ProductCertificateProductsListResponseProduct: {
             /**
@@ -14426,6 +14511,11 @@ export interface components {
             product_id?: number;
             /** @description Статус обработки товара при привязке к сертификату. */
             product_status_code?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
         };
         /**
          * object
@@ -14451,9 +14541,14 @@ export interface components {
              * @description Идентификатор сертификата.
              */
             certificate_id: number;
-            /** @description Список идентификаторов товара, которые нужно отвязать от сертификата. */
-            product_id: string[];
-        };
+            /**
+             * @deprecated
+             * @description Список идентификаторов товара в системе Ozon — `product_id`, которые нужно отвязать от сертификата.
+             */
+            product_id?: string[];
+            /** @description Список идентификаторов товаров в системе Ozon — SKU, которые нужно отвязать от сертификата. */
+            skus?: string[];
+        } & (unknown | unknown);
         /** object */
         ProductCertificateUnbindResponseItem: {
             /** @description Сообщение об ошибке при отвязывании товара. */
@@ -20249,6 +20344,48 @@ export interface components {
              */
             warehouse_id?: number;
         };
+        v1CarriageCourierContactSetRequest: {
+            /**
+             * Format: int64
+             * @description Идентификатор перевозки.
+             */
+            carriage_id: number;
+            /** @description Телефон продавца. */
+            phone: string;
+            /** @description WeChat продавца. */
+            wechat_nickname?: string;
+            /** @description Комментарий для курьера. */
+            comment?: string;
+        };
+        v1CarriageCourierContactGetRequest: {
+            /**
+             * Format: int64
+             * @description Идентификатор перевозки.
+             */
+            carriage_id: number;
+        };
+        v1CarriageCourierContactGetResponseContact: {
+            /**
+             * Format: int64
+             * @description Идентификатор перевозки.
+             */
+            carriage_id?: number;
+            /** @description Телефон продавца. */
+            phone?: string;
+            /** @description WeChat продавца. */
+            wechat_nickname?: string;
+            /** @description Комментарий для курьера. */
+            comment?: string;
+            /**
+             * Format: date-time
+             * @description Дата и время последнего обновления записи в UTC.
+             */
+            updated_at?: string;
+        };
+        v1CarriageCourierContactGetResponse: {
+            /** @description Информация о контактах продавца. */
+            contact?: components["schemas"]["v1CarriageCourierContactGetResponseContact"][];
+        };
         /** PostingFbsSplit */
         v1ProductFbsSplit: {
             /**
@@ -24883,7 +25020,10 @@ export interface components {
             rejection_comment?: string;
             /** @description Данные о причине отклонения заявки. */
             rejection_reason?: components["schemas"]["ReturnsRfbsGetV2ResponseRejectionReason"][];
-            /** @description Способ возврата товара. */
+            /**
+             * @deprecated
+             * @description Способ возврата товара.
+             */
             return_method_description?: string;
             /** @description Номер заявки на возврат. */
             return_number?: string;
@@ -24900,68 +25040,6 @@ export interface components {
         /** object */
         v2ReturnsRfbsGetResponse: {
             returns?: components["schemas"]["ReturnsRfbsGetResponseReturns"];
-        };
-        /** object */
-        v2ReturnsRfbsRejectRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-            /**
-             * @description Комментарий.
-             *
-             *     Передайте комментарий, если в ответе метода [/v2/returns/rfbs/get](#operation/RFBSReturnsAPI_ReturnsRfbsGetV2) параметр `rejection_reason.is_comment_required` — `true`.
-             */
-            comment?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор причины отмены.
-             *
-             *     Передайте идентификатор из списка причин, полученного в ответе метода [/v2/returns/rfbs/get](#operation/RFBSReturnsAPI_ReturnsRfbsGetV2) в параметре `rejection_reason`.
-             */
-            rejection_reason_id: number;
-        };
-        /** object */
-        v2ReturnsRfbsCompensateRequest: {
-            /** @description Сумма компенсации. */
-            compensation_amount?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-        };
-        /** object */
-        v2ReturnsRfbsVerifyRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-            /** @description Способ возврата товара. */
-            return_method_description?: string;
-        };
-        /** object */
-        v2ReturnsRfbsReceiveReturnRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-        };
-        /** object */
-        v2ReturnsRfbsReturnMoneyRequest: {
-            /**
-             * Format: int64
-             * @description Идентификатор заявки на возврат.
-             */
-            return_id: number;
-            /**
-             * Format: int64
-             * @description Сумма, возмещаемая покупателю за пересылку товара.
-             */
-            return_for_back_way?: number;
         };
         v1ReturnsRfbsActionSetRequest: {
             /**
@@ -27204,11 +27282,25 @@ export interface components {
              *     - `NOVEL` — новинка;
              *     - `DISCOUNT` — уценённый товар;
              *     - `FBS_RETURN` — товар из возврата FBS;
-             *     - `SUPER` — Super-товар.
+             *     - `SUPER` — Super-товар;
+             *     - `MARKABLE` — товар, подлежащий маркировке.
              */
-            item_tags?: ("ITEM_ATTRIBUTE_NONE" | "ECONOM" | "NOVEL" | "DISCOUNT" | "FBS_RETURN" | "SUPER")[];
+            item_tags?: ("ITEM_ATTRIBUTE_NONE" | "ECONOM" | "NOVEL" | "DISCOUNT" | "FBS_RETURN" | "SUPER" | "MARKABLE")[];
             /** @description Фильтр по идентификаторам макролокальных кластеров. Получить идентификаторы можно в параметре `macrolocal_cluster_ids` метода [/v1/cluster/list](#operation/SupplyDraftAPI_DraftClusterList) или через метод [/v2/cluster/list](#operation/DraftClusterList). */
             macrolocal_cluster_ids?: string[];
+            /**
+             * @description Зона размещения товара:
+             *     - `PLACEMENT_ZONE_NONE` — не указана;
+             *     - `CLOSED_ZONE` — закрытая;
+             *     - `DANGEROUS_GOOD` — опасные товары;
+             *     - `PRODUCTS_PLUS_17` — продукты;
+             *     - `SORT` — сортируемый товар;
+             *     - `NON_SORT_MEZ` — несортируемый товар;
+             *     - `OVERSIZE` — крупногабаритный товар;
+             *     - `JEWELRY` — ювелирные изделия;
+             *     - `UNRESOLVED` — ещё не определена.
+             */
+            placement_zone?: ("PLACEMENT_ZONE_NONE" | "CLOSED_ZONE" | "DANGEROUS_GOOD" | "PRODUCTS_PLUS_17" | "SORT" | "NON_SORT_MEZ" | "OVERSIZE" | "JEWELRY" | "UNRESOLVED")[];
             /** @description Фильтр по идентификаторам товаров в системе Ozon — SKU. */
             skus: string[];
             /**
@@ -27229,6 +27321,8 @@ export interface components {
              *     - `WAS_SURPLUS` — был избыточным. Товар был избыточным последние 56 дней. Сейчас у него нет остатков.
              */
             turnover_grades?: ("TURNOVER_GRADE_NONE" | "DEFICIT" | "POPULAR" | "ACTUAL" | "SURPLUS" | "NO_SALES" | "WAS_NO_SALES" | "RESTRICTED_NO_SALES" | "COLLECTING_DATA" | "WAITING_FOR_SUPPLY" | "WAS_DEFICIT" | "WAS_POPULAR" | "WAS_ACTUAL" | "WAS_SURPLUS")[];
+            /** @description `true`, чтобы получить только товары, которые нужно промаркировать. */
+            unmarked_stocks_only?: boolean;
             /** @description Фильтр по идентификаторам складов. Получить идентификаторы можно через метод [/v1/warehouse/list](#operation/WarehouseAPI_WarehouseList). */
             warehouse_ids?: string[];
         };
@@ -27288,14 +27382,16 @@ export interface components {
             idc_cluster?: number;
             /**
              * @description Теги товара:
+             *     - `UNSPECIFIED` — не определено;
              *     - `ITEM_ATTRIBUTE_NONE` — без тега;
              *     - `ECONOM` — эконом-товар;
              *     - `NOVEL` — новинка;
              *     - `DISCOUNT` — уценённый товар;
              *     - `FBS_RETURN` — товар из возврата FBS;
-             *     - `SUPER` — Super-товар.
+             *     - `SUPER` — Super-товар;
+             *     - `MARKABLE` — товар, подлежащий маркировке.
              */
-            item_tags?: ("ITEM_ATTRIBUTE_NONE" | "ECONOM" | "NOVEL" | "DISCOUNT" | "FBS_RETURN" | "SUPER")[];
+            item_tags?: ("UNSPECIFIED" | "ITEM_ATTRIBUTE_NONE" | "ECONOM" | "NOVEL" | "DISCOUNT" | "FBS_RETURN" | "SUPER" | "MARKABLE")[];
             /**
              * Format: int64
              * @description Идентификатор макролокального кластера. Получите информацию о кластере методом [/v1/cluster/list](#operation/SupplyDraftAPI_DraftClusterList) или [/v2/cluster/list](#operation/DraftClusterList).
@@ -27310,6 +27406,19 @@ export interface components {
              * @description Количество единиц товара, проходящих проверку.
              */
             other_stock_count?: number;
+            /**
+             * @description Зона размещения товара:
+             *     - `UNSPECIFIED` — не указана;
+             *     - `CLOSED_ZONE` — закрытая;
+             *     - `DANGEROUS_GOOD` — опасные товары;
+             *     - `PRODUCTS` — продукты;
+             *     - `SORT` — сортируемый товар;
+             *     - `NON_SORT` — несортируемый товар;
+             *     - `OVERSIZE` — крупногабаритный товар;
+             *     - `JEWELRY` — ювелирные изделия;
+             *     - `UNRESOLVED` — ещё не определена.
+             */
+            placement_zone?: ("UNSPECIFIED" | "CLOSED_ZONE" | "DANGEROUS_GOOD" | "PRODUCTS" | "SORT" | "NON_SORT" | "OVERSIZE" | "JEWELRY" | "UNRESOLVED")[];
             /**
              * Format: int32
              * @description Количество единиц товара в заявках на поставку.
@@ -27395,6 +27504,11 @@ export interface components {
              * @description Количество маркируемых товаров, которые ожидают ваших действий.
              */
             waiting_docs_stock_count?: number;
+            /**
+             * Format: int32
+             * @description Количество маркируемых товаров, которые ожидают вывоз.
+             */
+            waiting_docs_to_export_stock_count?: number;
             /**
              * Format: int64
              * @description Идентификатор склада.
@@ -31715,6 +31829,506 @@ export interface components {
         "report.v1.CreateCompanyFinanceRealizationPostingReportResponse": {
             /** @description Уникальный идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
             code?: string;
+        };
+        "certification.v2.ProductCertificateOptionsResponse.Option": {
+            /**
+             * @description Название параметра сертификата:
+             *     - `NAME` — название;
+             *     - `CERTIFICATE_TYPE` — тип;
+             *     - `NUMBER` — номер;
+             *     - `FILES` — файл с сертификатом в кодировке Base64;
+             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
+             *     - `ACCORDANCE_TYPE` — тип соответствия требованиям;
+             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
+             *     - `ISSUE_DATE` — дата выпуска;
+             *     - `EXPIRED_DATE` — дата истечения;
+             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
+             *     - `PRODUCT_TYPE` — тип товаров;
+             *     - `INFINITE` — бессрочность.
+             */
+            name?: string;
+            /** @description `true`, если параметр обязательный. */
+            required?: boolean;
+        };
+        "certification.v2.ProductCertificateOptionsResponse": {
+            /** @description Параметры для создания сертификата. */
+            option?: components["schemas"]["certification.v2.ProductCertificateOptionsResponse.Option"][];
+        };
+        /**
+         * @description Тип соответствия требованиям из метода [/v2/product/certificate/accordance-types/list](#operation/CertificateAccordanceTypes):
+         *     - `UNKNOWN` — неизвестный;
+         *     - `EAEU` — стандарт сертификации ЕАЭС;
+         *     - `NATIONAL` — национальный стандарт сертификации;
+         *     - `TECHNICAL_REGULATIONS_RF` — технический регламент Российской Федерации;
+         *     - `TECHNICAL_REGULATIONS_CU` — технический регламент Таможенного союза;
+         *     - `GOST` — ГОСТ;
+         *     - `CHEMICAL_PRODUCTS` — паспорт безопасности химической продукции;
+         *     - `SAFETY_DATA_SHEET` — паспорт безопасности;
+         *     - `REJECTION_LETTER` — отказное письмо.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum": "UNKNOWN" | "EAEU" | "NATIONAL" | "TECHNICAL_REGULATIONS_RF" | "TECHNICAL_REGULATIONS_CU" | "GOST" | "CHEMICAL_PRODUCTS" | "SAFETY_DATA_SHEET" | "REJECTION_LETTER";
+        /**
+         * @description Тип сертификата:
+         *     - `UNKNOWN` — неизвестный;
+         *     - `CERTIFICATE_OF_CONFORMITY` — сертификат соответствия;
+         *     - `DECLARATION` — декларация о соответствии;
+         *     - `CERTIFICATE_OF_REGISTRATION` — свидетельство о государственной регистрации;
+         *     - `REGISTRATION_CERTIFICATE` — регистрационное удостоверение;
+         *     - `REFUSED_LETTER` — отказное письмо;
+         *     - `VETERINARY_COVER_DOCUMENT` — ветеринарный сопроводительный документ;
+         *     - `SAFETY_DATA_SHEET` — паспорт безопасности.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum": "UNKNOWN" | "CERTIFICATE_OF_CONFORMITY" | "DECLARATION" | "CERTIFICATE_OF_REGISTRATION" | "REGISTRATION_CERTIFICATE" | "REFUSED_LETTER" | "VETERINARY_COVER_DOCUMENT" | "SAFETY_DATA_SHEET";
+        /** @description Дата истечения сертификата. Не передавайте параметр, если `infinite = true`. */
+        "google.type.Date": {
+            /**
+             * Format: int32
+             * @description День.
+             */
+            day?: number;
+            /**
+             * Format: int32
+             * @description Месяц.
+             */
+            month?: number;
+            /**
+             * Format: int32
+             * @description Год.
+             */
+            year?: number;
+        };
+        /** @description Информация о дате истечения сертификата. */
+        "certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate": {
+            date?: components["schemas"]["google.type.Date"];
+            /** @description `true`, если сертификат бессрочный. Не передавайте параметр, если указали `date`. */
+            infinite?: boolean;
+        };
+        "certification.v2.ProductCertificateParamsRequest.Params.File": {
+            /** @description Файл в кодировке Base64. */
+            file_content: string;
+            /** @description Название файла. */
+            name: string;
+        };
+        /**
+         * @description Тип товаров:
+         *     - `UNKNOWN` — неизвестный;
+         *     - `PRODUCTS_SUBJECT_TO_REGISTRATION` — продукт, подлежащий государственной регистрации;
+         *     - `PESTICIDE` — пестицид;
+         *     - `AGROCHEMICAL` — агрохимикат;
+         *     - `FEED_ADDITIVE` — кормовая добавка;
+         *     - `MEDICAL_PRODUCT` — медицинский продукт;
+         *     - `MEDICINE` — лекарственный препарат;
+         *     - `VETERINARY_DRUG` — ветеринарный препарат;
+         *     - `PHARMACEUTICAL_SUBSTANCE` — фармацевтический ингредиент.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum": "UNKNOWN" | "PRODUCTS_SUBJECT_TO_REGISTRATION" | "PESTICIDE" | "AGROCHEMICAL" | "FEED_ADDITIVE" | "MEDICAL_PRODUCT" | "MEDICINE" | "VETERINARY_DRUG" | "PHARMACEUTICAL_SUBSTANCE";
+        /** @description Параметры для создания сертификата. */
+        "certification.v2.ProductCertificateParamsRequest.Params": {
+            accordance_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum"];
+            /** @description Код страны, где выдали сертификат. */
+            certificate_country?: string;
+            certificate_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum"];
+            expired_date?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate"];
+            /** @description Файлы сертификата. */
+            files?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.File"][];
+            /**
+             * Format: date-time
+             * @description Дата выдачи сертификата.
+             */
+            issue_date?: string;
+            /** @description Ссылка на государственный реестр. */
+            link_to_registry?: string;
+            /** @description Название сертификата. */
+            name?: string;
+            /** @description Номер сертификата. */
+            number?: string;
+            product_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum"];
+            /** @description Список идентификаторов товара в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        "certification.v2.ProductCertificateParamsRequest": {
+            params?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params"];
+        };
+        "certification.v2.ProductCertificateParamsResponse.Param": {
+            /**
+             * @description Название параметра сертификата:
+             *     - `NAME` — название;
+             *     - `CERTIFICATE_TYPE` — тип;
+             *     - `NUMBER` — номер;
+             *     - `FILES` — файл с сертификатом в кодировке Base64;
+             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
+             *     - `ACCORDANCE_TYPE` — тип соответствия требованиям;
+             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
+             *     - `ISSUE_DATE` — дата выпуска;
+             *     - `EXPIRED_DATE` — дата истечения;
+             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
+             *     - `PRODUCT_TYPE` — тип товаров;
+             *     - `INFINITE` — бессрочность.
+             */
+            name?: string;
+            /** @description `true`, если параметр обязательный. */
+            required?: boolean;
+        };
+        "certification.v2.ProductCertificateParamsResponse": {
+            /** @description Параметры для создания сертификата. */
+            params?: components["schemas"]["certification.v2.ProductCertificateParamsResponse.Param"][];
+        };
+        /** @description Параметры для создания сертификата. */
+        "certification.v2.ProductCertificateCreateRequest.Params": {
+            accordance_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum"];
+            /** @description Код страны, где выдали сертификат. */
+            certificate_country?: string;
+            certificate_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum"];
+            expired_date?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate"];
+            /** @description Файлы сертификата. */
+            files?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.File"][];
+            /**
+             * Format: date-time
+             * @description Дата выдачи сертификата.
+             */
+            issue_date?: string;
+            /** @description Ссылка на государственный реестр. */
+            link_to_registry?: string;
+            /** @description Название сертификата. */
+            name?: string;
+            /** @description Номер сертификата. */
+            number?: string;
+            product_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum"];
+            /** @description Список идентификаторов товара в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        "certification.v2.ProductCertificateCreateRequest": {
+            params?: components["schemas"]["certification.v2.ProductCertificateCreateRequest.Params"];
+        };
+        /**
+         * @description Состояние параметра:
+         *     - `VALID` — заполнен корректно;
+         *     - `INVALID` — заполнен некорректно;
+         *     - `MISSING` — не заполнен.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateCreateResponse.Param.State.Enum": "VALID" | "INVALID" | "MISSING";
+        "certification.v2.ProductCertificateCreateResponse.Param": {
+            /** @description Ошибки в параметре для `state = INVALID`. */
+            error?: string;
+            /**
+             * @description Название параметра сертификата:
+             *     - `NAME` — название;
+             *     - `CERTIFICATE_TYPE` — тип;
+             *     - `NUMBER` — номер;
+             *     - `FILES` — файл с сертификатом в кодировке Base64;
+             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
+             *     - `ACCORDANCE_TYPE` — тип соответствия требованиям;
+             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
+             *     - `ISSUE_DATE` — дата выпуска;
+             *     - `EXPIRED_DATE` — дата истечения;
+             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
+             *     - `PRODUCT_TYPE` — тип товаров;
+             *     - `INFINITE` — бессрочность.
+             */
+            name?: string;
+            state?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param.State.Enum"];
+        };
+        /**
+         * @description Статус сертификата:
+         *     - `INCOMPLETE` — не загружен, некоторые параметры переданы некорректно;
+         *     - `COMPLETED` — загружен.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateCreateResponse.Status.Enum": "INCOMPLETE" | "COMPLETED";
+        "certification.v2.ProductCertificateCreateResponse": {
+            /**
+             * Format: int64
+             * @description Идентификатор сертификата. Если `null`, сертификат создать не удалось.
+             */
+            certificate_id?: number;
+            /** @description Информация о параметрах в запросе. */
+            params?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param"][];
+            status?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Status.Enum"];
+        };
+        "supply_order.v1.SupplyOrderActSummaryGetRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор заявки на поставку из метода [/v3/supply-order/list](#operation/SupplyOrderList).
+             */
+            order_id: number;
+        };
+        /**
+         * @description Статус акта:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `AWAITING_APPROVAL_BY_SELLER` — ожидает согласования продавца;
+         *     - `REJECT_BY_SELLER` — отклонён продавцом;
+         *     - `AGREEMENT_WITH_SELLER` — согласован продавцом;
+         *     - `ACCEPTED` — согласование завершено.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.ActState.Enum": "UNSPECIFIED" | "AWAITING_APPROVAL_BY_SELLER" | "REJECT_BY_SELLER" | "AGREEMENT_WITH_SELLER" | "ACCEPTED";
+        /** @description Сумма с НДС. */
+        "money.MoneySupplyActAmount": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Сумма НДС. */
+        "money.MoneySupplyActAmountVat": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Сумма без НДС. */
+        "money.MoneySupplyActAmountWithoutVat": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Согласованная стоимость товаров. */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.ApprovedAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Фактическая стоимость товаров. */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.FactAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Информация о товарах в акте. */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary": {
+            approved_amount?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.ApprovedAmount"];
+            /**
+             * Format: int32
+             * @description Количество согласованных товаров.
+             */
+            approved_quantity?: number;
+            /**
+             * Format: int32
+             * @description Количество заявленных товаров.
+             */
+            declared_quantity?: number;
+            fact_amount?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary.FactAmount"];
+            /**
+             * Format: int32
+             * @description Количество принятых товаров.
+             */
+            fact_quantity?: number;
+            /**
+             * Format: int32
+             * @description Общее количество товаров.
+             */
+            sku_quantity?: number;
+            /**
+             * Format: int32
+             * @description Количество неопознанных излишков.
+             */
+            unidentified_quantity?: number;
+        };
+        /**
+         * @description Тип акта:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `ACCEPTANCE` — акт приёмки;
+         *     - `DEFECT` — акт о браке;
+         *     - `SURPLUS` — акт об излишках;
+         *     - `SHORTCOMING` — акт о недостаче.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Type.Enum": "UNSPECIFIED" | "ACCEPTANCE" | "DEFECT" | "SURPLUS" | "SHORTCOMING";
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs": {
+            /**
+             * Format: int64
+             * @description Идентификатор акта.
+             */
+            act_id?: number;
+            /** @description Номер акта. */
+            act_number?: string;
+            act_state?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.ActState.Enum"];
+            /** @description Дата создания акта. */
+            created_date?: string;
+            /**
+             * Format: date-time
+             * @description Дата и время, до которой можно работать с актом.
+             */
+            deadline_utc?: string;
+            summary?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Summary"];
+            type?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs.Type.Enum"];
+        };
+        "supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs": {
+            /** @description `true`, если все акты согласованы. */
+            is_agreement_completed?: boolean;
+            /** @description Информация об актах. */
+            supply_acts?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs.SupplyActs"][];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+        };
+        "supply_order.v1.SupplyOrderActSummaryGetResponse": {
+            /** @description Список актов. */
+            supplies_acts?: components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse.SuppliesActs"][];
+        };
+        "supply_order.v1.SupplyOrderActProductGetRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id: number;
+        };
+        "supply_order.v1.SupplyOrderActProductGetResponse.SkusDefects": {
+            /** @description Причины брака. */
+            defect_reasons?: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор товара.
+             */
+            sku?: number;
+        };
+        /** @description Согласованная стоимость товаров. */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.ApprovedAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Фактическая стоимость товаров. */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.FactAmount": {
+            amount?: components["schemas"]["money.MoneySupplyActAmount"];
+            amount_vat?: components["schemas"]["money.MoneySupplyActAmountVat"];
+            amount_without_vat?: components["schemas"]["money.MoneySupplyActAmountWithoutVat"];
+        };
+        /** @description Цена товара без НДС. */
+        "money.MoneyPriceWithoutVat": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Информация о товаре. */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.SkuInfo": {
+            /** @description Штрихкод товара. */
+            barcode?: string;
+            /** @description Ссылка на изображение товара. */
+            image_link?: string;
+            /** @description Название товара. */
+            name?: string;
+            /** @description Артикул товара. */
+            offer_id?: string;
+            price_without_vat?: components["schemas"]["money.MoneyPriceWithoutVat"];
+            /**
+             * Format: int64
+             * @description Идентификатор товара.
+             */
+            sku?: number;
+            /**
+             * Format: float
+             * @description Ставка НДС.
+             */
+            vat?: number;
+        };
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items": {
+            approved_amount?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.ApprovedAmount"];
+            /**
+             * Format: int32
+             * @description Количество согласованного товара в акте.
+             */
+            approved_quantity?: number;
+            /**
+             * Format: int32
+             * @description Количество заявленного товара в акте.
+             */
+            declared_quantity?: number;
+            fact_amount?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.FactAmount"];
+            /**
+             * Format: int32
+             * @description Количество принятого товара.
+             */
+            fact_quantity?: number;
+            sku_info?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items.SkuInfo"];
+        };
+        /**
+         * @description Тип акта:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `ACCEPTANCE` — акт приёмки;
+         *     - `DEFECT` — акт о браке;
+         *     - `SURPLUS` — акт об излишках;
+         *     - `SHORTCOMING` — акт о недостаче.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Type.Enum": "UNSPECIFIED" | "ACCEPTANCE" | "DEFECT" | "SURPLUS" | "SHORTCOMING";
+        "supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs": {
+            /**
+             * Format: int64
+             * @description Идентификатор акта.
+             */
+            act_id?: number;
+            /** @description Список товаров в акте. */
+            items?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Items"][];
+            type?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs.Type.Enum"];
+            /**
+             * Format: int32
+             * @description Количество неопознанных излишков.
+             */
+            unidentified_quantity?: number;
+        };
+        "supply_order.v1.SupplyOrderActProductGetResponse": {
+            /** @description Список товаров с браком. */
+            skus_defects?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SkusDefects"][];
+            /** @description Список актов в поставке. */
+            supply_acts?: components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse.SupplyActs"][];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+        };
+        "supply_order.v1.SupplyOrderActAcceptRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор акта из методов [/v1/supply-order/act/summary/get](#operation/SupplyOrderActSummaryGet) или [/v1/supply-order/act/product/get](#operation/SupplyOrderActProductGet).
+             */
+            act_id: number;
+        };
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActAcceptResponse.ErrorReasons.Enum": "UNSPECIFIED" | "INVALID_STATE" | "SUPPLY_WITH_UTD";
+        "supply_order.v1.SupplyOrderActAcceptResponse": {
+            /**
+             * @description Ошибки при принятии акта:
+             *      - `UNSPECIFIED` — не определена;
+             *      - `INVALID_STATE` — некорректный статус;
+             *      - `SUPPLY_WITH_UTD` — поставка с УПД.
+             */
+            error_reasons?: components["schemas"]["supply_order.v1.SupplyOrderActAcceptResponse.ErrorReasons.Enum"][];
+            /** @description Идентификатор операции. */
+            operation_id?: string;
+        };
+        "supply_order.v1.SupplyOrderActAcceptStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/supply-order/act/accept](#operation/SupplyOrderActAccept). */
+            operation_id: string;
+        };
+        /**
+         * @description Статус операции:
+         *     - `SUCCESS` — акт согласован;
+         *     - `IN_PROGRESS` — согласование в процессе;
+         *     - `FAILED` — ошибка при согласовании акта.
+         * @default SUCCESS
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderActAcceptStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "supply_order.v1.SupplyOrderActAcceptStatusResponse": {
+            status?: components["schemas"]["supply_order.v1.SupplyOrderActAcceptStatusResponse.Status.Enum"];
+            /** @description Причина ошибки. */
+            error_message?: string;
         };
         /** @description Координаты. */
         v1ListDropOffPointsForCreateFBSWarehouseRequestCoordinates: {
@@ -39196,6 +39810,17 @@ export interface components {
             /** @description Описание ошибки. */
             message?: string;
         };
+        /** @description Стоимость доставки отправления из заказа с учётом комиссии. */
+        "money.MoneySplitCommission": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Информация о комиссиях за доставку отправления. Если `commissions = null`, вариант доставки недоступен. */
+        DeliveryCheckoutResponseSplitCommissions: {
+            total?: components["schemas"]["money.MoneySplitCommission"];
+        };
         /**
          * @description Способ доставки:
          *     - `UNSPECIFIED` — не определён;
@@ -39345,6 +39970,7 @@ export interface components {
             sku?: number;
         };
         DeliveryCheckoutResponseSplit: {
+            commissions?: components["schemas"]["DeliveryCheckoutResponseSplitCommissions"];
             delivery_method?: components["schemas"]["DeliveryCheckoutResponseSplitDeliveryMethod"];
             delivery_schema?: components["schemas"]["DeliveryCheckoutResponseV2SplitDeliverySchemaEnum"];
             /** @description Информация о товарах. */
@@ -45915,8 +46541,8 @@ export interface operations {
                 /**
                  * @example {
                  *       "certificate_id": 50058,
-                 *       "product_id": [
-                 *         290
+                 *       "skus": [
+                 *         "2901231"
                  *       ]
                  *     }
                  */
@@ -46230,8 +46856,7 @@ export interface operations {
                  * @example {
                  *       "certificate_id": 624047,
                  *       "product_status_code": "approved",
-                 *       "page": 1,
-                 *       "page_size": 50
+                 *       "limit": 1000
                  *     }
                  */
                 "application/json": components["schemas"]["v1ProductCertificateProductsListRequest"];
@@ -46250,6 +46875,7 @@ export interface operations {
                      *         "items": [
                      *           {
                      *             "product_id": 53110101,
+                     *             "sku": 0,
                      *             "product_status_code": "approved"
                      *           }
                      *         ],
@@ -46288,8 +46914,8 @@ export interface operations {
                 /**
                  * @example {
                  *       "certificate_id": 624047,
-                 *       "product_id": [
-                 *         "53110101"
+                 *       "skus": [
+                 *         "2901231"
                  *       ]
                  *     }
                  */
@@ -50848,6 +51474,178 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CarriageCourierContactSet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "carriage_id": 543234,
+                 *       "phone": "+86(123)4567-8901",
+                 *       "wechat_nickname": "string",
+                 *       "comment": "string"
+                 *     }
+                 */
+                "application/json": components["schemas"]["v1CarriageCourierContactSetRequest"];
+            };
+        };
+        responses: {
+            /** @description Контактные данные добавлены или обновлены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CarriageCourierContactGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "carriage_id": 5435123
+                 *     }
+                 */
+                "application/json": components["schemas"]["v1CarriageCourierContactGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Контактные данные продавца для курьера */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "contact": [
+                     *         {
+                     *           "carriage_id": 5435123,
+                     *           "phone": "+86(123)4567-8901",
+                     *           "wechat_nickname": "string",
+                     *           "comment": "string",
+                     *           "updated_at": "2026-07-29T10:38:26.004Z"
+                     *         }
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["v1CarriageCourierContactGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -56177,376 +56975,6 @@ export interface operations {
                      *     }
                      */
                     "application/json": components["schemas"]["v2ReturnsRfbsGetResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsRejectV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsRejectRequest"];
-            };
-        };
-        responses: {
-            /** @description Заявка отклонена */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsCompensateV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsCompensateRequest"];
-            };
-        };
-        responses: {
-            /** @description Частичная компенсация подтверждена */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsVerifyV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsVerifyRequest"];
-            };
-        };
-        responses: {
-            /** @description Заявка одобрена */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsReceiveReturnV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsReceiveReturnRequest"];
-            };
-        };
-        responses: {
-            /** @description Получение подтверждено */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    RFBSReturnsAPI_ReturnsRfbsReturnMoneyV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["v2ReturnsRfbsReturnMoneyRequest"];
-            };
-        };
-        responses: {
-            /** @description Возврат денег подтверждён */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["v1Empty"];
                 };
             };
             /** @description Неверный параметр */
@@ -62145,6 +62573,520 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductCertificateOptions: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Параметры для создания сертификата */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateOptionsResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductCertificateParams: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["certification.v2.ProductCertificateParamsRequest"];
+            };
+        };
+        responses: {
+            /** @description Обязательные параметры для создания сертификата */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateParamsResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductCertificateCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["certification.v2.ProductCertificateCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Сертификат создан */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActSummaryGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация об акте */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActSummaryGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActProductGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActProductGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о товарах в акте */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActProductGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActAccept: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptRequest"];
+            };
+        };
+        responses: {
+            /** @description Акт согласован */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderActAcceptStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус согласования акта */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderActAcceptStatusResponse"];
                 };
             };
             /** @description Неверный параметр */
