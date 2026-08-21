@@ -1,5 +1,13 @@
 # artefactby-ozon-seller-api
 
+[![npm version](https://img.shields.io/npm/v/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
+[![npm downloads](https://img.shields.io/npm/dm/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
+[![Node.js](https://img.shields.io/node/v/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
+[![license](https://img.shields.io/npm/l/artefactby-ozon-seller-api.svg)](./LICENSE)
+[![CI](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml/badge.svg)](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/artefactby-ozon-seller-api)](https://socket.dev/npm/package/artefactby-ozon-seller-api)
+[![bundle size](https://img.shields.io/bundlejs/size/artefactby-ozon-seller-api)](https://bundlejs.com/?q=artefactby-ozon-seller-api)
+
 Неофициальный типизированный клиент [Ozon Seller API](https://docs.ozon.ru/api/seller/)
 для TypeScript и JavaScript.
 
@@ -22,8 +30,9 @@ const { items } = await client.request('/v5/product/info/prices', {
 ```
 
 - **Покрыт весь API, а не выборка методов.** Типы сгенерированы из официальной
-  OpenAPI-спецификации (версия API 2.1): 459 операций, 2089 схем. Любой путь
-  вызывается одинаково, тело запроса и ответ выводятся из литерала пути.
+  OpenAPI-спецификации (версия API 2.1): порядка ~460+ операций и ~2100+ схем
+  (варьируется при обновлении). Любой путь вызывается одинаково,
+  тело запроса и ответ выводятся из литерала пути.
 - **Ноль зависимостей.** В работе пакету нужен только `fetch`, встроенный в
   Node.js >= 18. Собирается в CJS и ESM.
 - **Встроенный лимитер, знающий лимиты Ozon** — 50 запросов в секунду на Client-Id

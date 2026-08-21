@@ -5,6 +5,38 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.6.0] - 2026-08-21
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 14–19 августа 2026.
+Пути: 463 → 463 (+0 / −0); схемы: 2136 → 2136 (+0 / −0); новые поля в существующих схемах: 0.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Changed
+
+- В `/v2/posting/fbs/act/get-container-labels` уточнено описание `id`: идентификатор перевозки из `/v1/carriage/create`.
+- В `/v1/carriage/create` обновлено описание метода.
+- В `/v3/chat/list` (и связанных схемах чатов) обновлено описание `chat_type`.
+- В `/v3/product/info/list` поле `availabilities[].availability` типизировано как enum
+  `HIDDEN` | `AVAILABLE` | `UNAVAILABLE` (раньше — `string`).
+- В описании `/v4/product/info/stocks` уточнена формулировка про схемы и ссылку на analytics/stocks.
+
+### Breaking
+
+- В `ChatInfoChatTypeEnum` добавлены значения:
+  `SELLER_PERSONAL_MANAGER_UNITY_CRM`, `SELLER_BUSINESS_DEVELOPMENT_GROUP`.
+- В `GetProductInfoListResponseAvailability.availability` тип сужен с `string`
+  до `"HIDDEN" | "AVAILABLE" | "UNAVAILABLE"`.
+- В `reportCreateCompanyPostingsReportRequestFilter` поле `delivery_schema` стало обязательным.
+
+### Notes
+
+- Миграция: при создании отчёта по отправлениям всегда передавать `filter.delivery_schema`
+  (например `["fbo"]` или `["fbs"]`). Для `availability` опираться на новые значения enum,
+  а не на произвольные строки (в примерах Ozon вместо `in_stock` — `AVAILABLE`).
+- Сверка с анонсом Ozon за 14–19 августа 2026 проведена: пункты анонса отражены;
+  методы courier-contact уже в 0.5.0. Изменения `availability` и `delivery_schema`
+  в анонсе не упоминались — пришли со снимком спецификации.
+
 ## [0.5.0] - 2026-08-14
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13–14 августа 2026.

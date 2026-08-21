@@ -1,5 +1,13 @@
 # artefactby-ozon-seller-api
 
+[![npm version](https://img.shields.io/npm/v/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
+[![npm downloads](https://img.shields.io/npm/dm/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
+[![Node.js](https://img.shields.io/node/v/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
+[![license](https://img.shields.io/npm/l/artefactby-ozon-seller-api.svg)](./LICENSE)
+[![CI](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml/badge.svg)](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/artefactby-ozon-seller-api)](https://socket.dev/npm/package/artefactby-ozon-seller-api)
+[![bundle size](https://img.shields.io/bundlejs/size/artefactby-ozon-seller-api)](https://bundlejs.com/?q=artefactby-ozon-seller-api)
+
 Unofficial typed [Ozon Seller API](https://docs.ozon.ru/api/seller/) client for
 TypeScript and JavaScript.
 
@@ -22,8 +30,8 @@ const { items } = await client.request('/v5/product/info/prices', {
 ```
 
 - **The whole API, not a curated subset.** Types are generated from the official
-  OpenAPI spec (API version 2.1): 459 operations, 2089 schemas. Every path is called
-  the same way, with the request body and response inferred from the path literal.
+  OpenAPI spec (API version 2.1): roughly ~460+ operations and ~2100+ schemas (vary on updates).
+  Every path is called the same way, with the request body and response inferred from the path literal.
 - **Zero runtime dependencies.** Native `fetch` only. Node.js >= 18, CJS and ESM.
 - **A built-in rate limiter that knows Ozon's limits** — 50 rps per Client-Id plus the
   per-method rates from the spec — as a separate subpath: skip it and it costs nothing.
