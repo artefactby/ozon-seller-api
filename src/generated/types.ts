@@ -6674,6 +6674,52 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/description-category/dependent-attributes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить зависимые характеристики
+         * @description Возвращает пары идентификаторов родительской и дочерней характеристик. Получите возможные значения дочерней характеристики для значений родительской методом [/v1/description-category/dependent-attributes/values](#operation/DescriptionCategoryDependentAttributesValues).
+         *
+         *     Характеристика с `parent_attribute_id = 8229` — это идентификатор типа товара `type_id`. Не указывайте её в параметре `items.attributes.id` в запросах к методам [/v3/product/import](#operation/ProductAPI_ImportProductsV3) и [/v1/product/attributes/update](#operation/ProductAPI_ProductUpdateAttributes).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2296-Novye-metody-zavisimykh-atributov/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["DescriptionCategoryDependentAttributes"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/description-category/dependent-attributes/values": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить возможные значения дочерней характеристики
+         * @description Возвращает возможные значения дочерней характеристики для значений родительской.
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2296-Novye-metody-zavisimykh-atributov/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["DescriptionCategoryDependentAttributesValues"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/supply-order/act/summary/get": {
         parameters: {
             query?: never;
@@ -32054,6 +32100,90 @@ export interface components {
             params?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param"][];
             status?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Status.Enum"];
         };
+        "category.description.v1.DescriptionCategoryDependentAttributesRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор категории из метода [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            description_category_id: number;
+            /**
+             * Format: int64
+             * @description Идентификатор типа товара из метода [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            type_id?: number;
+        };
+        "category.description.v1.DescriptionCategoryDependentAttributesResponse.DependentAttributes": {
+            /**
+             * Format: int64
+             * @description Идентификатор дочерней характеристики.
+             */
+            child_attribute_id?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор родительской характеристики.
+             */
+            parent_attribute_id?: number;
+        };
+        "category.description.v1.DescriptionCategoryDependentAttributesResponse": {
+            /** @description Информация о зависимых характеристиках. */
+            result?: components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesResponse.DependentAttributes"][];
+        };
+        "category.description.v1.DescriptionCategoryDependentAttributesValuesRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор дочерней характеристики.
+             */
+            child_attribute_id: number;
+            /** @description Указатель для выборки следующих данных. */
+            cursor?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор категории из метода [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            description_category_id?: number;
+            /**
+             * Format: int64
+             * @description Количество значений в ответе.
+             * @default 100
+             */
+            limit: number;
+            /**
+             * Format: int64
+             * @description Идентификатор родительской характеристики.
+             */
+            parent_attribute_id: number;
+            /**
+             * Format: int64
+             * @description Идентификатор типа товара из метода [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            type_id?: number;
+        };
+        "category.description.v1.DescriptionCategoryDependentAttributesValuesResponse.DependentAttributesValuesResult.ChildrenValue": {
+            /** @description Значение дочерней характеристики. */
+            child_value?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор значения дочерней характеристики.
+             */
+            child_value_id?: number;
+        };
+        "category.description.v1.DescriptionCategoryDependentAttributesValuesResponse.DependentAttributesValuesResult": {
+            /** @description Информация о дочерних характеристиках. */
+            children?: components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesValuesResponse.DependentAttributesValuesResult.ChildrenValue"][];
+            /** @description Значение родительской характеристики. */
+            parent_value?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор значения родительской характеристики.
+             */
+            parent_value_id?: number;
+        };
+        "category.description.v1.DescriptionCategoryDependentAttributesValuesResponse": {
+            /** @description Указатель для выборки следующих данных. */
+            cursor?: string;
+            /** @description Информация о зависимых характеристиках. */
+            result?: components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesValuesResponse.DependentAttributesValuesResult"][];
+        };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
              * Format: int64
@@ -40973,13 +41103,13 @@ export interface operations {
                      *           "id": 5055881,
                      *           "value": "Sunshine",
                      *           "info": "Здоровье и красота",
-                     *           "picture": "https://ir.ozone.ru/s3/multimedia-i/6010930878.jpg"
+                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-i/6010930878.jpg"
                      *         },
                      *         {
                      *           "id": 5056737,
                      *           "value": "Essence",
                      *           "info": "Красота и здоровье",
-                     *           "picture": "https://ir.ozone.ru/s3/multimedia-v/6088253599.jpg"
+                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-v/6088253599.jpg"
                      *         }
                      *       ],
                      *       "has_next": true
@@ -42325,15 +42455,15 @@ export interface operations {
                      *           "dimension_unit": "mm",
                      *           "weight": 50,
                      *           "weight_unit": "g",
-                     *           "primary_image": "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *           "primary_image": "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
                      *           "sku": 423434534,
                      *           "model_info": {
                      *             "model_id": 43445453,
                      *             "count": 4
                      *           },
                      *           "images": [
-                     *             "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
-                     *             "https://ir.ozone.ru/s3/multimedia-j/6835412647.jpg"
+                     *             "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *             "https://ir-3.ozone.ru/s3/multimedia-j/6835412647.jpg"
                      *           ],
                      *           "pdf_list": [],
                      *           "attributes": [
@@ -55907,7 +56037,7 @@ export interface operations {
                      *       "result": {
                      *         "error": "",
                      *         "status": "completed",
-                     *         "file_url": "https://ir.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
+                     *         "file_url": "https://ir-3.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
                      *         "printed_postings_count": 1,
                      *         "unprinted_postings_count": 0,
                      *         "unprinted_postings": []
@@ -58292,7 +58422,7 @@ export interface operations {
                      *         "status": "success",
                      *         "error": "",
                      *         "expires_at": "2025-11-10T11:16:00.267Z",
-                     *         "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *         "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *         "report_type": "seller_products",
                      *         "params": {},
                      *         "created_at": "2021-11-25T14:54:55.688260Z"
@@ -58395,7 +58525,7 @@ export interface operations {
                      *             "status": "success",
                      *             "error": "",
                      *             "expires_at": "2025-11-10T11:35:10.028Z",
-                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
+                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -58406,7 +58536,7 @@ export interface operations {
                      *             "code": "REPORT_seller_products_924336_1720170405_a9ea2f27-a473-4b13-99f9-d0cfcb5b1a69",
                      *             "status": "success",
                      *             "error": "",
-                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -62796,6 +62926,215 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["certification.v2.ProductCertificateCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    DescriptionCategoryDependentAttributes: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "description_category_id": 234123,
+                 *       "type_id": 123123
+                 *     }
+                 */
+                "application/json": components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesRequest"];
+            };
+        };
+        responses: {
+            /** @description Зависимые характеристики */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "result": [
+                     *         {
+                     *           "child_attribute_id": 4812,
+                     *           "parent_attribute_id": 8229
+                     *         }
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    DescriptionCategoryDependentAttributesValues: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "parent_attribute_id": 8229,
+                 *       "child_attribute_id": 23348,
+                 *       "description_category_id": 234123,
+                 *       "type_id": 123123,
+                 *       "limit": 4,
+                 *       "cursor": ""
+                 *     }
+                 */
+                "application/json": components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesValuesRequest"];
+            };
+        };
+        responses: {
+            /** @description Возможные значения дочерней характеристики */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "cursor": "eyJwYXJlbnRfdmFsdWVfaWQiOjEwMDIsImNoaWxkX2luZGV4IjowfQ==",
+                     *       "result": [
+                     *         {
+                     *           "parent_value_id": 1001,
+                     *           "parent_value": "Лада",
+                     *           "children": [
+                     *             {
+                     *               "child_value_id": 2001,
+                     *               "child_value": "Гранта"
+                     *             },
+                     *             {
+                     *               "child_value_id": 2002,
+                     *               "child_value": "Приора"
+                     *             },
+                     *             {
+                     *               "child_value_id": 2003,
+                     *               "child_value": "Веста"
+                     *             }
+                     *           ]
+                     *         },
+                     *         {
+                     *           "parent_value_id": 1002,
+                     *           "parent_value": "Тойота",
+                     *           "children": [
+                     *             {
+                     *               "child_value_id": 2004,
+                     *               "child_value": "Королла"
+                     *             }
+                     *           ]
+                     *         }
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesValuesResponse"];
                 };
             };
             /** @description Неверный параметр */
