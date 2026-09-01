@@ -18,6 +18,11 @@
 - `POST /v1/description-category/dependent-attributes/values` — возможные
   значения дочерней характеристики для значений родительской.
 
+### Changed
+
+- Transitive `esbuild` закреплён на `0.27.2` (`npm audit fix`, GHSA-g7r4-m6w7-qqqr;
+  уязвимы `0.27.3`–`0.28.0`). Только toolchain; runtime-зависимостей нет.
+
 ## [0.6.1] - 2026-08-28
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 28 августа 2026. Сверка с анонсом Ozon не проводилась.
