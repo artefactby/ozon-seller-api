@@ -5,6 +5,65 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.8.0] - 2026-09-03
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 2–3 сентября
+2026.
+Пути: 465 → 467 (+2 / −0); схемы: 2143 → 2162 (+19 / −0); новые поля в
+существующих схемах: 7.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/analytics/decommissioned-goods` — бета-метод отчёта о списанных
+  товарах.
+- `POST /v2/product/pictures/import` — новая версия импорта/обновления
+  изображений товара.
+
+### Changed
+
+- `POST /v1/product/pictures/import` помечен как `@deprecated`; в описании
+  указано отключение с 1 октября 2026 года и переход на
+  `/v2/product/pictures/import`.
+- В `POST /v1/product/certificate/products/list` в описании зафиксирован
+  будущий отказ от `page`/`page_size` (с 28 сентября 2026) в пользу
+  `last_id`/`limit`; также уточнено описание `last_id` в схеме запроса.
+- Для `POST /v1/notification/list` в типах добавлена структура запроса
+  `notification.v1.NotificationListRequest` (`availability_statuses`, `limit`,
+  `offset`, `sort_dir`) и расширен ответ информацией о статусе доступности URL.
+
+### Removed
+
+- Удалённых путей и схем в снимке нет.
+
+### Breaking
+
+- В операции `NotificationList` сигнатура изменилась с `requestBody?: never` на
+  обязательный `requestBody` (`application/json:
+  notification.v1.NotificationListRequest`). Типизированный вызов
+  `client.request('/v1/notification/list')` без body больше не проходит.
+- В `notification.v1.NotificationListResponse` поля
+  `availability_status_thresholds` и `total_count` стали required.
+- В `notification.v1.NotificationListResponse.Notification` поля
+  `availability_status`, `availability_status_date`, `disable_reason`,
+  `problematic_type`, `reason_details` стали required.
+
+### Notes
+
+- Миграция: для `/v1/notification/list` передавать JSON-body минимум `{}`; при
+  фильтрации использовать `availability_statuses`, пагинацию `limit`/`offset`,
+  сортировку `sort_dir`.
+- При использовании response-типов как контракта (моки, адаптеры,
+  сериализация) учесть новые required-поля в
+  `notification.v1.NotificationListResponse*`.
+- Сверка с анонсом Ozon за 2–3 сентября 2026 проведена по предоставленному
+  скриншоту: пункты про новые `/v2/product/pictures/import`,
+  deprecated `/v1/product/pictures/import`, новый
+  `/v1/analytics/decommissioned-goods` и изменения `/v1/notification/list`
+  отражены в снимке; пункт про `params.files.name` и заметка о
+  `file extension is not available` относятся к описательной документации и в
+  сгенерированных типах не проявились.
+
 ## [0.7.0] - 2026-09-01
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 1 сентября 2026. Сверка с анонсом Ozon не проводилась.
