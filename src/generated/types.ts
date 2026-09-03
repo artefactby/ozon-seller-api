@@ -449,7 +449,12 @@ export interface paths {
         put?: never;
         /**
          * Загрузить или обновить изображения товара
-         * @description Метод для загрузки или обновления изображений товара.
+         * @deprecated
+         * @description <aside class="warning">
+         *     С 1 октября 2026 года метод будет отключён. Переключитесь на <a href="#operation/ProductImportPicturesV2">/v2/product/pictures/import</a>.
+         *     </aside>
+         *
+         *     Метод для загрузки или обновления изображений товара.
          *
          *     При каждом вызове метода передавайте все изображения, которые должны быть на карточке товара. Например, если вы вызвали метод и загрузили 10 изображений, а затем вызвали метод второй раз и загрузили ещё одно,
          *     то все 10 предыдущих сотрутся.
@@ -480,6 +485,50 @@ export interface paths {
          *     Чтобы узнать лимит, используйте [/v4/product/info/limit](#operation/ProductAPI_GetUploadQuota).
          */
         post: operations["ProductAPI_ProductImportPictures"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/product/pictures/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Загрузить или обновить изображения товара
+         * @description При каждом вызове метода передавайте все изображения, которые должны быть на карточке товара. Например, если вы вызвали метод и загрузили 10 изображений, а затем вызвали метод второй раз и загрузили ещё одно,
+         *     то все 10 предыдущих сотрутся.
+         *
+         *     Для загрузки передайте адрес ссылки на изображение в общедоступном облачном хранилище.
+         *     Формат изображения по ссылке — JPG или PNG.
+         *
+         *     Изображения в массиве `items.images` располагайте в соответствии с желаемым порядком на сайте. Главным будет
+         *     первое изображение в массиве.
+         *
+         *     Для каждого товара вы можете загрузить до 30 изображений.
+         *
+         *     Для загрузки маркетингового цвета используйте поле `items.color_image`.
+         *
+         *     [Подробнее о требованиях к фото в Базе знаний продавца](https://seller-edu.ozon.ru/libra/work-with-goods/trebovaniya-k-kartochkam-tovarov/media/foto-i-video-tovara#какие-общие-требования-есть-для-фотографии-товара)
+         *
+         *     Если вы хотите изменить состав или порядок изображений, получите информацию с помощью метода
+         *     [/v3/product/info/list](#operation/ProductAPI_GetProductInfoList) — в нём отображается текущий порядок и
+         *     состав изображений. Скопируйте данные полей `items.images` и `items.color_image`, измените и дополните состав или
+         *     порядок при необходимости.
+         *
+         *     У метода есть лимит на количество операций c товарами в минуту и в сутки. Если вы превысите лимит, вернётся ошибка `429` с описанием в поле `message` и заголовками:
+         *     - `Item-Retry-After` — время в минутах до обновления лимита. Для суточного лимита — время до 03:00 по московскому времени.
+         *     - `Item-Rate-Limit-Remaining` — остаток операций до следующего сброса лимита.
+         *
+         *     Чтобы узнать лимит, используйте метод [/v4/product/info/limit](#operation/ProductAPI_GetUploadQuota).
+         */
+        post: operations["ProductImportPicturesV2"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1867,7 +1916,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Список товаров, привязанных к сертификату */
+        /**
+         * Список товаров, привязанных к сертификату
+         * @description <aside class="warning"> 28 сентября 2026 года отключим параметры <code>page</code> и <code>page_size</code> в запросе метода. Используйте параметры <code>last_id</code> и <code>limit</code>. </aside>
+         */
         post: operations["CertificateProductsList"];
         delete?: never;
         options?: never;
@@ -6300,6 +6352,28 @@ export interface paths {
          *     в сообществе разработчиков Ozon for dev.
          */
         post: operations["AnalyticsAPI_ManageStocks"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/analytics/decommissioned-goods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить отчёт о списанных товарах
+         * @description Соответствует разделу **FBO → Списанные товары** в личном кабинете.
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2287-Novyi-metod-dlia-polucheniia-Otcheta-spisannye-tovary/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["AnalyticsDecommissionedGoods"];
         delete?: never;
         options?: never;
         head?: never;
@@ -10946,6 +11020,30 @@ export interface components {
         productv1ProductInfoPicturesResponse: {
             result?: components["schemas"]["productv1ProductInfoPicturesResponseResult"];
         };
+        "product.v2.ProductImportPicturesV2Request.Item": {
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id: string;
+            /** @description Главное изображение товара. */
+            primary_image?: string;
+            /** @description Маркетинговый цвет. */
+            color_image?: string;
+            /**
+             * @description Список ссылок на изображения.
+             *     Изображения в массиве расположены в порядке их расположения на сайте. Первое изображение в массиве будет главным, если в запросе не передано `primary_image`.
+             */
+            images?: string[];
+        };
+        "product.v2.ProductImportPicturesV2Request": {
+            /** @description Информация о товарах. */
+            items?: components["schemas"]["product.v2.ProductImportPicturesV2Request.Item"][];
+        };
+        "product.v2.ProductInfoPicturesV2Response": {
+            /**
+             * Format: int64
+             * @description Идентификатор задания. Чтобы проверить статус изображений, передайте полученное значение в метод [/v1/product/import/info](#operation/ProductAPI_GetImportProductsInfo).
+             */
+            task_id?: number;
+        };
         /**
          * string
          * @description Фильтр по видимости товара:
@@ -14528,7 +14626,7 @@ export interface components {
              * Format: int64
              * @description Идентификатор последнего значения на странице. При первом запросе оставьте это поле пустым.
              *
-             *     Чтобы получить следующие значения, укажите `last_id` из ответа предыдущего запроса.
+             *     Чтобы получить следующие значения, укажите последнее значение `result.items.product_id` из ответа предыдущего запроса.
              */
             last_id?: number;
             /**
@@ -30149,6 +30247,183 @@ export interface components {
             /** @description Товары. */
             items?: components["schemas"]["v1AnalyticsManageStocksResponseItem"][];
         };
+        /** @enum {string} */
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter.Compensation.Enum": "NO_COMPENSATION" | "PRELIMINARY_COMPENSATION" | "CLOSED_COMPENSATION";
+        /**
+         * @description Схема доставки:
+         *     - `FBO` — доставка со склада Ozon;
+         *     - `FBS` — доставка со своего склада.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter.DeliverySchema.Enum": "FBO" | "FBS";
+        /** @enum {string} */
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter.DisposeReason.Enum": "ECONOM_UTILIZATION" | "SELLER_UTILIZATION" | "MISSED_DEADLINE" | "MISSED_COURIER_DELIVERY" | "PROHIBITED_FOR_SALE" | "EXPIRED" | "DAMAGED_DUE_TO_PACKAGING" | "DAMAGED_BY_CUSTOMER" | "SPILLED_DUE_TO_PACKAGING" | "OZON_DEFECT" | "OZON_LOSS" | "OTHER" | "REZON" | "AUTODISPOSAL_STOCK" | "RETURNS_AUTO_INVALID" | "RETURNS_AUTO_VALID" | "TRUSTBASED_ACCEPTANCE";
+        /**
+         * object
+         * @description Фильтры.
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter": {
+            /**
+             * @description Тип компенсации:
+             *     - `NO_COMPENSATION` — без компенсации;
+             *     - `PRELIMINARY_COMPENSATION` — предварительная компенсация;
+             *     - `CLOSED_COMPENSATION` — выплаченная компенсация.
+             */
+            compensation?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter.Compensation.Enum"][];
+            /**
+             * Format: date-time
+             * @description Дата, с которой данные отображаются в отчёте.
+             */
+            date_from: string;
+            /**
+             * Format: date-time
+             * @description Дата, по которую данные отображаются в отчёте.
+             */
+            date_to: string;
+            delivery_schema: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter.DeliverySchema.Enum"];
+            /**
+             * @description Причина списания:
+             *       - `ECONOM_UTILIZATION` — возвраты по тарифу «Эконом»;
+             *       - `SELLER_UTILIZATION` — вы заказали утилизацию;
+             *       - `MISSED_DEADLINE` — вы не забрали возврат в срок;
+             *       - `MISSED_COURIER_DELIVERY` — вы не приняли возврат у курьера;
+             *       - `PROHIBITED_FOR_SALE` — товар запрещён к продаже;
+             *       - `EXPIRED` — истёк срок годности товара;
+             *       - `DAMAGED_DUE_TO_PACKAGING` — товар повреждён во время упаковки;
+             *       - `DAMAGED_BY_CUSTOMER` — товар повреждён покупателем;
+             *       - `SPILLED_DUE_TO_PACKAGING` — товар пролился или просыпался во время упаковки;
+             *       - `OZON_DEFECT` — брак по вине Ozon;
+             *       - `OZON_LOSS` — потеря по вине Ozon;
+             *       - `OTHER` — прочие причины;
+             *       - `REZON` — не определена;
+             *       - `AUTODISPOSAL_STOCK` — автоутилизация со стока;
+             *       - `RETURNS_AUTO_INVALID` — автоутилизация возвратов и отмен невалидных товаров;
+             *       - `RETURNS_AUTO_VALID` — автоутилизация возвратов и отмен валидных товаров;
+             *       - `TRUSTBASED_ACCEPTANCE` — списание по доверительной приёмке.
+             */
+            dispose_reasons?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter.DisposeReason.Enum"][];
+            /** @description Номер отправления. */
+            posting_number?: string;
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+        };
+        /**
+         * @description Тип сортировки:
+         *     - `DATE` — по дате;
+         *     - `DISPOSAL_FEE` — по начислению.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest.SortBy.Enum": "DATE" | "DISPOSAL_FEE";
+        /**
+         * @description Направление сортировки:
+         *       - `ASC` — по возрастанию,
+         *       - `DESC` — по убыванию.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest.SortDir.Enum": "ASC" | "DESC";
+        "analytics.v1.AnalyticsDecommissionedGoodsRequest": {
+            filter: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest.Filter"];
+            /**
+             * Format: int32
+             * @description Номер страницы, возвращаемой в запросе.
+             */
+            page: number;
+            /**
+             * Format: int32
+             * @description Количество элементов на странице.
+             */
+            page_size: number;
+            sort_by?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest.SortBy.Enum"];
+            sort_dir?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest.SortDir.Enum"];
+        };
+        /**
+         * @description Тип компенсации:
+         *     - `NO_COMPENSATION` — без компенсации;
+         *     - `PRELIMINARY_COMPENSATION` — предварительная  компенсация;
+         *     - `CLOSED_COMPENSATION` — выплаченная компенсация.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsResponse.Item.Compensation.Enum": "NO_COMPENSATION" | "PRELIMINARY_COMPENSATION" | "CLOSED_COMPENSATION";
+        /**
+         * @description Схема доставки:
+         *     - `FBO` — доставка со склада Ozon;
+         *     - `FBS` — доставка со своего склада.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsResponse.Item.DeliverySchema.Enum": "FBO" | "FBS";
+        /**
+         * @description Причина списания:
+         *     - `ECONOM_UTILIZATION` — возвраты по тарифу «Эконом»;
+         *     - `SELLER_UTILIZATION` — вы заказали утилизацию;
+         *     - `MISSED_DEADLINE` — вы не забрали возврат в срок;
+         *     - `MISSED_COURIER_DELIVERY` — вы не приняли возврат у курьера;
+         *     - `PROHIBITED_FOR_SALE` — товар запрещён к продаже;
+         *     - `EXPIRED` — истёк срок годности товара;
+         *     - `DAMAGED_DUE_TO_PACKAGING` — товар повреждён во время упаковки;
+         *     - `DAMAGED_BY_CUSTOMER` — товар повреждён покупателем;
+         *     - `SPILLED_DUE_TO_PACKAGING` — товар пролился или просыпался во время упаковки;
+         *     - `OZON_DEFECT` — брак по вине Ozon;
+         *     - `OZON_LOSS` — потеря по вине Ozon;
+         *     - `OTHER` — прочие причины;
+         *     - `REZON` — не определена;
+         *     - `AUTODISPOSAL_STOCK` — автоутилизация со стока;
+         *     - `RETURNS_AUTO_INVALID` — автоутилизация возвратов и отмен невалидных товаров;
+         *     - `RETURNS_AUTO_VALID` — автоутилизация возвратов и отмен валидных товаров;
+         *     - `TRUSTBASED_ACCEPTANCE` — списание по доверительной приёмке.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsDecommissionedGoodsResponse.Item.DisposeReason.Enum": "ECONOM_UTILIZATION" | "SELLER_UTILIZATION" | "MISSED_DEADLINE" | "MISSED_COURIER_DELIVERY" | "PROHIBITED_FOR_SALE" | "EXPIRED" | "DAMAGED_DUE_TO_PACKAGING" | "DAMAGED_BY_CUSTOMER" | "SPILLED_DUE_TO_PACKAGING" | "OZON_DEFECT" | "OZON_LOSS" | "OTHER" | "REZON" | "AUTODISPOSAL_STOCK" | "RETURNS_AUTO_INVALID" | "RETURNS_AUTO_VALID" | "TRUSTBASED_ACCEPTANCE";
+        "analytics.v1.AnalyticsDecommissionedGoodsResponse.Item": {
+            /**
+             * Format: double
+             * @description Сумма выплаченной компенсации.
+             */
+            compensation_price?: number;
+            compensation_type?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsResponse.Item.Compensation.Enum"];
+            /**
+             * Format: date-time
+             * @description Дата списания товара.
+             */
+            date?: string;
+            delivery_schema?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsResponse.Item.DeliverySchema.Enum"];
+            /**
+             * Format: double
+             * @description Начисление за утилизацию товара.
+             */
+            disposal_fee?: number;
+            dispose_reason?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsResponse.Item.DisposeReason.Enum"];
+            /** @description Номер отправления. */
+            posting_number?: string;
+            /**
+             * Format: int32
+             * @description Количество товаров в списании.
+             */
+            quantity?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+        };
+        "analytics.v1.AnalyticsDecommissionedGoodsResponse": {
+            /** @description Информация о товарах. */
+            items?: components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsResponse.Item"][];
+            /**
+             * Format: int32
+             * @description Количество оставшихся товаров, которые можно получить в ответе.
+             */
+            total_count?: number;
+        };
         v1GetSupplyReturnsSummaryReportRequest: {
             /** @description Дата начала отчётного периода в формате `YYYY-MM-DD`. */
             date_from: string;
@@ -31959,7 +32234,7 @@ export interface components {
         "certification.v2.ProductCertificateParamsRequest.Params.File": {
             /** @description Файл в кодировке Base64. */
             file_content: string;
-            /** @description Название файла. */
+            /** @description Название файла с расширением `.jpg`, `.jpeg`, `.png` или `.pdf`. */
             name: string;
         };
         /**
@@ -35385,6 +35660,51 @@ export interface components {
              */
             id: number;
         };
+        /** @enum {string} */
+        "notification.v1.NotificationListRequest.AvailabilityStatus.Enum": "GREEN" | "YELLOW" | "RED";
+        /**
+         * @description Направление сортировки:
+         *     - `ASC` — по возрастанию;
+         *     - `DESC` — по убыванию.
+         * @enum {string}
+         */
+        "notification.v1.NotificationListRequest.SortDir.Enum": "ASC" | "DESC";
+        "notification.v1.NotificationListRequest": {
+            /**
+             * @description Информация о доступности URL-адресов:
+             *      - `GREEN` — активен;
+             *      - `YELLOW` — нестабилен;
+             *      - `RED` — недоступен.
+             */
+            availability_statuses?: components["schemas"]["notification.v1.NotificationListRequest.AvailabilityStatus.Enum"][];
+            /**
+             * Format: uint64
+             * @description Количество элементов в ответе.
+             * @default 100
+             */
+            limit: number;
+            /**
+             * Format: uint64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
+             */
+            offset?: number;
+            sort_dir?: components["schemas"]["notification.v1.NotificationListRequest.SortDir.Enum"];
+        };
+        /** @description Пороговое значение статуса доступности URL-адреса. */
+        "notification.v1.NotificationListResponse.Threshold": {
+            /**
+             * @description Статус доступности URL-адреса:
+             *     - `GREEN` — активен;
+             *     - `YELLOW` — нестабилен;
+             *     - `RED` — недоступен.
+             */
+            status: string;
+            /**
+             * Format: int64
+             * @description Пороговое значение времени ответа в миллисекундах.
+             */
+            threshold: number;
+        };
         /**
          * @description Тип уведомления:
          *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
@@ -35418,10 +35738,29 @@ export interface components {
         };
         "notification.v1.NotificationListResponse.Notification": {
             /**
+             * @description Статус доступности URL-адреса:
+             *     - `GREEN` — активен;
+             *     - `YELLOW` — нестабилен;
+             *     - `RED` — недоступен.
+             */
+            availability_status: string;
+            /**
+             * Format: date-time
+             * @description Дата и время последнего обновления статуса доступности URL-адреса.
+             */
+            availability_status_date: string;
+            /**
              * Format: date-time
              * @description Дата подключения URL-адреса.
              */
             created_at: string;
+            /**
+             * @description Причина отключения URL-адреса:
+             *     - `SELLER` — отключён продавцом;
+             *     - `AVAILABILITY` — отключён из-за недоступности;
+             *     - `ADMIN` — отключён администратором.
+             */
+            disable_reason: string;
             /** @description `true`, если URL-адрес включён. */
             enable: boolean;
             /**
@@ -35429,12 +35768,23 @@ export interface components {
              * @description Идентификатор URL-адреса.
              */
             id: number;
+            /** @description Тип пуш-уведомления, из-за которого отключён URL-адрес. */
+            problematic_type: string;
+            /** @description Причина отключения администратором. */
+            reason_details: string;
             /** @description Типы уведомлений. */
             types: components["schemas"]["notification.v1.NotificationListResponse.Notification.NotificationType"][];
             /** @description URL-адрес. */
             url: string;
         };
         "notification.v1.NotificationListResponse": {
+            /** @description Информация о пороговых значениях статусов доступности URL-адресов. */
+            availability_status_thresholds: components["schemas"]["notification.v1.NotificationListResponse.Threshold"][];
+            /**
+             * Format: int64
+             * @description Общее количество подключённых URL-адресов.
+             */
+            total_count: number;
             /** @description Подключённые URL-адреса. */
             urls: components["schemas"]["notification.v1.NotificationListResponse.Notification"][];
         };
@@ -41760,6 +42110,106 @@ export interface operations {
                      *       "message": "You have reached operation items limits. Retry after 120 seconds. Remaining 10 items"
                      *     }
                      */
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductImportPicturesV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "items": [
+                 *         {
+                 *           "offer_id": "PROD-2023-001",
+                 *           "primary_image": "https://example.com/cloud-storage/images/main-image-front.jpg",
+                 *           "color_image": "",
+                 *           "images": []
+                 *         }
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["product.v2.ProductImportPicturesV2Request"];
+            };
+        };
+        responses: {
+            /** @description Изображения загружены или обновлены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "task_id": 0
+                     *     }
+                     */
+                    "application/json": components["schemas"]["product.v2.ProductInfoPicturesV2Response"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Слишком много запросов */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
                     "application/json": components["schemas"]["rpcStatus"];
                 };
             };
@@ -61914,6 +62364,44 @@ export interface operations {
             };
         };
     };
+    AnalyticsDecommissionedGoods: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsRequest"];
+            };
+        };
+        responses: {
+            /** @description Отчёт о списанных товарах */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["analytics.v1.AnalyticsDecommissionedGoodsResponse"];
+                };
+            };
+            /** @description Ошибка */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     GetSupplyReturnsSummaryReport: {
         parameters: {
             query?: never;
@@ -62915,6 +63403,37 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "params": {
+                 *         "accordance_type": "SAFETY_DATA_SHEET",
+                 *         "certificate_country": "RU",
+                 *         "certificate_type": "SAFETY_DATA_SHEET",
+                 *         "expired_date": {
+                 *           "date": {
+                 *             "day": 1,
+                 *             "month": 1,
+                 *             "year": 2027
+                 *           },
+                 *           "infinite": false
+                 *         },
+                 *         "files": [
+                 *           {
+                 *             "file_content": "string",
+                 *             "name": "file.pdf"
+                 *           }
+                 *         ],
+                 *         "issue_date": "2019-08-24T14:15:22Z",
+                 *         "link_to_registry": "string",
+                 *         "name": "string",
+                 *         "number": "string",
+                 *         "product_type": "UNKNOWN",
+                 *         "skus": [
+                 *           "string"
+                 *         ]
+                 *       }
+                 *     }
+                 */
                 "application/json": components["schemas"]["certification.v2.ProductCertificateCreateRequest"];
             };
         };
@@ -66587,7 +67106,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.NotificationListRequest"];
+            };
+        };
         responses: {
             /** @description Подключённые URL-адреса */
             200: {
