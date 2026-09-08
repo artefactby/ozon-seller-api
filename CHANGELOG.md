@@ -5,6 +5,65 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.9.0] - 2026-09-08
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 7-8 сентября
+2026.
+Пути: 467 → 465 (+0 / −2); схемы: 2162 → 2150 (+1 / −13); новые поля в
+существующих схемах: 1.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- В ответ `/v1/product/prices/details` добавлено поле `prices.weight_index`.
+
+### Changed
+
+- Схема `v1SellerActionsProductsAddRequestProduct` изменилась с обычного объекта
+  на `oneOf`-вариант (`... & (unknown | unknown)` в сгенерированном типе) и
+  получила `action_price`.
+
+### Removed
+
+- Удалены пути `POST /v1/product/quant/info` и `POST /v1/product/quant/list`.
+- Удалены связанные схемы:
+  `ProductV1QuantInfoRequest`,
+  `ProductV1QuantInfoResponse`,
+  `ProductV1QuantInfoResponseResultItems`,
+  `ProductV1QuantInfoResponseResultItemsQuantInfo`,
+  `ProductV1QuantInfoResponseResultItemsQuantInfoQuants`,
+  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsBarcodesExtended`,
+  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsDimensions`,
+  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsMarketingPrice`,
+  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsTexts`,
+  `ProductV1QuantListRequest`,
+  `ProductV1QuantListResponse`,
+  `ProductV1QuantListResponseProducts`,
+  `ProductV1QuantListResponseProductsQuants`.
+
+### Breaking
+
+- Вызовы `client.request('/v1/product/quant/info', ...)` и
+  `client.request('/v1/product/quant/list', ...)` больше не типизируются:
+  пути удалены из снимка.
+- Для `/v1/seller-actions/products/add` изменилась форма товара в
+  `v1SellerActionsProductsAddRequestProduct`: добавлен `action_price` и
+  введено `oneOf`-ограничение в схеме.
+
+### Notes
+
+- Сверка с анонсом Ozon за 7-8 сентября 2026: удаление
+  `/v1/product/quant/*` и добавление `prices.weight_index` отражены в снимке.
+- Пункты анонса про `/v2/review/list`, `/v1/analytics/stocks`,
+  `/v2/product/certification/options`, `/v2/product/certification/params` и
+  `/v2/product/certificate/create` носят описательный характер и в сигнатурах
+  типов текущего снимка не проявились.
+- Изменение `v1SellerActionsProductsAddRequestProduct` пришло со снимком
+  спецификации, но в анонсе Ozon не упоминается.
+- Миграция: прекратить использование удалённых `/v1/product/quant/*`; для
+  добавления товаров в акцию перепроверить payload и типизацию запроса
+  `/v1/seller-actions/products/add` под новую `oneOf`-схему.
+
 ## [0.8.0] - 2026-09-03
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 2–3 сентября
@@ -56,8 +115,8 @@
 - При использовании response-типов как контракта (моки, адаптеры,
   сериализация) учесть новые required-поля в
   `notification.v1.NotificationListResponse*`.
-- Сверка с анонсом Ozon за 2–3 сентября 2026 проведена по предоставленному
-  скриншоту: пункты про новые `/v2/product/pictures/import`,
+- Сверка с анонсом Ozon за 2-3 сентября 2026: пункты про новые
+  `/v2/product/pictures/import`,
   deprecated `/v1/product/pictures/import`, новый
   `/v1/analytics/decommissioned-goods` и изменения `/v1/notification/list`
   отражены в снимке; пункт про `params.files.name` и заметка о
