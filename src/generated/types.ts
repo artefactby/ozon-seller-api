@@ -5441,11 +5441,7 @@ export interface paths {
         put?: never;
         /**
          * Получить аналитику по остаткам
-         * @description <aside class="warning">
-         *     С 17 августа 2026 года метод возвращает информацию об остатках в реальном времени.
-         *     </aside>
-         *
-         *     Используйте метод, чтобы получить аналитику по остаткам товаров на складах. Метод соответствует разделу [**FBO → Управление остатками**](https://seller.ozon.ru/app/fbo-stocks/stocks-management/) в личном кабинете. Аналитика обновляется два раза в день: примерно в 07:00 и 16:00 по UTC.
+         * @description Используйте метод, чтобы получить аналитику по остаткам товаров на складах в реальном времени. Метод соответствует разделу [**FBO → Управление остатками**](https://seller.ozon.ru/app/fbo-stocks/stocks-management/) в личном кабинете.
          *
          *     В запросе используйте только одно из полей: `cluster_ids` или `macrolocal_cluster_ids`, иначе вернётся ошибка.
          */
@@ -7403,46 +7399,6 @@ export interface paths {
         put?: never;
         /** Установить новое время доставки в полигоне */
         post: operations["PolygonTimeSet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/product/quant/list": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Список эконом-товаров
-         * @description Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["QuantProductList"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/product/quant/info": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Информация об эконом-товаре
-         * @description Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1084-Metody-po-tarifu-Ekonom) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["QuantGetInfo"];
         delete?: never;
         options?: never;
         head?: never;
@@ -32164,7 +32120,7 @@ export interface components {
              *     - `NUMBER` — номер;
              *     - `FILES` — файл с сертификатом в кодировке Base64;
              *     - `CERTIFICATE_COUNTRY` — страна выдачи;
-             *     - `ACCORDANCE_TYPE` — тип соответствия требованиям;
+             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
              *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
              *     - `ISSUE_DATE` — дата выпуска;
              *     - `EXPIRED_DATE` — дата истечения;
@@ -32181,7 +32137,7 @@ export interface components {
             option?: components["schemas"]["certification.v2.ProductCertificateOptionsResponse.Option"][];
         };
         /**
-         * @description Тип соответствия требованиям из метода [/v2/product/certificate/accordance-types/list](#operation/CertificateAccordanceTypes):
+         * @description Стандарт сертификации:
          *     - `UNKNOWN` — неизвестный;
          *     - `EAEU` — стандарт сертификации ЕАЭС;
          *     - `NATIONAL` — национальный стандарт сертификации;
@@ -32286,7 +32242,7 @@ export interface components {
              *     - `NUMBER` — номер;
              *     - `FILES` — файл с сертификатом в кодировке Base64;
              *     - `CERTIFICATE_COUNTRY` — страна выдачи;
-             *     - `ACCORDANCE_TYPE` — тип соответствия требованиям;
+             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
              *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
              *     - `ISSUE_DATE` — дата выпуска;
              *     - `EXPIRED_DATE` — дата истечения;
@@ -32347,7 +32303,7 @@ export interface components {
              *     - `NUMBER` — номер;
              *     - `FILES` — файл с сертификатом в кодировке Base64;
              *     - `CERTIFICATE_COUNTRY` — страна выдачи;
-             *     - `ACCORDANCE_TYPE` — тип соответствия требованиям;
+             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
              *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
              *     - `ISSUE_DATE` — дата выпуска;
              *     - `EXPIRED_DATE` — дата истечения;
@@ -34251,195 +34207,6 @@ export interface components {
              */
             warehouse_id: number;
         };
-        /** object */
-        ProductV1QuantListRequest: {
-            /** @description Указатель для выборки следующих данных. */
-            cursor?: string;
-            /**
-             * Format: int64
-             * @description Максимальное количество элементов в ответе.
-             */
-            limit: number;
-            /**
-             * @description Фильтр по видимости товара:
-             *     - `ALL` — все товары, кроме архивных.
-             *     - `VISIBLE` — товары, которые видны покупателям.
-             *     - `INVISIBLE` — товары, которые не видны покупателям.
-             *     - `EMPTY_STOCK` — товары, которых нет в наличии.
-             *     - `NOT_MODERATED` — товары, которые не прошли модерацию.
-             *     - `MODERATED` — товары, которые прошли модерацию.
-             *     - `DISABLED` — товары, которые видны покупателям, но недоступны к покупке.
-             *     - `STATE_FAILED` — товары, создание которых завершилось ошибкой.
-             *     - `READY_TO_SUPPLY` — товары, готовые к поставке.
-             *     - `VALIDATION_STATE_PENDING` — товары, которые проходят проверку валидатором на премодерации.
-             *     - `VALIDATION_STATE_FAIL` — товары, которые не прошли проверку валидатором на премодерации.
-             *     - `VALIDATION_STATE_SUCCESS` — товары, которые прошли проверку валидатором на премодерации.
-             *     - `TO_SUPPLY` — товары, готовые к продаже.
-             *     - `IN_SALE` — товары в продаже.
-             *     - `REMOVED_FROM_SALE` — товары, скрытые от покупателей.
-             *     - `OVERPRICED` — превышение цены.
-             *     - `CRITICALLY_OVERPRICED` — критическое превышение цены.
-             *     - `EMPTY_BARCODE` — пустой штрихкод.
-             *     - `BARCODE_EXISTS` — штрихкод указан.
-             *     - `QUARANTINE` — товар в карантине после изменения цены на 50% и больше.
-             *     - `ARCHIVED` — товары в архиве.
-             *     - `OVERPRICED_WITH_STOCK` — товары в продаже, цена которых выше, чем у конкурентов.
-             *     - `PARTIAL_APPROVED` — товары в продаже, у которых пустое или неполное описание.
-             * @default ALL
-             * @enum {string}
-             */
-            visibility: "ALL" | "VISIBLE" | "INVISIBLE" | "EMPTY_STOCK" | "NOT_MODERATED" | "MODERATED" | "DISABLED" | "STATE_FAILED" | "READY_TO_SUPPLY" | "VALIDATION_STATE_PENDING" | "VALIDATION_STATE_FAIL" | "VALIDATION_STATE_SUCCESS" | "TO_SUPPLY" | "IN_SALE" | "REMOVED_FROM_SALE" | "OVERPRICED" | "CRITICALLY_OVERPRICED" | "EMPTY_BARCODE" | "BARCODE_EXISTS" | "QUARANTINE" | "ARCHIVED" | "OVERPRICED_WITH_STOCK" | "PARTIAL_APPROVED";
-        };
-        /** object */
-        ProductV1QuantListResponseProductsQuants: {
-            /** @description Идентификатор кванта. */
-            quant_code?: string;
-            /**
-             * Format: int64
-             * @description Размер кванта.
-             */
-            quant_size?: number;
-        };
-        /** object */
-        ProductV1QuantListResponseProducts: {
-            /** @description Идентификатор товара в системе продавца — артикул. */
-            offer_id?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор товара в системе Ozon — `product_id`.
-             */
-            product_id?: number;
-            /** @description Список квантов товара. */
-            quants?: unknown;
-        };
-        /** object */
-        ProductV1QuantListResponse: {
-            /** @description Указатель для выборки следующих данных. */
-            cursor?: string;
-            /** @description Эконом-товары. */
-            products?: unknown;
-            /**
-             * Format: int32
-             * @description Остаток на всех складах, шт.
-             */
-            total_items?: number;
-        };
-        /** object */
-        ProductV1QuantInfoRequest: {
-            /** @description Список квантов с товарами. */
-            quant_code: unknown;
-        };
-        /** object */
-        ProductV1QuantInfoResponseResultItemsQuantInfoQuantsBarcodesExtended: {
-            /** @description Штрихкод. */
-            barcode?: string;
-            /** @description Ошибка получения штрихкода. */
-            error?: string;
-            /** @description Статус штрихкода. */
-            status?: string;
-        };
-        /**
-         * object
-         * @description Габариты.
-         */
-        ProductV1QuantInfoResponseResultItemsQuantInfoQuantsDimensions: {
-            /**
-             * Format: int64
-             * @description Глубина, мм.
-             */
-            depth?: number;
-            /**
-             * Format: int64
-             * @description Высота, мм.
-             */
-            height?: number;
-            /**
-             * Format: int64
-             * @description Вес, г.
-             */
-            weight?: number;
-            /**
-             * Format: int64
-             * @description Ширина, мм.
-             */
-            width?: number;
-        };
-        /**
-         * object
-         * @description Цена на товар с учётом всех акций, которая будет указана на витрине Ozon, без учёта скидки по карте Ozon Банка.
-         */
-        ProductV1QuantInfoResponseResultItemsQuantInfoQuantsMarketingPrice: {
-            /** @description Цена продажи. */
-            price?: string;
-            /** @description Цена, которую указал продавец. */
-            seller_price?: string;
-        };
-        /**
-         * object
-         * @description Описание статусов.
-         */
-        ProductV1QuantInfoResponseResultItemsQuantInfoQuantsTexts: {
-            /** @description Описание статуса. */
-            state_description?: string;
-            /** @description Название статуса. */
-            state_name?: string;
-            /** @description Системное название статуса. */
-            state_sys_name?: string;
-            /** @description Подсказка о текущем состоянии товара. */
-            state_tooltip?: string;
-        };
-        /** object */
-        ProductV1QuantInfoResponseResultItemsQuantInfoQuants: {
-            /** @description Информация о штрихкодах. */
-            barcodes_extended?: unknown;
-            dimensions?: components["schemas"]["ProductV1QuantInfoResponseResultItemsQuantInfoQuantsDimensions"];
-            marketing_price?: components["schemas"]["ProductV1QuantInfoResponseResultItemsQuantInfoQuantsMarketingPrice"];
-            /** @description Минимальная цена, указанная продавцом. */
-            min_price?: string;
-            /** @description Зачёркнутая цена, указанная продавцом. */
-            old_price?: string;
-            /** @description Цена продажи, указанная продавцом. */
-            price?: string;
-            /** @description Идентификатор эконом-товара. */
-            quant_code?: string;
-            /**
-             * Format: int64
-             * @description Размер кванта.
-             */
-            quant_sice?: number;
-            /** @description Тип доставки товара. */
-            shipment_type?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор товара в системе Ozon — SKU.
-             */
-            sku?: number;
-            statuses?: components["schemas"]["ProductV1QuantInfoResponseResultItemsQuantInfoQuantsTexts"];
-        };
-        /**
-         * object
-         * @description Информация о кванте.
-         */
-        ProductV1QuantInfoResponseResultItemsQuantInfo: {
-            /** @description Список квантов. */
-            quants?: unknown;
-        };
-        /** object */
-        ProductV1QuantInfoResponseResultItems: {
-            /** @description Идентификатор товара в системе продавца — артикул. */
-            offer_id?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор товара в системе Ozon — `product_id`.
-             */
-            product_id?: number;
-            quant_info?: components["schemas"]["ProductV1QuantInfoResponseResultItemsQuantInfo"];
-        };
-        /** object */
-        ProductV1QuantInfoResponse: {
-            /** @description Эконом-товары. */
-            items?: components["schemas"]["ProductV1QuantInfoResponseResultItems"][];
-        };
         v1SellerActionsCreateDiscountRequest: {
             /**
              * Format: date-time
@@ -34777,21 +34544,26 @@ export interface components {
         };
         /**
          * @description Валюта:
-         *     - `RUB` — российский рубль,
-         *     - `BYN` — белорусский рубль,
-         *     - `KZT` — тенге,
-         *     - `EUR` — евро,
-         *     - `USD` — доллар США,
+         *     - `RUB` — российский рубль;
+         *     - `BYN` — белорусский рубль;
+         *     - `KZT` — тенге;
+         *     - `EUR` — евро;
+         *     - `USD` — доллар США;
          *     - `CNY` — юань.
          * @default RUB
          * @enum {string}
          */
         ProductCurrencyEnum: "RUB" | "BYN" | "KZT" | "EUR" | "USD" | "CNY";
         v1SellerActionsProductsAddRequestProduct: {
+            /**
+             * Format: double
+             * @description Цена товара по акции.
+             */
+            action_price?: number;
             currency?: components["schemas"]["ProductCurrencyEnum"];
             /**
-             * Format: float
-             * @description Размер скидки в процентах. Передайте параметр, если механика акции «Скидка».
+             * Format: double
+             * @description Размер скидки в процентах. Передайте параметр, если выбрали механику акции «Скидка» или «Скидка по промокоду» и получили `actions.action_parameters.discount_type = PERCENT` в методе [/v1/seller-actions/list](#operation/SellerActionsList).
              */
             discount_percent?: number;
             /**
@@ -34799,7 +34571,7 @@ export interface components {
              * @description Идентификатор товара в системе Ozon — SKU.
              */
             sku: number;
-        };
+        } & (unknown | unknown);
         v1SellerActionsProductsAddRequest: {
             /**
              * Format: uint64
@@ -40123,6 +39895,23 @@ export interface components {
             external_index_data?: components["schemas"]["product.v1.ProductPricesDetailsResponse.Price.PriceIndex.IndexData"];
             self_index_data?: components["schemas"]["product.v1.ProductPricesDetailsResponse.Price.PriceIndex.IndexDataSelf"];
         };
+        /** object */
+        "product.v1.ProductPricesDetailsResponse.Price.WeightIndex": {
+            /**
+             * Format: double
+             * @description Индекс цены на Wildberries.
+             */
+            self_wb_index?: number;
+            /** @description Минимальная цена. */
+            self_wb_min_competitor_price?: components["schemas"]["money.Money"][];
+            /** @description Ссылка на товар по средней цене на Wildberries. */
+            self_wb_url?: string;
+            /**
+             * Format: double
+             * @description Коэффициент влияния цены товара на общий индекс товаров.
+             */
+            weight_percent?: number;
+        };
         v1ProductPricesDetailsResponsePrice: {
             customer_price?: components["schemas"]["moneyMoneyCustomerPrice"];
             /**
@@ -40141,6 +39930,8 @@ export interface components {
              * @description Идентификатор товара в системе Ozon — SKU.
              */
             sku?: number;
+            /** @description Средневзвешенный индекс цен. Если `weight_index = null`, индекс получить не удалось. */
+            weight_index?: components["schemas"]["product.v1.ProductPricesDetailsResponse.Price.WeightIndex"][];
         };
         v1ProductPricesDetailsResponse: {
             /** @description Цены товаров. */
@@ -61784,8 +61575,8 @@ export interface operations {
                  *         "sku": [
                  *           0
                  *         ],
-                 *         "order_status": "NEW",
-                 *         "status": "DELIVERED",
+                 *         "order_status": "DELIVERED",
+                 *         "status": "NEW",
                  *         "published_from": "2026-03-10T14:08:00.257Z",
                  *         "published_to": "2026-03-10T14:08:00.257Z"
                  *       },
@@ -61813,7 +61604,7 @@ export interface operations {
                      *           "text": "Не лучший товар, встречал и получше за те же деньги.",
                      *           "published_at": "2024-10-10T07:23:55.970Z",
                      *           "rating": 2,
-                     *           "status": "UNPROCESSED",
+                     *           "status": "NEW",
                      *           "comments_amount": 0,
                      *           "photos_amount": 0,
                      *           "videos_amount": 0,
@@ -65389,89 +65180,6 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
-            };
-            /** @description Ошибка */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    QuantProductList: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                /**
-                 * @example {
-                 *       "cursor": "",
-                 *       "limit": 1000,
-                 *       "visibility": "ALL"
-                 *     }
-                 */
-                "application/json": components["schemas"]["ProductV1QuantListRequest"];
-            };
-        };
-        responses: {
-            /** @description Эконом-товары */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductV1QuantListResponse"];
-                };
-            };
-            /** @description Ошибка */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    QuantGetInfo: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ProductV1QuantInfoRequest"];
-            };
-        };
-        responses: {
-            /** @description Информация об эконом-товаре */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ProductV1QuantInfoResponse"];
-                };
             };
             /** @description Ошибка */
             default: {
