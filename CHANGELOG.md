@@ -5,6 +5,37 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.10.0] - 2026-09-11
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 сентября
+2026.
+Пути: 465 → 466 (+1 / −0); схемы: 2150 → 2154 (+4 / −0); новые поля в
+существующих схемах: 0.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/fbp/order/direct/tpl-dlv/edit` — бета-метод обновления информации о
+  доставке сторонней транспортной компанией (и связанные схемы
+  `fbp.v1.FbpOrderDirectTplDlvEditRequest`,
+  `fbp.v1.FbpOrderDirectTplDlvEditResponse`,
+  `fbp.v1.OrderValidationError`,
+  `fbp.v1.OrderValidationError.ErrorType`).
+
+### Changed
+
+- В запросе `/v1/product/import/prices`
+  (`productImportProductsPricesRequestPrice`) параметры `auto_action_enabled` и
+  `manage_elastic_boosting_through_price` помечены как `@deprecated`.
+- В `v3ImportProductsRequestItem` поле `geo_names` помечено как `@deprecated`.
+
+### Notes
+
+- Сверка с анонсом Ozon за 11 сентября 2026: новый путь
+  `/v1/fbp/order/direct/tpl-dlv/edit` и deprecation параметров цен в
+  `/v1/product/import/prices` отражены в снимке.
+- Deprecation `geo_names` пришло со снимком, но в анонсе Ozon не упоминается.
+
 ## [0.9.1] - 2026-09-09
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 9
