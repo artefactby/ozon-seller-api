@@ -8665,6 +8665,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/fbp/order/direct/tpl-dlv/edit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Обновить информацию о доставке сторонней транспортной компанией
+         * @description Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/1700-FBP-metody/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["FbpOrderDirectTplDlvEdit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/fbp/order/direct/timeslot/edit": {
         parameters: {
             query?: never;
@@ -10638,6 +10658,7 @@ export interface components {
              */
             dimension_unit?: string;
             /**
+             * @deprecated
              * @description Геоограничения — при необходимости заполните параметр в личном кабинете при создании или редактировании товара.
              *
              *     Необязательный параметр.
@@ -12632,6 +12653,7 @@ export interface components {
         /** object */
         productImportProductsPricesRequestPrice: {
             /**
+             * @deprecated
              * @description Атрибут для включения и выключения автоматического применения к товару доступных акций Ozon:
              *     - `ENABLED` — включить;
              *     - `DISABLED` — выключить;
@@ -12670,6 +12692,7 @@ export interface components {
              */
             currency_code?: string;
             /**
+             * @deprecated
              * @description Управление участием в акции «Эластичный бустинг»:
              *
              *     - `true` — автоматически добавляет товар в акцию или увеличивает в ней скидку и бустинг, если значение из параметра `price` соответствует условиям акции;
@@ -37246,6 +37269,71 @@ export interface components {
         };
         v1FbpOrderDirectSellerDlvEditResponse: {
             error?: components["schemas"]["v1OrderValidationError"];
+            /** @description `true`, если есть ошибка. */
+            is_error?: boolean;
+            /**
+             * Format: int64
+             * @description Идентификатор актуальной версии черновика.
+             */
+            row_version?: number;
+        };
+        "fbp.v1.FbpOrderDirectTplDlvEditRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор актуальной версии черновика.
+             */
+            row_version: number;
+            /** @description Идентификатор заявки на поставку. */
+            supply_id: string;
+            /** @description Трек-номер отправления. */
+            tracking_number: string;
+            /** @description Название транспортной компании. */
+            transport_company_name: string;
+        };
+        /** @enum {string} */
+        "fbp.v1.OrderValidationError.ErrorType": "DELIVERY_DRIVER_NAME_LENGTH_MAXIMUM_REACHED" | "DELIVERY_VEHICLE_GENRE_LENGTH_MAXIMUM_REACHED" | "DELIVERY_VEHICLE_REGISTRATION_PLATE_LENGTH_MAXIMUM_REACHED" | "DELIVERY_TPL_NAME_LENGTH_MAXIMUM_REACHED" | "DELIVERY_TRACKING_NUMBER_LENGTH_MAXIMUM_REACHED" | "DELIVERY_DRIVER_NAME_EMPTY" | "DELIVERY_VEHICLE_GENRE_EMPTY" | "DELIVERY_VEHICLE_REGISTRATION_PLATE_EMPTY" | "DELIVERY_TPL_NAME_EMPTY" | "DELIVERY_TRACKING_NUMBER_EMPTY" | "DELIVERY_BY_SELLER_EMPTY" | "DELIVERY_BY_TPL_EMPTY" | "RECEIVE_DATE_NOT_SET" | "SUPPLY_TYPE_NOT_SUPPORTED" | "INVALID_BUSINESS_FLOW" | "ORDER_LOCKED" | "INVALID_TIMESLOT" | "DROP_OFF_DETAILS_EMPTY" | "PICK_UP_ADDRESS_IS_EMPTY" | "PICK_UP_SENDER_NAME_IS_EMPTY" | "PICK_UP_SENDER_PHONE_IS_EMPTY" | "PICK_UP_ADDRESS_IS_TOO_LARGE" | "PICK_UP_SENDER_NAME_IS_TOO_LARGE" | "PICK_UP_SENDER_PHONE_IS_TOO_LARGE" | "PICK_UP_COMMENT_IS_TOO_LARGE" | "PICK_UP_DETAILS_EMPTY" | "DROP_OFF_ADDRESS_NOT_SET" | "INVALID_DECLINE_REASON_FOR_WAREHOUSE_TYPE" | "PICK_UP_SENDER_PHONE_HAS_NOT_ALLOWED_CHARS" | "TIMESLOT_EMPTY" | "TIMESLOT_EXPIRED" | "BUNDLE_UPDATE_ALREADY_IN_PROGRESS" | "INVALID_STATE";
+        /** @description Информация об ошибке. */
+        "fbp.v1.OrderValidationError": {
+            /**
+             * @description Тип ошибки:
+             *     - `DELIVERY_DRIVER_NAME_LENGTH_MAXIMUM_REACHED` — превышена длина ФИО водителя;
+             *     - `DELIVERY_VEHICLE_GENRE_LENGTH_MAXIMUM_REACHED` — превышена длина типа автомобиля;
+             *     - `DELIVERY_VEHICLE_REGISTRATION_PLATE_LENGTH_MAXIMUM_REACHED` — превышена длина номера автомобиля;
+             *     - `DELIVERY_TPL_NAME_LENGTH_MAXIMUM_REACHED` — превышена длина названия сторонней транспортной компании;
+             *     - `DELIVERY_TRACKING_NUMBER_LENGTH_MAXIMUM_REACHED` — превышена длина трек-номера;
+             *     - `DELIVERY_DRIVER_NAME_EMPTY` — ФИО водителя не указано;
+             *     - `DELIVERY_VEHICLE_GENRE_EMPTY` — тип автомобиля не указан;
+             *     - `DELIVERY_VEHICLE_REGISTRATION_PLATE_EMPTY` — номер автомобиля не указан;
+             *     - `DELIVERY_TPL_NAME_EMPTY` — название сторонней транспортной компании не указано;
+             *     - `DELIVERY_TRACKING_NUMBER_EMPTY` — трек-номер не указан;
+             *     - `DELIVERY_BY_SELLER_EMPTY` — информация о доставке продавцом не указана;
+             *     - `DELIVERY_BY_TPL_EMPTY` — информация о доставке сторонней транспортной компанией не указана;
+             *     - `RECEIVE_DATE_NOT_SET` — дата получения не указана;
+             *     - `SUPPLY_TYPE_NOT_SUPPORTED` — тип поставки не поддерживается;
+             *     - `INVALID_BUSINESS_FLOW` — неверный бизнес-поток;
+             *     - `ORDER_LOCKED` — нельзя редактировать товарный состав;
+             *     - `INVALID_TIMESLOT` — таймслот указан неверно;
+             *     - `DROP_OFF_DETAILS_EMPTY` — детали drop-off пункта не указаны;
+             *     - `PICK_UP_ADDRESS_IS_EMPTY` — адрес pick-up точки не указан;
+             *     - `PICK_UP_SENDER_NAME_IS_EMPTY` — ФИО отправителя не указано;
+             *     - `PICK_UP_SENDER_PHONE_IS_EMPTY` — номер телефона отправителя не указан;
+             *     - `PICK_UP_ADDRESS_IS_TOO_LARGE` — превышена длина адреса pick-up точки;
+             *     - `PICK_UP_SENDER_NAME_IS_TOO_LARGE` — превышена длина ФИО отправителя;
+             *     - `PICK_UP_SENDER_PHONE_IS_TOO_LARGE` — превышена длина номера телефона отправителя;
+             *     - `PICK_UP_COMMENT_IS_TOO_LARGE` — превышена длина комментария к поставке;
+             *     - `PICK_UP_DETAILS_EMPTY` — детали pick-up точки не указаны;
+             *     - `DROP_OFF_ADDRESS_NOT_SET` — адрес drop-off пункта не указан;
+             *     - `INVALID_DECLINE_REASON_FOR_WAREHOUSE_TYPE` — причина отмены не подходит для типа склада;
+             *     - `PICK_UP_SENDER_PHONE_HAS_NOT_ALLOWED_CHARS` — запрещённые символы в номере телефона отправителя;
+             *     - `TIMESLOT_EMPTY` — таймслот не указан;
+             *     - `TIMESLOT_EXPIRED` — поставка не доставлена в указанный таймслот;
+             *     - `BUNDLE_UPDATE_ALREADY_IN_PROGRESS` — обновление информации о поставке уже запущено;
+             *     - `INVALID_STATE` — неверное состояние.
+             */
+            order_errors?: components["schemas"]["fbp.v1.OrderValidationError.ErrorType"][];
+        };
+        "fbp.v1.FbpOrderDirectTplDlvEditResponse": {
+            error?: components["schemas"]["fbp.v1.OrderValidationError"];
             /** @description `true`, если есть ошибка. */
             is_error?: boolean;
             /**
@@ -68646,6 +68734,44 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["v1FbpOrderDirectSellerDlvEditResponse"];
+                };
+            };
+            /** @description Ошибка */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["googlerpcStatus"];
+                };
+            };
+        };
+    };
+    FbpOrderDirectTplDlvEdit: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["fbp.v1.FbpOrderDirectTplDlvEditRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация обновлена */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["fbp.v1.FbpOrderDirectTplDlvEditResponse"];
                 };
             };
             /** @description Ошибка */
