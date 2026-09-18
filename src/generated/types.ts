@@ -6376,6 +6376,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/analytics/category/comparison": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о сравнении категорий
+         * @description Соответствует разделу [**Аналитика → Категории**](https://seller.ozon.ru/app/analytics/what-to-sell/categories-comparison) в личном кабинете.
+         *
+         *     Метод доступен продавцам с подпиской [Premium Pro](https://seller-edu.ozon.ru/libra/seller-rating/podpiska-premium-pro).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2347-Novyi-metod-dlia-polucheniia-otcheta-Sravnenie-kategorii/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["AnalyticsCategoryComparison"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/removal/from-supply/list": {
         parameters: {
             query?: never;
@@ -6784,6 +6808,72 @@ export interface paths {
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2296-Novye-metody-zavisimykh-atributov/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["DescriptionCategoryDependentAttributesValues"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/analytics/local-sale/total": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить общую информацию о локальности продаж
+         * @description Метод соответствует разделу [**Аналитика → Планирование поставок → Локальность продаж**](https://seller.ozon.ru/app/analytics/sales-geography/local-packaging).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2335-Novye-beta-metody-dlia-polucheniia-lokalnosti-prodazh/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["AnalyticsLocalSaleTotal"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/analytics/local-sale/clusters-items/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о локальности продаж по кластерам
+         * @description Метод соответствует разделу [**Аналитика → Планирование поставок → Локальность продаж**](https://seller.ozon.ru/app/analytics/sales-geography/local-packaging).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2335-Novye-beta-metody-dlia-polucheniia-lokalnosti-prodazh/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["AnalyticsLocalSaleClustersItemsInfo"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/analytics/local-sale/items-clusters/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о локальности продаж товара по кластерам
+         * @description Метод соответствует разделу [**Аналитика → Планирование поставок → Локальность продаж**](https://seller.ozon.ru/app/analytics/sales-geography/local-packaging).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2335-Novye-beta-metody-dlia-polucheniia-lokalnosti-prodazh/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["AnalyticsLocalSaleItemsClustersInfo"];
         delete?: never;
         options?: never;
         head?: never;
@@ -9595,8 +9685,9 @@ export interface paths {
          * @description Уĸажите период и метриĸи, ĸоторые нужно посчитать. В ответе будет аналитиĸа, сгруппированная по параметру `dimensions`.
          *
          *     Для продавцов без подписки [Premium Plus](https://seller-edu.ozon.ru/seller-rating/about-rating/subscription-premium-plus):
-         *     - доступны данные за последние 3 месяца,
-         *     - есть ограничения по способам группировки данных и метрикам.
+         *     - доступны данные за последние 3 месяца;
+         *     - есть ограничения по способам группировки данных и метрикам;
+         *     - есть лимит на 50 запросов в сутки.
          *
          *     Для продавцов с подпиской [Premium Plus](https://seller-edu.ozon.ru/seller-rating/about-rating/subscription-premium-plus) или [Premium Pro](https://seller-edu.ozon.ru/seller-rating/about-rating/podpiska-premium-pro) ограничений нет.
          *
@@ -10692,19 +10783,11 @@ export interface components {
              *     Максимальная длина строки — 50 символов.
              */
             offer_id: string;
-            /**
-             * @description Цена до скидок (будет зачёркнута на карточке товара). Указывается в рублях. Разделитель дробной
-             *     части — точка, до двух знаков после точки.
-             *
-             *     Если вы раньше передавали `old_price`, то при обновлении `price` также обновите `old_price`.
-             */
+            /** @description Цена, которую покупатели видят зачёркнутой. Должна быть больше `price`. */
             old_price?: string;
             /** @description Список PDF-файлов. */
             pdf_list?: components["schemas"]["ImportProductsRequestPdfList"][];
-            /**
-             * @description Цена товара с учётом скидок, отображается на карточке товара. Если на товар нет скидок, укажите
-             *     значение `old_price` в этом параметре.
-             */
+            /** @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем. */
             price: string;
             /** @description Ссылка на главное изображение товара. */
             primary_image?: string;
@@ -10847,9 +10930,9 @@ export interface components {
              *     Максимальная длина строки — 50 символов.
              */
             offer_id?: string;
-            /** @description Цена до скидок (будет зачеркнута на карточке товара). Указывается в рублях. Разделитель дробной части — точка, до двух знаков после точки. */
+            /** @description Цена, которую покупатели видят зачёркнутой. Должна быть больше `price`. */
             old_price?: string;
-            /** @description Цена товара с учётом скидок, отображается на карточке товара. Если на товар нет скидок, укажите значение `old_price` в этом параметре. */
+            /** @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем. */
             price?: string;
             /**
              * Format: int64
@@ -11598,16 +11681,16 @@ export interface components {
              *     [Подробнее о супер-товарах в Базе знаний продавца](https://seller-edu.ozon.ru/fbo/rabota-so-stokom/super-tovary)
              */
             is_super?: boolean;
-            /** @description Минимальная цена товара после применения акций. */
+            /** @description Нижний порог предельной цены товара. Действует при автоприменении акций, автодобавлении товара в акции и в стратегиях ценообразования. Покупатели не видят это значение. */
             min_price?: string;
             model_info?: components["schemas"]["GetProductInfoListResponseModelInfo"];
             /** @description Название. */
             name?: string;
             /** @description Идентификатор товара в системе продавца — артикул. */
             offer_id?: string;
-            /** @description Цена до учёта скидок. На карточке товара отображается зачёркнутой. */
+            /** @description Цена, которую покупатели видят зачёркнутой. */
             old_price?: string;
-            /** @description Цена товара с учётом скидок — это значение показывается на карточке товара. */
+            /** @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем. */
             price?: string;
             price_indexes?: components["schemas"]["GetProductInfoListResponsePriceIndexes"];
             /** @description Главное изображение товара. */
@@ -12701,44 +12784,25 @@ export interface components {
              *     Если ничего не передать, изменений в статусе участия не будет.
              */
             manage_elastic_boosting_through_price?: boolean;
-            /** @description Минимальная цена товара после применения акций.<br> [Подробнее о минимальной цене в Базе знаний продавца](https://seller-edu.ozon.ru/libra/ceny-i-akcii/akcii-skidki-i-kupony/akcii-ozon/voprosy-otvety-akcii-ozon#что-такое-минимальная-цена?) */
+            /** @description Нижний порог предельной цены товара. Действует при автоприменении акций, автодобавлении товара в акции и в стратегиях ценообразования. Покупатели не видят это значение. */
             min_price?: string;
-            /** @description `true`, если Ozon учитывает минимальную цену при добавлении в акции. Если ничего не передать, изменений в статусе учёта цены не будет. */
+            /** @description `true`, чтобы Ozon учитывал ограничения для акций и стратегий при автодобавлении товара в акции. Если ничего не передать, изменений в статусе учёта цены не будет. */
             min_price_for_auto_actions_enabled?: boolean;
             /** @description Себестоимость товара. */
             net_price?: string;
             /** @description Идентификатор товара в системе продавца — артикул. */
             offer_id?: string;
-            /**
-             * @description Цена до скидок (зачеркнута на карточке товара). Указывается в рублях. Разделитель дробной части — точка, до двух знаков после точки.
-             *
-             *     Если на товар нет скидок, укажите значение `0` в этом поле, а текущую цену передайте в поле `price`.
-             */
+            /** @description Цена, которую покупатели видят зачёркнутой. Должна быть больше `price`. */
             old_price?: string;
-            /**
-             * @description Цена товара с учётом скидок, отображается на карточке товара.
-             *
-             *     Если значение параметра `old_price` больше 0, между `price` и `old_price` должна быть определённая разница.
-             *     Она зависит от значения `price`.
-             *
-             *     | Значение `price` | Минимальная разница |
-             *     |---|---|
-             *     | < 400 | 20 рублей |
-             *     | 400–10 000 | 5% |
-             *     | > 10 000 | 500 рублей |
-             */
+            /** @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем. */
             price?: string;
             /**
-             * @description Атрибут для автоприменения стратегий цены:
-             *     - `ENABLED` — включить;
-             *     - `DISABLED` — выключить;
-             *     - `UNKNOWN` — ничего не менять, передаётся по умолчанию.
+             * @description Автоприменение стратегий цены:
+             *     - `ENABLED` — включить. Установите значение ограничения для акций и стратегий в параметре `min_price`.
+             *     - `DISABLED` — выключить. Удалим товар из стратегии.
+             *     - `UNKNOWN` — не менять.
              *
-             *     Если ранее вы включили автоприменение стратегий цены и не хотите выключать его, передавайте `UNKNOWN` в следующих запросах.
-             *
-             *     Если вы передаёте `ENABLED` в этом параметре, установите значение минимальной цены в параметре `min_price`.
-             *
-             *     Если вы передаёте `DISABLED` в этом параметре, товар удаляется из стратегии.
+             *     Если ранее вы включили автоприменение стратегий цены и не хотите выключать его, передайте `UNKNOWN`.
              * @default UNKNOWN
              * @enum {string}
              */
@@ -13030,12 +13094,12 @@ export interface components {
             currency_code?: string;
             /**
              * Format: double
-             * @description Цена на товар с учётом акций продавца.
+             * @description Предельная цена товара с учётом акций продавца, не учитывает дополнительную скидку от Ozon. Выше этого значения цену для покупателя не поднимем.
              */
             marketing_seller_price?: number;
             /**
              * Format: double
-             * @description Минимальная цена товара после применения всех скидок.
+             * @description Нижний порог предельной цены товара. Действует при автоприменении акций, автодобавлении товара в акции и в стратегиях ценообразования. Покупатели не видят это значение.
              */
             min_price?: number;
             /**
@@ -13045,12 +13109,12 @@ export interface components {
             net_price?: number;
             /**
              * Format: double
-             * @description Цена до учёта скидок. На карточке товара отображается зачёркнутой.
+             * @description Цена, которую покупатели видят зачёркнутой. Должна быть больше `price`.
              */
             old_price?: number;
             /**
              * Format: double
-             * @description Цена товара с учётом скидок — это значение показывается на карточке товара.
+             * @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем.
              */
             price?: number;
             /**
@@ -17749,11 +17813,13 @@ export interface components {
          *      - `CAN_NOT_START_CALCULATION` — не удалось начать расчёт;
          *      - `PICKUP_IS_NOT_AVAILABLE` — самовывоз недоступен;
          *      - `DROP_OFF_NOT_COMPATIBLE_WITH_PICKUP` — точка отгрузки несовместима с самовывозом;
+         *      - `LIMIT_EXCEEDED_ACCORDING_TO_SHIPMENT_DISCIPLINE` — товарный состав превышает ограничение из-за плохого рейтинга;
+         *      - `BACKUP_SUPPLY_ALREADY_USED` — кластер недоступен из-за плохого рейтинга, резервная поставка уже использована.
          *      - `UNDEFINED` — неизвестная ошибка.
          * @default UNSPECIFIED
          * @enum {string}
          */
-        ErrorErrorMessageEnum: "UNSPECIFIED" | "EMPTY_ITEMS_LIST" | "ITEMS_COUNT_MORE_THAN_MAX" | "UNKNOWN_CLUSTER_IDS" | "ITEMS_VALIDATION" | "DROP_OFF_POINT_DOES_NOT_EXIST" | "DROP_OFF_POINT_HAS_NO_TIMESLOTS" | "TOTAL_VOLUME_IN_LITRES_INVALID" | "SKU_DISTRIBUTION_REQUIRED_BUT_NOT_POSSIBLE" | "CROSS_DOCK_IN_DELIVERY_POINT_DISABLED_FOR_SELLER" | "DUPLICATE_SKUS_IN_REQUEST" | "CAN_NOT_CREATE_DRAFT" | "DRAFT_TOTALS_INVALID_ERROR" | "CAN_NOT_START_CALCULATION" | "PICKUP_IS_NOT_AVAILABLE" | "DROP_OFF_NOT_COMPATIBLE_WITH_PICKUP" | "UNDEFINED";
+        ErrorErrorMessageEnum: "UNSPECIFIED" | "EMPTY_ITEMS_LIST" | "ITEMS_COUNT_MORE_THAN_MAX" | "UNKNOWN_CLUSTER_IDS" | "ITEMS_VALIDATION" | "DROP_OFF_POINT_DOES_NOT_EXIST" | "DROP_OFF_POINT_HAS_NO_TIMESLOTS" | "TOTAL_VOLUME_IN_LITRES_INVALID" | "SKU_DISTRIBUTION_REQUIRED_BUT_NOT_POSSIBLE" | "CROSS_DOCK_IN_DELIVERY_POINT_DISABLED_FOR_SELLER" | "DUPLICATE_SKUS_IN_REQUEST" | "CAN_NOT_CREATE_DRAFT" | "DRAFT_TOTALS_INVALID_ERROR" | "CAN_NOT_START_CALCULATION" | "PICKUP_IS_NOT_AVAILABLE" | "DROP_OFF_NOT_COMPATIBLE_WITH_PICKUP" | "LIMIT_EXCEEDED_ACCORDING_TO_SHIPMENT_DISCIPLINE" | "BACKUP_SUPPLY_ALREADY_USED" | "UNDEFINED";
         /**
          * @default UNSPECIFIED
          * @enum {string}
@@ -18063,10 +18129,20 @@ export interface components {
         DraftCreateInfoResponseErrorErrorReasonEnum: "UNSPECIFIED" | "ORDER_CREATION_NOT_AVAILABLE_FOR_SELLER" | "ALL_ITEMS_REJECTED" | "NOT_AVAILABLE_CLUSTERS" | "ALL_ITEMS_COUNT_INVALID" | "ALL_ITEMS_VOLUME_INVALID" | "ALL_BUNDLES_EMPTY" | "HAS_EMPTY_BUNDLE" | "DISABLED_FOR_SELLER" | "NO_ACTIVE_SELLER_WAREHOUSE" | "INVALID_SELLER_WAREHOUSE" | "MINIMUM_VOLUME_IN_LITRES_INVALID" | "UNDEFINED";
         ErrorItemsValidation: {
             /**
+             * Format: int32
+             * @description Доступный лимит товаров для отгрузки.
+             */
+            limit?: number;
+            /**
              * Format: int64
              * @description Идентификатор кластера размещения.
              */
             macrolocal_cluster_id?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор резервной поставки, которая была создана ранее.
+             */
+            supply_id?: number;
             /** @description Отклонённые товары. */
             rejected_items?: components["schemas"]["ItemsValidationRejectedItems"][];
         };
@@ -18917,6 +18993,32 @@ export interface components {
             /** @description Идентификатор операции. */
             operation_id: string;
         };
+        /**
+         * @description Код ошибки:
+         *     - `SHIPMENT_PLANNING_DISCIPLINE_CLUSTER_LIMIT_EXCEEDED` — превышен лимит на изменение товаров в поставке;
+         *     - `SHIPMENT_PLANNING_DISCIPLINE_CLUSTER_BACKUP_SUPPLY_ALREADY_USED` — превышен лимит на обновление товарного состава поставок.
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderContentUpdateStatusResponse.ErrorDetails.ErrorDetailsCode.Enum": "SHIPMENT_PLANNING_DISCIPLINE_CLUSTER_LIMIT_EXCEEDED" | "SHIPMENT_PLANNING_DISCIPLINE_CLUSTER_BACKUP_SUPPLY_ALREADY_USED";
+        /** @description Информация об ошибках при попытке редактирования товарного состава. */
+        "supply_order.v1.SupplyOrderContentUpdateStatusResponse.ErrorDetails": {
+            /**
+             * Format: int64
+             * @description Идентификатор резервной поставки в кластер, которая была создана ранее.
+             */
+            backup_supply_id?: number;
+            /**
+             * @description Код ошибки:
+             *     - `SHIPMENT_PLANNING_DISCIPLINE_CLUSTER_LIMIT_EXCEEDED` — превышен лимит на изменение товаров в поставке;
+             *     - `SHIPMENT_PLANNING_DISCIPLINE_CLUSTER_BACKUP_SUPPLY_ALREADY_USED` — превышен лимит на обновление товарного состава поставок.
+             */
+            code?: components["schemas"]["supply_order.v1.SupplyOrderContentUpdateStatusResponse.ErrorDetails.ErrorDetailsCode.Enum"][];
+            /**
+             * Format: int64
+             * @description Доступный лимит на изменение товаров в поставке.
+             */
+            items_quantity_limit?: number;
+        };
         /** @enum {string} */
         v1SupplyOrderContentUpdateStatusResponseErrorEnum: "INVALID_DRAFT_BUNDLE_ID" | "SOME_SERVICE_ERROR" | "HAS_UTD" | "ORDER_SKU_LIMIT" | "SAME_SKU" | "SUPPLY_LOCKED" | "INBOUND_NO_CAPACITY" | "INBOUND_LOCK" | "SUPPLY_CONTENT_NOT_VALID" | "SUPPLY_BELONG_TO_ANOTHER_CONTRACTOR" | "SUPPLY_BELONG_TO_ANOTHER_COMPANY" | "INCORRECT_SUPPLY_STATE" | "INCORRECT_SUPPLY_SOURCE" | "INCORRECT_STORAGE_WAREHOUSE" | "DEADLINE" | "INACTIVE_CONTRACT" | "QUANTITY_OUT_OF_RANGE_BOTTOM" | "QUANTITY_OUT_OF_RANGE_UPPER" | "EMPTY_CONTENT" | "NO_SUPPLY_PRODUCT_BUNDLE_ID" | "INVALID_VOLUME" | "SUPPLY_IS_VIRTUAL" | "ORDER_LOCKED" | "MINIMUM_VOLUME_IN_LITRES_INVALID";
         /**
@@ -18930,6 +19032,7 @@ export interface components {
          */
         SupplyOrderContentUpdateStatusResponseStatusEnum: "SUCCESS" | "IN_PROGRESS" | "ERROR";
         v1SupplyOrderContentUpdateStatusResponse: {
+            error_details?: components["schemas"]["supply_order.v1.SupplyOrderContentUpdateStatusResponse.ErrorDetails"];
             /**
              * @description Список ошибок при редактировании товарного состава:
              *     - `INVALID_DRAFT_BUNDLE_ID`, `SOME_SERVICE_ERROR` — ошибка при редактировании поставки.
@@ -22074,8 +22177,7 @@ export interface components {
              *     - `hybrid_aggregator` — гибридная интеграция с доставкой внешней службой, Ozon регистрирует заказ;
              *     - `hybrid_non_integrated` — гибридная интеграция с доставкой силами продавца;
              *     - `hybrid_3pl_tracking` — гибридная интеграция с доставкой внешней службой, продавец регистрирует заказ;
-             *     - `click_and_collect` — бронирование в магазине партнёра;
-             *     - `FBP` — доставка с партнёрских складов Ozon.
+             *     - `click_and_collect` — бронирование в магазине партнёра.
              */
             integration_type_flow?: string;
             legal_info?: components["schemas"]["v2FboSinglePostingLegalInfo"];
@@ -22832,8 +22934,7 @@ export interface components {
              *     - `hybrid_aggregator` — гибридная интеграция с доставкой внешней службой, Ozon регистрирует заказ;
              *     - `hybrid_non_integrated` — гибридная интеграция с доставкой силами продавца;
              *     - `hybrid_3pl_tracking` — гибридная интеграция с доставкой внешней службой, продавец регистрирует заказ;
-             *     - `click_and_collect` — бронирование в магазине партнёра;
-             *     - `FBP` — доставка с партнёрских складов Ozon.
+             *     - `click_and_collect` — бронирование в магазине партнёра.
              */
             integration_type_flow?: string;
             /** @description `true`, если отправление доставляется методом «Самовывоз из магазина». */
@@ -23017,8 +23118,7 @@ export interface components {
              *     - `hybrid_aggregator` — гибридная интеграция с доставкой внешней службой, Ozon регистрирует заказ;
              *     - `hybrid_non_integrated` — гибридная интеграция с доставкой силами продавца;
              *     - `hybrid_3pl_tracking` — гибридная интеграция с доставкой внешней службой, продавец регистрирует заказ;
-             *     - `click_and_collect` — бронирование в магазине партнёра;
-             *     - `FBP` — доставка с партнёрских складов Ozon.
+             *     - `click_and_collect` — бронирование в магазине партнёра.
              */
             integration_type_flow?: string[];
             /** @description `true`, если товар прослеживаемый. */
@@ -23143,8 +23243,7 @@ export interface components {
              *     - `hybrid_aggregator` — гибридная интеграция с доставкой внешней службой, Ozon регистрирует заказ;
              *     - `hybrid_non_integrated` — гибридная интеграция с доставкой силами продавца;
              *     - `hybrid_3pl_tracking` — гибридная интеграция с доставкой внешней службой, продавец регистрирует заказ;
-             *     - `click_and_collect` — бронирование в магазине партнёра;
-             *     - `FBP` — доставка с партнёрских складов Ozon.
+             *     - `click_and_collect` — бронирование в магазине партнёра.
              */
             integration_type_flow?: string[];
             /** @description `true`, если товар отслеживаемый. */
@@ -23701,8 +23800,7 @@ export interface components {
              *     - `hybrid_aggregator` — гибридная интеграция с доставкой внешней службой, Ozon регистрирует заказ;
              *     - `hybrid_non_integrated` — гибридная интеграция с доставкой силами продавца;
              *     - `hybrid_3pl_tracking` — гибридная интеграция с доставкой внешней службой, продавец регистрирует заказ;
-             *     - `click_and_collect` — бронирование в магазине партнёра;
-             *     - `FBP` — доставка с партнёрских складов Ozon.
+             *     - `click_and_collect` — бронирование в магазине партнёра.
              */
             integration_type_flow?: string;
             legal_info?: components["schemas"]["posting.v4.PostingFbsListResponse.Postings.LegalInfo"];
@@ -24177,8 +24275,7 @@ export interface components {
              *     - `hybrid_aggregator` — гибридная интеграция с доставкой внешней службой, Ozon регистрирует заказ;
              *     - `hybrid_non_integrated` — гибридная интеграция с доставкой силами продавца;
              *     - `hybrid_3pl_tracking` — гибридная интеграция с доставкой внешней службой, продавец регистрирует заказ;
-             *     - `click_and_collect` — бронирование в магазине партнёра;
-             *     - `FBP` — доставка с партнёрских складов Ozon.
+             *     - `click_and_collect` — бронирование в магазине партнёра.
              */
             integration_type_flow?: string;
             /** @description Если использовалась быстрая доставка Ozon Express — `true`. */
@@ -27509,6 +27606,11 @@ export interface components {
              */
             idc_cluster?: number;
             /**
+             * Format: int32
+             * @description Количество товаров в перемещении.
+             */
+            inbound_replenishment?: number;
+            /**
              * @description Теги товара:
              *     - `UNSPECIFIED` — не определено;
              *     - `ITEM_ATTRIBUTE_NONE` — без тега;
@@ -27534,6 +27636,26 @@ export interface components {
              * @description Количество единиц товара, проходящих проверку.
              */
             other_stock_count?: number;
+            /**
+             * Format: int32
+             * @description Количество товаров, которые доставляются покупателям.
+             */
+            outbound_pending_delivery?: number;
+            /**
+             * Format: int32
+             * @description Количество товаров, которые готовятся к вывозу.
+             */
+            outbound_returns_picking?: number;
+            /**
+             * Format: int32
+             * @description Количество товаров, которые готовы к вывозу.
+             */
+            outbound_returns_ready_to_ship?: number;
+            /**
+             * Format: int32
+             * @description Количество товаров, которые возвращаются продавцу.
+             */
+            outbound_returns_return_to_seller?: number;
             /**
              * @description Зона размещения товара:
              *     - `UNSPECIFIED` — не указана;
@@ -27572,6 +27694,11 @@ export interface components {
              * @description Количество брака, доступное к вывозу со стока.
              */
             stock_defect_stock_count?: number;
+            /**
+             * Format: int32
+             * @description Количество товаров, которые сняты с продажи.
+             */
+            stock_not_being_sold?: number;
             /**
              * Format: int32
              * @description Количество брака, доступное к вывозу с поставки.
@@ -30403,6 +30530,198 @@ export interface components {
              */
             total_count?: number;
         };
+        /**
+         * @description - `CATEGORY_3` — категория 3-го уровня.
+         *     - `CATEGORY_2` — категория 2-го уровня. В ответе вернётся информация по подкатегориям внутри категории.
+         *     - `CATEGORY_1` — категория 1-го уровня.
+         * @default CATEGORY_3
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Filter.Category.CategoryType.Enum": "CATEGORY_3" | "CATEGORY_2" | "CATEGORY_1";
+        /** @description Список категорий. */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Filter.Category": {
+            /**
+             * Format: int32
+             * @description Идентификатор категории.
+             */
+            category_id: number;
+            category_type: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Filter.Category.CategoryType.Enum"];
+            /** @description `true`, чтобы получить только категории, по которым были продажи. */
+            is_own?: boolean;
+        };
+        /** @enum {string} */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Filter.ClothingFor.Enum": "MALE" | "FEMALE" | "BOYS" | "GIRLS";
+        /** @description Диапазон цены. */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Filter.PriceSegment": {
+            /**
+             * Format: int32
+             * @description Начало диапазона.
+             */
+            from?: number;
+            /**
+             * Format: int32
+             * @description Конец диапазона.
+             */
+            to?: number;
+        };
+        /** @description Фильтр. */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Filter": {
+            /** @description Список идентификаторов бренда. Вернётся информация только по обороту указанных брендов. */
+            brand_ids?: string[];
+            category?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Filter.Category"];
+            /**
+             * @description Пол:
+             *     - `MALE` — мужской;
+             *     - `FEMALE` — женский;
+             *     - `BOYS` — мальчики, детская одежда;
+             *     - `GIRLS` — девочки, детская одежда.
+             *
+             *     Указывайте параметр для категорий «Обувь», «Одежда», «Галантерея и аксессуары» и «Ювелирные изделия».
+             */
+            clothing_for?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Filter.ClothingFor.Enum"][];
+            price_segment?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Filter.PriceSegment"];
+            /** @description Список идентификаторов продавца. Вернётся информация только по обороту указанных продавцов. */
+            seller_ids?: string[];
+        };
+        /**
+         * @description Группировка данных в ответе:
+         *     - `CATEGORY_3` — по категории 3-го уровня;
+         *     - `SOURCE` — по источнику продаж;
+         *     - `SELLER` — по продавцу;
+         *     - `BRAND` — по бренду;
+         *     - `CLUSTER` — по кластеру отгрузки;
+         *     - `PRICE_BOUNDARY` — по ценовому сегменту.
+         * @default CATEGORY_3
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Group.Enum": "CATEGORY_3" | "SOURCE" | "SELLER" | "BRAND" | "CLUSTER" | "PRICE_BOUNDARY";
+        /**
+         * @description Фильтр по метрикам:
+         *      - `GMV` — объём продаж в денежном выражении;
+         *      - `GMV_GROWTH` — объём продаж в процентах по сравнению с предыдущим периодом;
+         *      - `ITEMS` — количество проданных товаров;
+         *      - `AIV` — средняя стоимость одного проданного товара;
+         *      - `AIV_GROWTH` — рост средней стоимости товара в процентах;
+         *      - `SELLERS` — количество уникальных продавцов в категории или сегменте;
+         *      - `BRANDS` — количество  уникальных брендов в категории или сегменте;
+         *      - `CLUSTERS` — кластры, регионы или города с похожими характеристиками продаж;
+         *      - `CATEGORY_SHARE` — доля категории в общем объёме продаж;
+         *      - `LEADER_SHARE` — доля лидера по продажам;
+         *      - `BUYOUT` — процент выкупа товаров.
+         * @default GMV
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Metric.Enum": "GMV" | "GMV_GROWTH" | "ITEMS" | "AIV" | "AIV_GROWTH" | "SELLERS" | "BRANDS" | "CLUSTERS" | "CATEGORY_SHARE" | "LEADER_SHARE" | "BUYOUT";
+        /**
+         * @description Период:
+         *     - `WEEK` — неделя,
+         *     - `MONTH` — месяц,
+         *     - `QUARTER` — квартал,
+         *     - `YEAR` — год.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Period.Enum": "WEEK" | "MONTH" | "QUARTER" | "YEAR";
+        /**
+         * @description Направление сортировки:
+         *     - `ASC` — по возрастанию,
+         *     - `DESC` — по убыванию.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsCategoryComparisonRequest.Sort.Enum": "ASC" | "DESC";
+        "analytics.v1.AnalyticsCategoryComparisonRequest": {
+            filter?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Filter"];
+            group?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Group.Enum"];
+            /**
+             * Format: uint64
+             * @description Количество значений в ответе.
+             */
+            limit?: number;
+            metric?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Metric.Enum"];
+            /**
+             * Format: uint64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
+             */
+            offset?: number;
+            period: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Period.Enum"];
+            sort: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest.Sort.Enum"];
+        };
+        "analytics.v1.AnalyticsCategoryComparisonResponse.Item": {
+            /** @description Идентификатор продавца, бренда или категории. */
+            id?: string;
+            /** @description Название продавца, бренда или категории. */
+            label?: string;
+            /**
+             * Format: uint64
+             * @description Максимальный рейтинг.
+             */
+            max_rating?: number;
+            /**
+             * Format: double
+             * @description Средняя цена.
+             */
+            metric_aiv?: number;
+            /**
+             * Format: double
+             * @description Динамика средней цены.
+             */
+            metric_aiv_growth?: number;
+            /**
+             * Format: uint64
+             * @description Количество брендов.
+             */
+            metric_brands?: number;
+            /**
+             * Format: double
+             * @description Доля выкупа.
+             */
+            metric_buyout?: number;
+            /**
+             * Format: double
+             * @description Доля в категории.
+             */
+            metric_category_share?: number;
+            /**
+             * Format: uint64
+             * @description Количество кластеров доставки.
+             */
+            metric_clusters?: number;
+            /**
+             * Format: double
+             * @description Сумма заказов.
+             */
+            metric_gmv?: number;
+            /**
+             * Format: double
+             * @description Динамика суммы заказов.
+             */
+            metric_gmv_growth?: number;
+            /**
+             * Format: uint64
+             * @description Количество заказанных товаров.
+             */
+            metric_items?: number;
+            /**
+             * Format: double
+             * @description Доля топ-5 продавцов.
+             */
+            metric_leader_share?: number;
+            /**
+             * Format: uint64
+             * @description Количество продавцов.
+             */
+            metric_sellers?: number;
+            /**
+             * Format: uint64
+             * @description Позиция продавца в рейтинге.
+             */
+            rating?: number;
+        };
+        "analytics.v1.AnalyticsCategoryComparisonResponse": {
+            /** @description `true`, если в ответе вернулись не все значения. */
+            has_next?: boolean;
+            /** @description Массив данных. */
+            items?: components["schemas"]["analytics.v1.AnalyticsCategoryComparisonResponse.Item"][];
+        };
         v1GetSupplyReturnsSummaryReportRequest: {
             /** @description Дата начала отчётного периода в формате `YYYY-MM-DD`. */
             date_from: string;
@@ -31948,7 +32267,7 @@ export interface components {
             /** @description Валюта. */
             currency?: string;
         };
-        /** @description Цена товара на сайте. */
+        /** @description Цена, которую видит покупатель. */
         moneyMoneyCustomerPrice: {
             /** @description Сумма. */
             amount?: string;
@@ -32437,6 +32756,571 @@ export interface components {
             cursor?: string;
             /** @description Информация о зависимых характеристиках. */
             result?: components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesValuesResponse.DependentAttributesValuesResult"][];
+        };
+        /** @description Товары с наибольшей переплатой. */
+        "analytics.v1.AnalyticsLocalSaleTotalRequest.OverpaymentItem": {
+            /**
+             * Format: int32
+             * @description Количество товаров в ответе.
+             */
+            count?: number;
+            /** @description `true`, чтобы получить товары с наибольшей переплатой. */
+            with_top_overpayment_items?: boolean;
+        };
+        /** @description Период. */
+        "analytics.v1.AnalyticsLocalSaleTotalRequest.Period": {
+            /**
+             * Format:  YYYY-MM-DD
+             * @description Начало периода.
+             */
+            from: string;
+            /**
+             * Format:  YYYY-MM-DD
+             * @description Конец периода.
+             */
+            to: string;
+        };
+        "analytics.v1.AnalyticsLocalSaleTotalRequest": {
+            overpayment_items?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalRequest.OverpaymentItem"];
+            period?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalRequest.Period"];
+        };
+        /** @description Информация о локальных продажах. */
+        "analytics.v1.AnalyticsLocalSaleTotalResponse.LocalData": {
+            /**
+             * Format: double
+             * @description Индекс локальных продаж в процентах.
+             */
+            index?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров, которые доставили локально.
+             */
+            local_quantity?: number;
+            /**
+             * Format: int64
+             * @description Общее количество товаров.
+             */
+            total_quantity?: number;
+        };
+        /** @description Информация о переплате по логистике. */
+        "analytics.v1.AnalyticsLocalSaleTotalResponse.Overpayment": {
+            /**
+             * Format: double
+             * @description Разница с тарифом для локальной продажи.
+             */
+            delta?: number;
+            /**
+             * Format: double
+             * @description Наценка за нелокальную продажу.
+             */
+            non_local_delivery?: number;
+            /**
+             * Format: double
+             * @description Общая переплата.
+             */
+            total?: number;
+        };
+        /** @enum {string} */
+        "analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentItem.DeliverySchema.Enum": "FBO" | "FBS";
+        "analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentItem": {
+            /**
+             * @description Схема продажи:
+             *     - `FBO`,
+             *     - `FBS`.
+             */
+            delivery_schema?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentItem.DeliverySchema.Enum"][];
+            /** @description Ссылка на изображение товара. */
+            image?: string;
+            /** @description Название товара. */
+            name?: string;
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            /**
+             * Format: double
+             * @description Общая переплата по всем товарам.
+             */
+            total_overpayment?: number;
+        };
+        /**
+         * @description Причина переплаты:
+         *     - `NO_SUPPLIES_TO_CLUSTER` — не было поставок в кластер;
+         *     - `MISSING_ITEMS_IN_CLUSTER` — не все товары поставлялись в кластер;
+         *     - `FREQUENT_OUT_OF_STOCK` — часто заканчиваются товары.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentReason.Reason.Enum": "NO_SUPPLIES_TO_CLUSTER" | "MISSING_ITEMS_IN_CLUSTER" | "FREQUENT_OUT_OF_STOCK";
+        "analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentReason": {
+            /**
+             * Format: double
+             * @description Сумма переплаты.
+             */
+            amount?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров.
+             */
+            quantity?: number;
+            reason?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentReason.Reason.Enum"];
+        };
+        "analytics.v1.AnalyticsLocalSaleTotalResponse": {
+            /**
+             * Format: int64
+             * @description Количество товаров, которые продаются по схеме FBO.
+             */
+            fbo_quantity?: number;
+            local_data?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse.LocalData"];
+            overpayment?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse.Overpayment"];
+            /** @description Товары с наибольшей переплатой. */
+            overpayment_items?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentItem"][];
+            /** @description Причины переплат за логистику. */
+            overpayment_reasons?: components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse.OverpaymentReason"][];
+        };
+        /**
+         * @description Схема продажи:
+         *     - `ALL` — все схемы;
+         *     - `FBO`;
+         *     - `FBS`.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.DeliverySchema.Enum": "ALL" | "FBO" | "FBS";
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.DescriptionCategory": {
+            /**
+             * Format: int64
+             * @description Идентификатор родительской категории. Получите методом [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            category_id: number;
+            /**
+             * Format: int64
+             * @description Идентификатор дочерней категории. Получите методом [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            children_category_id?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор типа товара. Получите методом [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            type_id?: number;
+        };
+        /** @enum {string} */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.OverpaymentReason.Enum": "NO_SUPPLIES_TO_CLUSTER" | "MISSING_ITEMS_IN_CLUSTER" | "FREQUENT_OUT_OF_STOCK";
+        /** @description Период. */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.Period": {
+            /**
+             * Format:  YYYY-MM-DD
+             * @description Начало периода.
+             */
+            from: string;
+            /**
+             * Format:  YYYY-MM-DD
+             * @description Конец периода.
+             */
+            to: string;
+        };
+        /**
+         * @description Частота поставки:
+         *     - `ONE_WEEK` — раз в одну неделю;
+         *     - `TWO_WEEKS` — раз в две недели;
+         *     - `FOUR_WEEKS` — раз в четыре недели;
+         *     - `EIGHT_WEEKS` — раз в восемь недель.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.SupplyPeriod.Enum": "ONE_WEEK" | "TWO_WEEKS" | "FOUR_WEEKS" | "EIGHT_WEEKS";
+        /** @description Фильтр. */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter": {
+            delivery_schema?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.DeliverySchema.Enum"];
+            /** @description Категория товара. */
+            description_categories?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.DescriptionCategory"][];
+            /** @description Идентификатор кластера отгрузки. Получите методом [/v2/cluster/list](#operation/DraftClusterList). */
+            macrolocal_cluster_from_ids?: string[];
+            /** @description Идентификатор кластера доставки. Получите методом [/v2/cluster/list](#operation/DraftClusterList). */
+            macrolocal_cluster_to_ids: string[];
+            /**
+             * @description Причина переплаты:
+             *     - `NO_SUPPLIES_TO_CLUSTER` — не было поставок в кластер;
+             *     - `MISSING_ITEMS_IN_CLUSTER` — не все товары поставлялись в кластер;
+             *     - `FREQUENT_OUT_OF_STOCK` — часто заканчиваются товары.
+             */
+            overpayment_reasons?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.OverpaymentReason.Enum"][];
+            period: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.Period"];
+            /** @description Идентификатор товара в системе Ozon — SKU. */
+            skus?: string[];
+            supply_period?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter.SupplyPeriod.Enum"];
+        };
+        /**
+         * @description Параметр, по которому будут отсортированы товары:
+         *     - `IMPACT_SHARE` — доля влияния на переплату;
+         *     - `LOCALITY` — доля локальных продаж;
+         *     - `OVERPAYMENT_TOTAL` — общая переплата за логистику;
+         *     - `OVERPAYMENT_NON_LOCAL` — наценка за нелокальную продажу;
+         *     - `OVERPAYMENT_DELTA` — разница с тарифом для локальной продажи.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.SortBy.Enum": "IMPACT_SHARE" | "LOCALITY" | "OVERPAYMENT_TOTAL" | "OVERPAYMENT_NON_LOCAL" | "OVERPAYMENT_DELTA";
+        /**
+         * @description Направление сортировки:
+         *     - `ASC` — во возрастанию;
+         *     - `DESC` — по убыванию.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.SortDir.Enum": "ASC" | "DESC";
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest": {
+            filter: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.Filter"];
+            /**
+             * Format: int64
+             * @description Количество товаров в ответе.
+             */
+            limit: number;
+            /**
+             * Format: int64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
+             */
+            offset?: number;
+            sort_by?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.SortBy.Enum"];
+            sort_dir?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest.SortDir.Enum"];
+        };
+        /** @enum {string} */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.ItemInfo.DeliverySchema.Enum": "FBO" | "FBS";
+        /** @description Информация о товаре. */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.ItemInfo": {
+            /**
+             * @description Схема продажи:
+             *     - `FBO`,
+             *     - `FBS`.
+             */
+            delivery_schemas?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.ItemInfo.DeliverySchema.Enum"][];
+            /** @description Ссылка на изображение товара. */
+            image?: string;
+            /** @description Название товара. */
+            name?: string;
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+        };
+        /**
+         * @description Уровень влияния на переплату:
+         *     - `LOW` — низкий;
+         *     - `MEDIUM` — средний;
+         *     - `HIGH` — высокий.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.AttentionLevel.Enum": "LOW" | "MEDIUM" | "HIGH";
+        /** @description Информация о локальных продажах. */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.LocalData": {
+            /**
+             * Format: double
+             * @description Индекс локальных продаж в процентах.
+             */
+            index?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров, которые доставили локально.
+             */
+            local_quantity?: number;
+            /**
+             * Format: int64
+             * @description Общее количество товаров.
+             */
+            total_quantity?: number;
+        };
+        /** @description Информация о переплате по логистике. */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.Overpayment": {
+            /**
+             * Format: double
+             * @description Разница с тарифом для локальной продажи.
+             */
+            delta?: number;
+            /**
+             * Format: double
+             * @description Наценка за нелокальную продажу.
+             */
+            non_local_delivery?: number;
+            /**
+             * Format: double
+             * @description Общая переплата.
+             */
+            total?: number;
+        };
+        /**
+         * @description Причина переплаты:
+         *     - `NO_SUPPLIES_TO_CLUSTER` — не было поставок в кластер;
+         *     - `MISSING_ITEMS_IN_CLUSTER` — не все товары поставлялись в кластер;
+         *     - `FREQUENT_OUT_OF_STOCK` — часто заканчиваются товары.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.OverpaymentReasonInfo.OverpaymentReason.Enum": "NO_SUPPLIES_TO_CLUSTER" | "MISSING_ITEMS_IN_CLUSTER" | "FREQUENT_OUT_OF_STOCK";
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.OverpaymentReasonInfo": {
+            /**
+             * Format: double
+             * @description Сумма переплаты.
+             */
+            amount?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров.
+             */
+            quantity?: number;
+            reason?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.OverpaymentReasonInfo.OverpaymentReason.Enum"];
+        };
+        /** @description Информация о метриках локальности продаж. */
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics": {
+            attention_level?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.AttentionLevel.Enum"];
+            /**
+             * Format: double
+             * @description Доля влияния на переплату в процентах.
+             */
+            impact_share?: number;
+            local_data?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.LocalData"];
+            overpayment?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.Overpayment"];
+            /** @description Причины переплат за логистику. */
+            overpayment_reasons?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics.OverpaymentReasonInfo"][];
+            /**
+             * Format: double
+             * @description Стоимость товаров, которые рекомендуются к поставке.
+             */
+            price?: number;
+            /**
+             * Format: int32
+             * @description Рекомендуемое количество товаров к поставке.
+             */
+            recommended_supply?: number;
+        };
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item": {
+            /**
+             * Format: int64
+             * @description Идентификатор кластера.
+             */
+            cluster_to_id?: number;
+            item?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.ItemInfo"];
+            metrics?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item.Metrics"];
+        };
+        "analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse": {
+            /** @description Список товаров. */
+            items?: components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse.Item"][];
+            /**
+             * Format: int64
+             * @description Общее количество товаров.
+             */
+            total?: number;
+        };
+        /**
+         * @description Схема продажи:
+         *     - `ALL` — все схемы;
+         *     - `FBO`;
+         *     - `FBS`.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.DeliverySchema.Enum": "ALL" | "FBO" | "FBS";
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.DescriptionCategory": {
+            /**
+             * Format: int64
+             * @description Идентификатор родительской категории. Получите методом [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            category_id: number;
+            /**
+             * Format: int64
+             * @description Идентификатор дочерней категории. Получите методом [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            children_category_id?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор типа товара. Получите методом [/v1/description-category/tree](#operation/DescriptionCategoryAPI_GetTree).
+             */
+            type_id?: number;
+        };
+        /** @enum {string} */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.OverpaymentReason.Enum": "NO_SUPPLIES_TO_CLUSTER" | "MISSING_ITEMS_IN_CLUSTER" | "FREQUENT_OUT_OF_STOCK";
+        /** @description Период. */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.Period": {
+            /**
+             * Format:  YYYY-MM-DD
+             * @description Начало периода.
+             */
+            from: string;
+            /**
+             * Format:  YYYY-MM-DD
+             * @description Конец периода.
+             */
+            to: string;
+        };
+        /**
+         * @description Частота поставки:
+         *     - `ONE_WEEK` — раз в одну неделю;
+         *     - `TWO_WEEKS` — раз в две недели;
+         *     - `FOUR_WEEKS` — раз в четыре недели;
+         *     - `EIGHT_WEEKS` — раз в восемь недель.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.SupplyPeriod.Enum": "ONE_WEEK" | "TWO_WEEKS" | "FOUR_WEEKS" | "EIGHT_WEEKS";
+        /** @description Фильтр. */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter": {
+            delivery_schema?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.DeliverySchema.Enum"];
+            /** @description Категория товара. */
+            description_categories?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.DescriptionCategory"][];
+            /** @description Идентификатор кластера отгрузки. Получите методом [/v2/cluster/list](#operation/DraftClusterList). */
+            macrolocal_cluster_from_ids?: string[];
+            /** @description Идентификатор кластера доставки. Получите методом [/v2/cluster/list](#operation/DraftClusterList). */
+            macrolocal_cluster_to_ids?: string[];
+            /**
+             * @description Причина переплаты:
+             *     - `NO_SUPPLIES_TO_CLUSTER` — не было поставок в кластер;
+             *     - `MISSING_ITEMS_IN_CLUSTER` — не все товары поставлялись в кластер;
+             *     - `FREQUENT_OUT_OF_STOCK` — часто заканчиваются товары.
+             */
+            overpayment_reasons?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.OverpaymentReason.Enum"][];
+            period: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.Period"];
+            /** @description Идентификатор товара в системе Ozon — SKU. */
+            skus: string[];
+            supply_period?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter.SupplyPeriod.Enum"];
+        };
+        /**
+         * @description Параметр, по которому будут отсортированы товары:
+         *     - `IMPACT_SHARE` — доля влияния на переплату;
+         *     - `LOCALITY` — доля локальных продаж;
+         *     - `OVERPAYMENT_TOTAL` — общая переплата за логистику;
+         *     - `OVERPAYMENT_NON_LOCAL` — наценка за нелокальную продажу;
+         *     - `OVERPAYMENT_DELTA` — разница с тарифом для локальной продажи.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.SortBy.Enum": "IMPACT_SHARE" | "LOCALITY" | "OVERPAYMENT_TOTAL" | "OVERPAYMENT_NON_LOCAL" | "OVERPAYMENT_DELTA";
+        /**
+         * @description Направление сортировки:
+         *     - `ASC` — во возрастанию;
+         *     - `DESC` — по убыванию.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.SortDir.Enum": "ASC" | "DESC";
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest": {
+            filter: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.Filter"];
+            /**
+             * Format: int64
+             * @description Количество товаров в ответе.
+             */
+            limit: number;
+            /**
+             * Format: int64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
+             */
+            offset?: number;
+            sort_by?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.SortBy.Enum"];
+            sort_dir?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest.SortDir.Enum"];
+        };
+        /**
+         * @description Уровень влияния на переплату:
+         *     - `LOW` — низкий;
+         *     - `MEDIUM` — средний;
+         *     - `HIGH` — высокий.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.AttentionLevel.Enum": "LOW" | "MEDIUM" | "HIGH";
+        /** @description Информация о локальных продажах. */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.LocalData": {
+            /**
+             * Format: double
+             * @description Индекс локальных продаж в процентах.
+             */
+            index?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров, которые доставили локально.
+             */
+            local_quantity?: number;
+            /**
+             * Format: int64
+             * @description Общее количество товаров.
+             */
+            total_quantity?: number;
+        };
+        /** @description Информация о переплате по логистике. */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.Overpayment": {
+            /**
+             * Format: double
+             * @description Разница с тарифом для локальной продажи.
+             */
+            delta?: number;
+            /**
+             * Format: double
+             * @description Наценка за нелокальную продажу.
+             */
+            non_local_delivery?: number;
+            /**
+             * Format: double
+             * @description Общая переплата.
+             */
+            total?: number;
+        };
+        /**
+         * @description Причина переплаты:
+         *     - `NO_SUPPLIES_TO_CLUSTER` — не было поставок в кластер;
+         *     - `MISSING_ITEMS_IN_CLUSTER` — не все товары поставлялись в кластер;
+         *     - `FREQUENT_OUT_OF_STOCK` — часто заканчиваются товары.
+         * @enum {string}
+         */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.OverpaymentReason.Reason.Enum": "NO_SUPPLIES_TO_CLUSTER" | "MISSING_ITEMS_IN_CLUSTER" | "FREQUENT_OUT_OF_STOCK";
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.OverpaymentReason": {
+            /**
+             * Format: double
+             * @description Сумма переплаты.
+             */
+            amount?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров.
+             */
+            quantity?: number;
+            reason?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.OverpaymentReason.Reason.Enum"];
+        };
+        /** @description Информация о метриках локальности продаж. */
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics": {
+            attention_level?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.AttentionLevel.Enum"];
+            /**
+             * Format: double
+             * @description Доля влияния на переплату в процентах.
+             */
+            impact_share?: number;
+            local_data?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.LocalData"];
+            overpayment?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.Overpayment"];
+            /** @description Причины переплат за логистику. */
+            overpayment_reasons?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics.OverpaymentReason"][];
+            /**
+             * Format: double
+             * @description Стоимость товаров, которые рекомендуются к поставке.
+             */
+            price?: number;
+            /**
+             * Format: int32
+             * @description Рекомендуемое количество товаров к поставке.
+             */
+            recommended_supply?: number;
+        };
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item": {
+            /**
+             * Format: int64
+             * @description Кластер доставки.
+             */
+            macrolocal_cluster_to_id?: number;
+            metrics?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item.Metrics"];
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+        };
+        "analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse": {
+            /** @description Список товаров. */
+            items?: components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse.Item"][];
+            /**
+             * Format: int64
+             * @description Общее количество товаров.
+             */
+            total?: number;
         };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
@@ -39936,7 +40820,7 @@ export interface components {
             /** @description Список SKU. */
             skus: string[];
         };
-        /** @description Цена товара с учётом акции или продвижения. */
+        /** @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем. */
         moneyMoney: {
             /** @description Сумма. */
             amount?: string;
@@ -40011,7 +40895,7 @@ export interface components {
             /** @description Идентификатор товара в системе продавца — артикул. */
             offer_id?: string;
             price?: components["schemas"]["moneyMoney"];
-            /** @description Индекс цен. */
+            /** @description Индекс цен товара. */
             price_indexes?: components["schemas"]["product.v1.ProductPricesDetailsResponse.Price.PriceIndex"][];
             /**
              * Format: int64
@@ -62281,6 +63165,80 @@ export interface operations {
             };
         };
     };
+    AnalyticsCategoryComparison: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["analytics.v1.AnalyticsCategoryComparisonRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о сравнении категорий */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["analytics.v1.AnalyticsCategoryComparisonResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     GetSupplyReturnsSummaryReport: {
         parameters: {
             query?: never;
@@ -63533,6 +64491,228 @@ export interface operations {
                      *     }
                      */
                     "application/json": components["schemas"]["category.description.v1.DescriptionCategoryDependentAttributesValuesResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    AnalyticsLocalSaleTotal: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о локальности продаж */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleTotalResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    AnalyticsLocalSaleClustersItemsInfo: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о локальности продаж по кластерам */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleClustersItemsInfoResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    AnalyticsLocalSaleItemsClustersInfo: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о локальности продаж товара */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse"];
                 };
             };
             /** @description Неверный параметр */

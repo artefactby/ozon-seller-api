@@ -24,7 +24,9 @@ temp/
 
 # AI assistant / editor-agent internals (root AGENTS.md / CLAUDE.md are committed)
 .claude/
-.cursor/
+.cursor/*
+!.cursor/commands/
+!.cursor/commands/api-sync-release.md
 .codex/
 CLAUDE.local.md
 
