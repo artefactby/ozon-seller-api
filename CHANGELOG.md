@@ -5,6 +5,54 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.11.0] - 2026-09-18
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 14–17 сентября
+2026.
+Пути: 466 → 470 (+4 / −0); схемы: 2154 → 2214 (+60 / −0); новые поля в
+существующих схемах: 9.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/analytics/category/comparison` — бета-метод сравнения категорий
+  (и связанные схемы `analytics.v1.AnalyticsCategoryComparison*`).
+- `POST /v1/analytics/local-sale/total`,
+  `POST /v1/analytics/local-sale/clusters-items/info` и
+  `POST /v1/analytics/local-sale/items-clusters/info` — бета-методы локальности
+  продаж (и связанные схемы `analytics.v1.AnalyticsLocalSale*`).
+- В ответ `/v2/draft/create/info` (`ErrorItemsValidation`) добавлены `limit` и
+  `supply_id`.
+- В `ErrorErrorMessageEnum` добавлены
+  `LIMIT_EXCEEDED_ACCORDING_TO_SHIPMENT_DISCIPLINE` и
+  `BACKUP_SUPPLY_ALREADY_USED`.
+- В ответ `/v1/supply-order/content/update/status` добавлено `error_details`
+  (и связанные схемы
+  `supply_order.v1.SupplyOrderContentUpdateStatusResponse.ErrorDetails*`).
+- В ответ `/v1/analytics/stocks` (`v1AnalyticsStocksResponseItem`) добавлены
+  `inbound_replenishment`, `outbound_pending_delivery`,
+  `outbound_returns_picking`, `outbound_returns_ready_to_ship`,
+  `outbound_returns_return_to_seller` и `stock_not_being_sold`.
+
+### Changed
+
+- В описании `/v1/analytics/data` указан лимит 50 запросов в сутки для продавцов
+  без Premium Plus / Premium Pro.
+- Обновлены описания ценовых параметров в `/v3/product/import`,
+  `/v1/product/import-by-sku`, `/v3/product/info/list`,
+  `/v1/product/import/prices`, `/v5/product/info/prices` и
+  `/v1/product/prices/details`.
+- В описаниях `integration_type_flow` у части схем отправлений убран пункт про
+  `FBP`.
+
+### Notes
+
+- Сверка с анонсом Ozon за 14–17 сентября 2026: все пункты анонса отражены в
+  снимке. Расширение `ErrorErrorMessageEnum` в анонсе сформулировано как
+  обновление описания `errors.error_message`; в типах добавлены два значения.
+- Новые поля `/v1/analytics/stocks` и правка описаний `integration_type_flow`
+  пришли со снимком, но в анонсе Ozon не упоминаются.
+
 ## [0.10.0] - 2026-09-11
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 сентября
