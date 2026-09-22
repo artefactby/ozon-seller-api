@@ -5,6 +5,70 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.12.0] - 2026-09-22
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 сентября
+2026.
+Пути: 470 → 480 (+10 / −0); схемы: 2214 → 2273 (+59 / −0); новые поля в
+существующих схемах: 3.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/actions/products/update` — добавить или обновить товар в акции
+  (и связанные схемы `actions.v1.ActionsProductsUpdate*`).
+- `POST /v2/actions/candidates`, `POST /v2/actions/products` и
+  `POST /v2/actions/products/deactivate` — новые версии методов работы
+  с товарами в акциях (и связанные схемы `actions.v2.ActionsCandidates*`,
+  `actions.v2.ActionsProducts*`).
+- `POST /v2/actions/auto-add/products/list`,
+  `POST /v2/actions/auto-add/products/candidates`,
+  `POST /v2/actions/auto-add/products/delete` и
+  `POST /v2/actions/auto-add/products/update` — новые версии методов
+  автодобавления в акцию (и связанные схемы
+  `actions.v2.ActionsAutoAddProducts*`).
+- `POST /v3/posting/fbs/package-label/create` и
+  `POST /v2/posting/fbs/package-label/get` — новые версии методов
+  формирования и получения этикеток FBS (и связанные схемы
+  `posting.v3.PostingFbsPackageLabelCreate*`,
+  `posting.v2.PostingFbsPackageLabelGet*`).
+- В ответы `/v4/posting/fbs/list` и `/v4/posting/fbs/unfulfilled/list`
+  (`posting.v4.PostingFbs*Response.Postings`) добавлено поле `scanit`.
+- В ответ `/v3/posting/fbs/get` (`v3FbsPostingDetail`) добавлено поле
+  `scanit`.
+
+### Changed
+
+- Методы `/v1/actions/candidates`, `/v1/actions/products`,
+  `/v1/actions/products/activate`, `/v1/actions/products/deactivate`,
+  `/v1/actions/auto-add/products/list`,
+  `/v1/actions/auto-add/products/candidates`,
+  `/v1/actions/auto-add/products/delete` и
+  `/v1/actions/auto-add/products/update` помечены как `@deprecated`
+  (отключение 13 октября 2026).
+- В описаниях `/v2/posting/fbs/package-label`,
+  `/v1/posting/fbs/package-label/create`,
+  `/v2/posting/fbs/package-label/create` и
+  `/v1/posting/fbs/package-label/get` указана дата отключения
+  2 ноября 2026.
+- В описании параметра `barcode` запроса `/v2/posting/fbs/get-by-barcode`
+  указано, что штрихкод можно получить в `barcodes` или `scanit`.
+
+### Notes
+
+- Сверка с анонсом Ozon за 22 сентября 2026: все пункты анонса отражены в
+  снимке. Методы этикеток в анонсе сформулированы как устаревающие; в типах
+  дата отключения есть в описаниях, флаг `@deprecated` у этих путей не
+  выставлен.
+- Пункты анонса за 17 сентября 2026 (`/v2/draft/create/info`,
+  `/v1/supply-order/content/update/status`) уже отражены в 0.11.0.
+- Обновление раздела «Порядок работы с методами» для этикеток —
+  документация на сайте, в снимок OpenAPI не входит.
+- Уточнение описания `total` в ответах
+  `/v1/actions/auto-add/products/list` и
+  `/v1/actions/auto-add/products/candidates` пришло со снимком, но в анонсе
+  Ozon не упоминается.
+
 ## [0.11.0] - 2026-09-18
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 14–17 сентября
