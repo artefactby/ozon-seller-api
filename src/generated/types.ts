@@ -1180,9 +1180,36 @@ export interface paths {
         put?: never;
         /**
          * Список доступных для акции товаров
-         * @description Метод для получения списка товаров, которые могут участвовать в акции, по её идентификатору.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsCandidates">/v2/actions/candidates</a>.
+         *     </aside>
+         *
+         *     Метод для получения списка товаров, которые могут участвовать в акции, по её идентификатору.
          */
         post: operations["PromosCandidates"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/candidates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить список товаров, которые могут участвовать в акции
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/PromosCandidates">/v1/actions/candidates</a>.
+         *     </aside>
+         */
+        post: operations["ActionsCandidates"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1200,9 +1227,36 @@ export interface paths {
         put?: never;
         /**
          * Список участвующих в акции товаров
-         * @description Метод для получения списка товаров, участвующих в акции, по её идентификатору.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsProducts">/v2/actions/products</a>.
+         *     </aside>
+         *
+         *     Метод для получения списка товаров, участвующих в акции, по её идентификатору.
          */
         post: operations["PromosProducts"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить список товаров, которые участвуют в акции
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/PromosProducts">/v1/actions/products</a>.
+         *     </aside>
+         */
+        post: operations["ActionsProducts"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1220,9 +1274,36 @@ export interface paths {
         put?: never;
         /**
          * Добавить товар в акцию
-         * @description Метод для добавления товаров в доступную акцию.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsProductsUpdate">/v1/actions/products/update</a>.
+         *     </aside>
+         *
+         *     Метод для добавления товаров в доступную акцию.
          */
         post: operations["PromosProductsActivate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/actions/products/update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Добавить или обновить товар в акции
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/PromosProductsActivate">/v1/actions/products/activate</a>, изменить цену на карточке товара с помощью метода не получится.
+         *     </aside>
+         */
+        post: operations["ActionsProductsUpdate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1240,9 +1321,38 @@ export interface paths {
         put?: never;
         /**
          * Удалить товары из акции
-         * @description Метод для удаления товаров из акции.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsProductsDeactivate">/v2/actions/products/deactivate</a>.
+         *     </aside>
+         *
+         *     Метод для удаления товаров из акции.
          */
         post: operations["PromosProductsDeactivate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/products/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Удалить товары из акции «Промокоды»
+         * @description Чтобы удалить товары из акций «Эластичный бустинг» или «Максимальный бустинг», используйте метод [/v1/actions/products/update](#operation/ActionsProductsUpdate) и измените цену товара `action_price` на значение меньше или равное лимиту акции.
+         *
+         *     <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/PromosProductsDeactivate">/v1/actions/products/deactivate</a>.
+         *     </aside>
+         */
+        post: operations["ActionsProductsDeactivate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1307,6 +1417,94 @@ export interface paths {
          * @description Вы можете отклонить заявки в статусах: `NEW` — новые, `SEEN` — просмотренные.
          */
         post: operations["promos_task_decline"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/auto-add/products/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить список товаров из автодобавления в акцию
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/ActionsAutoAddProductsList">/v1/actions/auto-add/products/list</a>.
+         *     </aside>
+         */
+        post: operations["ActionsAutoAddProductsListV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/auto-add/products/candidates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить список доступных товаров для автодобавления в акцию
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/ActionsAutoAddProductsCandidates">/v1/actions/auto-add/products/candidates</a>.
+         *     </aside>
+         */
+        post: operations["ActionsAutoAddProductsCandidatesV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/auto-add/products/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Удалить товары из автодобавления в акцию
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/ActionsAutoAddProductsDelete">/v1/actions/auto-add/products/delete</a>.
+         *     </aside>
+         */
+        post: operations["ActionsAutoAddProductsDeleteV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/actions/auto-add/products/update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Добавить или обновить товары в автодобавлении в акцию
+         * @description <aside class="warning">
+         *     До 13 октября 2026 года метод работает аналогично <a href="#operation/ActionsAutoAddProductsUpdate">/v1/actions/auto-add/products/update</a>, изменить цену на карточке товара с помощью метода не получится.
+         *     </aside>
+         */
+        post: operations["ActionsAutoAddProductsUpdateV2"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4322,6 +4520,8 @@ export interface paths {
         /**
          * Напечатать этикетку
          * @description <aside class="warning">
+         *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a> и <a href="#operation/PostingFbsPackageLabelGet">/v2/posting/fbs/package-label/get</a>.
+         *
          *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
          *     </aside>
          *
@@ -4350,7 +4550,7 @@ export interface paths {
         /**
          * Создать задание на выгрузку этикеток
          * @description <aside class="warning">
-         *     В будущем метод будет отключён. Мы предупредим вас об этом за месяц. Переключитесь на <a href="#operation/PostingAPI_CreateLabelBatchV2">/v2/posting/fbs/package-label/create</a>.
+         *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a>.
          *     </aside>
          *
          *     Метод для создания задания на асинхронное формирование этикеток.
@@ -4376,6 +4576,8 @@ export interface paths {
         /**
          * Создать задание на формирование этикеток
          * @description <aside class="warning">
+         *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a>.
+         *
          *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
          *     </aside>
          *
@@ -4404,7 +4606,11 @@ export interface paths {
         put?: never;
         /**
          * Получить файл с этикетками
-         * @description Метод для получения этикеток после вызова [/v1/posting/fbs/package-label/create](#operation/PostingAPI_CreateLabelBatch).
+         * @description <aside class="warning">
+         *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelGet">/v2/posting/fbs/package-label/get</a>.
+         *     </aside>
+         *
+         *     Метод для получения этикеток после вызова [/v1/posting/fbs/package-label/create](#operation/PostingAPI_CreateLabelBatch).
          */
         post: operations["PostingAPI_GetLabelBatch"];
         delete?: never;
@@ -6880,6 +7086,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v3/posting/fbs/package-label/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Создать задание на формирование этикеток
+         * @description <aside class="warning">
+         *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
+         *     </aside>
+         *
+         *     Создаёт задания на асинхронное формирование этикеток для отправлений в статусе «Ожидает отгрузки» — `awaiting_deliver`.
+         *     Рекомендуем запрашивать этикетки через 45–60 секунд после сборки заказа.
+         *
+         *     Чтобы получить созданные этикетки, используйте [/v2/posting/fbs/package-label/get](#operation/PostingFbsPackageLabelGet).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2346-Novye-beta-metody-dlia-raboty-s-etiketkami-FBS/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["PostingFbsPackageLabelCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/posting/fbs/package-label/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить файл с этикетками
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2346-Novye-beta-metody-dlia-raboty-s-etiketkami-FBS/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["PostingFbsPackageLabelGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/supply-order/act/summary/get": {
         parameters: {
             query?: never;
@@ -7882,7 +8137,12 @@ export interface paths {
         put?: never;
         /**
          * Получить список товаров из автодобавления в акцию
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsAutoAddProductsListV2">/v2/actions/auto-add/products/list</a>.
+         *     </aside>
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ActionsAutoAddProductsList"];
         delete?: never;
@@ -7902,7 +8162,12 @@ export interface paths {
         put?: never;
         /**
          * Получить список доступных товаров для автодобавления в акцию
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsAutoAddProductsCandidatesV2">/v2/actions/auto-add/products/candidates</a>.
+         *     </aside>
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ActionsAutoAddProductsCandidates"];
         delete?: never;
@@ -7922,7 +8187,12 @@ export interface paths {
         put?: never;
         /**
          * Удалить товары из автодобавления в акцию
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsAutoAddProductsDeleteV2">/v2/actions/auto-add/products/delete</a>.
+         *     </aside>
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ActionsAutoAddProductsDelete"];
         delete?: never;
@@ -7942,7 +8212,12 @@ export interface paths {
         put?: never;
         /**
          * Добавить или обновить товары в автодобавлении в акцию
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
+         * @deprecated
+         * @description <aside class="warning">
+         *     13 октября 2026 года отключим метод. Переключитесь на <a href="#operation/ActionsAutoAddProductsUpdateV2">/v2/actions/auto-add/products/update</a>.
+         *     </aside>
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ActionsAutoAddProductsUpdate"];
         delete?: never;
@@ -13489,6 +13764,255 @@ export interface components {
         seller_apiGetSellerProductV1Response: {
             result?: components["schemas"]["seller_apiGetSellerProductV1ResponseResult"];
         };
+        "actions.v2.ActionsCandidatesRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции. Получите методом [/v1/actions](#operation/Promos).
+             */
+            action_id?: number;
+            /** @description Идентификатор последнего значения на странице. При первом запросе оставьте пустым. */
+            last_id?: string;
+            /**
+             * Format: uint64
+             * @description Количество значений на странице.
+             */
+            limit?: number;
+        };
+        /** @description Цена товара по акции. */
+        "money.MoneyAction_price_to_auto_add": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Рекомендуемая цена товара по акции. */
+        "money.MoneyAlert_max_action_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Цена товара с учётом акций, кроме акций за счёт Ozon. */
+        "money.MoneyFBPget": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Максимальная цена товара по акции. */
+        "money.MoneyMax_action_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Минимальная цена товара после применения акций. */
+        "money.MoneyMin_seller_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Цена товара без скидки. */
+        "money.MoneyPrice": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Цена товара для максимального размера бустинга. */
+        "money.MoneyPrice_max_elastic": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Цена товара для минимального размера бустинга. */
+        "money.MoneyPrice_min_elastic": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Минимальная средняя цена по схемам доставки на сайте. */
+        "money.MoneyWebsitePrices": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Зелёная цена. */
+        "money.MoneyGreen_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Цены товара по схеме доставки. */
+        "actions.v2.ActionsCandidatesResponse.Product.ProductWebsitePrices.WebsitePrices": {
+            black_price?: components["schemas"]["money.MoneyPrice"];
+            green_price?: components["schemas"]["money.MoneyGreen_price"];
+        };
+        /** @description Цены товара на сайте. */
+        "actions.v2.ActionsCandidatesResponse.Product.ProductWebsitePrices": {
+            price?: components["schemas"]["money.MoneyWebsitePrices"];
+            /** @description Цены товара по схемам доставки. */
+            prices_by_schema?: {
+                [key: string]: components["schemas"]["actions.v2.ActionsCandidatesResponse.Product.ProductWebsitePrices.WebsitePrices"];
+            };
+        };
+        "actions.v2.ActionsCandidatesResponse.Product": {
+            action_price?: components["schemas"]["money.MoneyAction_price_to_auto_add"];
+            alert_max_action_price?: components["schemas"]["money.MoneyAlert_max_action_price"];
+            /** @description `true`, если цена товара выше рекомендуемой. Товар может быть исключён из акции. */
+            alert_max_action_price_failed?: boolean;
+            /**
+             * Format: double
+             * @description Размер бустинга товара.
+             */
+            current_boost?: number;
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            id?: number;
+            /** @description `true`, если товар в карантине. */
+            is_quarantined?: boolean;
+            marketplace_seller_price?: components["schemas"]["money.MoneyFBPget"];
+            max_action_price?: components["schemas"]["money.MoneyMax_action_price"];
+            /**
+             * Format: double
+             * @description Максимальный размер бустинга в процентах.
+             */
+            max_boost?: number;
+            /**
+             * Format: double
+             * @description Минимальный размер бустинга в процентах.
+             */
+            min_boost?: number;
+            min_seller_price?: components["schemas"]["money.MoneyMin_seller_price"];
+            /**
+             * Format: uint64
+             * @description Минимальное число единиц товара в акции типа «Скидка на сток».
+             */
+            min_stock?: number;
+            price?: components["schemas"]["money.MoneyPrice"];
+            price_max_elastic?: components["schemas"]["money.MoneyPrice_max_elastic"];
+            price_min_elastic?: components["schemas"]["money.MoneyPrice_min_elastic"];
+            /**
+             * Format: uint64
+             * @description Рекомендуемое количество товара для участия в акции.
+             */
+            recommended_stock?: number;
+            website_prices?: components["schemas"]["actions.v2.ActionsCandidatesResponse.Product.ProductWebsitePrices"];
+        };
+        "actions.v2.ActionsCandidatesResponse": {
+            /** @description Идентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре `last_id`. */
+            last_id?: string;
+            /** @description Список товаров. */
+            products?: components["schemas"]["actions.v2.ActionsCandidatesResponse.Product"][];
+            /**
+             * Format: uint64
+             * @description Общее количество товаров, которое доступно для акции.
+             */
+            total?: number;
+        };
+        "actions.v2.ActionsProductsRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции. Получите методом [/v1/actions](#operation/Promos).
+             */
+            action_id: number;
+            /** @description Идентификатор последнего значения на странице. При первом запросе оставьте пустым. */
+            last_id?: string;
+            /**
+             * Format: uint64
+             * @description Количество значений на странице.
+             */
+            limit: number;
+        };
+        /**
+         * @description Тип добавления товара в акцию:
+         *     - `AUTO` — автоматически;
+         *     - `SELLER` — вручную продавцом.
+         * @enum {string}
+         */
+        "actions.v2.ActionsProductsResponse.Product.AddMode.Enum": "SELLER" | "AUTO";
+        /** @description Цены товара по схеме доставки. */
+        "actions.v2.ActionsProductsResponse.Product.ProductWebsitePrices.WebsitePrices": {
+            black_price?: components["schemas"]["money.MoneyPrice"];
+            green_price?: components["schemas"]["money.MoneyGreen_price"];
+        };
+        /** @description Цены товара на сайте. */
+        "actions.v2.ActionsProductsResponse.Product.ProductWebsitePrices": {
+            price?: components["schemas"]["money.MoneyWebsitePrices"];
+            /** @description Цены товара по схемам доставки. */
+            prices_by_schema?: {
+                [key: string]: components["schemas"]["actions.v2.ActionsProductsResponse.Product.ProductWebsitePrices.WebsitePrices"];
+            };
+        };
+        "actions.v2.ActionsProductsResponse.Product": {
+            action_price?: components["schemas"]["money.MoneyAction_price_to_auto_add"];
+            add_mode?: components["schemas"]["actions.v2.ActionsProductsResponse.Product.AddMode.Enum"];
+            alert_max_action_price?: components["schemas"]["money.MoneyAlert_max_action_price"];
+            /** @description `true`, если цена товара выше рекомендуемой. Товар может быть исключён из акции. */
+            alert_max_action_price_failed?: boolean;
+            /**
+             * Format: double
+             * @description Размер бустинга товара.
+             */
+            current_boost?: number;
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            id?: number;
+            /** @description `true`, если товар в карантине. */
+            is_quarantined?: boolean;
+            marketplace_seller_price?: components["schemas"]["money.MoneyFBPget"];
+            max_action_price?: components["schemas"]["money.MoneyMax_action_price"];
+            /**
+             * Format: double
+             * @description Максимальный размер бустинга в процентах.
+             */
+            max_boost?: number;
+            /**
+             * Format: double
+             * @description Минимальный размер бустинга в процентах.
+             */
+            min_boost?: number;
+            min_seller_price?: components["schemas"]["money.MoneyMin_seller_price"];
+            /**
+             * Format: uint64
+             * @description Минимальное число единиц товара в акции типа «Скидка на сток».
+             */
+            min_stock?: number;
+            price?: components["schemas"]["money.MoneyPrice"];
+            price_max_elastic?: components["schemas"]["money.MoneyPrice_max_elastic"];
+            price_min_elastic?: components["schemas"]["money.MoneyPrice_min_elastic"];
+            /**
+             * Format: uint64
+             * @description Рекомендуемое количество товара для участия в акции.
+             */
+            recommended_stock?: number;
+            /**
+             * Format: uint64
+             * @description Число единиц товара в акции типа «Скидка на сток».
+             */
+            stock?: number;
+            website_prices?: components["schemas"]["actions.v2.ActionsProductsResponse.Product.ProductWebsitePrices"];
+        };
+        "actions.v2.ActionsProductsResponse": {
+            /** @description Идентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре `last_id`. */
+            last_id?: string;
+            /** @description Список товаров. */
+            products?: components["schemas"]["actions.v2.ActionsProductsResponse.Product"][];
+            /**
+             * Format: uint64
+             * @description Количество товаров в акции.
+             */
+            total?: number;
+        };
         /** object */
         seller_apiProductPrice: {
             /**
@@ -13541,6 +14065,69 @@ export interface components {
         seller_apiProductV1Response: {
             result?: components["schemas"]["seller_apiProductV1ResponseResult"];
         };
+        /**
+         * @description Предельная цена товара.
+         *
+         *     Если добавляете товар вне акции «Промокоды», изменим предельную цену в карточке товара, даже если она была установлена ранее.
+         *
+         *     Если значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции.
+         */
+        "money.MoneyAction_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        "actions.v1.ActionsProductsUpdateRequest.Product": {
+            action_price: components["schemas"]["money.MoneyAction_price"];
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id: number;
+            /**
+             * Format: uint64
+             * @description Количество единиц товара в акции «Промокоды». Не передавайте параметр для акций «Эластичный бустинг» и «Максимальный бустинг».
+             */
+            stock?: number;
+        };
+        "actions.v1.ActionsProductsUpdateRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции. Получите методом [/v1/actions](#operation/Promos).
+             */
+            action_id: number;
+            /** @description Список товаров. */
+            products: components["schemas"]["actions.v1.ActionsProductsUpdateRequest.Product"][];
+        };
+        "actions.v1.ActionsProductsUpdateResponse.Rejected": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id?: number;
+            /** @description Причина, по которой товар не добавлен в акцию. */
+            reason?: string;
+        };
+        "actions.v1.ActionsProductsUpdateResponse.Warning": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id?: number;
+            /** @description Причина, по которой товар удалён из акции. */
+            reason?: string;
+        };
+        "actions.v1.ActionsProductsUpdateResponse": {
+            /** @description Список идентификаторов товаров, которые добавлены в акцию. */
+            active_product_ids?: string[];
+            /** @description Список идентификаторов товаров, которые удалены из акции. */
+            deactivated_product_ids?: string[];
+            /** @description Список товаров, которые не удалось добавить в акцию. */
+            rejected?: components["schemas"]["actions.v1.ActionsProductsUpdateResponse.Rejected"][];
+            /** @description Информация о причинах, из-за которых товары удалены из акции. */
+            warnings?: components["schemas"]["actions.v1.ActionsProductsUpdateResponse.Warning"][];
+        };
         /** object */
         seller_apiProductIDsV1Request: {
             /**
@@ -13574,6 +14161,19 @@ export interface components {
         /** object */
         seller_apiProductV1ResponseDeactivate: {
             result?: components["schemas"]["seller_apiProductV1ResponseResultDeactivate"];
+        };
+        "actions.v2.ActionsProductsDeactivateRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции. Получите методом [/v1/actions](#operation/Promos).
+             */
+            action_id: number;
+            /** @description Список идентификаторов товаров в системе Ozon — `product_id`. */
+            product_ids: string[];
+        };
+        "actions.v2.ActionsProductsDeactivateResponse": {
+            /** @description Список идентификаторов товаров, которые удалены из акции. */
+            product_ids?: string[];
         };
         /**
          * @description Статус заявки на скидку:
@@ -13827,6 +14427,322 @@ export interface components {
         v1DeclineDiscountTasksRequest: {
             /** @description Список заявок. */
             tasks: components["schemas"]["v1DeclineDiscountTasksRequestTask"][];
+        };
+        "actions.v2.ActionsAutoAddProductsListRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции.
+             */
+            action_id: number;
+            /**
+             * Format: date-time
+             * @description Дата и время автодобавления товаров в акцию из параметра `result.auto_add_dates` в ответе метода [/v1/actions](#operation/Promos).
+             */
+            auto_add_date: string;
+            /**
+             * Format: uint64
+             * @description Количество значений в ответе.
+             */
+            limit: number;
+            /**
+             * Format: uint64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, ответ начнётся с 11-го найденного элемента.
+             * @default 0
+             */
+            offset: number;
+        };
+        /** @description Цена товара до скидки. */
+        "money.MoneyBase_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Максимальная цена товара для автодобавления в акцию. */
+        "money.MoneyMax_discount_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /** @description Цены товара по схеме доставки. */
+        "actions.v2.ActionsAutoAddProductsListResponse.Product.ProductWebsitePrices.WebsitePrices": {
+            black_price?: components["schemas"]["money.MoneyPrice"];
+            green_price?: components["schemas"]["money.MoneyGreen_price"];
+        };
+        /** @description Цены товара на сайте. */
+        "actions.v2.ActionsAutoAddProductsListResponse.Product.ProductWebsitePrices": {
+            price?: components["schemas"]["money.MoneyWebsitePrices"];
+            /** @description Цены товара по схемам доставки. */
+            prices_by_schema?: {
+                [key: string]: components["schemas"]["actions.v2.ActionsAutoAddProductsListResponse.Product.ProductWebsitePrices.WebsitePrices"];
+            };
+        };
+        "actions.v2.ActionsAutoAddProductsListResponse.Product": {
+            action_price_to_auto_add?: components["schemas"]["money.MoneyAction_price_to_auto_add"];
+            /** @description `true`, если продавец добавил товар вручную. */
+            add_mode?: boolean;
+            base_price?: components["schemas"]["money.MoneyBase_price"];
+            /** @description Валюта цен. */
+            currency?: string;
+            /** @description `true`, если истёк срок действия ограничения для акции. */
+            has_expired_min_seller_price?: boolean;
+            marketplace_seller_price?: components["schemas"]["money.MoneyFBPget"];
+            max_discount_price?: components["schemas"]["money.MoneyMax_discount_price"];
+            /**
+             * Format: uint64
+             * @description Минимальное число единиц товара в акции типа «Скидка на сток».
+             */
+            min_action_quantity?: number;
+            min_seller_price?: components["schemas"]["money.MoneyMin_seller_price"];
+            /** @description Название товара. */
+            name?: string;
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id?: string;
+            price?: components["schemas"]["money.MoneyPrice"];
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id?: number;
+            /**
+             * Format: uint64
+             * @description Количество товара в акции.
+             */
+            quantity_to_auto_add?: number;
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            website_prices?: components["schemas"]["actions.v2.ActionsAutoAddProductsListResponse.Product.ProductWebsitePrices"];
+            /** @description `true`, если товар попадает в карантин после автодобавления. */
+            will_be_quarantined?: boolean;
+        };
+        "actions.v2.ActionsAutoAddProductsListResponse": {
+            /** @description Список товаров с автодобавлением. */
+            products?: components["schemas"]["actions.v2.ActionsAutoAddProductsListResponse.Product"][];
+            /**
+             * Format: uint64
+             * @description Количество товаров.
+             */
+            total?: number;
+        };
+        "actions.v2.ActionsAutoAddProductsCandidatesRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции.
+             */
+            action_id: number;
+            /**
+             * Format: date-time
+             * @description Дата и время автодобавления товаров в акцию из параметра `result.auto_add_dates` в ответе метода [/v1/actions](#operation/Promos).
+             */
+            auto_add_date: string;
+            /**
+             * Format: uint64
+             * @description Количество значений в ответе.
+             */
+            limit: number;
+            /**
+             * Format: uint64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, ответ начнётся с 11-го найденного элемента.
+             * @default 0
+             */
+            offset: number;
+        };
+        /** @description Цены товара по схеме доставки. */
+        "actions.v2.ActionsAutoAddProductsCandidatesResponse.ProductWebsitePrices.WebsitePrices": {
+            black_price?: components["schemas"]["money.MoneyPrice"];
+            green_price?: components["schemas"]["money.MoneyGreen_price"];
+        };
+        /** @description Цены товара на сайте. */
+        "actions.v2.ActionsAutoAddProductsCandidatesResponse.ProductWebsitePrices": {
+            price?: components["schemas"]["money.MoneyWebsitePrices"];
+            /** @description Цены товара по схемам доставки. */
+            prices_by_schema?: {
+                [key: string]: components["schemas"]["actions.v2.ActionsAutoAddProductsCandidatesResponse.ProductWebsitePrices.WebsitePrices"];
+            };
+        };
+        "actions.v2.ActionsAutoAddProductsCandidatesResponse.Products": {
+            action_price_to_auto_add?: components["schemas"]["money.MoneyAction_price_to_auto_add"];
+            base_price?: components["schemas"]["money.MoneyBase_price"];
+            /** @description Валюта цен. */
+            currency?: string;
+            /** @description `true`, если истёк срок действия ограничения для акции. */
+            has_expired_min_seller_price?: boolean;
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            id?: number;
+            /** @description `true`, если товар добавлен вручную. */
+            is_manually_added?: boolean;
+            marketplace_seller_price?: components["schemas"]["money.MoneyFBPget"];
+            max_discount_price?: components["schemas"]["money.MoneyMax_discount_price"];
+            /**
+             * Format: uint64
+             * @description Минимальное число единиц товара в акции типа «Скидка на сток».
+             */
+            min_action_quantity?: number;
+            min_seller_price?: components["schemas"]["money.MoneyMin_seller_price"];
+            /** @description Название товара. */
+            name?: string;
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id?: string;
+            price?: components["schemas"]["money.MoneyPrice"];
+            /**
+             * Format: uint64
+             * @description Количество товара в акции.
+             */
+            quantity_to_auto_add?: number;
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            website_prices?: components["schemas"]["actions.v2.ActionsAutoAddProductsCandidatesResponse.ProductWebsitePrices"];
+            /** @description `true`, если товар попадает в карантин после автодобавления. */
+            will_be_quarantined?: boolean;
+        };
+        "actions.v2.ActionsAutoAddProductsCandidatesResponse": {
+            /** @description Список доступных товаров для автодобавления. */
+            products?: components["schemas"]["actions.v2.ActionsAutoAddProductsCandidatesResponse.Products"][];
+            /**
+             * Format: uint64
+             * @description Количество товаров.
+             */
+            total?: number;
+        };
+        "actions.v2.ActionsAutoAddProductsDeleteRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции.
+             */
+            action_id: number;
+            /**
+             * Format: date-time
+             * @description Дата и время автодобавления товаров в акцию из параметра `result.auto_add_dates` в ответе метода [/v1/actions](#operation/Promos).
+             */
+            auto_add_date: string;
+            /** @description Идентификаторы товаров в системе Ozon — `product_id`. */
+            product_ids: string[];
+        };
+        "actions.v2.ActionsAutoAddProductsDeleteResponse": {
+            /** @description Идентификаторы товаров, которые удалены из автодобавления. */
+            product_ids?: string[];
+        };
+        /**
+         * @description Предельная цена товара.
+         *
+         *     Изменим предельную цену в карточке товара в дату `auto_add_date`, даже если предельная цена была установлена ранее.
+         *
+         *     Если значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции.
+         */
+        "money.MoneyAutoaddAction_price": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateRequest.ProductToActivate": {
+            action_price?: components["schemas"]["money.MoneyAutoaddAction_price"];
+            /**
+             * Format: uint64
+             * @description Идентификатор товара.
+             */
+            id?: number;
+            /**
+             * Format: uint64
+             * @description Количество единиц товара в акции для акции «Промокоды». Не указывайте для акций «Эластичный бустинг» и «Максимальный бустинг».
+             */
+            stock?: number;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateRequest": {
+            /**
+             * Format: uint64
+             * @description Идентификатор акции.
+             */
+            action_id: number;
+            /**
+             * Format: date-time
+             * @description Дата и время автодобавления товаров в акцию из параметра `result.auto_add_dates` в ответе метода [/v1/actions](#operation/Promos).
+             */
+            auto_add_date: string;
+            /** @description Список товаров, которые нужно добавить или обновить в автодобавлении. */
+            products: components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateRequest.ProductToActivate"][];
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateResponse.BelowMinPrice": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            key?: number;
+            /**
+             * Format: double
+             * @description Цена товара.
+             */
+            value?: number;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateResponse.ExtremelyLowPrice": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            key?: number;
+            /**
+             * Format: double
+             * @description Цена товара.
+             */
+            value?: number;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateResponse.FailedPrice": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            key?: number;
+            /**
+             * Format: double
+             * @description Значение проблемной цены:
+             *     - максимальная цена товара для автодобавления в акцию, если цена товара её превышает;
+             *     - цена со скидкой 95%, если скидка на товар больше 95%.
+             */
+            value?: number;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateResponse.Rejected": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id?: number;
+            /** @description Причина, по которой не получилось добавить или обновить товар. */
+            reason?: string;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateResponse.WarningInfo": {
+            /**
+             * Format: uint64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id?: number;
+            /** @description Предупреждение. */
+            reason?: string;
+        };
+        "actions.v2.ActionsAutoAddProductsUpdateResponse": {
+            /** @description Список товаров с ценой ниже минимальной. */
+            below_min_price?: components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateResponse.BelowMinPrice"][];
+            /** @description Идентификаторы товаров, которые удалены из акции. */
+            deactivated_ids?: string[];
+            /** @description Список товаров со скидкой больше 70%. */
+            extremely_low_price?: components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateResponse.ExtremelyLowPrice"][];
+            /** @description Список товаров, которые не прошли валидацию по цене. */
+            failed_price?: components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateResponse.FailedPrice"][];
+            /** @description Идентификаторы товаров, которые получилось добавить или обновить. */
+            product_ids?: string[];
+            /** @description Идентификаторы товаров, которые не получилось добавить или обновить. */
+            rejected?: components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateResponse.Rejected"][];
+            /** @description Список предупреждений по товарам. */
+            warnings?: components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateResponse.WarningInfo"][];
         };
         /** object */
         v1GetCompetitorsRequest: {
@@ -22993,6 +23909,8 @@ export interface components {
             /** @description `true`, если нужно заполнить атрибуты отслеживаемости. */
             require_blr_traceable_attrs?: boolean;
             requirements?: components["schemas"]["posting.v4.PostingFbsUnfulfilledListResponse.Postings.Requirements"];
+            /** @description Штрихкод ScanIt товара. */
+            scanit?: string;
             /**
              * Format: date-time
              * @description Дата и время, до которой нужно собрать отправление. Показываем рекомендованное время отгрузки. По истечении этого времени начнёт применяться новый тариф, информацию о нём получите в поле `tariffication`.
@@ -23846,6 +24764,8 @@ export interface components {
             /** @description `true`, если нужно заполнить атрибуты отслеживаемости. */
             require_blr_traceable_attrs?: boolean;
             requirements?: components["schemas"]["posting.v4.PostingFbsListResponse.Postings.Requirements"];
+            /** @description Штрихкод ScanIt товара. */
+            scanit?: string;
             /**
              * Format: date-time
              * @description Дата и время, до которой нужно собрать отправление. Показываем рекомендованное время отгрузки. По истечении этого времени начнёт применяться новый тариф, информацию о нём получите в поле `tariffication`.
@@ -24322,6 +25242,8 @@ export interface components {
             /** @description `true`, если нужно заполнить атрибуты прослеживаемости. */
             require_blr_traceable_attrs?: boolean;
             requirements?: components["schemas"]["v3FbsPostingRequirementsV3"];
+            /** @description Штрихкод ScanIt товара. */
+            scanit?: string;
             /**
              * Format: date-time
              * @description Дата и время, до которой необходимо собрать отправление. Показываем рекомендованное время отгрузки. По истечении этого времени начнёт применяться новый тариф, информацию о нём уточняйте в поле `tariffication`.
@@ -24432,7 +25354,7 @@ export interface components {
         };
         /** object */
         postingGetFbsPostingByBarcodeRequest: {
-            /** @description Штрихкод отправления. Можно получить с помощью методов: [/v3/posting/fbs/get](#operation/PostingAPI_GetFbsPostingV3), [/v3/posting/fbs/list](#operation/PostingAPI_GetFbsPostingListV3) и [/v3/posting/fbs/unfulfilled/list](#operation/PostingAPI_GetFbsPostingUnfulfilledList) в массиве `barcodes`. */
+            /** @description Штрихкод отправления. Можно получить с помощью методов [/v3/posting/fbs/get](#operation/PostingAPI_GetFbsPostingV3), [/v4/posting/fbs/list](#operation/PostingFbsList) и [/v4/posting/fbs/unfulfilled/list](#operation/PostingFbsUnfulfilledList) в массиве `barcodes` или параметре `scanit`. */
             barcode: string;
         };
         /**
@@ -32365,13 +33287,6 @@ export interface components {
             /** @description Список товаров в заказе. */
             products?: components["schemas"]["posting.v1.GetFbpPostingResponse.Posting.FinancialData.Products"][];
         };
-        /** @description Цена товара с учётом акций, кроме акций за счёт Ozon. */
-        "money.MoneyFBPget": {
-            /** @description Сумма. */
-            amount?: string;
-            /** @description Валюта. */
-            currency?: string;
-        };
         "posting.v1.GetFbpPostingResponse.Posting.Products": {
             /** @description `true`, если есть IMEI. */
             has_imei?: boolean;
@@ -33321,6 +34236,76 @@ export interface components {
              * @description Общее количество товаров.
              */
             total?: number;
+        };
+        "posting.v3.PostingFbsPackageLabelCreateRequest": {
+            /** @description Номера отправлений, для которых нужны этикетки. */
+            posting_numbers: string[];
+        };
+        "posting.v3.PostingFbsPackageLabelCreateResponse.Tasks": {
+            /**
+             * Format: int64
+             * @description Идентификатор задания. Получите файл с этикетками методом [/v2/posting/fbs/package-label/get](#operation/PostingFbsPackageLabelGet).
+             */
+            task_id?: number;
+            /**
+             * @description Тип задания:
+             *     - `big_label` — для обычной этикетки;
+             *     - `small_label` — для маленькой этикетки.
+             */
+            task_type?: string;
+        };
+        "posting.v3.PostingFbsPackageLabelCreateResponse": {
+            /** @description Список заданий. */
+            tasks?: components["schemas"]["posting.v3.PostingFbsPackageLabelCreateResponse.Tasks"][];
+        };
+        "posting.v2.PostingFbsPackageLabelGetRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор задания из ответа метода [/v3/posting/fbs/package-label/create](#operation/PostingFbsPackageLabelCreate).
+             */
+            task_id: number;
+        };
+        /** @description Ошибка, которая возникла при формировании этикеток. */
+        "posting.v2.PostingFbsPackageLabelGetResponse.Error": {
+            /** @description Код ошибки. */
+            code?: string;
+            /** @description Описание ошибки. */
+            message?: string;
+        };
+        "posting.v2.PostingFbsPackageLabelGetResponse.Status.UnprintedPostings": {
+            /** @description Описание ошибки. */
+            message?: string;
+            /** @description Номер отправления. */
+            posting_number?: string;
+        };
+        /** @description Статус задания. */
+        "posting.v2.PostingFbsPackageLabelGetResponse.Status": {
+            /**
+             * @description Статус формирования этикеток:
+             *     - `pending` — задание в очереди;
+             *     - `in_progress` — формируются;
+             *     - `completed` — файл с этикетками готов;
+             *     - `error` — ошибка при создании файла.
+             */
+            code?: string;
+            /**
+             * Format: int32
+             * @description Количество отправлений, по которым запрашивались этикетки.
+             */
+            postings_count?: number;
+            /**
+             * Format: int32
+             * @description Количество отправлений, по которым получилось сгенерировать этикетки.
+             */
+            printed_postings_count?: number;
+            /** @description Информация об ошибках, из-за которых не получилось сгенерировать этикетки. */
+            unprinted_postings?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Status.UnprintedPostings"][];
+        };
+        "posting.v2.PostingFbsPackageLabelGetResponse": {
+            error?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Error"];
+            /** @description Ссылка на файл с этикетками. */
+            file_url?: string;
+            status?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Status"];
         };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
@@ -36006,7 +36991,7 @@ export interface components {
             products?: components["schemas"]["actions.v1.ActionsAutoAddProductsListResponse.Products"][];
             /**
              * Format: uint64
-             * @description Общее количество товаров.
+             * @description Количество товаров.
              */
             total?: number;
         };
@@ -36096,7 +37081,7 @@ export interface components {
             products?: components["schemas"]["actions.v1.ActionsAutoAddProductsCandidatesResponse.Products"][];
             /**
              * Format: uint64
-             * @description Общее количество товаров.
+             * @description Количество товаров.
              */
             total?: number;
         };
@@ -42216,13 +43201,13 @@ export interface operations {
                      *           "id": 5055881,
                      *           "value": "Sunshine",
                      *           "info": "Здоровье и красота",
-                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-i/6010930878.jpg"
+                     *           "picture": "https://ir.ozone.ru/s3/multimedia-i/6010930878.jpg"
                      *         },
                      *         {
                      *           "id": 5056737,
                      *           "value": "Essence",
                      *           "info": "Красота и здоровье",
-                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-v/6088253599.jpg"
+                     *           "picture": "https://ir.ozone.ru/s3/multimedia-v/6088253599.jpg"
                      *         }
                      *       ],
                      *       "has_next": true
@@ -43668,15 +44653,15 @@ export interface operations {
                      *           "dimension_unit": "mm",
                      *           "weight": 50,
                      *           "weight_unit": "g",
-                     *           "primary_image": "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *           "primary_image": "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
                      *           "sku": 423434534,
                      *           "model_info": {
                      *             "model_id": 43445453,
                      *             "count": 4
                      *           },
                      *           "images": [
-                     *             "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
-                     *             "https://ir-3.ozone.ru/s3/multimedia-j/6835412647.jpg"
+                     *             "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *             "https://ir.ozone.ru/s3/multimedia-j/6835412647.jpg"
                      *           ],
                      *           "pdf_list": [],
                      *           "attributes": [
@@ -45881,6 +46866,144 @@ export interface operations {
             };
         };
     };
+    ActionsCandidates: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 258568,
+                 *       "last_id": "80698",
+                 *       "limit": 100
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsCandidatesRequest"];
+            };
+        };
+        responses: {
+            /** @description Список товаров, которые могут участвовать в акции */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "products": [
+                     *         {
+                     *           "id": 8888888,
+                     *           "price": {
+                     *             "amount": "1827",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "action_price": {
+                     *             "amount": "1800",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "max_action_price": {
+                     *             "amount": "62",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "min_stock": 1,
+                     *           "recommended_stock": 2,
+                     *           "marketplace_seller_price": {
+                     *             "amount": "70",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "alert_max_action_price_failed": false,
+                     *           "alert_max_action_price": {
+                     *             "amount": "30",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "current_boost": 15,
+                     *           "price_min_elastic": {
+                     *             "amount": "62",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "price_max_elastic": {
+                     *             "amount": "53",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "min_boost": 15,
+                     *           "max_boost": 55,
+                     *           "website_prices": {
+                     *             "price": {
+                     *               "amount": "54",
+                     *               "currency": "RUB"
+                     *             },
+                     *             "prices_by_schema": {}
+                     *           },
+                     *           "min_seller_price": {
+                     *             "amount": "1",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "is_quarantined": false
+                     *         }
+                     *       ],
+                     *       "total": 219176,
+                     *       "last_id": "81881"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsCandidatesResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     PromosProducts: {
         parameters: {
             query?: never;
@@ -45947,6 +47070,146 @@ export interface operations {
             };
         };
     };
+    ActionsProducts: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 213139,
+                 *       "last_id": "3262247282",
+                 *       "limit": 100
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsProductsRequest"];
+            };
+        };
+        responses: {
+            /** @description Список товаров, которые участвуют в акции */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "products": [
+                     *         {
+                     *           "id": 99999,
+                     *           "price": {
+                     *             "amount": "4000",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "action_price": {
+                     *             "amount": "4000",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "max_action_price": {
+                     *             "amount": "3560",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "add_mode": "SELLER",
+                     *           "stock": 2,
+                     *           "min_stock": 1,
+                     *           "recommended_stock": 10,
+                     *           "marketplace_seller_price": {
+                     *             "amount": "500",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "alert_max_action_price_failed": false,
+                     *           "alert_max_action_price": {
+                     *             "amount": "4000",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "current_boost": 12,
+                     *           "price_min_elastic": {
+                     *             "amount": "3560",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "price_max_elastic": {
+                     *             "amount": "3560",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "min_boost": 1,
+                     *           "max_boost": 12,
+                     *           "website_prices": {
+                     *             "price": {
+                     *               "amount": "382",
+                     *               "currency": "RUB"
+                     *             },
+                     *             "prices_by_schema": {}
+                     *           },
+                     *           "min_seller_price": {
+                     *             "amount": "4000",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "is_quarantined": true
+                     *         }
+                     *       ],
+                     *       "total": 44,
+                     *       "last_id": "28743"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsProductsResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     PromosProductsActivate: {
         parameters: {
             query?: never;
@@ -46002,6 +47265,105 @@ export interface operations {
             };
         };
     };
+    ActionsProductsUpdate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 258568,
+                 *       "products": [
+                 *         {
+                 *           "action_price": {
+                 *             "amount": "88",
+                 *             "currency": "RUB"
+                 *           },
+                 *           "product_id": 88888,
+                 *           "stock": "8"
+                 *         }
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v1.ActionsProductsUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Товары добавлены или обновлены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "active_product_ids": [
+                     *         88888
+                     *       ],
+                     *       "deactivated_product_ids": [],
+                     *       "rejected": [],
+                     *       "warnings": []
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v1.ActionsProductsUpdateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     PromosProductsDeactivate: {
         parameters: {
             query?: never;
@@ -46044,6 +47406,95 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ActionsProductsDeactivate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 213139,
+                 *       "product_ids": [
+                 *         999999
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsProductsDeactivateRequest"];
+            };
+        };
+        responses: {
+            /** @description Товары удалены из акции */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "product_ids": [
+                     *         999999
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsProductsDeactivateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -46244,6 +47695,543 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ActionsAutoAddProductsListV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 0,
+                 *       "auto_add_date": "2025-01-01T00:00:00Z",
+                 *       "offset": 0,
+                 *       "limit": 0
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsListRequest"];
+            };
+        };
+        responses: {
+            /** @description Список товаров с автодобавлением */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "products": [
+                     *         {
+                     *           "action_price_to_auto_add": {
+                     *             "amount": "1800",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "add_mode": true,
+                     *           "base_price": {
+                     *             "amount": "1827",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "currency": "RUB",
+                     *           "has_expired_min_seller_price": true,
+                     *           "marketplace_seller_price": {
+                     *             "amount": "70",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "max_discount_price": {
+                     *             "amount": "62",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "min_action_quantity": 1,
+                     *           "min_seller_price": {
+                     *             "amount": "1",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "name": "Ароматизатор / Масло для бани / Эфирное масло \"Пихта\", 250 мл",
+                     *           "offer_id": "SR0000",
+                     *           "price": {
+                     *             "amount": "1827",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "product_id": 8888888,
+                     *           "quantity_to_auto_add": 2,
+                     *           "sku": 8888888,
+                     *           "website_prices": {
+                     *             "price": {
+                     *               "amount": "54",
+                     *               "currency": "RUB"
+                     *             },
+                     *             "prices_by_schema": {
+                     *               "additionalProp1": {
+                     *                 "black_price": {
+                     *                   "amount": "111",
+                     *                   "currency": "RUB"
+                     *                 },
+                     *                 "green_price": {
+                     *                   "amount": "222",
+                     *                   "currency": "RUB"
+                     *                 }
+                     *               },
+                     *               "additionalProp2": {
+                     *                 "black_price": {
+                     *                   "amount": "333",
+                     *                   "currency": "RUB"
+                     *                 },
+                     *                 "green_price": {
+                     *                   "amount": "444",
+                     *                   "currency": "RUB"
+                     *                 }
+                     *               },
+                     *               "additionalProp3": {
+                     *                 "black_price": {
+                     *                   "amount": "555",
+                     *                   "currency": "RUB"
+                     *                 },
+                     *                 "green_price": {
+                     *                   "amount": "666",
+                     *                   "currency": "RUB"
+                     *                 }
+                     *               }
+                     *             }
+                     *           },
+                     *           "will_be_quarantined": false
+                     *         }
+                     *       ],
+                     *       "total": 219176
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ActionsAutoAddProductsCandidatesV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 250204,
+                 *       "auto_add_date": "2025-01-01T00:00:00Z",
+                 *       "offset": 5,
+                 *       "limit": 100
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsCandidatesRequest"];
+            };
+        };
+        responses: {
+            /** @description Список доступных товаров для автодобавления в акцию */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "products": [
+                     *         {
+                     *           "action_price_to_auto_add": {
+                     *             "amount": "1800",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "base_price": {
+                     *             "amount": "1827",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "currency": "RUB",
+                     *           "has_expired_min_seller_price": true,
+                     *           "id": 8888888,
+                     *           "is_manually_added": true,
+                     *           "marketplace_seller_price": {
+                     *             "amount": "70",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "max_discount_price": {
+                     *             "amount": "62",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "min_action_quantity": 1,
+                     *           "min_seller_price": {
+                     *             "amount": "1",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "name": "Ароматизатор / Масло для бани / Эфирное масло \"Пихта\", 250 мл",
+                     *           "offer_id": "PS0000",
+                     *           "price": {
+                     *             "amount": "1827",
+                     *             "currency": "RUB"
+                     *           },
+                     *           "quantity_to_auto_add": 2,
+                     *           "sku": 8888888,
+                     *           "website_prices": {
+                     *             "price": {
+                     *               "amount": "54",
+                     *               "currency": "RUB"
+                     *             },
+                     *             "prices_by_schema": {
+                     *               "additionalProp1": {
+                     *                 "black_price": {
+                     *                   "amount": "1400",
+                     *                   "currency": "RUB"
+                     *                 },
+                     *                 "green_price": {
+                     *                   "amount": "18888",
+                     *                   "currency": "RUB"
+                     *                 }
+                     *               },
+                     *               "additionalProp2": {
+                     *                 "black_price": {
+                     *                   "amount": "1500",
+                     *                   "currency": "RUB"
+                     *                 },
+                     *                 "green_price": {
+                     *                   "amount": "1600",
+                     *                   "currency": "RUB"
+                     *                 }
+                     *               },
+                     *               "additionalProp3": {
+                     *                 "black_price": {
+                     *                   "amount": "1700",
+                     *                   "currency": "RUB"
+                     *                 },
+                     *                 "green_price": {
+                     *                   "amount": "1800",
+                     *                   "currency": "RUB"
+                     *                 }
+                     *               }
+                     *             }
+                     *           },
+                     *           "will_be_quarantined": false
+                     *         }
+                     *       ],
+                     *       "total": 219176
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsCandidatesResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ActionsAutoAddProductsDeleteV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 250204,
+                 *       "product_ids": [
+                 *         88888
+                 *       ],
+                 *       "auto_add_date": "2025-01-01T00:00:00Z"
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsDeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description Товары удалены из автодобавления */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "product_ids": [
+                     *         88888
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsDeleteResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ActionsAutoAddProductsUpdateV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "action_id": 250204,
+                 *       "auto_add_date": "2026-09-22T11:37:38.940Z",
+                 *       "products": [
+                 *         {
+                 *           "action_price": {
+                 *             "amount": "1000",
+                 *             "currency": "RUB"
+                 *           },
+                 *           "id": 88888,
+                 *           "stock": 10
+                 *         }
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Товары добавлены или обновлены в автодобавлении */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "product_ids": [
+                     *         "    88888  "
+                     *       ],
+                     *       "deactivated_ids": [
+                     *         0
+                     *       ],
+                     *       "rejected": [
+                     *         {
+                     *           "product_id": 0,
+                     *           "reason": ""
+                     *         }
+                     *       ],
+                     *       "warnings": [
+                     *         {
+                     *           "product_id": 0,
+                     *           "reason": ""
+                     *         }
+                     *       ],
+                     *       "below_min_price": {
+                     *         "0": 0
+                     *       },
+                     *       "extremely_low_price": {
+                     *         "0": 0
+                     *       },
+                     *       "failed_price": {
+                     *         "0": 0
+                     *       }
+                     *     }
+                     */
+                    "application/json": components["schemas"]["actions.v2.ActionsAutoAddProductsUpdateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -55419,6 +57407,7 @@ export interface operations {
                      *             "products_requiring_imei": [],
                      *             "products_requiring_weight": []
                      *           },
+                     *           "scanit": "ii30525117479",
                      *           "tariffication": {
                      *             "current_tariff_rate": 3,
                      *             "current_tariff_type": "commission",
@@ -56163,6 +58152,7 @@ export interface operations {
                      *             "products_requiring_mandatory_mark": [],
                      *             "products_requiring_rnpt": []
                      *           },
+                     *           "scanit": "ii30525117479",
                      *           "shipment_date": "2026-05-18T12:00:00.000Z",
                      *           "shipment_date_without_delay": "2026-05-18T12:00:00.000Z",
                      *           "sorting_center": null,
@@ -56395,6 +58385,7 @@ export interface operations {
                      *         ],
                      *         "multi_box_qty": 1,
                      *         "is_multibox": false,
+                     *         "scanit": "ii30525117479",
                      *         "substatus": "posting_created",
                      *         "previous_substatus": "posting_split_pending",
                      *         "prr_option": {
@@ -57250,7 +59241,7 @@ export interface operations {
                      *       "result": {
                      *         "error": "",
                      *         "status": "completed",
-                     *         "file_url": "https://ir-3.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
+                     *         "file_url": "https://ir.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
                      *         "printed_postings_count": 1,
                      *         "unprinted_postings_count": 0,
                      *         "unprinted_postings": []
@@ -59635,7 +61626,7 @@ export interface operations {
                      *         "status": "success",
                      *         "error": "",
                      *         "expires_at": "2025-11-10T11:16:00.267Z",
-                     *         "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *         "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *         "report_type": "seller_products",
                      *         "params": {},
                      *         "created_at": "2021-11-25T14:54:55.688260Z"
@@ -59738,7 +61729,7 @@ export interface operations {
                      *             "status": "success",
                      *             "error": "",
                      *             "expires_at": "2025-11-10T11:35:10.028Z",
-                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
+                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -59749,7 +61740,7 @@ export interface operations {
                      *             "code": "REPORT_seller_products_924336_1720170405_a9ea2f27-a473-4b13-99f9-d0cfcb5b1a69",
                      *             "status": "success",
                      *             "error": "",
-                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -64713,6 +66704,154 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["analytics.v1.AnalyticsLocalSaleItemsClustersInfoResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    PostingFbsPackageLabelCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["posting.v3.PostingFbsPackageLabelCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Задания на формирование этикеток */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["posting.v3.PostingFbsPackageLabelCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    PostingFbsPackageLabelGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["posting.v2.PostingFbsPackageLabelGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус формирования этикеток или файл с ними */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse"];
                 };
             };
             /** @description Неверный параметр */
