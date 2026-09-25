@@ -5,6 +5,58 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.13.0] - 2026-09-25
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 24–25 сентября
+2026.
+Пути: 480 → 481 (+1 / −0); схемы: 2273 → 2288 (+15 / −0); новые поля в
+существующих схемах: 6.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/warehouse/rfbs/return-point/list` — бета-метод списка пунктов
+  возврата для склада rFBS (и связанные схемы
+  `v1WarehouseRfbsReturnPointList*`).
+- В `filter.visibility` запросов `/v3/product/list` и
+  `/v4/product/info/attributes` добавлено значение `SHOWCASE_SELECT_ACTIVE`
+  (`productv3GetProductListRequestFilterFilterVisibility`,
+  `productv2GetProductListRequestFilterFilterVisibility`).
+- В ответы `/v3/product/list` (`productv3GetProductListResponseResult`),
+  `/v4/product/info/stocks` (`v4GetProductInfoStocksResponse`) и
+  `/v5/product/info/prices` (`productv5GetProductInfoPricesV5Response`)
+  добавлено поле `total_items`.
+- В ответ `/v1/delivery-method/return/settings/get`
+  (`GetDeliveryMethodReturnSettingsV1ResponseReturnSetting`) добавлено поле
+  `return_point` (и связанные схемы `ReturnSettingReturnPoint*`).
+- В запросы `/v1/warehouse/erfbs/aggregator/create` и
+  `/v1/warehouse/erfbs/aggregator/delivery-method/update` добавлено поле
+  `return_point_id`.
+
+### Changed
+
+- В ответах `/v3/product/list`, `/v4/product/info/stocks` и
+  `/v5/product/info/prices` параметр `total` помечен как `@deprecated`
+  (отключение 23 ноября 2026).
+- Методы `/v3/posting/fbs/package-label/create` и
+  `/v2/posting/fbs/package-label/get` перенесены из бета-раздела в основной
+  (из описаний убраны ссылки на бета-обсуждение).
+- В описаниях `/v2/posting/fbs/package-label`,
+  `/v1/posting/fbs/package-label/create`,
+  `/v2/posting/fbs/package-label/create` и
+  `/v1/posting/fbs/package-label/get` указано, что с 5 октября 2026 методы
+  будут возвращать новые этикетки для отправлений FBS.
+- обновлены dev зависимости `npm audit fix`
+
+### Notes
+
+- Сверка с анонсом Ozon за 24–25 сентября 2026: все пункты анонса, которые
+  входят в снимок OpenAPI, отражены. Раздел «Лимиты» — документация на сайте,
+  в снимок не входит.
+- Новый путь `/v1/warehouse/rfbs/return-point/list` и поля `return_point` /
+  `return_point_id` в методах складов rFBS Express пришли со снимком, но в
+  анонсе Ozon не упоминаются.
+
 ## [0.12.0] - 2026-09-22
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 сентября
