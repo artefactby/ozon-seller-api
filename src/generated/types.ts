@@ -546,7 +546,11 @@ export interface paths {
         put?: never;
         /**
          * Список товаров
-         * @description Метод для получения списка всех товаров.
+         * @description <aside class="warning">
+         *       23 ноября 2026 года отключим параметр <code>result.total</code> в ответе метода. Переключитесь на <code>result.total_items</code>.
+         *     </aside>
+         *
+         *     Метод для получения списка всех товаров.
          *
          *     Если вы используете фильтр по идентификатору `offer_id` или `product_id`, остальные параметры заполнять не обязательно.
          *     Вернутся все товары с указанными идентификаторами, независимо от видимости.
@@ -946,7 +950,11 @@ export interface paths {
         put?: never;
         /**
          * Информация о количестве товаров
-         * @description Возвращает информацию о ĸоличестве товаров по схемам FBO, FBS, rFBS и FBP:
+         * @description <aside class="warning">
+         *       23 ноября 2026 года отключим параметр <code>total</code> в ответе метода. Переключитесь на <code>total_items</code>.
+         *     </aside>
+         *
+         *     Возвращает информацию о ĸоличестве товаров по схемам FBO, FBS, rFBS и FBP:
          *       - сĸольĸо единиц есть в наличии,
          *       - сĸольĸо зарезервировано поĸупателями.
          *
@@ -1097,7 +1105,9 @@ export interface paths {
         /**
          * Получить информацию о цене товара
          * @description <aside class="warning">
-         *      Вы можете посмотреть историю обновления цен только в личном кабинете продавца.<br> <a href="https://seller-edu.ozon.ru/libra/ceny-i-akcii/rabota-s-cenami/price-control#как-посмотреть-историю-обновления-цен">Подробнее об истории обновления цен в Базе знаний продавца</a>
+         *     23 ноября 2026 года отключим параметр <code>total</code> в ответе метода. Переключитесь на <code>total_items</code>.
+         *
+         *     Вы можете посмотреть историю обновления цен только в личном кабинете продавца.<br> <a href="https://seller-edu.ozon.ru/libra/ceny-i-akcii/rabota-s-cenami/price-control#как-посмотреть-историю-обновления-цен">Подробнее об истории обновления цен в Базе знаний продавца</a>
          *     </aside>
          */
         post: operations["ProductAPI_GetProductInfoPrices"];
@@ -4520,6 +4530,9 @@ export interface paths {
         /**
          * Напечатать этикетку
          * @description <aside class="warning">
+         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
+         *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a> и <a href="#operation/PostingFbsPackageLabelGet">/v2/posting/fbs/package-label/get</a>.
          *
          *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
@@ -4550,6 +4563,9 @@ export interface paths {
         /**
          * Создать задание на выгрузку этикеток
          * @description <aside class="warning">
+         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
+         *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a>.
          *     </aside>
          *
@@ -4576,6 +4592,9 @@ export interface paths {
         /**
          * Создать задание на формирование этикеток
          * @description <aside class="warning">
+         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
+         *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a>.
          *
          *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
@@ -4595,6 +4614,33 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v3/posting/fbs/package-label/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Создать задание на формирование этикеток
+         * @description <aside class="warning">
+         *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
+         *     </aside>
+         *
+         *     Создаёт задания на асинхронное формирование этикеток для отправлений в статусе «Ожидает отгрузки» — `awaiting_deliver`.
+         *     Рекомендуем запрашивать этикетки через 45–60 секунд после сборки заказа.
+         *
+         *     Чтобы получить созданные этикетки, используйте [/v2/posting/fbs/package-label/get](#operation/PostingFbsPackageLabelGet).
+         */
+        post: operations["PostingFbsPackageLabelCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/posting/fbs/package-label/get": {
         parameters: {
             query?: never;
@@ -4607,12 +4653,32 @@ export interface paths {
         /**
          * Получить файл с этикетками
          * @description <aside class="warning">
+         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
+         *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelGet">/v2/posting/fbs/package-label/get</a>.
          *     </aside>
          *
          *     Метод для получения этикеток после вызова [/v1/posting/fbs/package-label/create](#operation/PostingAPI_CreateLabelBatch).
          */
         post: operations["PostingAPI_GetLabelBatch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/posting/fbs/package-label/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить файл с этикетками */
+        post: operations["PostingFbsPackageLabelGet"];
         delete?: never;
         options?: never;
         head?: never;
@@ -7086,7 +7152,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v3/posting/fbs/package-label/create": {
+    "/v1/warehouse/rfbs/return-point/list": {
         parameters: {
             query?: never;
             header?: never;
@@ -7096,39 +7162,12 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Создать задание на формирование этикеток
-         * @description <aside class="warning">
-         *     Если вы работаете по схеме rFBS или rFBS Express, изучите процесс печати этикетки в <a href="https://seller-edu.ozon.ru/rfbs/scheme-of-work">Базе знаний продавца</a>.
-         *     </aside>
+         * Получить список пунктов возврата для склада rFBS
+         * @description Используйте метод при создании и обновлении складов rFBS и rFBS Express.
          *
-         *     Создаёт задания на асинхронное формирование этикеток для отправлений в статусе «Ожидает отгрузки» — `awaiting_deliver`.
-         *     Рекомендуем запрашивать этикетки через 45–60 секунд после сборки заказа.
-         *
-         *     Чтобы получить созданные этикетки, используйте [/v2/posting/fbs/package-label/get](#operation/PostingFbsPackageLabelGet).
-         *
-         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2346-Novye-beta-metody-dlia-raboty-s-etiketkami-FBS/) в сообществе разработчиков Ozon for dev.
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2369-Novyi-beta-metod-dlia-polucheniia-vozvratnykh-tochek-dlia-rfbs-ekspress/) в сообществе разработчиков Ozon for dev.
          */
-        post: operations["PostingFbsPackageLabelCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/posting/fbs/package-label/get": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить файл с этикетками
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2346-Novye-beta-metody-dlia-raboty-s-etiketkami-FBS/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["PostingFbsPackageLabelGet"];
+        post: operations["WarehouseRfbsReturnPointList"];
         delete?: never;
         options?: never;
         head?: never;
@@ -11408,11 +11447,12 @@ export interface components {
          *       - `AUTO_ARCHIVED` — товары, которые система перенесла в архив автоматически;
          *       - `MANUAL_ARCHIVED` — товары, которые продавец перенёс в архив вручную;
          *       - `SEASONAL_AUTO_ARCHIVED` — сезонные товары, которые система перенесла в архив автоматически;
-         *       - `VISIBLE_WITH_FBO_STOCK` — товары с остатками на FBO, которые видят покупатели.
+         *       - `VISIBLE_WITH_FBO_STOCK` — товары с остатками на FBO, которые видят покупатели;
+         *       - `SHOWCASE_SELECT_ACTIVE` — товары, которые видны на витрине Ozon Селект.
          * @default ALL
          * @enum {string}
          */
-        productv3GetProductListRequestFilterFilterVisibility: "ALL" | "VISIBLE" | "INVISIBLE" | "EMPTY_STOCK" | "NOT_MODERATED" | "MODERATED" | "DISABLED" | "STATE_FAILED" | "READY_TO_SUPPLY" | "VALIDATION_STATE_PENDING" | "VALIDATION_STATE_FAIL" | "VALIDATION_STATE_SUCCESS" | "TO_SUPPLY" | "IN_SALE" | "REMOVED_FROM_SALE" | "OVERPRICED" | "CRITICALLY_OVERPRICED" | "EMPTY_BARCODE" | "BARCODE_EXISTS" | "QUARANTINE" | "ARCHIVED" | "OVERPRICED_WITH_STOCK" | "PARTIAL_APPROVED" | "AUTO_ARCHIVED" | "MANUAL_ARCHIVED" | "SEASONAL_AUTO_ARCHIVED" | "VISIBLE_WITH_FBO_STOCK";
+        productv3GetProductListRequestFilterFilterVisibility: "ALL" | "VISIBLE" | "INVISIBLE" | "EMPTY_STOCK" | "NOT_MODERATED" | "MODERATED" | "DISABLED" | "STATE_FAILED" | "READY_TO_SUPPLY" | "VALIDATION_STATE_PENDING" | "VALIDATION_STATE_FAIL" | "VALIDATION_STATE_SUCCESS" | "TO_SUPPLY" | "IN_SALE" | "REMOVED_FROM_SALE" | "OVERPRICED" | "CRITICALLY_OVERPRICED" | "EMPTY_BARCODE" | "BARCODE_EXISTS" | "QUARANTINE" | "ARCHIVED" | "OVERPRICED_WITH_STOCK" | "PARTIAL_APPROVED" | "AUTO_ARCHIVED" | "MANUAL_ARCHIVED" | "SEASONAL_AUTO_ARCHIVED" | "VISIBLE_WITH_FBO_STOCK" | "SHOWCASE_SELECT_ACTIVE";
         /**
          * object
          * @description Фильтр по товарам.
@@ -11491,9 +11531,15 @@ export interface components {
             last_id?: string;
             /**
              * Format: int32
+             * @deprecated
              * @description Всего товаров.
              */
             total?: number;
+            /**
+             * Format: int64
+             * @description Всего товаров.
+             */
+            total_items?: number;
         };
         /** object */
         productv3GetProductListResponse: {
@@ -12034,11 +12080,12 @@ export interface components {
          *       - `AUTO_ARCHIVED` — товары, которые система перенесла в архив автоматически;
          *       - `MANUAL_ARCHIVED` — товары, которые продавец перенёс в архив вручную;
          *       - `SEASONAL_AUTO_ARCHIVED` — сезонные товары, которые система перенесла в архив автоматически;
-         *       - `VISIBLE_WITH_FBO_STOCK` — товары с остатками на FBO, которые видят покупатели.
+         *       - `VISIBLE_WITH_FBO_STOCK` — товары с остатками на FBO, которые видят покупатели;
+         *       - `SHOWCASE_SELECT_ACTIVE` — товары, которые видны на витрине Ozon Селект.
          * @default ALL
          * @enum {string}
          */
-        productv2GetProductListRequestFilterFilterVisibility: "ALL" | "VISIBLE" | "INVISIBLE" | "EMPTY_STOCK" | "NOT_MODERATED" | "MODERATED" | "DISABLED" | "STATE_FAILED" | "READY_TO_SUPPLY" | "VALIDATION_STATE_PENDING" | "VALIDATION_STATE_FAIL" | "VALIDATION_STATE_SUCCESS" | "TO_SUPPLY" | "IN_SALE" | "REMOVED_FROM_SALE" | "OVERPRICED" | "CRITICALLY_OVERPRICED" | "EMPTY_BARCODE" | "BARCODE_EXISTS" | "QUARANTINE" | "ARCHIVED" | "OVERPRICED_WITH_STOCK" | "PARTIAL_APPROVED" | "AUTO_ARCHIVED" | "MANUAL_ARCHIVED" | "SEASONAL_AUTO_ARCHIVED" | "VISIBLE_WITH_FBO_STOCK";
+        productv2GetProductListRequestFilterFilterVisibility: "ALL" | "VISIBLE" | "INVISIBLE" | "EMPTY_STOCK" | "NOT_MODERATED" | "MODERATED" | "DISABLED" | "STATE_FAILED" | "READY_TO_SUPPLY" | "VALIDATION_STATE_PENDING" | "VALIDATION_STATE_FAIL" | "VALIDATION_STATE_SUCCESS" | "TO_SUPPLY" | "IN_SALE" | "REMOVED_FROM_SALE" | "OVERPRICED" | "CRITICALLY_OVERPRICED" | "EMPTY_BARCODE" | "BARCODE_EXISTS" | "QUARANTINE" | "ARCHIVED" | "OVERPRICED_WITH_STOCK" | "PARTIAL_APPROVED" | "AUTO_ARCHIVED" | "MANUAL_ARCHIVED" | "SEASONAL_AUTO_ARCHIVED" | "VISIBLE_WITH_FBO_STOCK" | "SHOWCASE_SELECT_ACTIVE";
         /**
          * object
          * @description Фильтр по товарам.
@@ -12835,9 +12882,15 @@ export interface components {
             items?: components["schemas"]["v4GetProductInfoStocksResponseItem"][];
             /**
              * Format: int32
+             * @deprecated
              * @description Количество уникальных товаров, для которых выводится информация об остатках.
              */
             total?: number;
+            /**
+             * Format: int64
+             * @description Количество уникальных товаров, для которых выводится информация об остатках.
+             */
+            total_items?: number;
         };
         v1ProductInfoWarehouseStocksRequest: {
             /** @description Указатель для выборки следующих данных. */
@@ -13514,9 +13567,15 @@ export interface components {
             items?: unknown;
             /**
              * Format: int32
+             * @deprecated
              * @description Количество товаров в списке.
              */
             total?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров в списке.
+             */
+            total_items?: number;
         };
         /** object */
         v1GetProductInfoDiscountedRequest: {
@@ -16066,6 +16125,57 @@ export interface components {
              */
             contact_days?: number;
         };
+        /** @description Координаты пункта возврата. */
+        ReturnSettingReturnPointAddressCoordinates: {
+            /** @description Широта. */
+            latitude?: string;
+            /** @description Долгота. */
+            longitude?: string;
+        };
+        /**
+         * @description Тип пункта возврата:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `PVZ` — пункт выдачи заказов;
+         *     - `PPZ` — пункт приёма заказов.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        ReturnSettingReturnPointTypeEnum: "UNSPECIFIED" | "PVZ" | "PPZ";
+        /**
+         * @description Дни недели:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `MONDAY` — понедельник;
+         *     - `TUESDAY` — вторник;
+         *     - `WEDNESDAY` — среда;
+         *     - `THURSDAY` — четверг;
+         *     - `FRIDAY` — пятница;
+         *     - `SATURDAY` — суббота;
+         *     - `SUNDAY` — воскресенье.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        ReturnSettingReturnPointWorkingDaysDayEnum: "UNSPECIFIED" | "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+        ReturnSettingReturnPointWorkingDays: {
+            day?: components["schemas"]["ReturnSettingReturnPointWorkingDaysDayEnum"];
+            /** @description Время начала. */
+            from?: string;
+            /** @description Время окончания. */
+            to?: string;
+        };
+        /** @description Информация о пункте возврата. */
+        ReturnSettingReturnPoint: {
+            /** @description Адрес пункта возврата. */
+            address?: string;
+            address_coordinates?: components["schemas"]["ReturnSettingReturnPointAddressCoordinates"];
+            /**
+             * Format: int64
+             * @description Идентификатор пункта возврата.
+             */
+            id?: number;
+            type?: components["schemas"]["ReturnSettingReturnPointTypeEnum"];
+            /** @description Рабочие дни пункта возврата. */
+            working_days?: components["schemas"]["ReturnSettingReturnPointWorkingDays"][];
+        };
         /** @description Настройки транспортной компании. */
         ReturnSettingTransportCompanyDetails: {
             /** @description Название транспортной компании. */
@@ -16078,6 +16188,7 @@ export interface components {
             courier_details?: components["schemas"]["ReturnSettingCourierDetails"];
             /** @description Индекс отделения Почты России для [«лёгкого возврата»](https://seller-edu.ozon.ru/rfbs/vozvraty/vozvraty#«лёгкии-возврат»-почтои-россии). */
             post_office_zipcode?: string;
+            return_point?: components["schemas"]["ReturnSettingReturnPoint"];
             transport_company_details?: components["schemas"]["ReturnSettingTransportCompanyDetails"];
         };
         v1GetDeliveryMethodReturnSettingsV1Response: {
@@ -25614,6 +25725,27 @@ export interface components {
         v2CreateLabelBatchResponse: {
             result?: components["schemas"]["v2CreateLabelBatchResponseResult"];
         };
+        "posting.v3.PostingFbsPackageLabelCreateRequest": {
+            /** @description Номера отправлений, для которых нужны этикетки. */
+            posting_numbers: string[];
+        };
+        "posting.v3.PostingFbsPackageLabelCreateResponse.Tasks": {
+            /**
+             * Format: int64
+             * @description Идентификатор задания. Получите файл с этикетками методом [/v2/posting/fbs/package-label/get](#operation/PostingFbsPackageLabelGet).
+             */
+            task_id?: number;
+            /**
+             * @description Тип задания:
+             *     - `big_label` — для обычной этикетки;
+             *     - `small_label` — для маленькой этикетки.
+             */
+            task_type?: string;
+        };
+        "posting.v3.PostingFbsPackageLabelCreateResponse": {
+            /** @description Список заданий. */
+            tasks?: components["schemas"]["posting.v3.PostingFbsPackageLabelCreateResponse.Tasks"][];
+        };
         /** object */
         v1GetLabelBatchRequest: {
             /**
@@ -25661,6 +25793,55 @@ export interface components {
         /** object */
         v1GetLabelBatchResponse: {
             result?: components["schemas"]["v1GetLabelBatchResponseResult"];
+        };
+        "posting.v2.PostingFbsPackageLabelGetRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор задания из ответа метода [/v3/posting/fbs/package-label/create](#operation/PostingFbsPackageLabelCreate).
+             */
+            task_id: number;
+        };
+        /** @description Ошибка, которая возникла при формировании этикеток. */
+        "posting.v2.PostingFbsPackageLabelGetResponse.Error": {
+            /** @description Код ошибки. */
+            code?: string;
+            /** @description Описание ошибки. */
+            message?: string;
+        };
+        "posting.v2.PostingFbsPackageLabelGetResponse.Status.UnprintedPostings": {
+            /** @description Описание ошибки. */
+            message?: string;
+            /** @description Номер отправления. */
+            posting_number?: string;
+        };
+        /** @description Статус задания. */
+        "posting.v2.PostingFbsPackageLabelGetResponse.Status": {
+            /**
+             * @description Статус формирования этикеток:
+             *     - `pending` — задание в очереди;
+             *     - `in_progress` — формируются;
+             *     - `completed` — файл с этикетками готов;
+             *     - `error` — ошибка при создании файла.
+             */
+            code?: string;
+            /**
+             * Format: int32
+             * @description Количество отправлений, по которым запрашивались этикетки.
+             */
+            postings_count?: number;
+            /**
+             * Format: int32
+             * @description Количество отправлений, по которым получилось сгенерировать этикетки.
+             */
+            printed_postings_count?: number;
+            /** @description Информация об ошибках, из-за которых не получилось сгенерировать этикетки. */
+            unprinted_postings?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Status.UnprintedPostings"][];
+        };
+        "posting.v2.PostingFbsPackageLabelGetResponse": {
+            error?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Error"];
+            /** @description Ссылка на файл с этикетками. */
+            file_url?: string;
+            status?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Status"];
         };
         /** object */
         postingCancelReasonRequest: {
@@ -34237,75 +34418,126 @@ export interface components {
              */
             total?: number;
         };
-        "posting.v3.PostingFbsPackageLabelCreateRequest": {
-            /** @description Номера отправлений, для которых нужны этикетки. */
-            posting_numbers: string[];
+        /** @description Координаты склада. */
+        v1WarehouseRfbsReturnPointListRequestFiltersCoordinates: {
+            /**
+             * Format: double
+             * @description Широта.
+             */
+            latitude: number;
+            /**
+             * Format: double
+             * @description Долгота.
+             */
+            longitude: number;
         };
-        "posting.v3.PostingFbsPackageLabelCreateResponse.Tasks": {
+        /**
+         * @default PVZ
+         * @enum {string}
+         */
+        v1WarehouseRfbsReturnPointListRequestFiltersTypesEnum: "PVZ" | "PPZ";
+        /** @description Фильтры для поиска пунктов возврата. */
+        v1WarehouseRfbsReturnPointListRequestFilters: {
+            /** @description Адрес пункта возврата. */
+            address?: string;
+            coordinates: components["schemas"]["v1WarehouseRfbsReturnPointListRequestFiltersCoordinates"];
+            /** @description Код страны в формате ISO 2. */
+            country_code: string;
+            /** @description Идентификаторы пунктов возврата. */
+            ids?: string[];
+            /**
+             * @description Тип пункта возврата:
+             *     - `PVZ` — пункт выдачи заказов;
+             *     - `PPZ` — пункт приёма заказов.
+             */
+            types?: components["schemas"]["v1WarehouseRfbsReturnPointListRequestFiltersTypesEnum"][];
             /**
              * Format: int64
-             * @description Идентификатор задания. Получите файл с этикетками методом [/v2/posting/fbs/package-label/get](#operation/PostingFbsPackageLabelGet).
+             * @description Идентификатор склада. Передайте его, если нужно получить пункты возврата для обновления склада.
+             *     Для нового склада передавать не нужно.
              */
-            task_id?: number;
-            /**
-             * @description Тип задания:
-             *     - `big_label` — для обычной этикетки;
-             *     - `small_label` — для маленькой этикетки.
-             */
-            task_type?: string;
+            warehouse_id?: number;
         };
-        "posting.v3.PostingFbsPackageLabelCreateResponse": {
-            /** @description Список заданий. */
-            tasks?: components["schemas"]["posting.v3.PostingFbsPackageLabelCreateResponse.Tasks"][];
-        };
-        "posting.v2.PostingFbsPackageLabelGetRequest": {
+        v1WarehouseRfbsReturnPointListRequest: {
+            filters: components["schemas"]["v1WarehouseRfbsReturnPointListRequestFilters"];
             /**
              * Format: int64
-             * @description Идентификатор задания из ответа метода [/v3/posting/fbs/package-label/create](#operation/PostingFbsPackageLabelCreate).
+             * @description Идентификатор последнего значения на странице.
              */
-            task_id: number;
-        };
-        /** @description Ошибка, которая возникла при формировании этикеток. */
-        "posting.v2.PostingFbsPackageLabelGetResponse.Error": {
-            /** @description Код ошибки. */
-            code?: string;
-            /** @description Описание ошибки. */
-            message?: string;
-        };
-        "posting.v2.PostingFbsPackageLabelGetResponse.Status.UnprintedPostings": {
-            /** @description Описание ошибки. */
-            message?: string;
-            /** @description Номер отправления. */
-            posting_number?: string;
-        };
-        /** @description Статус задания. */
-        "posting.v2.PostingFbsPackageLabelGetResponse.Status": {
-            /**
-             * @description Статус формирования этикеток:
-             *     - `pending` — задание в очереди;
-             *     - `in_progress` — формируются;
-             *     - `completed` — файл с этикетками готов;
-             *     - `error` — ошибка при создании файла.
-             */
-            code?: string;
+            last_id?: number;
             /**
              * Format: int32
-             * @description Количество отправлений, по которым запрашивались этикетки.
+             * @description Количество значений в ответе.
              */
-            postings_count?: number;
+            limit: number;
+        };
+        /** @description Координаты пункта возврата. */
+        v1WarehouseRfbsReturnPointListResponsePointsCoordinates: {
+            /**
+             * Format: double
+             * @description Широта.
+             */
+            latitude?: number;
+            /**
+             * Format: double
+             * @description Долгота.
+             */
+            longitude?: number;
+        };
+        /**
+         * @description Тип пункта возврата:
+         *     - `PVZ` — пункт выдачи заказов;
+         *     - `PPZ` — пункт приёма заказов.
+         * @default PVZ
+         * @enum {string}
+         */
+        v1WarehouseRfbsReturnPointListResponsePointsTypeEnum: "PVZ" | "PPZ";
+        /**
+         * @description День недели:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `MONDAY` — понедельник;
+         *     - `TUESDAY` — вторник;
+         *     - `WEDNESDAY` — среда;
+         *     - `THURSDAY` — четверг;
+         *     - `FRIDAY` — пятница;
+         *     - `SATURDAY` — суббота;
+         *     - `SUNDAY` — воскресенье.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        v1WarehouseRfbsReturnPointListResponsePointsWorkingDaysDayEnum: "UNSPECIFIED" | "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+        v1WarehouseRfbsReturnPointListResponsePointsWorkingDays: {
+            /** @description Дата рабочего дня. */
+            date?: string;
+            day?: components["schemas"]["v1WarehouseRfbsReturnPointListResponsePointsWorkingDaysDayEnum"];
+            /** @description Время начала рабочего дня. */
+            from?: string;
+            /** @description Время окончания рабочего дня. */
+            to?: string;
+        };
+        v1WarehouseRfbsReturnPointListResponsePoints: {
+            /** @description Адрес пункта возврата. */
+            address?: string;
+            coordinates?: components["schemas"]["v1WarehouseRfbsReturnPointListResponsePointsCoordinates"];
+            /**
+             * Format: int64
+             * @description Идентификатор пункта возврата.
+             */
+            id?: number;
+            /** @description Название пункта возврата. */
+            name?: string;
+            type?: components["schemas"]["v1WarehouseRfbsReturnPointListResponsePointsTypeEnum"];
             /**
              * Format: int32
-             * @description Количество отправлений, по которым получилось сгенерировать этикетки.
+             * @description Смещение часового пояса от UTC-0 в минутах.
              */
-            printed_postings_count?: number;
-            /** @description Информация об ошибках, из-за которых не получилось сгенерировать этикетки. */
-            unprinted_postings?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Status.UnprintedPostings"][];
+            utc_offset?: number;
+            /** @description Рабочие дни пункта возврата. */
+            working_days?: components["schemas"]["v1WarehouseRfbsReturnPointListResponsePointsWorkingDays"][];
         };
-        "posting.v2.PostingFbsPackageLabelGetResponse": {
-            error?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Error"];
-            /** @description Ссылка на файл с этикетками. */
-            file_url?: string;
-            status?: components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse.Status"];
+        v1WarehouseRfbsReturnPointListResponse: {
+            /** @description Список пунктов возврата. */
+            points?: components["schemas"]["v1WarehouseRfbsReturnPointListResponsePoints"][];
         };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
@@ -35549,6 +35781,11 @@ export interface components {
             /** @description Индекс отделения Почты России для [«лёгкого возврата»](https://seller-edu.ozon.ru/rfbs/vozvraty/vozvraty#%C2%AB%D0%BB%D1%91%D0%B3%D0%BA%D0%B8%D0%B8-%D0%B2%D0%BE%D0%B7%D0%B2%D1%80%D0%B0%D1%82%C2%BB-%D0%BF%D0%BE%D1%87%D1%82%D0%BE%D0%B8-%D1%80%D0%BE%D1%81%D1%81%D0%B8%D0%B8). */
             post_office_zipcode?: string;
             return_method: components["schemas"]["v1WarehouseERFBSAggregatorCreateRequestDeliveryMethodReturnSettingsReturnMethodEnum"];
+            /**
+             * Format: int64
+             * @description Идентификатор пункта возврата. Получите значение параметра методом [/v1/warehouse/rfbs/return-point/list](#operation/WarehouseRfbsReturnPointList).
+             */
+            return_point_id?: number;
             /** @description Название транспортной компании. Параметр обязательный, если `return_method = TRANSPORT_COMPANY`. */
             transport_company_name?: string;
         };
@@ -35744,6 +35981,11 @@ export interface components {
             /** @description Индекс отделения Почты России. */
             post_office_zipcode?: string;
             return_method?: components["schemas"]["v1WarehouseERFBSAggregatorDeliveryMethodUpdateRequestReturnSettingsReturnMethodEnum"];
+            /**
+             * Format: int64
+             * @description Идентификатор пункта возврата. Получите значение параметра методом [/v1/warehouse/rfbs/return-point/list](#operation/WarehouseRfbsReturnPointList).
+             */
+            return_point_id?: number;
             /** @description Название транспортной компании. Параметр обязательный, если `return_method = TRANSPORT_COMPANY`. */
             transport_company_name: string;
         };
@@ -43201,13 +43443,13 @@ export interface operations {
                      *           "id": 5055881,
                      *           "value": "Sunshine",
                      *           "info": "Здоровье и красота",
-                     *           "picture": "https://ir.ozone.ru/s3/multimedia-i/6010930878.jpg"
+                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-i/6010930878.jpg"
                      *         },
                      *         {
                      *           "id": 5056737,
                      *           "value": "Essence",
                      *           "info": "Красота и здоровье",
-                     *           "picture": "https://ir.ozone.ru/s3/multimedia-v/6088253599.jpg"
+                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-v/6088253599.jpg"
                      *         }
                      *       ],
                      *       "has_next": true
@@ -44030,6 +44272,7 @@ export interface operations {
                      *           }
                      *         ],
                      *         "total": 1,
+                     *         "total_items": 1,
                      *         "last_id": "WzMzOTc5MTc2ODAsMzM5NzkxNzY4MF0="
                      *       }
                      *     }
@@ -44653,15 +44896,15 @@ export interface operations {
                      *           "dimension_unit": "mm",
                      *           "weight": 50,
                      *           "weight_unit": "g",
-                     *           "primary_image": "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *           "primary_image": "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
                      *           "sku": 423434534,
                      *           "model_info": {
                      *             "model_id": 43445453,
                      *             "count": 4
                      *           },
                      *           "images": [
-                     *             "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
-                     *             "https://ir.ozone.ru/s3/multimedia-j/6835412647.jpg"
+                     *             "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *             "https://ir-3.ozone.ru/s3/multimedia-j/6835412647.jpg"
                      *           ],
                      *           "pdf_list": [],
                      *           "attributes": [
@@ -45970,7 +46213,8 @@ export interface operations {
                      *         }
                      *       ],
                      *       "cursor": "next-cursor-12345",
-                     *       "total": 2
+                     *       "total": 2,
+                     *       "total_items": 2
                      *     }
                      */
                     "application/json": components["schemas"]["v4GetProductInfoStocksResponse"];
@@ -46509,7 +46753,8 @@ export interface operations {
                      *         }
                      *       ],
                      *       "cursor": "",
-                     *       "total": 2
+                     *       "total": 2,
+                     *       "total_items": 2
                      *     }
                      */
                     "application/json": components["schemas"]["productv5GetProductInfoPricesV5Response"];
@@ -48181,13 +48426,16 @@ export interface operations {
                      *         }
                      *       ],
                      *       "below_min_price": {
-                     *         "0": 0
+                     *         "key": 0,
+                     *         "value": ""
                      *       },
                      *       "extremely_low_price": {
-                     *         "0": 0
+                     *         "key": 0,
+                     *         "value": ""
                      *       },
                      *       "failed_price": {
-                     *         "0": 0
+                     *         "key": 0,
+                     *         "value": ""
                      *       }
                      *     }
                      */
@@ -59207,6 +59455,80 @@ export interface operations {
             };
         };
     };
+    PostingFbsPackageLabelCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["posting.v3.PostingFbsPackageLabelCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Задания на формирование этикеток */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["posting.v3.PostingFbsPackageLabelCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     PostingAPI_GetLabelBatch: {
         parameters: {
             query?: never;
@@ -59241,7 +59563,7 @@ export interface operations {
                      *       "result": {
                      *         "error": "",
                      *         "status": "completed",
-                     *         "file_url": "https://ir.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
+                     *         "file_url": "https://ir-3.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
                      *         "printed_postings_count": 1,
                      *         "unprinted_postings_count": 0,
                      *         "unprinted_postings": []
@@ -59249,6 +59571,80 @@ export interface operations {
                      *     }
                      */
                     "application/json": components["schemas"]["v1GetLabelBatchResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    PostingFbsPackageLabelGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["posting.v2.PostingFbsPackageLabelGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус формирования этикеток или файл с ними */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse"];
                 };
             };
             /** @description Неверный параметр */
@@ -61626,7 +62022,7 @@ export interface operations {
                      *         "status": "success",
                      *         "error": "",
                      *         "expires_at": "2025-11-10T11:16:00.267Z",
-                     *         "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *         "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *         "report_type": "seller_products",
                      *         "params": {},
                      *         "created_at": "2021-11-25T14:54:55.688260Z"
@@ -61729,7 +62125,7 @@ export interface operations {
                      *             "status": "success",
                      *             "error": "",
                      *             "expires_at": "2025-11-10T11:35:10.028Z",
-                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
+                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -61740,7 +62136,7 @@ export interface operations {
                      *             "code": "REPORT_seller_products_924336_1720170405_a9ea2f27-a473-4b13-99f9-d0cfcb5b1a69",
                      *             "status": "success",
                      *             "error": "",
-                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -66753,7 +67149,7 @@ export interface operations {
             };
         };
     };
-    PostingFbsPackageLabelCreate: {
+    WarehouseRfbsReturnPointList: {
         parameters: {
             query?: never;
             header: {
@@ -66765,93 +67161,101 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        requestBody: {
+        requestBody?: {
             content: {
-                "application/json": components["schemas"]["posting.v3.PostingFbsPackageLabelCreateRequest"];
+                /**
+                 * @example {
+                 *       "filters": {
+                 *         "address": "Россия",
+                 *         "coordinates": {
+                 *           "latitude": 0,
+                 *           "longitude": 0
+                 *         },
+                 *         "country_code": "RU",
+                 *         "ids": [
+                 *           "1020001267468000"
+                 *         ],
+                 *         "types": [
+                 *           "PVZ"
+                 *         ],
+                 *         "warehouse_id": 920819
+                 *       },
+                 *       "last_id": 12,
+                 *       "limit": 10
+                 *     }
+                 */
+                "application/json": components["schemas"]["v1WarehouseRfbsReturnPointListRequest"];
             };
         };
         responses: {
-            /** @description Задания на формирование этикеток */
+            /** @description Список пунктов возврата */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["posting.v3.PostingFbsPackageLabelCreateResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    PostingFbsPackageLabelGet: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["posting.v2.PostingFbsPackageLabelGetRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус формирования этикеток или файл с ними */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["posting.v2.PostingFbsPackageLabelGetResponse"];
+                    /**
+                     * @example {
+                     *       "points": [
+                     *         {
+                     *           "address": "Россия, Москва, 2-я Фрунзенская улица, 10",
+                     *           "coordinates": {
+                     *             "latitude": 0,
+                     *             "longitude": 0
+                     *           },
+                     *           "id": 1020001267468000,
+                     *           "name": "МОСКВА_5259",
+                     *           "type": "PVZ",
+                     *           "utc_offset": 180,
+                     *           "working_days": [
+                     *             {
+                     *               "date": "2026-07-27",
+                     *               "day": "MONDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             },
+                     *             {
+                     *               "date": "2026-07-28",
+                     *               "day": "TUESDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             },
+                     *             {
+                     *               "date": "2026-07-29",
+                     *               "day": "WEDNESDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             },
+                     *             {
+                     *               "date": "2026-07-30",
+                     *               "day": "THURSDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             },
+                     *             {
+                     *               "date": "2026-07-31",
+                     *               "day": "FRIDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             },
+                     *             {
+                     *               "date": "2026-08-01",
+                     *               "day": "SATURDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             },
+                     *             {
+                     *               "date": "2026-08-02",
+                     *               "day": "SUNDAY",
+                     *               "from": "10:00",
+                     *               "to": "20:00"
+                     *             }
+                     *           ]
+                     *         }
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["v1WarehouseRfbsReturnPointListResponse"];
                 };
             };
             /** @description Неверный параметр */
