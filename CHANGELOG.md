@@ -46,6 +46,7 @@
   `/v2/posting/fbs/package-label/create` и
   `/v1/posting/fbs/package-label/get` указано, что с 5 октября 2026 методы
   будут возвращать новые этикетки для отправлений FBS.
+- обновлены dev зависимости `npm audit fix`
 
 ### Notes
 
