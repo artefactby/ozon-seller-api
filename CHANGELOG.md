@@ -5,6 +5,35 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.14.0] - 2026-09-28
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 28 сентября
+2026.
+Пути: 481 → 481 (+0 / −0); схемы: 2288 → 2289 (+1 / −0); новые поля в
+существующих схемах: 3.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- В ответ `/v5/product/info/prices` (`ItemPricev5`) добавлено поле
+  `declared_price` (`ProductDeclaredPriceMoney`: `amount`, `currency`).
+- В ответ `/v3/product/info/list` (`v3GetProductInfoListResponseItem`)
+  добавлено поле `declared_price` (`ProductDeclaredPriceMoney`).
+- В запрос `/v1/product/import/prices`
+  (`productImportProductsPricesRequestPrice`) добавлено поле
+  `declared_price` (строка).
+
+### Notes
+
+- Сверка с анонсом Ozon за 28 сентября 2026: все пункты анонса отражены в
+  снимке. Новая схема `ProductDeclaredPriceMoney` — тип `declared_price` в
+  ответах `/v5/product/info/prices` и `/v3/product/info/list`; в запросе
+  `/v1/product/import/prices` то же поле — строка.
+- Пункты анонса за 25 сентября 2026 (`SHOWCASE_SELECT_ACTIVE` в
+  `filter.visibility` запросов `/v3/product/list` и
+  `/v4/product/info/attributes`) уже отражены в 0.13.0. Раздел «Лимиты» —
+  документация на сайте, в снимок не входит (то же зафиксировано в 0.13.0).
+
 ## [0.13.0] - 2026-09-25
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 24–25 сентября

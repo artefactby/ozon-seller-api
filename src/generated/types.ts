@@ -11684,6 +11684,17 @@ export interface components {
             value?: number;
         };
         /**
+         * @description Объявленная стоимость товара.
+         *
+         *     [Подробнее об объявленной стоимости товара в Базе знаний продавца](https://seller-edu.ozon.ru/libra/ceny-i-akcii/rabota-s-cenami/price-control#объявленная-стоимость)
+         */
+        ProductDeclaredPriceMoney: {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
+        /**
          * object
          * @description Описание уровней ошибок:
          *       - `ERROR_LEVEL_UNSPECIFIED` — не определён;
@@ -11954,6 +11965,7 @@ export interface components {
             created_at?: string;
             /** @description Валюта. */
             currency_code?: string;
+            declared_price?: components["schemas"]["ProductDeclaredPriceMoney"];
             /**
              * Format: int64
              * @description Идентификатор категории.
@@ -13103,6 +13115,12 @@ export interface components {
              */
             currency_code?: string;
             /**
+             * @description Объявленная стоимость товара.
+             *
+             *     [Подробнее об объявленной стоимости товара в Базе знаний продавца](https://seller-edu.ozon.ru/libra/ceny-i-akcii/rabota-s-cenami/price-control#объявленная-стоимость)
+             */
+            declared_price?: string;
+            /**
              * @deprecated
              * @description Управление участием в акции «Эластичный бустинг»:
              *
@@ -13420,6 +13438,7 @@ export interface components {
              *       - `CNY` — юань.
              */
             currency_code?: string;
+            declared_price?: components["schemas"]["ProductDeclaredPriceMoney"];
             /**
              * Format: double
              * @description Предельная цена товара с учётом акций продавца, не учитывает дополнительную скидку от Ozon. Выше этого значения цену для покупателя не поднимем.
@@ -44669,6 +44688,10 @@ export interface operations {
                      *           ],
                      *           "created_at": "2023-01-15T10:30:00Z",
                      *           "currency_code": "RUB",
+                     *           "declared_price": {
+                     *             "amount": "1000",
+                     *             "currency": "RUB"
+                     *           },
                      *           "description_category_id": 42,
                      *           "discounted_fbo_stocks": 5,
                      *           "errors": [
@@ -46458,6 +46481,7 @@ export interface operations {
                  *           "auto_action_enabled": "UNKNOWN",
                  *           "auto_add_to_ozon_actions_list_enabled": "UNKNOWN",
                  *           "currency_code": "RUB",
+                 *           "declared_price": "1000",
                  *           "manage_elastic_boosting_through_price": true,
                  *           "min_price": "800",
                  *           "min_price_for_auto_actions_enabled": true,
@@ -46674,6 +46698,10 @@ export interface operations {
                      *             "old_price": 3499.99,
                      *             "min_price": 2799.99,
                      *             "net_price": 2000,
+                     *             "declared_price": {
+                     *               "amount": "1000",
+                     *               "currency": "RUB"
+                     *             },
                      *             "currency_code": "RUB",
                      *             "vat": 0.2,
                      *             "auto_action_enabled": true,
