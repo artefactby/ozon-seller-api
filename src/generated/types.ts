@@ -881,6 +881,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/barcode/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Отвязать штрихкод от товара
+         * @description Не получится отвязать штрихкод, если на складе есть остатки товара с таким штрихкодом или после продажи остатков прошло меньше 6 месяцев.
+         */
+        post: operations["BarcodeDelete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/barcode/generate": {
         parameters: {
             query?: never;
@@ -3526,6 +3546,8 @@ export interface paths {
         /**
          * Создание отгрузки
          * @description <aside class="warning">
+         *     Перед началом работы проверьте возможность создания отгрузки методом <a href="#operation/CarriageAPI_CarriageDeliveryListV2">/v2/carriage/delivery/list</a>. <br> Если <code>methods.carriages.available_actions = create</code>, вы можете создать отгрузку.
+         *
          *     Если вы продавец не из России, обратите внимание на доступность <a href="https://seller-edu.ozon.ru/fbs/ozon-logistika/sobrat-zakazy#шаг-2-сформируите-отгрузку">рекомендованного времени</a> в личном кабинете.
          *     </aside>
          *
@@ -12694,6 +12716,36 @@ export interface components {
             /** @description Список ошибок. */
             errors?: components["schemas"]["v1AddBarcodeResult"][];
         };
+        "barcode.v1.BarcodeDeleteRequest.Barcodes": {
+            /** @description Значение штрихкода. */
+            barcode: string;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku: number;
+        };
+        "barcode.v1.BarcodeDeleteRequest": {
+            /** @description Список пар штрихкодов и товаров, которые нужно отвязать. */
+            barcodes: components["schemas"]["barcode.v1.BarcodeDeleteRequest.Barcodes"][];
+        };
+        "barcode.v1.BarcodeDeleteResponse.Errors": {
+            /** @description Штрихкод, который не удалось отвязать. */
+            barcode?: string;
+            /** @description Код ошибки. */
+            code?: string;
+            /** @description Описание ошибки. */
+            error?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор товара, от которого не удалось отвязать штрихкод.
+             */
+            sku?: number;
+        };
+        "barcode.v1.BarcodeDeleteResponse": {
+            /** @description Список ошибок. Если список пустой, все штрихкоды отвязаны успешно. */
+            errors?: components["schemas"]["barcode.v1.BarcodeDeleteResponse.Errors"][];
+        };
         /** object */
         v1GenerateBarcodeRequest: {
             /** @description Идентификаторы товаров, для которых нужно создать штрихкод. */
@@ -21248,7 +21300,12 @@ export interface components {
         DeliveryMethodCarriage: {
             /** @description `true`, если в отгрузке есть товары, для которых нужны дополнительные документы при отправке в Беларусь. */
             all_blr_traceable?: boolean;
-            /** @description Доступные действия с отгрузкой. */
+            /**
+             * @description Доступные действия с отгрузкой:
+             *     - `create` — можно создать отгрузку;
+             *     - `get_details` — можно получить информацию об отгрузке;
+             *     - `get_assembly_list` — можно получить лист подбора.
+             */
             available_actions?: string[];
             /**
              * Format: float
@@ -46004,6 +46061,80 @@ export interface operations {
             };
         };
     };
+    BarcodeDelete: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["barcode.v1.BarcodeDeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description Штрихкод отвязан от товара */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["barcode.v1.BarcodeDeleteResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     "generate-barcode": {
         parameters: {
             query?: never;
@@ -66581,6 +66712,37 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "params": {
+                 *         "accordance_type": "SAFETY_DATA_SHEET",
+                 *         "certificate_country": "RU",
+                 *         "certificate_type": "SAFETY_DATA_SHEET",
+                 *         "expired_date": {
+                 *           "date": {
+                 *             "day": 1,
+                 *             "month": 1,
+                 *             "year": 2027
+                 *           },
+                 *           "infinite": false
+                 *         },
+                 *         "files": [
+                 *           {
+                 *             "file_content": "string",
+                 *             "name": "file.pdf"
+                 *           }
+                 *         ],
+                 *         "issue_date": "2019-08-24T14:15:22Z",
+                 *         "link_to_registry": "string",
+                 *         "name": "string",
+                 *         "number": "string",
+                 *         "product_type": "UNKNOWN",
+                 *         "skus": [
+                 *           "string"
+                 *         ]
+                 *       }
+                 *     }
+                 */
                 "application/json": components["schemas"]["certification.v2.ProductCertificateParamsRequest"];
             };
         };

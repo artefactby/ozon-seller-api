@@ -5,6 +5,44 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.15.0] - 2026-10-06
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 5–6 октября
+2026.
+Пути: 481 → 482 (+1 / −0); схемы: 2289 → 2293 (+4 / −0); новые поля в
+существующих схемах: 0.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/barcode/delete` — отвязать штрихкод от товара (и связанные схемы
+  `barcode.v1.BarcodeDelete*`). В запросе список пар `barcode` и `sku`; в
+  ответе список `errors`. Пустой список ошибок означает, что все штрихкоды
+  отвязаны. Штрихкод нельзя отвязать, если на складе есть остатки товара с
+  таким штрихкодом или после продажи остатков прошло меньше 6 месяцев.
+
+### Changed
+
+- В описании `/v1/carriage/create` указано проверять возможность создания
+  отгрузки методом `/v2/carriage/delivery/list`: отгрузку можно создать, если
+  `methods.carriages.available_actions` содержит `create`.
+- В описании поля `available_actions` схемы `DeliveryMethodCarriage` (ответ
+  `/v2/carriage/delivery/list`) перечислены значения `create`, `get_details`
+  и `get_assembly_list`.
+- В запрос `/v2/product/certification/params` добавлен пример тела.
+- обновлены dev зависимости `npm audit fix`
+
+### Notes
+
+- Сверка с анонсом Ozon за 5–6 октября 2026: метод `/v1/barcode/delete` и
+  обновления описаний `/v1/carriage/create` и
+  `methods.carriages.available_actions` в ответе `/v2/carriage/delivery/list`
+  отражены в снимке. Обновление порядка создания отгрузки в разделах
+  «Схема FBS Стандарт» и «Схема FBS PickUp с доверительной приёмкой» —
+  документация на сайте, в снимок не входит.
+- Пример тела запроса `/v2/product/certification/params` пришёл со снимком,
+  но в анонсе Ozon не упоминается.
+
 ## [0.14.0] - 2026-09-28
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 28 сентября
