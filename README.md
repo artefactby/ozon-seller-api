@@ -5,7 +5,6 @@
 [![Node.js](https://img.shields.io/node/v/artefactby-ozon-seller-api.svg)](https://www.npmjs.com/package/artefactby-ozon-seller-api)
 [![license](https://img.shields.io/npm/l/artefactby-ozon-seller-api.svg)](./LICENSE)
 [![CI](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml/badge.svg)](https://github.com/artefactby/ozon-seller-api/actions/workflows/ci.yml)
-[![Socket Badge](https://socket.dev/api/badge/npm/package/artefactby-ozon-seller-api)](https://socket.dev/npm/package/artefactby-ozon-seller-api)
 [![bundle size](https://img.shields.io/bundlejs/size/artefactby-ozon-seller-api)](https://bundlejs.com/?q=artefactby-ozon-seller-api)
 
 Неофициальный типизированный клиент [Ozon Seller API](https://docs.ozon.ru/api/seller/)
