@@ -30,6 +30,7 @@
   `/v2/carriage/delivery/list`) перечислены значения `create`, `get_details`
   и `get_assembly_list`.
 - В запрос `/v2/product/certification/params` добавлен пример тела.
+- обновлены dev зависимости `npm audit fix`
 
 ### Notes
 
