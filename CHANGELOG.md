@@ -5,6 +5,77 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.16.0] - 2026-10-12
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 9 октября
+2026.
+Пути: 482 → 483 (+1 / −0); схемы: 2293 → 2302 (+9 / −0); новые поля в
+существующих схемах: 3.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/supply-order/shipment-plan-compliance/get` — бета-метод информации
+  о выполнении плана отгрузок (тело запроса не требуется). Ответ
+  `supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse`:
+  `compliance_rate_percent`, `interval_days`, `min_compliance_percent`,
+  `rate_details` (`max_total_quantity_sum`, `total_quantity_sum`) и
+  `restrictions` (`is_restriction_active`, лимит количества товаров в поставке
+  и лимит переноса таймслотов; у обоих ограничений статус `DISABLED` или
+  `ENABLED`).
+- В ответ `/v2/product/certification/options`
+  (`ProductCertificateOptionsResponse.Option`) добавлено поле `variants`
+  (`name`, `value`).
+- В ответ `/v2/product/certification/params`
+  (`ProductCertificateParamsResponse.Param`) добавлено поле `variants`
+  (`name`, `value`). Для `CERTIFICATE_COUNTRY` значение `NotEAEU` означает,
+  что в `params.certificate_country` можно передать код любой страны.
+- В ответ `/v2/product/certificate/create`
+  (`ProductCertificateCreateResponse.Param`) добавлено поле `number_mask` —
+  маски или регулярные выражения номера сертификата, если
+  `params.name = NUMBER`.
+
+### Changed
+
+- Методы `/v2/product/certification/options`, `/v2/product/certification/params`
+  и `/v2/product/certificate/create` перенесены из бета-раздела в основной
+  (из описаний убраны ссылки на бета-обсуждение).
+- В запросах `/v2/product/certification/params` и
+  `/v2/product/certificate/create` обновлены описания: у `params.files` указан
+  общий размер не больше 10 МБ; у `params.certificate_country` — код страны в
+  верхнем регистре; у `params.expired_date.date` — дата не раньше
+  `params.issue_date`, параметр не передаётся, если указан `infinite`.
+
+### Removed
+
+- Удалённых путей и схем в снимке нет.
+- Из `certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum`
+  удалены значения `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU` и
+  `GOST`.
+
+### Breaking
+
+- Поле `params.accordance_type` в запросах `/v2/product/certification/params` и
+  `/v2/product/certificate/create` больше не принимает
+  `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU` и `GOST`. Оба запроса
+  используют один enum. Оставшиеся значения: `UNKNOWN`, `EAEU`, `NATIONAL`,
+  `CHEMICAL_PRODUCTS`, `SAFETY_DATA_SHEET`, `REJECTION_LETTER`.
+
+### Notes
+
+- Сверка с анонсом Ozon за 9 октября 2026: новый метод, перенос трёх методов
+  сертификатов из беты, поля `variants` и `number_mask`, обновления описаний и
+  удаление трёх значений `accordance_type` отражены в снимке.
+- Обновление раздела «Порядок работы с методами → Загрузите сертификаты
+  качества» — документация на сайте, в снимок не входит.
+- Анонс не называет замену удалённым значениям `accordance_type`. Миграция:
+  перестать передавать `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU`
+  и `GOST` в `params.accordance_type` методов `/v2/product/certification/params`
+  и `/v2/product/certificate/create`.
+- У deprecated `POST /v1/product/certificate/create` поле
+  `accordance_type_code` по-прежнему содержит `technical_regulations_rf`,
+  `technical_regulations_cu` и `gost`. Этот метод снимком не менялся.
+
 ## [0.15.0] - 2026-10-06
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 5–6 октября
