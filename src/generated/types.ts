@@ -2021,6 +2021,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/product/certification/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить параметры для создания сертификата качества
+         * @description Используйте информацию о параметрах в запросе метода [/v2/product/certification/params](#operation/ProductCertificateParams).
+         */
+        post: operations["ProductCertificateOptions"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/product/certification/params": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить обязательные параметры для создания сертификата качества
+         * @description Используйте информацию о параметрах в запросе метода [/v2/product/certificate/create](#operation/ProductCertificateCreate).
+         */
+        post: operations["ProductCertificateParams"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/product/certificate/create": {
         parameters: {
             query?: never;
@@ -2038,6 +2078,23 @@ export interface paths {
          *     </aside>
          */
         post: operations["ProductAPI_ProductCertificateCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/product/certificate/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Создать сертификат качества */
+        post: operations["ProductCertificateCreate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -6998,70 +7055,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v2/product/certification/options": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить параметры для создания сертификата качества
-         * @description Используйте информацию о параметрах в запросе метода [/v2/product/certification/params](#operation/ProductCertificateParams).
-         *
-         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["ProductCertificateOptions"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/product/certification/params": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить обязательные параметры для создания сертификата качества
-         * @description Используйте информацию о параметрах в запросе метода [/v2/product/certificate/create](#operation/ProductCertificateCreate).
-         *
-         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["ProductCertificateParams"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/product/certificate/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Создать сертификат качества
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2278-Novye-beta-metody-dlia-dobavleniia-sertifikatov-kachestva/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["ProductCertificateCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v1/description-category/dependent-attributes": {
         parameters: {
             query?: never;
@@ -7190,6 +7183,26 @@ export interface paths {
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2369-Novyi-beta-metod-dlia-polucheniia-vozvratnykh-tochek-dlia-rfbs-ekspress/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["WarehouseRfbsReturnPointList"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/supply-order/shipment-plan-compliance/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о выполнении плана отгрузок
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2383-Novyi-metod-dlia-polucheniia-informatsii-o-sobliudenii-plana-otgruzok/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["SupplyOrderShipmentPlanComplianceGet"];
         delete?: never;
         options?: never;
         head?: never;
@@ -15565,6 +15578,244 @@ export interface components {
         /** object */
         productProductCertificationListResponse: {
             result?: components["schemas"]["ProductCertificationListResponseCertificationResult"];
+        };
+        "certification.v2.ProductCertificateOptionsResponse.Option.Variant": {
+            /** @description Название значения параметра. */
+            name?: string;
+            /** @description Значение параметра. */
+            value?: string;
+        };
+        "certification.v2.ProductCertificateOptionsResponse.Option": {
+            /**
+             * @description Название параметра сертификата:
+             *     - `NAME` — название;
+             *     - `CERTIFICATE_TYPE` — тип;
+             *     - `NUMBER` — номер;
+             *     - `FILES` — файл с сертификатом в кодировке Base64;
+             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
+             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
+             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
+             *     - `ISSUE_DATE` — дата выпуска;
+             *     - `EXPIRED_DATE` — дата истечения;
+             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
+             *     - `PRODUCT_TYPE` — тип товаров;
+             *     - `INFINITE` — бессрочность.
+             */
+            name?: string;
+            /** @description `true`, если параметр обязательный. */
+            required?: boolean;
+            /** @description Список возможных значений. */
+            variants?: components["schemas"]["certification.v2.ProductCertificateOptionsResponse.Option.Variant"][];
+        };
+        "certification.v2.ProductCertificateOptionsResponse": {
+            /** @description Параметры для создания сертификата. */
+            option?: components["schemas"]["certification.v2.ProductCertificateOptionsResponse.Option"][];
+        };
+        /**
+         * @description Стандарт сертификации:
+         *     - `UNKNOWN` — неизвестный;
+         *     - `EAEU` — стандарт сертификации ЕАЭС;
+         *     - `NATIONAL` — национальный стандарт сертификации;
+         *     - `CHEMICAL_PRODUCTS` — паспорт безопасности химической продукции;
+         *     - `SAFETY_DATA_SHEET` — паспорт безопасности;
+         *     - `REJECTION_LETTER` — отказное письмо.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum": "UNKNOWN" | "EAEU" | "NATIONAL" | "CHEMICAL_PRODUCTS" | "SAFETY_DATA_SHEET" | "REJECTION_LETTER";
+        /**
+         * @description Тип сертификата:
+         *     - `UNKNOWN` — неизвестный;
+         *     - `CERTIFICATE_OF_CONFORMITY` — сертификат соответствия;
+         *     - `DECLARATION` — декларация о соответствии;
+         *     - `CERTIFICATE_OF_REGISTRATION` — свидетельство о государственной регистрации;
+         *     - `REGISTRATION_CERTIFICATE` — регистрационное удостоверение;
+         *     - `REFUSED_LETTER` — отказное письмо;
+         *     - `VETERINARY_COVER_DOCUMENT` — ветеринарный сопроводительный документ;
+         *     - `SAFETY_DATA_SHEET` — паспорт безопасности.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum": "UNKNOWN" | "CERTIFICATE_OF_CONFORMITY" | "DECLARATION" | "CERTIFICATE_OF_REGISTRATION" | "REGISTRATION_CERTIFICATE" | "REFUSED_LETTER" | "VETERINARY_COVER_DOCUMENT" | "SAFETY_DATA_SHEET";
+        /** @description Дата истечения сертификата. Не раньше `params.issue_date`. Не передавайте параметр, если указали `infinite`. */
+        "google.type.Date": {
+            /**
+             * Format: int32
+             * @description День.
+             */
+            day?: number;
+            /**
+             * Format: int32
+             * @description Месяц.
+             */
+            month?: number;
+            /**
+             * Format: int32
+             * @description Год.
+             */
+            year?: number;
+        };
+        /** @description Информация о дате истечения сертификата. */
+        "certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate": {
+            date?: components["schemas"]["google.type.Date"];
+            /** @description `true`, если сертификат бессрочный. Не передавайте параметр, если указали `date`. */
+            infinite?: boolean;
+        };
+        "certification.v2.ProductCertificateParamsRequest.Params.File": {
+            /** @description Файл в кодировке Base64. */
+            file_content: string;
+            /** @description Название файла с расширением `.jpg`, `.jpeg`, `.png` или `.pdf`. */
+            name: string;
+        };
+        /**
+         * @description Тип товаров:
+         *     - `UNKNOWN` — неизвестный;
+         *     - `PRODUCTS_SUBJECT_TO_REGISTRATION` — продукт, подлежащий государственной регистрации;
+         *     - `PESTICIDE` — пестицид;
+         *     - `AGROCHEMICAL` — агрохимикат;
+         *     - `FEED_ADDITIVE` — кормовая добавка;
+         *     - `MEDICAL_PRODUCT` — медицинский продукт;
+         *     - `MEDICINE` — лекарственный препарат;
+         *     - `VETERINARY_DRUG` — ветеринарный препарат;
+         *     - `PHARMACEUTICAL_SUBSTANCE` — фармацевтический ингредиент.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum": "UNKNOWN" | "PRODUCTS_SUBJECT_TO_REGISTRATION" | "PESTICIDE" | "AGROCHEMICAL" | "FEED_ADDITIVE" | "MEDICAL_PRODUCT" | "MEDICINE" | "VETERINARY_DRUG" | "PHARMACEUTICAL_SUBSTANCE";
+        /** @description Параметры для создания сертификата. */
+        "certification.v2.ProductCertificateParamsRequest.Params": {
+            accordance_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum"];
+            /** @description Код страны, где выдали сертификат. Укажите код в верхнем регистре. */
+            certificate_country?: string;
+            certificate_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum"];
+            expired_date?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate"];
+            /** @description Файлы сертификата. Общий размер файлов — не больше 10 МБ. */
+            files?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.File"][];
+            /**
+             * Format: date-time
+             * @description Дата выдачи сертификата.
+             */
+            issue_date?: string;
+            /** @description Ссылка на государственный реестр. */
+            link_to_registry?: string;
+            /** @description Название сертификата. */
+            name?: string;
+            /** @description Номер сертификата. */
+            number?: string;
+            product_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum"];
+            /** @description Список идентификаторов товара в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        "certification.v2.ProductCertificateParamsRequest": {
+            params?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params"];
+        };
+        "certification.v2.ProductCertificateParamsResponse.Param.Variant": {
+            /** @description Название значения параметра. */
+            name?: string;
+            /**
+             * @description Значение параметра.
+             *
+             *     Если `params.name = CERTIFICATE_COUNTRY`, может вернуться значение `NotEAEU`. Это значит, что в `params.certificate_country` можно передать код любой страны выдачи сертификата.
+             */
+            value?: string;
+        };
+        "certification.v2.ProductCertificateParamsResponse.Param": {
+            /**
+             * @description Название параметра сертификата:
+             *     - `NAME` — название;
+             *     - `CERTIFICATE_TYPE` — тип;
+             *     - `NUMBER` — номер;
+             *     - `FILES` — файл с сертификатом в кодировке Base64;
+             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
+             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
+             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
+             *     - `ISSUE_DATE` — дата выпуска;
+             *     - `EXPIRED_DATE` — дата истечения;
+             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
+             *     - `PRODUCT_TYPE` — тип товаров;
+             *     - `INFINITE` — бессрочность.
+             */
+            name?: string;
+            /** @description `true`, если параметр обязательный. */
+            required?: boolean;
+            /** @description Список возможных значений. */
+            variants?: components["schemas"]["certification.v2.ProductCertificateParamsResponse.Param.Variant"][];
+        };
+        "certification.v2.ProductCertificateParamsResponse": {
+            /** @description Параметры для создания сертификата. */
+            params?: components["schemas"]["certification.v2.ProductCertificateParamsResponse.Param"][];
+        };
+        /** @description Параметры для создания сертификата. */
+        "certification.v2.ProductCertificateCreateRequest.Params": {
+            accordance_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum"];
+            /** @description Код страны, где выдали сертификат. Укажите код в верхнем регистре. */
+            certificate_country?: string;
+            certificate_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum"];
+            expired_date?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate"];
+            /** @description Файлы сертификата. Общий размер файлов — не больше 10 МБ. */
+            files?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.File"][];
+            /**
+             * Format: date-time
+             * @description Дата выдачи сертификата.
+             */
+            issue_date?: string;
+            /** @description Ссылка на государственный реестр. */
+            link_to_registry?: string;
+            /** @description Название сертификата. */
+            name?: string;
+            /** @description Номер сертификата. */
+            number?: string;
+            product_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum"];
+            /** @description Список идентификаторов товара в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        "certification.v2.ProductCertificateCreateRequest": {
+            params?: components["schemas"]["certification.v2.ProductCertificateCreateRequest.Params"];
+        };
+        /**
+         * @description Состояние параметра:
+         *     - `VALID` — заполнен корректно;
+         *     - `INVALID` — заполнен некорректно;
+         *     - `MISSING` — не заполнен.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateCreateResponse.Param.State.Enum": "VALID" | "INVALID" | "MISSING";
+        "certification.v2.ProductCertificateCreateResponse.Param": {
+            /** @description Ошибки в параметре для `state = INVALID`. */
+            error?: string;
+            /**
+             * @description Название параметра сертификата:
+             *     - `NAME` — название;
+             *     - `CERTIFICATE_TYPE` — тип;
+             *     - `NUMBER` — номер;
+             *     - `FILES` — файл с сертификатом в кодировке Base64;
+             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
+             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
+             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
+             *     - `ISSUE_DATE` — дата выпуска;
+             *     - `EXPIRED_DATE` — дата истечения;
+             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
+             *     - `PRODUCT_TYPE` — тип товаров;
+             *     - `INFINITE` — бессрочность.
+             */
+            name?: string;
+            /** @description Маски или регулярные выражения для номера сертификата, если `params.name = NUMBER`. */
+            number_mask?: string[];
+            state?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param.State.Enum"];
+        };
+        /**
+         * @description Статус сертификата:
+         *     - `INCOMPLETE` — не загружен, некоторые параметры переданы некорректно;
+         *     - `COMPLETED` — загружен.
+         * @enum {string}
+         */
+        "certification.v2.ProductCertificateCreateResponse.Status.Enum": "INCOMPLETE" | "COMPLETED";
+        "certification.v2.ProductCertificateCreateResponse": {
+            /**
+             * Format: int64
+             * @description Идентификатор сертификата. Если `null`, сертификат создать не удалось.
+             */
+            certificate_id?: number;
+            /** @description Информация о параметрах в запросе. */
+            params?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param"][];
+            status?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Status.Enum"];
         };
         /** object */
         productProductCertificateBindRequest: {
@@ -33626,225 +33877,6 @@ export interface components {
             /** @description Уникальный идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
             code?: string;
         };
-        "certification.v2.ProductCertificateOptionsResponse.Option": {
-            /**
-             * @description Название параметра сертификата:
-             *     - `NAME` — название;
-             *     - `CERTIFICATE_TYPE` — тип;
-             *     - `NUMBER` — номер;
-             *     - `FILES` — файл с сертификатом в кодировке Base64;
-             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
-             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
-             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
-             *     - `ISSUE_DATE` — дата выпуска;
-             *     - `EXPIRED_DATE` — дата истечения;
-             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
-             *     - `PRODUCT_TYPE` — тип товаров;
-             *     - `INFINITE` — бессрочность.
-             */
-            name?: string;
-            /** @description `true`, если параметр обязательный. */
-            required?: boolean;
-        };
-        "certification.v2.ProductCertificateOptionsResponse": {
-            /** @description Параметры для создания сертификата. */
-            option?: components["schemas"]["certification.v2.ProductCertificateOptionsResponse.Option"][];
-        };
-        /**
-         * @description Стандарт сертификации:
-         *     - `UNKNOWN` — неизвестный;
-         *     - `EAEU` — стандарт сертификации ЕАЭС;
-         *     - `NATIONAL` — национальный стандарт сертификации;
-         *     - `TECHNICAL_REGULATIONS_RF` — технический регламент Российской Федерации;
-         *     - `TECHNICAL_REGULATIONS_CU` — технический регламент Таможенного союза;
-         *     - `GOST` — ГОСТ;
-         *     - `CHEMICAL_PRODUCTS` — паспорт безопасности химической продукции;
-         *     - `SAFETY_DATA_SHEET` — паспорт безопасности;
-         *     - `REJECTION_LETTER` — отказное письмо.
-         * @enum {string}
-         */
-        "certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum": "UNKNOWN" | "EAEU" | "NATIONAL" | "TECHNICAL_REGULATIONS_RF" | "TECHNICAL_REGULATIONS_CU" | "GOST" | "CHEMICAL_PRODUCTS" | "SAFETY_DATA_SHEET" | "REJECTION_LETTER";
-        /**
-         * @description Тип сертификата:
-         *     - `UNKNOWN` — неизвестный;
-         *     - `CERTIFICATE_OF_CONFORMITY` — сертификат соответствия;
-         *     - `DECLARATION` — декларация о соответствии;
-         *     - `CERTIFICATE_OF_REGISTRATION` — свидетельство о государственной регистрации;
-         *     - `REGISTRATION_CERTIFICATE` — регистрационное удостоверение;
-         *     - `REFUSED_LETTER` — отказное письмо;
-         *     - `VETERINARY_COVER_DOCUMENT` — ветеринарный сопроводительный документ;
-         *     - `SAFETY_DATA_SHEET` — паспорт безопасности.
-         * @enum {string}
-         */
-        "certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum": "UNKNOWN" | "CERTIFICATE_OF_CONFORMITY" | "DECLARATION" | "CERTIFICATE_OF_REGISTRATION" | "REGISTRATION_CERTIFICATE" | "REFUSED_LETTER" | "VETERINARY_COVER_DOCUMENT" | "SAFETY_DATA_SHEET";
-        /** @description Дата истечения сертификата. Не передавайте параметр, если `infinite = true`. */
-        "google.type.Date": {
-            /**
-             * Format: int32
-             * @description День.
-             */
-            day?: number;
-            /**
-             * Format: int32
-             * @description Месяц.
-             */
-            month?: number;
-            /**
-             * Format: int32
-             * @description Год.
-             */
-            year?: number;
-        };
-        /** @description Информация о дате истечения сертификата. */
-        "certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate": {
-            date?: components["schemas"]["google.type.Date"];
-            /** @description `true`, если сертификат бессрочный. Не передавайте параметр, если указали `date`. */
-            infinite?: boolean;
-        };
-        "certification.v2.ProductCertificateParamsRequest.Params.File": {
-            /** @description Файл в кодировке Base64. */
-            file_content: string;
-            /** @description Название файла с расширением `.jpg`, `.jpeg`, `.png` или `.pdf`. */
-            name: string;
-        };
-        /**
-         * @description Тип товаров:
-         *     - `UNKNOWN` — неизвестный;
-         *     - `PRODUCTS_SUBJECT_TO_REGISTRATION` — продукт, подлежащий государственной регистрации;
-         *     - `PESTICIDE` — пестицид;
-         *     - `AGROCHEMICAL` — агрохимикат;
-         *     - `FEED_ADDITIVE` — кормовая добавка;
-         *     - `MEDICAL_PRODUCT` — медицинский продукт;
-         *     - `MEDICINE` — лекарственный препарат;
-         *     - `VETERINARY_DRUG` — ветеринарный препарат;
-         *     - `PHARMACEUTICAL_SUBSTANCE` — фармацевтический ингредиент.
-         * @enum {string}
-         */
-        "certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum": "UNKNOWN" | "PRODUCTS_SUBJECT_TO_REGISTRATION" | "PESTICIDE" | "AGROCHEMICAL" | "FEED_ADDITIVE" | "MEDICAL_PRODUCT" | "MEDICINE" | "VETERINARY_DRUG" | "PHARMACEUTICAL_SUBSTANCE";
-        /** @description Параметры для создания сертификата. */
-        "certification.v2.ProductCertificateParamsRequest.Params": {
-            accordance_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum"];
-            /** @description Код страны, где выдали сертификат. */
-            certificate_country?: string;
-            certificate_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum"];
-            expired_date?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate"];
-            /** @description Файлы сертификата. */
-            files?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.File"][];
-            /**
-             * Format: date-time
-             * @description Дата выдачи сертификата.
-             */
-            issue_date?: string;
-            /** @description Ссылка на государственный реестр. */
-            link_to_registry?: string;
-            /** @description Название сертификата. */
-            name?: string;
-            /** @description Номер сертификата. */
-            number?: string;
-            product_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum"];
-            /** @description Список идентификаторов товара в системе Ozon — SKU. */
-            skus?: string[];
-        };
-        "certification.v2.ProductCertificateParamsRequest": {
-            params?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params"];
-        };
-        "certification.v2.ProductCertificateParamsResponse.Param": {
-            /**
-             * @description Название параметра сертификата:
-             *     - `NAME` — название;
-             *     - `CERTIFICATE_TYPE` — тип;
-             *     - `NUMBER` — номер;
-             *     - `FILES` — файл с сертификатом в кодировке Base64;
-             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
-             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
-             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
-             *     - `ISSUE_DATE` — дата выпуска;
-             *     - `EXPIRED_DATE` — дата истечения;
-             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
-             *     - `PRODUCT_TYPE` — тип товаров;
-             *     - `INFINITE` — бессрочность.
-             */
-            name?: string;
-            /** @description `true`, если параметр обязательный. */
-            required?: boolean;
-        };
-        "certification.v2.ProductCertificateParamsResponse": {
-            /** @description Параметры для создания сертификата. */
-            params?: components["schemas"]["certification.v2.ProductCertificateParamsResponse.Param"][];
-        };
-        /** @description Параметры для создания сертификата. */
-        "certification.v2.ProductCertificateCreateRequest.Params": {
-            accordance_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum"];
-            /** @description Код страны, где выдали сертификат. */
-            certificate_country?: string;
-            certificate_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.CertificateType.Enum"];
-            expired_date?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ExpiredDate"];
-            /** @description Файлы сертификата. */
-            files?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.File"][];
-            /**
-             * Format: date-time
-             * @description Дата выдачи сертификата.
-             */
-            issue_date?: string;
-            /** @description Ссылка на государственный реестр. */
-            link_to_registry?: string;
-            /** @description Название сертификата. */
-            name?: string;
-            /** @description Номер сертификата. */
-            number?: string;
-            product_type?: components["schemas"]["certification.v2.ProductCertificateParamsRequest.Params.ProductType.Enum"];
-            /** @description Список идентификаторов товара в системе Ozon — SKU. */
-            skus?: string[];
-        };
-        "certification.v2.ProductCertificateCreateRequest": {
-            params?: components["schemas"]["certification.v2.ProductCertificateCreateRequest.Params"];
-        };
-        /**
-         * @description Состояние параметра:
-         *     - `VALID` — заполнен корректно;
-         *     - `INVALID` — заполнен некорректно;
-         *     - `MISSING` — не заполнен.
-         * @enum {string}
-         */
-        "certification.v2.ProductCertificateCreateResponse.Param.State.Enum": "VALID" | "INVALID" | "MISSING";
-        "certification.v2.ProductCertificateCreateResponse.Param": {
-            /** @description Ошибки в параметре для `state = INVALID`. */
-            error?: string;
-            /**
-             * @description Название параметра сертификата:
-             *     - `NAME` — название;
-             *     - `CERTIFICATE_TYPE` — тип;
-             *     - `NUMBER` — номер;
-             *     - `FILES` — файл с сертификатом в кодировке Base64;
-             *     - `CERTIFICATE_COUNTRY` — страна выдачи;
-             *     - `ACCORDANCE_TYPE` — стандарт сертификации;
-             *     - `SKUS` — список идентификаторов товара в системе Ozon, SKU;
-             *     - `ISSUE_DATE` — дата выпуска;
-             *     - `EXPIRED_DATE` — дата истечения;
-             *     - `LINK_TO_REGISTRY` — ссылка на государственный реестр;
-             *     - `PRODUCT_TYPE` — тип товаров;
-             *     - `INFINITE` — бессрочность.
-             */
-            name?: string;
-            state?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param.State.Enum"];
-        };
-        /**
-         * @description Статус сертификата:
-         *     - `INCOMPLETE` — не загружен, некоторые параметры переданы некорректно;
-         *     - `COMPLETED` — загружен.
-         * @enum {string}
-         */
-        "certification.v2.ProductCertificateCreateResponse.Status.Enum": "INCOMPLETE" | "COMPLETED";
-        "certification.v2.ProductCertificateCreateResponse": {
-            /**
-             * Format: int64
-             * @description Идентификатор сертификата. Если `null`, сертификат создать не удалось.
-             */
-            certificate_id?: number;
-            /** @description Информация о параметрах в запросе. */
-            params?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Param"][];
-            status?: components["schemas"]["certification.v2.ProductCertificateCreateResponse.Status.Enum"];
-        };
         "category.description.v1.DescriptionCategoryDependentAttributesRequest": {
             /**
              * Format: int64
@@ -34614,6 +34646,79 @@ export interface components {
         v1WarehouseRfbsReturnPointListResponse: {
             /** @description Список пунктов возврата. */
             points?: components["schemas"]["v1WarehouseRfbsReturnPointListResponsePoints"][];
+        };
+        /** @description Информация об отгруженных товарах. */
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.RateDetails": {
+            /**
+             * Format: int64
+             * @description Количество товаров, которые продавец добавил в поставки после их создания. Учитываются поставки, отгруженные за период расчёта.
+             */
+            max_total_quantity_sum?: number;
+            /**
+             * Format: int64
+             * @description Количество товаров в поставках, отгруженных за период расчёта.
+             */
+            total_quantity_sum?: number;
+        };
+        /**
+         * @description Статус ограничения:
+         *     - `DISABLED` — не применяется;
+         *     - `ENABLED` — применяется.
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.MaxTotalQuantityToSupply.Applicability.Enum": "DISABLED" | "ENABLED";
+        /** @description Ограничение на количество товаров в поставке. */
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.MaxTotalQuantityToSupply": {
+            applicability?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.MaxTotalQuantityToSupply.Applicability.Enum"];
+            /**
+             * Format: int64
+             * @description Количество единиц товара, которое доступно для отгрузки в кластеры.
+             */
+            limit?: number;
+        };
+        /**
+         * @description Статус ограничения:
+         *     - `DISABLED` — не применяется;
+         *     - `ENABLED` — применяется.
+         * @enum {string}
+         */
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.TimeslotChange.Applicability.Enum": "DISABLED" | "ENABLED";
+        /** @description Ограничение на перенос таймслотов. */
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.TimeslotChange": {
+            applicability?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.TimeslotChange.Applicability.Enum"];
+            /**
+             * Format: int32
+             * @description Количество изменений таймслота, которое доступно для поставки.
+             */
+            change_limit?: number;
+        };
+        /** @description Информация об ограничениях. */
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions": {
+            /** @description `true`, если ограничение действует. */
+            is_restriction_active?: boolean;
+            max_total_quantity_to_supply?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.MaxTotalQuantityToSupply"];
+            timeslot_change?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions.TimeslotChange"];
+        };
+        "supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse": {
+            /**
+             * Format: int32
+             * @description Процент выполнения плана отгрузок.
+             */
+            compliance_rate_percent?: number;
+            /**
+             * Format: int32
+             * @description Период в днях, за который рассчитывается процент выполнения плана.
+             */
+            interval_days?: number;
+            /**
+             * Format: int32
+             * @description Минимальный процент выполнения плана отгрузок.
+             *
+             *     Если процент выполнения плана ниже этого значения, применим ограничения из параметра `restrictions`.
+             */
+            min_compliance_percent?: number;
+            rate_details?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.RateDetails"];
+            restrictions?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions"];
         };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
@@ -50163,6 +50268,181 @@ export interface operations {
             };
         };
     };
+    ProductCertificateOptions: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Параметры для создания сертификата */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateOptionsResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductCertificateParams: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "params": {
+                 *         "accordance_type": "SAFETY_DATA_SHEET",
+                 *         "certificate_country": "RU",
+                 *         "certificate_type": "SAFETY_DATA_SHEET",
+                 *         "expired_date": {
+                 *           "date": {
+                 *             "day": 1,
+                 *             "month": 1,
+                 *             "year": 2027
+                 *           },
+                 *           "infinite": false
+                 *         },
+                 *         "files": [
+                 *           {
+                 *             "file_content": "string",
+                 *             "name": "file.pdf"
+                 *           }
+                 *         ],
+                 *         "issue_date": "2019-08-24T14:15:22Z",
+                 *         "link_to_registry": "string",
+                 *         "name": "string",
+                 *         "number": "string",
+                 *         "product_type": "UNKNOWN",
+                 *         "skus": [
+                 *           "string"
+                 *         ]
+                 *       }
+                 *     }
+                 */
+                "application/json": components["schemas"]["certification.v2.ProductCertificateParamsRequest"];
+            };
+        };
+        responses: {
+            /** @description Обязательные параметры для создания сертификата */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateParamsResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     ProductAPI_ProductCertificateCreate: {
         parameters: {
             query?: never;
@@ -50218,6 +50498,111 @@ export interface operations {
                 };
                 content: {
                     "application/json": number;
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductCertificateCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /**
+                 * @example {
+                 *       "params": {
+                 *         "accordance_type": "SAFETY_DATA_SHEET",
+                 *         "certificate_country": "RU",
+                 *         "certificate_type": "SAFETY_DATA_SHEET",
+                 *         "expired_date": {
+                 *           "date": {
+                 *             "day": 1,
+                 *             "month": 1,
+                 *             "year": 2027
+                 *           },
+                 *           "infinite": false
+                 *         },
+                 *         "files": [
+                 *           {
+                 *             "file_content": "string",
+                 *             "name": "file.pdf"
+                 *           }
+                 *         ],
+                 *         "issue_date": "2019-08-24T14:15:22Z",
+                 *         "link_to_registry": "string",
+                 *         "name": "string",
+                 *         "number": "string",
+                 *         "product_type": "UNKNOWN",
+                 *         "skus": [
+                 *           "string"
+                 *         ]
+                 *       }
+                 *     }
+                 */
+                "application/json": components["schemas"]["certification.v2.ProductCertificateCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Сертификат создан */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateCreateResponse"];
                 };
             };
             /** @description Неверный параметр */
@@ -66628,286 +67013,6 @@ export interface operations {
             };
         };
     };
-    ProductCertificateOptions: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Параметры для создания сертификата */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["certification.v2.ProductCertificateOptionsResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    ProductCertificateParams: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                /**
-                 * @example {
-                 *       "params": {
-                 *         "accordance_type": "SAFETY_DATA_SHEET",
-                 *         "certificate_country": "RU",
-                 *         "certificate_type": "SAFETY_DATA_SHEET",
-                 *         "expired_date": {
-                 *           "date": {
-                 *             "day": 1,
-                 *             "month": 1,
-                 *             "year": 2027
-                 *           },
-                 *           "infinite": false
-                 *         },
-                 *         "files": [
-                 *           {
-                 *             "file_content": "string",
-                 *             "name": "file.pdf"
-                 *           }
-                 *         ],
-                 *         "issue_date": "2019-08-24T14:15:22Z",
-                 *         "link_to_registry": "string",
-                 *         "name": "string",
-                 *         "number": "string",
-                 *         "product_type": "UNKNOWN",
-                 *         "skus": [
-                 *           "string"
-                 *         ]
-                 *       }
-                 *     }
-                 */
-                "application/json": components["schemas"]["certification.v2.ProductCertificateParamsRequest"];
-            };
-        };
-        responses: {
-            /** @description Обязательные параметры для создания сертификата */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["certification.v2.ProductCertificateParamsResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    ProductCertificateCreate: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                /**
-                 * @example {
-                 *       "params": {
-                 *         "accordance_type": "SAFETY_DATA_SHEET",
-                 *         "certificate_country": "RU",
-                 *         "certificate_type": "SAFETY_DATA_SHEET",
-                 *         "expired_date": {
-                 *           "date": {
-                 *             "day": 1,
-                 *             "month": 1,
-                 *             "year": 2027
-                 *           },
-                 *           "infinite": false
-                 *         },
-                 *         "files": [
-                 *           {
-                 *             "file_content": "string",
-                 *             "name": "file.pdf"
-                 *           }
-                 *         ],
-                 *         "issue_date": "2019-08-24T14:15:22Z",
-                 *         "link_to_registry": "string",
-                 *         "name": "string",
-                 *         "number": "string",
-                 *         "product_type": "UNKNOWN",
-                 *         "skus": [
-                 *           "string"
-                 *         ]
-                 *       }
-                 *     }
-                 */
-                "application/json": components["schemas"]["certification.v2.ProductCertificateCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Сертификат создан */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["certification.v2.ProductCertificateCreateResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
     DescriptionCategoryDependentAttributes: {
         parameters: {
             query?: never;
@@ -67446,6 +67551,76 @@ export interface operations {
                      *     }
                      */
                     "application/json": components["schemas"]["v1WarehouseRfbsReturnPointListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SupplyOrderShipmentPlanComplianceGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Информация о выполнении плана отгрузок */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse"];
                 };
             };
             /** @description Неверный параметр */
