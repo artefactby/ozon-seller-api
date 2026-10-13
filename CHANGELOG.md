@@ -5,6 +5,26 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.17.0] - 2026-10-13
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13 октября
+2026.
+Пути: 483 → 483 (+0 / −0); схемы: 2302 → 2302 (+0 / −0); новые поля в
+существующих схемах: 2.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- В ответ `/v2/posting/fbs/act/get-postings`
+  (`v2PostingFBSActGetPostingsResult`, элемент массива `result`) добавлены
+  `is_blr_traceable` (`true`, если товар прослеживаемый) и `scanit`
+  (штрихкод ScanIt с этикетки).
+
+### Notes
+
+- Сверка с анонсом Ozon за 13 октября 2026: оба поля в ответе
+  `/v2/posting/fbs/act/get-postings` отражены в снимке.
+
 ## [0.16.0] - 2026-10-12
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 9 октября
