@@ -22044,6 +22044,8 @@ export interface components {
              * @description Идентификатор акта.
              */
             id?: number;
+            /** @description `true`, если товар прослеживаемый. */
+            is_blr_traceable?: boolean;
             /**
              * Format: int32
              * @description Количество коробок, в которые упакован товар.
@@ -22051,6 +22053,8 @@ export interface components {
             multi_box_qty?: number;
             /** @description Номер отправления. */
             posting_number?: string;
+            /** @description Штрихкод ScanIt с этикетки. */
+            scanit?: string;
             /** @description Статус отправления. */
             status?: string;
             /** @description Расшифровка кода ошибки. */
