@@ -2654,7 +2654,7 @@
     "v2PolygonBindRequest": {"required":["delivery_method_id","polygon_id","time","warehouse_id"],"fields":{"delivery_method_id":"integer:int64","polygon_id":"integer:int64","time":"enum(120|15|150|30|45|60|90)&integer:int64","warehouse_id":"integer:int64"}},
     "v2PostingFBSActGetPostingsRequest": {"required":["id"],"fields":{"id":"int:int64"}},
     "v2PostingFBSActGetPostingsResponse": {"fields":{"result":"array<ref:v2PostingFBSActGetPostingsResult>"}},
-    "v2PostingFBSActGetPostingsResult": {"fields":{"created_at":"string:date-time","id":"integer:int64","multi_box_qty":"integer:int32","posting_number":"string","products":"array<ref:v2PostingFBSActGetProducts>","seller_error":"string","status":"string","updated_at":"string:date-time"}},
+    "v2PostingFBSActGetPostingsResult": {"fields":{"created_at":"string:date-time","id":"integer:int64","is_blr_traceable":"boolean","multi_box_qty":"integer:int32","posting_number":"string","products":"array<ref:v2PostingFBSActGetProducts>","scanit":"string","seller_error":"string","status":"string","updated_at":"string:date-time"}},
     "v2PostingFBSActGetProducts": {"fields":{"name":"string","offer_id":"string","price":"string","quantity":"integer:int32","sku":"integer:int64"}},
     "v2PostingFBSActListFilter": {"required":["date_from","date_to"],"fields":{"date_from":"string","date_to":"string","integration_type":"string","status":"array<string>"}},
     "v2PostingFBSActListRelatedDocs": {"fields":{"act_of_acceptance":"object{created_at:string:date-time,document_status:string}","act_of_excess":"object{created_at:string:date-time,document_status:string}","act_of_mismatch":"object{created_at:string:date-time,document_status:string}"}},
