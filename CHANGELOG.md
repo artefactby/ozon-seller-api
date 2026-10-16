@@ -5,6 +5,63 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.18.0] - 2026-10-16
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 15 октября
+2026.
+Пути: 483 → 483 (+0 / −0); схемы: 2302 → 2305 (+3 / −0); новые поля в
+существующих схемах: 5.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- В ответ `/v1/returns/list` (`GetReturnsListResponseReturnsItem`) добавлен
+  `courier_delivery` — информация о доставке товара курьером:
+  `failed_attempts` (количество неудачных попыток) и `total_attempts`
+  (количество попыток).
+- В ответ `/v1/warehouse/fbs/return-mile/check`
+  (`v1WarehouseFbsReturnMileCheckResponse`) добавлены
+  `is_courier_return_mile_available` (`true`, если нужно установить возвратную
+  милю для вывоза курьером) и `is_dropoff_return_mile_available` (`true`, если
+  нужно установить возвратную милю для вывоза из пункта выдачи).
+- В запросы `/v1/warehouse/fbs/create` (`v1CreateWarehouseFBSRequest`) и
+  `/v1/warehouse/fbs/first-mile/update`
+  (`v1UpdateWarehouseFBSFirstMileRequest`) добавлен необязательный
+  `courier_return_warehouse_info`: `comment` (комментарий для курьера),
+  `courier_return_warehouse_id` (идентификатор пункта возврата из
+  `/v1/warehouse/fbs/create/return-point/list`) и
+  `is_courier_return_warehouse_match` (`true`, чтобы созданный склад стал
+  возвратным; при обновлении первой мили — чтобы выбрать склад как
+  возвратный).
+
+### Changed
+
+- Методы `/v2/posting/fbs/package-label`,
+  `/v1/posting/fbs/package-label/create`,
+  `/v2/posting/fbs/package-label/create` и
+  `/v1/posting/fbs/package-label/get` помечены deprecated. В предупреждении
+  формулировка про новые этикетки FBS с 5 октября 2026 сменена с «будет
+  возвращать» на «возвращает». Срок отключения в описании — 2 ноября 2026.
+  Замены: для `/v2/posting/fbs/package-label` —
+  `/v3/posting/fbs/package-label/create` и
+  `/v2/posting/fbs/package-label/get`; для обоих `package-label/create` —
+  `/v3/posting/fbs/package-label/create`; для
+  `/v1/posting/fbs/package-label/get` —
+  `/v2/posting/fbs/package-label/get`.
+
+### Notes
+
+- Сверка с анонсом Ozon за 15 октября 2026: `returns.courier_delivery` в ответе
+  `/v1/returns/list`, оба признака доступности возвратной мили в ответе
+  `/v1/warehouse/fbs/return-mile/check` и `courier_return_warehouse_info` в
+  запросах `/v1/warehouse/fbs/create` и `/v1/warehouse/fbs/first-mile/update`
+  отражены в снимке.
+- Пункты анонса за 13 октября 2026 (`result.is_blr_traceable` и `result.scanit`
+  в ответе `/v2/posting/fbs/act/get-postings`) в этот снимок не входят: они уже
+  выпущены в 0.17.0.
+- Пометки deprecated и правка формулировки про этикетки FBS в анонсе за
+  15 октября не названы; в снимке они есть.
+
 ## [0.17.0] - 2026-10-13
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13 октября
