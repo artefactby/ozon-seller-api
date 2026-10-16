@@ -4608,8 +4608,9 @@ export interface paths {
         put?: never;
         /**
          * Напечатать этикетку
+         * @deprecated
          * @description <aside class="warning">
-         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     C 5 октября 2026 года метод возвращает новые этикетки для отправлений FBS.<br>
          *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
          *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a> и <a href="#operation/PostingFbsPackageLabelGet">/v2/posting/fbs/package-label/get</a>.
@@ -4641,8 +4642,9 @@ export interface paths {
         put?: never;
         /**
          * Создать задание на выгрузку этикеток
+         * @deprecated
          * @description <aside class="warning">
-         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     C 5 октября 2026 года метод возвращает новые этикетки для отправлений FBS.<br>
          *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
          *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a>.
@@ -4670,8 +4672,9 @@ export interface paths {
         put?: never;
         /**
          * Создать задание на формирование этикеток
+         * @deprecated
          * @description <aside class="warning">
-         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     C 5 октября 2026 года метод возвращает новые этикетки для отправлений FBS.<br>
          *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
          *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelCreate">/v3/posting/fbs/package-label/create</a>.
@@ -4731,8 +4734,9 @@ export interface paths {
         put?: never;
         /**
          * Получить файл с этикетками
+         * @deprecated
          * @description <aside class="warning">
-         *     C 5 октября 2026 года метод будет возвращать новые этикетки для отправлений FBS.<br>
+         *     C 5 октября 2026 года метод возвращает новые этикетки для отправлений FBS.<br>
          *     <a href="https://seller-edu.ozon.ru/libra/fbs/logistics-settings/metody#тестовыи-формат-этикетки">Подробнее о новых этикетках в Базе знаний продавца</a>
          *
          *     С 2 ноября 2026 года метод будет отключён. Переключитесь на <a href="#operation/PostingFbsPackageLabelGet">/v2/posting/fbs/package-label/get</a>.
@@ -27307,6 +27311,19 @@ export interface components {
              */
             change_moment?: string;
         };
+        /** @description Информация о доставке товара курьером. */
+        "seller_returns.v1.GetReturnsListResponse.ReturnsItem.CourierDelivery": {
+            /**
+             * Format: int32
+             * @description Количество неудачных попыток доставки.
+             */
+            failed_attempts?: number;
+            /**
+             * Format: int32
+             * @description Количество попыток доставки.
+             */
+            total_attempts?: number;
+        };
         /** object */
         GetReturnsListResponseReturnsItem: {
             /** @description Информация об экземплярах. */
@@ -27370,6 +27387,7 @@ export interface components {
              */
             return_clearing_id?: number;
             compensation_status?: components["schemas"]["GetReturnsListResponseCompensation"];
+            courier_delivery?: components["schemas"]["seller_returns.v1.GetReturnsListResponse.ReturnsItem.CourierDelivery"];
         };
         /** object */
         v1GetReturnsListResponse: {
@@ -35290,6 +35308,18 @@ export interface components {
              */
             longitude: number;
         };
+        /** @description Информация о возврате на склад для курьера. */
+        "warehouse.v1.CreateWarehouseFBSRequest.CourierReturnWarehouseInfo": {
+            /** @description Комментарий для курьера. */
+            comment?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор пункта возврата из метода [/v1/warehouse/fbs/create/return-point/list](#operation/WarehouseFBSCreateReturnPointList).
+             */
+            courier_return_warehouse_id?: number;
+            /** @description `true`, чтобы созданный склад стал возвратным. */
+            is_courier_return_warehouse_match?: boolean;
+        };
         /**
          * @description Тип первой мили:
          *     - `PICK_UP` — отгрузка заказов курьеру;
@@ -35312,6 +35342,7 @@ export interface components {
         CreateWarehouseFBSRequestWorkingDaysEnum: "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
         v1CreateWarehouseFBSRequest: {
             address_coordinates: components["schemas"]["CreateWarehouseFBSRequestAddressCoordinates"];
+            courier_return_warehouse_info?: components["schemas"]["warehouse.v1.CreateWarehouseFBSRequest.CourierReturnWarehouseInfo"];
             /**
              * Format: int64
              * @description Время на приём заказов в минутах. Например, если вы передадите `3000`, приём заказов будет завершён через 50 часов с момента передачи.
@@ -35416,6 +35447,18 @@ export interface components {
             /** @description Идентификатор операции. Получите статус операции методом [/v1/warehouse/operation/status](#operation/GetWarehouseFBSOperationStatus). */
             operation_id?: string;
         };
+        /** @description Информация о возврате на склад для курьера. */
+        "warehouse.v1.UpdateWarehouseFBSFirstMileRequest.CourierReturnWarehouseInfo": {
+            /** @description Комментарий для курьера. */
+            comment?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор пункта возврата из метода [/v1/warehouse/fbs/create/return-point/list](#operation/WarehouseFBSCreateReturnPointList).
+             */
+            courier_return_warehouse_id?: number;
+            /** @description `true`, чтобы выбрать склад как возвратный. */
+            is_courier_return_warehouse_match?: boolean;
+        };
         /**
          * @description Тип первой мили:
          *     - `PICK_UP` — отгрузка заказов курьеру;
@@ -35424,6 +35467,7 @@ export interface components {
          */
         v1UpdateWarehouseFBSFirstMileRequestFirstMileTypeEnum: "PICK_UP" | "DROP_OFF";
         v1UpdateWarehouseFBSFirstMileRequest: {
+            courier_return_warehouse_info?: components["schemas"]["warehouse.v1.UpdateWarehouseFBSFirstMileRequest.CourierReturnWarehouseInfo"];
             /**
              * Format: int64
              * @description Время на приём заказов в минутах. Например, если вы передадите `3000`, приём заказов будет завершён через 50 часов с момента передачи.
@@ -35802,6 +35846,10 @@ export interface components {
             warehouse_id?: number;
         };
         v1WarehouseFbsReturnMileCheckResponse: {
+            /** @description `true`, если нужно установить возвратную милю для вывоза курьером. */
+            is_courier_return_mile_available?: boolean;
+            /** @description `true`, если нужно установить возвратную милю для вывоза из пункта выдачи. */
+            is_dropoff_return_mile_available?: boolean;
             /** @description Признак, что необходимо установить возвратную милю. */
             should_set_return_mile?: boolean;
             /** @description Причины, по которым нельзя установить возвратную милю. */
@@ -61604,6 +61652,10 @@ export interface operations {
                      *               "sys_name": "Received"
                      *             },
                      *             "change_moment": "2025-11-06T16:06:56.639Z"
+                     *           },
+                     *           "courier_delivery": {
+                     *             "failed_attempts": 0,
+                     *             "total_attempts": 0
                      *           }
                      *         }
                      *       ],
@@ -68352,6 +68404,11 @@ export interface operations {
                  *         "latitude": 55.69626,
                  *         "longitude": 37.42686
                  *       },
+                 *       "courier_return_warehouse_info": {
+                 *         "comment": "Комментарий",
+                 *         "courier_return_warehouse_id": 0,
+                 *         "is_courier_return_warehouse_match": false
+                 *       },
                  *       "first_mile_type": "DROP_OFF",
                  *       "drop_off_point_id": 1020002487458000,
                  *       "cut_in_time": 0,
@@ -68487,6 +68544,11 @@ export interface operations {
             content: {
                 /**
                  * @example {
+                 *       "courier_return_warehouse_info": {
+                 *         "comment": "Комментарий",
+                 *         "courier_return_warehouse_id": 0,
+                 *         "is_courier_return_warehouse_match": false
+                 *       },
                  *       "first_mile_type": "DROP_OFF",
                  *       "drop_off_point_id": 0,
                  *       "cut_in_time": 0,
