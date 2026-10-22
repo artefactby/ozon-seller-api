@@ -122,8 +122,7 @@ export class OzonClient {
    * attempt that sends it.
    *
    * The method comes from the spec (GET for the few GET paths, POST otherwise);
-   * pass `options.method` to override it, e.g. for a templated path whose
-   * substituted URL no longer matches the spec literal.
+   * pass `options.method` to override it.
    */
   async requestRaw(path: string, body?: unknown, options?: RawRequestOptions): Promise<Response> {
     // Auth headers go last: a client instance is bound to one Client ID, so

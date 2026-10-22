@@ -157,12 +157,6 @@ const response = await client.requestRaw('/v2/posting/fbs/package-label', {
   posting_number: ['0001-1'],
 });
 const pdf = await response.blob();
-
-// The spec's single templated path needs an explicit method: with the guid
-// substituted, the URL no longer matches the spec literal
-const label = await client.requestRaw(`/v1/cargoes-label/file/${guid}`, undefined, {
-  method: 'GET',
-});
 ```
 
 `multipart/form-data` (pass a `FormData`), binary bodies and `ReadableStream`s go

@@ -5,6 +5,67 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.19.0] - 2026-10-22
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 16 и 22 октября
+2026.
+Пути: 483 → 482 (+0 / −1); схемы: 2305 → 2307 (+2 / −0); новые поля в
+существующих схемах: 2.
+Из сгенерированного `http-methods` удалён GET-путь
+`/v1/cargoes-label/file/{file_guid}`. Исходники транспорта клиента не менялись.
+
+### Added
+
+- В ответ `/v1/return/giveout/info` (`GiveoutInfoResponseArticleDetails`,
+  элемент массива `articles`) добавлены `barcodes` и `type`.
+  `barcodes` — штрихкоды товара: `type` (`BT_DATA_MATRIX` — КИЗ, `BT_SCAN_IT` —
+  штрихкод ScanIt с этикетки, `BT_LOZON_ID` и `BT_BARCODE` — штрихкод с этикетки)
+  и `value`. `type` — тип возврата: `UNSPECIFIED`, `EXEMPLAR` (экземпляр),
+  `POSTING` (отправление), `TRANSIT_BOX` (транзитная коробка).
+
+### Changed
+
+- В описании `/v2/actions/products/deactivate` порог удаления из акций
+  «Эластичный бустинг» и «Максимальный бустинг» изменён: `action_price` нужно
+  ставить больше или равной лимиту акции, а не меньше или равной.
+- В описаниях `action_price` запросов `/v1/seller-actions/products/add`,
+  `/v1/actions/auto-add/products/update` и
+  `/v2/actions/auto-add/products/update` указано, что нецелое число округляется
+  в большую сторону.
+- В описании `/v1/analytics/data` раздел личного кабинета переименован:
+  «Аналитика → Графики» → «Аналитика → Продажи моих товаров».
+
+### Removed
+
+- Удалён `GET /v1/cargoes-label/file/{file_guid}` (операция
+  `CargoesAPI_CargoesLabelFile`) — PDF с этикетками грузовых мест. Путей с
+  шаблоном в снимке больше нет.
+
+### Breaking
+
+- Вызов `GET /v1/cargoes-label/file/{file_guid}` через `requestRaw()` с
+  `method: 'GET'` больше не описан спецификацией. Замена —
+  `POST /v1/cargoes-label/get`: передать `operation_id` из
+  `/v1/cargoes-label/create` и при `status: SUCCESS` взять ссылку
+  `result.file_url`. Поле `result.file_guid` в этом ответе deprecated.
+
+### Notes
+
+- Сверка с анонсом Ozon за 22 октября 2026: удаление
+  `/v1/cargoes-label/file/{file_guid}` отражено в снимке. Замена из анонса —
+  `/v1/cargoes-label/get`.
+- Сверка с анонсом за 16 октября 2026: `articles.barcodes` и `articles.type` в
+  ответе `/v1/return/giveout/info` отражены в снимке.
+- Пункты анонса за 15 октября 2026 в этот снимок не входят: они уже выпущены
+  в 0.18.0.
+- В анонсе не названы правка порога `action_price`, округление цены, переименование
+  раздела аналитики, примеры тел запросов и ответов (поставки, экземпляры FBS,
+  `/v1/carriage/create`, `/v1/cargoes-label/get`) и замена ответа `default` на
+  `400` / `403` / `404` / `409` / `500` у `/v6/fbs/posting/product/exemplar/set`
+  (схема по-прежнему `rpcStatus`). На тип тела `request()` это не влияет.
+- Пример вызова `/v1/cargoes-label/file/{file_guid}` убран из README.
+  Комментарии к `requestRaw()` и `method` больше не ссылаются на этот путь.
+
 ## [0.18.0] - 2026-10-16
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 15 октября

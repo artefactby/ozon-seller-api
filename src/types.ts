@@ -72,10 +72,7 @@ export interface RequestOptions {
 export interface RawRequestOptions extends RequestOptions {
   /**
    * HTTP method override. Without it the method comes from the spec: GET for
-   * the handful of paths served over GET, POST for everything else. Needed for
-   * the one path with a template segment (`/v1/cargoes-label/file/{file_guid}`),
-   * where the URL with the guid substituted no longer matches the spec literal
-   * and would otherwise fall back to POST.
+   * paths served over GET, POST for everything else.
    */
   method?: string;
 }
