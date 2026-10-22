@@ -161,12 +161,6 @@ const response = await client.requestRaw('/v2/posting/fbs/package-label', {
   posting_number: ['0001-1'],
 });
 const pdf = await response.blob();
-
-// Единственный в спецификации путь с параметром в URL требует явного метода:
-// после подстановки guid путь уже не совпадает с литералом из спецификации
-const label = await client.requestRaw(`/v1/cargoes-label/file/${guid}`, undefined, {
-  method: 'GET',
-});
 ```
 
 `multipart/form-data` (передайте `FormData`), бинарные тела и `ReadableStream` уходят

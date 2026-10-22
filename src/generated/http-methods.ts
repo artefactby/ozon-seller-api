@@ -9,7 +9,6 @@
  */
 export const GET_PATHS: ReadonlySet<string> = new Set([
   '/v1/actions',
-  '/v1/cargoes-label/file/{file_guid}',
   '/v1/product/certificate/accordance-types',
   '/v1/product/certificate/types',
   '/v1/supplier/available_warehouses',

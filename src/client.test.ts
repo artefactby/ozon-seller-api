@@ -487,18 +487,15 @@ describe('requestRaw', () => {
     expect(init?.headers).not.toHaveProperty('Content-Type');
   });
 
-  it('lets the method be overridden for templated paths', async () => {
-    // '/v1/cargoes-label/file/{file_guid}' is GET in the spec, but the URL with
-    // the guid substituted no longer matches the literal and would fall back to
-    // POST without the override.
-    const fetchImpl = stubFetch(new Response('%PDF-1.7', { status: 200 }));
+  it('lets the caller override the HTTP method', async () => {
+    const fetchImpl = stubFetch(new Response(null, { status: 200 }));
 
-    await clientWith(fetchImpl).requestRaw('/v1/cargoes-label/file/abc-123', undefined, {
+    await clientWith(fetchImpl).requestRaw('/v1/seller/info', undefined, {
       method: 'GET',
     });
 
     const [url, init] = fetchImpl.mock.calls[0] ?? [];
-    expect(url).toBe('https://api-seller.ozon.ru/v1/cargoes-label/file/abc-123');
+    expect(url).toBe('https://api-seller.ozon.ru/v1/seller/info');
     expect(init?.method).toBe('GET');
   });
 

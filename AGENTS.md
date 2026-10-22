@@ -77,9 +77,6 @@ scripts/
   - `paths[path][method] -> operations[...]`
   - request body: `requestBody.content["application/json"]`
   - response body: `responses[200].content["application/json"]`
-- One deprecated templated path exists in the spec:
-  `/v1/cargoes-label/file/{file_guid}`. It must go through `requestRaw()` with
-  `method: 'GET'`.
 
 ## Important repository facts
 

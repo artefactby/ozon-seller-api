@@ -1376,7 +1376,7 @@ export interface paths {
         put?: never;
         /**
          * Удалить товары из акции «Промокоды»
-         * @description Чтобы удалить товары из акций «Эластичный бустинг» или «Максимальный бустинг», используйте метод [/v1/actions/products/update](#operation/ActionsProductsUpdate) и измените цену товара `action_price` на значение меньше или равное лимиту акции.
+         * @description Чтобы удалить товары из акций «Эластичный бустинг» или «Максимальный бустинг», используйте метод [/v1/actions/products/update](#operation/ActionsProductsUpdate) и измените цену товара `action_price` на значение больше или равное лимиту акции.
          *
          *     <aside class="warning">
          *     До 13 октября 2026 года метод работает аналогично <a href="#operation/PromosProductsDeactivate">/v1/actions/products/deactivate</a>.
@@ -3173,28 +3173,6 @@ export interface paths {
          * @description Возвращает статус формирования этикеток и ссылку на PDF-файл с ними.
          */
         post: operations["CargoesAPI_CargoesLabelGet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes-label/file/{file_guid}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Получить PDF с этикетками грузовых мест
-         * @description <aside class="warning">
-         *       10 апреля 2026 года отключим метод. Переключитесь на <a href="#operation/CargoesAPI_CargoesLabelGet">/v1/cargoes-label/get</a>.
-         *     </aside>
-         */
-        get: operations["CargoesAPI_CargoesLabelFile"];
-        put?: never;
-        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -10045,7 +10023,7 @@ export interface paths {
          *     Для продавцов с подпиской [Premium Plus](https://seller-edu.ozon.ru/seller-rating/about-rating/subscription-premium-plus) или [Premium Pro](https://seller-edu.ozon.ru/seller-rating/about-rating/podpiska-premium-pro) ограничений нет.
          *
          *     Метод можно использовать не больше 1 раза в минуту.
-         *     Соответствует разделу **Аналитика → Графики** в личном кабинете.
+         *     Соответствует разделу **Аналитика → Продажи моих товаров** в личном кабинете.
          */
         post: operations["AnalyticsAPI_AnalyticsGetData"];
         delete?: never;
@@ -14785,6 +14763,8 @@ export interface components {
          *     Изменим предельную цену в карточке товара в дату `auto_add_date`, даже если предельная цена была установлена ранее.
          *
          *     Если значение меньше или равно лимиту акции «Эластичный бустинг» или «Максимальный бустинг» — добавим товар в акцию, если больше — удалим товар из акции.
+         *
+         *     Если передаёте нецелое число, цена округлится в большую сторону.
          */
         "money.MoneyAutoaddAction_price": {
             /** @description Сумма. */
@@ -27619,6 +27599,17 @@ export interface components {
              */
             giveout_id: number;
         };
+        "return.v1.GiveoutInfoResponse.ArticleDetails.Barcode": {
+            /**
+             * @description Тип штрихкода:
+             *     - `BT_DATA_MATRIX` — контрольный идентификационный знак (КИЗ);
+             *     - `BT_SCAN_IT` — штрихкод ScanIt с этикетки;
+             *     - `BT_LOZON_ID`, `BT_BARCODE` — штрихкод с этикетки.
+             */
+            type?: string;
+            /** @description Значение штрихкода. */
+            value?: string;
+        };
         /**
          * @description Cхема доставки:
          *      - `GIVEOUT_DELIVERY_SCHEMA_UNSPECIFIED` — не определёна, напишите в поддержку.
@@ -27626,9 +27617,21 @@ export interface components {
          *      - `GIVEOUT_DELIVERY_SCHEMA_FBS` — FBS.
          */
         v1GiveoutDeliverySchema: string;
+        /**
+         * @description Тип возврата:
+         *     - `UNSPECIFIED` — не указан;
+         *     - `EXEMPLAR` — экземпляр товара;
+         *     - `POSTING` — отправление;
+         *     - `TRANSIT_BOX` — транзитная коробка.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "return.v1.GiveoutInfoResponse.ArticleDetails.Type.Enum": "UNSPECIFIED" | "EXEMPLAR" | "POSTING" | "TRANSIT_BOX";
         GiveoutInfoResponseArticleDetails: {
             /** @description `true`, если отгрузка подтверждена. */
             approved?: boolean;
+            /** @description Штрихкоды товара. */
+            barcodes?: components["schemas"]["return.v1.GiveoutInfoResponse.ArticleDetails.Barcode"][];
             delivery_schema?: components["schemas"]["v1GiveoutDeliverySchema"];
             /** @description Название товара. */
             name?: string;
@@ -27637,6 +27640,7 @@ export interface components {
              * @description Идентификатор продавца.
              */
             seller_id?: number;
+            type?: components["schemas"]["return.v1.GiveoutInfoResponse.ArticleDetails.Type.Enum"];
         };
         v1GiveoutInfoResponse: {
             /** @description Артикулы товаров. */
@@ -36924,7 +36928,7 @@ export interface components {
         v1SellerActionsProductsAddRequestProduct: {
             /**
              * Format: double
-             * @description Цена товара по акции.
+             * @description Цена товара по акции. Если передаёте нецелое число, цена округлится в большую сторону.
              */
             action_price?: number;
             currency?: components["schemas"]["ProductCurrencyEnum"];
@@ -37581,7 +37585,7 @@ export interface components {
         "actions.v1.ActionsAutoAddProductsUpdateRequest.ToUpdate": {
             /**
              * Format: double
-             * @description Цена товара по акции.
+             * @description Цена товара по акции. Если передаёте нецелое число, цена округлится в большую сторону.
              */
             action_price?: number;
             /** @description Валюта цены. */
@@ -54327,6 +54331,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "operation_id": "test-cargo-label-create-56789-abcde"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1CargoesLabelGetRequest"];
             };
         };
@@ -54337,40 +54346,19 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "status": "SUCCESS",
+                     *       "result": {
+                     *         "file_guid": "test-file-guid-12345-abcde-67890-fghij"
+                     *       },
+                     *       "errors": {
+                     *         "error_reasons": []
+                     *       }
+                     *     }
+                     */
                     "application/json": components["schemas"]["v1CargoesLabelGetResponse"];
                 };
-            };
-            /** @description Ошибка */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["googlerpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesAPI_CargoesLabelFile: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Этикетки грузовых мест */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
             /** @description Ошибка */
             default: {
@@ -54397,6 +54385,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "order_id": 2000007863
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1SupplyOrderCancelRequest"];
             };
         };
@@ -54407,6 +54400,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "operation_id": "test-supply-cancel-12345-abcde-67890"
+                     *     }
+                     */
                     "application/json": components["schemas"]["v1SupplyOrderCancelResponse"];
                 };
             };
@@ -54435,6 +54433,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "operation_id": "test-supply-cancel-12345-abcde-67890"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1SupplyOrderCancelStatusRequest"];
             };
         };
@@ -54445,6 +54448,27 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "status": "SUCCESS",
+                     *       "result": {
+                     *         "is_order_cancelled": true,
+                     *         "supplies": [
+                     *           {
+                     *             "supply_id": 3000007863,
+                     *             "is_supply_cancelled": true,
+                     *             "error_reasons": []
+                     *           },
+                     *           {
+                     *             "supply_id": 3000007864,
+                     *             "is_supply_cancelled": true,
+                     *             "error_reasons": []
+                     *           }
+                     *         ]
+                     *       },
+                     *       "error_reasons": []
+                     *     }
+                     */
                     "application/json": components["schemas"]["v1SupplyOrderCancelStatusResponse"];
                 };
             };
@@ -54468,6 +54492,29 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "order_id": 2000007863,
+                 *       "supply_id": 3000007863,
+                 *       "items": [
+                 *         {
+                 *           "sku": 1000123456,
+                 *           "quantity": 10,
+                 *           "quant": 1
+                 *         },
+                 *         {
+                 *           "sku": 1000123457,
+                 *           "quantity": 5,
+                 *           "quant": 2
+                 *         },
+                 *         {
+                 *           "sku": 1000123458,
+                 *           "quantity": 20,
+                 *           "quant": 1
+                 *         }
+                 *       ]
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1SupplyOrderContentUpdateRequest"];
             };
         };
@@ -54478,6 +54525,12 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "operation_id": "test-content-update-12345-abcde-67890",
+                     *       "errors": []
+                     *     }
+                     */
                     "application/json": components["schemas"]["v1SupplyOrderContentUpdateResponse"];
                 };
             };
@@ -54501,6 +54554,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "operation_id": "test-content-update-12345-abcde-67890"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1SupplyOrderContentUpdateStatusRequest"];
             };
         };
@@ -54511,6 +54569,13 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "status": "SUCCESS",
+                     *       "new_bundle_id": "test-bundle-12345-abcde-67890",
+                     *       "errors": []
+                     *     }
+                     */
                     "application/json": components["schemas"]["v1SupplyOrderContentUpdateStatusResponse"];
                 };
             };
@@ -54534,6 +54599,12 @@ export interface operations {
         };
         requestBody?: {
             content: {
+                /**
+                 * @example {
+                 *       "new_bundle_id": "test-bundle-12345-abcde-67890",
+                 *       "supply_id": 3000007863
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1SupplyOrderContentUpdateValidationRequest"];
             };
         };
@@ -54546,50 +54617,40 @@ export interface operations {
                 content: {
                     /**
                      * @example {
-                     *       "editing_errors": [
-                     *         "UNSPECIFIED"
-                     *       ],
+                     *       "editing_errors": [],
                      *       "validated_assortment": {
                      *         "approved_items": [
                      *           {
-                     *             "barcode": "string",
-                     *             "item_link": "string",
-                     *             "name": "string",
-                     *             "offer_id": "string",
-                     *             "origin_quantity": 0,
-                     *             "origin_total_volume_in_litres": 0,
-                     *             "quant": 0,
-                     *             "quantity": 0,
-                     *             "sku": 0,
-                     *             "sku_quantity_limit": 0,
-                     *             "total_volume_in_litres": 0
-                     *           }
-                     *         ],
-                     *         "rejected_items": [
+                     *             "sku": 1000123456,
+                     *             "offer_id": "test-offer-123456",
+                     *             "name": "Тестовый товар 1",
+                     *             "barcode": "test-barcode-123456789",
+                     *             "quantity": 10,
+                     *             "origin_quantity": 10,
+                     *             "quant": 1,
+                     *             "total_volume_in_litres": 15.5,
+                     *             "origin_total_volume_in_litres": 15.5,
+                     *             "sku_quantity_limit": 100,
+                     *             "item_link": "https://test-example.com/product/123456"
+                     *           },
                      *           {
-                     *             "barcode": "string",
-                     *             "name": "string",
-                     *             "offer_id": "string",
-                     *             "origin_quantity": 0,
-                     *             "origin_total_volume_in_litres": 0,
-                     *             "quantity": 0,
-                     *             "rejection_reason": [
-                     *               "UNSPECIFIED"
-                     *             ],
-                     *             "restrictions": {
-                     *               "reasons_restrictions": [
-                     *                 "UNKNOWN"
-                     *               ],
-                     *               "sku_has_no_sales_in_days": 0,
-                     *               "sku_quantity_limit": 0
-                     *             },
-                     *             "sku": 0,
-                     *             "total_volume_in_litres": 0
+                     *             "sku": 1000123457,
+                     *             "offer_id": "test-offer-123457",
+                     *             "name": "Тестовый товар 2",
+                     *             "barcode": "test-barcode-123456790",
+                     *             "quantity": 5,
+                     *             "origin_quantity": 5,
+                     *             "quant": 2,
+                     *             "total_volume_in_litres": 8.2,
+                     *             "origin_total_volume_in_litres": 8.2,
+                     *             "sku_quantity_limit": 50,
+                     *             "item_link": "https://test-example.com/product/123457"
                      *           }
                      *         ],
-                     *         "total_approved_item_count": 0,
-                     *         "total_approved_quantity": 0,
-                     *         "total_approved_volume_in_litres": 0,
+                     *         "rejected_items": [],
+                     *         "total_approved_item_count": 2,
+                     *         "total_approved_quantity": 15,
+                     *         "total_approved_volume_in_litres": 23.7,
                      *         "total_rejected_item_count": 0,
                      *         "total_restricted_item_count": 0
                      *       }
@@ -54765,15 +54826,15 @@ export interface operations {
                      * @example {
                      *       "additional_data": [
                      *         {
-                     *           "posting_number": "89491381-0072-1",
+                     *           "posting_number": "899991111-0001-1",
                      *           "products": [
                      *             {
                      *               "currency_code": "RUB",
                      *               "mandatory_mark": [
                      *                 "123"
                      *               ],
-                     *               "name": "string",
-                     *               "offer_id": "17125",
+                     *               "name": "Кофта",
+                     *               "offer_id": "1711125",
                      *               "price": "2000",
                      *               "quantity": 1,
                      *               "sku": 149618972
@@ -54782,7 +54843,7 @@ export interface operations {
                      *         }
                      *       ],
                      *       "result": [
-                     *         "89491381-0072-1"
+                     *         "99991111-0001-1"
                      *       ]
                      *     }
                      */
@@ -54814,6 +54875,20 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "posting_number": "899991111-0001-1",
+                 *       "products": [
+                 *         {
+                 *           "exemplarsIds": [
+                 *             "3213123213"
+                 *           ],
+                 *           "product_id": 149618972,
+                 *           "quantity": 3
+                 *         }
+                 *       ]
+                 *     }
+                 */
                 "application/json": components["schemas"]["v4FbsPostingShipPackageV4Request"];
             };
         };
@@ -54824,6 +54899,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "result": "899991111-0001"
+                     *     }
+                     */
                     "application/json": components["schemas"]["v4FbsPostingShipPackageV4Response"];
                 };
             };
@@ -54852,6 +54932,33 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "multi_box_qty": 1,
+                 *       "posting_number": "AB-12345678",
+                 *       "products": [
+                 *         {
+                 *           "exemplars": [
+                 *             {
+                 *               "exemplar_id": 1001,
+                 *               "gtd": "10719040/123456/1234567",
+                 *               "is_gtd_absent": false,
+                 *               "is_rnpt_absent": false,
+                 *               "marks": [
+                 *                 {
+                 *                   "mark": "0104630510533565216S96G2LpG8c",
+                 *                   "mark_type": "KIZ"
+                 *                 }
+                 *               ],
+                 *               "rnpt": "1234567890",
+                 *               "weight": 1500
+                 *             }
+                 *           ],
+                 *           "product_id": 987654
+                 *         }
+                 *       ]
+                 *     }
+                 */
                 "application/json": components["schemas"]["v6FbsPostingProductExemplarSetV6Request"];
             };
         };
@@ -54863,8 +54970,44 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Ошибка */
-            default: {
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -54888,6 +55031,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "posting_number": "200039812931"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v6FbsPostingProductExemplarCreateOrGetV6Request"];
             };
         };
@@ -54898,6 +55046,85 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "multi_box_qty": 2,
+                     *       "posting_number": "200039812931",
+                     *       "products": [
+                     *         {
+                     *           "exemplars": [
+                     *             {
+                     *               "exemplar_id": 1005001,
+                     *               "gtd": "10702020/1234567/А0123456",
+                     *               "is_gtd_absent": false,
+                     *               "is_rnpt_absent": false,
+                     *               "marks": [
+                     *                 {
+                     *                   "mark": "04612345678901!RU123456789ABC",
+                     *                   "mark_type": "CIS"
+                     *                 },
+                     *                 {
+                     *                   "mark": "01046123456789012121ABCDEFGHIJKLMNO",
+                     *                   "mark_type": "GTIN"
+                     *                 }
+                     *               ],
+                     *               "rnpt": "R0123456789",
+                     *               "weight": 1500
+                     *             },
+                     *             {
+                     *               "exemplar_id": 1005002,
+                     *               "gtd": null,
+                     *               "is_gtd_absent": true,
+                     *               "is_rnpt_absent": false,
+                     *               "marks": [
+                     *                 {
+                     *                   "mark": "04612345678902!RU987654321XYZ",
+                     *                   "mark_type": "CIS"
+                     *                 }
+                     *               ],
+                     *               "rnpt": "R9876543210",
+                     *               "weight": 1500
+                     *             }
+                     *           ],
+                     *           "has_imei": false,
+                     *           "is_gtd_needed": false,
+                     *           "is_jw_uin_needed": false,
+                     *           "is_mandatory_mark_needed": true,
+                     *           "is_mandatory_mark_possible": true,
+                     *           "is_rnpt_needed": true,
+                     *           "product_id": 987654321,
+                     *           "quantity": 2,
+                     *           "is_weight_needed": true,
+                     *           "weight_max": 2000,
+                     *           "weight_min": 1000
+                     *         },
+                     *         {
+                     *           "exemplars": [
+                     *             {
+                     *               "exemplar_id": 1005003,
+                     *               "gtd": null,
+                     *               "is_gtd_absent": true,
+                     *               "is_rnpt_absent": true,
+                     *               "marks": [],
+                     *               "rnpt": null,
+                     *               "weight": 0
+                     *             }
+                     *           ],
+                     *           "has_imei": true,
+                     *           "is_gtd_needed": false,
+                     *           "is_jw_uin_needed": false,
+                     *           "is_mandatory_mark_needed": false,
+                     *           "is_mandatory_mark_possible": false,
+                     *           "is_rnpt_needed": false,
+                     *           "product_id": 987654322,
+                     *           "quantity": 1,
+                     *           "is_weight_needed": false,
+                     *           "weight_max": 0,
+                     *           "weight_min": 0
+                     *         }
+                     *       ]
+                     *     }
+                     */
                     "application/json": components["schemas"]["v6FbsPostingProductExemplarCreateOrGetV6Response"];
                 };
             };
@@ -54926,6 +55153,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "posting_number": "789456123-0002-3"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v5FbsPostingProductExemplarStatusV5Request"];
             };
         };
@@ -54936,6 +55168,110 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "posting_number": "789456123-0002-3",
+                     *       "products": [
+                     *         {
+                     *           "exemplars": [
+                     *             {
+                     *               "exemplar_id": 10001,
+                     *               "gtd": "GTD100500700/2026/0215",
+                     *               "gtd_check_status": "SUCCESS",
+                     *               "gtd_error_codes": [],
+                     *               "is_gtd_absent": false,
+                     *               "is_rnpt_absent": false,
+                     *               "marks": [
+                     *                 {
+                     *                   "check_status": "SUCCESS",
+                     *                   "error_codes": [],
+                     *                   "mark": "01046000123456789ABCDEF12345678",
+                     *                   "mark_type": "DATA_MATRIX"
+                     *                 },
+                     *                 {
+                     *                   "check_status": "WARNING",
+                     *                   "error_codes": [
+                     *                     "MARK_EXPIRED"
+                     *                   ],
+                     *                   "mark": "QR1234567890ABCDEF987654321",
+                     *                   "mark_type": "QR_CODE"
+                     *                 }
+                     *               ],
+                     *               "rnpt": "RNPT100200300400500",
+                     *               "rnpt_check_status": "SUCCESS",
+                     *               "rnpt_error_codes": [],
+                     *               "weight": 1250,
+                     *               "weight_check_status": "SUCCESS",
+                     *               "weight_error_codes": []
+                     *             },
+                     *             {
+                     *               "exemplar_id": 10002,
+                     *               "gtd": "",
+                     *               "gtd_check_status": "ERROR",
+                     *               "gtd_error_codes": [
+                     *                 "GTD_MISSING"
+                     *               ],
+                     *               "is_gtd_absent": true,
+                     *               "is_rnpt_absent": true,
+                     *               "marks": [
+                     *                 {
+                     *                   "check_status": "ERROR",
+                     *                   "error_codes": [
+                     *                     "MARK_INVALID_FORMAT"
+                     *                   ],
+                     *                   "mark": "INVALID_MARK_123",
+                     *                   "mark_type": "UNKNOWN"
+                     *                 }
+                     *               ],
+                     *               "rnpt": "",
+                     *               "rnpt_check_status": "ERROR",
+                     *               "rnpt_error_codes": [
+                     *                 "RNPT_MISSING"
+                     *               ],
+                     *               "weight": 0,
+                     *               "weight_check_status": "ERROR",
+                     *               "weight_error_codes": [
+                     *                 "WEIGHT_ZERO"
+                     *               ]
+                     *             }
+                     *           ],
+                     *           "product_id": 123456789
+                     *         },
+                     *         {
+                     *           "exemplars": [
+                     *             {
+                     *               "exemplar_id": 20001,
+                     *               "gtd": "GTD200300400/2026/0301",
+                     *               "gtd_check_status": "WARNING",
+                     *               "gtd_error_codes": [
+                     *                 "GTD_EXPIRED"
+                     *               ],
+                     *               "is_gtd_absent": false,
+                     *               "is_rnpt_absent": false,
+                     *               "marks": [
+                     *                 {
+                     *                   "check_status": "SUCCESS",
+                     *                   "error_codes": [],
+                     *                   "mark": "01046000987654321FEDCBA654321",
+                     *                   "mark_type": "DATA_MATRIX"
+                     *                 }
+                     *               ],
+                     *               "rnpt": "RNPT999888777666555",
+                     *               "rnpt_check_status": "WARNING",
+                     *               "rnpt_error_codes": [
+                     *                 "RNPT_PARTIALLY_VALID"
+                     *               ],
+                     *               "weight": 3200,
+                     *               "weight_check_status": "SUCCESS",
+                     *               "weight_error_codes": []
+                     *             }
+                     *           ],
+                     *           "product_id": 987654321
+                     *         }
+                     *       ],
+                     *       "status": "PROCESSING_COMPLETED"
+                     *     }
+                     */
                     "application/json": components["schemas"]["v5FbsPostingProductExemplarStatusV5Response"];
                 };
             };
@@ -54964,6 +55300,60 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "posting_number": "43210543-0123-4",
+                 *       "products": [
+                 *         {
+                 *           "exemplars": [
+                 *             {
+                 *               "gtd": "GTD-100500/2026/0215",
+                 *               "marks": [
+                 *                 {
+                 *                   "mark": "01046000123456789ABCDEF12345678",
+                 *                   "mark_type": "DATA_MATRIX"
+                 *                 },
+                 *                 {
+                 *                   "mark": "QR-9876543210ABCDEF1234567890",
+                 *                   "mark_type": "QR_CODE"
+                 *                 }
+                 *               ],
+                 *               "rnpt": "RNPT-100200300400500",
+                 *               "weight": 1500
+                 *             },
+                 *             {
+                 *               "gtd": "GTD-200300/2026/0301",
+                 *               "marks": [
+                 *                 {
+                 *                   "mark": "01046000987654321FEDCBA654321",
+                 *                   "mark_type": "DATA_MATRIX"
+                 *                 }
+                 *               ],
+                 *               "rnpt": "RNPT-999888777666555",
+                 *               "weight": 2200
+                 *             }
+                 *           ],
+                 *           "product_id": 123456789
+                 *         },
+                 *         {
+                 *           "exemplars": [
+                 *             {
+                 *               "gtd": "",
+                 *               "marks": [
+                 *                 {
+                 *                   "mark": "INVALID-MARK-1234567890",
+                 *                   "mark_type": "UNKNOWN"
+                 *                 }
+                 *               ],
+                 *               "rnpt": "",
+                 *               "weight": 0
+                 *             }
+                 *           ],
+                 *           "product_id": 987654321
+                 *         }
+                 *       ]
+                 *     }
+                 */
                 "application/json": components["schemas"]["v5FbsPostingProductExemplarValidateV5Request"];
             };
         };
@@ -54974,6 +55364,82 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "products": [
+                     *         {
+                     *           "error": "Продукт содержит невалидные экземпляры",
+                     *           "exemplars": [
+                     *             {
+                     *               "errors": [
+                     *                 "Не указан вес экземпляра",
+                     *                 "Отсутствует номер РНПТ"
+                     *               ],
+                     *               "gtd": "GTD-100500/2026/0215",
+                     *               "marks": [
+                     *                 {
+                     *                   "errors": [],
+                     *                   "mark": "01046000123456789ABCDEF12345678",
+                     *                   "mark_type": "DATA_MATRIX",
+                     *                   "valid": true
+                     *                 },
+                     *                 {
+                     *                   "errors": [
+                     *                     "Недействительный формат маркировки"
+                     *                   ],
+                     *                   "mark": "INVALID-MARK-123",
+                     *                   "mark_type": "UNKNOWN",
+                     *                   "valid": false
+                     *                 }
+                     *               ],
+                     *               "rnpt": "",
+                     *               "valid": false,
+                     *               "weight": 0
+                     *             },
+                     *             {
+                     *               "errors": [],
+                     *               "gtd": "GTD-200300/2026/0301",
+                     *               "marks": [
+                     *                 {
+                     *                   "errors": [],
+                     *                   "mark": "01046000987654321FEDCBA654321",
+                     *                   "mark_type": "DATA_MATRIX",
+                     *                   "valid": true
+                     *                 }
+                     *               ],
+                     *               "rnpt": "RNPT-999888777666555",
+                     *               "valid": true,
+                     *               "weight": 2200
+                     *             }
+                     *           ],
+                     *           "product_id": 123456789,
+                     *           "valid": false
+                     *         },
+                     *         {
+                     *           "error": "",
+                     *           "exemplars": [
+                     *             {
+                     *               "errors": [],
+                     *               "gtd": "GTD-300400/2026/0401",
+                     *               "marks": [
+                     *                 {
+                     *                   "errors": [],
+                     *                   "mark": "QR-9876543210ABCDEF1234567890",
+                     *                   "mark_type": "QR_CODE",
+                     *                   "valid": true
+                     *                 }
+                     *               ],
+                     *               "rnpt": "RNPT-555444333222111",
+                     *               "valid": true,
+                     *               "weight": 1500
+                     *             }
+                     *           ],
+                     *           "product_id": 987654321,
+                     *           "valid": true
+                     *         }
+                     *       ]
+                     *     }
+                     */
                     "application/json": components["schemas"]["v5FbsPostingProductExemplarValidateV5Response"];
                 };
             };
@@ -55002,6 +55468,11 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "posting_number": "789456123-0002-3"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1FbsPostingProductExemplarUpdateRequest"];
             };
         };
@@ -55038,6 +55509,13 @@ export interface operations {
         };
         requestBody: {
             content: {
+                /**
+                 * @example {
+                 *       "all_blr_traceable": true,
+                 *       "delivery_method_id": 323123321,
+                 *       "departure_date": "2019-08-24T14:15:22Z"
+                 *     }
+                 */
                 "application/json": components["schemas"]["v1CarriageCreateRequest"];
             };
         };
@@ -55048,6 +55526,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    /**
+                     * @example {
+                     *       "carriage_id": 32323
+                     *     }
+                     */
                     "application/json": components["schemas"]["v1CarriageCreateResponse"];
                 };
             };
