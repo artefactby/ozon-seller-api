@@ -13187,7 +13187,12 @@ export interface components {
             offer_id?: string;
             /** @description Цена, которую покупатели видят зачёркнутой. Должна быть больше `price`. */
             old_price?: string;
-            /** @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем. */
+            /**
+             * @description Предельная цена товара без акций. Выше этого значения цену для покупателя не поднимем.
+             *
+             *     Если изменяете предельную цену через методы [/v1/product/import/prices](#operation/ProductAPI_ImportProductsPrices) или [/v1/actions/products/update](#operation/ActionsProductsUpdate), значение обновляется в карточке товара.<br>
+             *     [Подробнее о единой цене в Базе знаний продавца](https://seller-edu.ozon.ru/libra/ceny-i-akcii/akcii-skidki-i-kupony/akcii-ozon/upravlenie-tovrami-v-akciyah)
+             */
             price?: string;
             /**
              * @description Автоприменение стратегий цены:
@@ -14192,6 +14197,9 @@ export interface components {
         };
         /**
          * @description Предельная цена товара.
+         *
+         *     Если изменяете предельную цену через методы [/v1/product/import/prices](#operation/ProductAPI_ImportProductsPrices) или [/v1/actions/products/update](#operation/ActionsProductsUpdate), значение обновляется в карточке товара.<br>
+         *     [Подробнее о единой цене в Базе знаний продавца](https://seller-edu.ozon.ru/libra/ceny-i-akcii/akcii-skidki-i-kupony/akcii-ozon/upravlenie-tovrami-v-akciyah)
          *
          *     Если добавляете товар вне акции «Промокоды», изменим предельную цену в карточке товара, даже если она была установлена ранее.
          *
