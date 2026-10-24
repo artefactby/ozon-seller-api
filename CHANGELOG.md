@@ -5,6 +5,35 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.19.1] - 2026-10-24
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 октября
+2026.
+Пути: 482 → 482 (+0 / −0); схемы: 2307 → 2307 (+0 / −0); новые поля в
+существующих схемах: 0.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Changed
+
+- В описании `prices.price` запроса `/v1/product/import/prices`
+  (`productImportProductsPricesRequestPrice`) уточнено: предельная цена,
+  изменённая через `/v1/product/import/prices` или
+  `/v1/actions/products/update`, обновляется в карточке товара. Добавлена
+  ссылка на базу знаний продавца про единую цену.
+- В описании `products.action_price` запроса `/v1/actions/products/update`
+  (схема `money.MoneyAction_price`) добавлено то же уточнение и та же ссылка.
+
+### Notes
+
+- Сверка с анонсом Ozon за 22 октября 2026: обновления описаний `prices.price`
+  в запросе `/v1/product/import/prices` и `products.action_price` в запросе
+  `/v1/actions/products/update` отражены в снимке. Удаление
+  `/v1/cargoes-label/file/{file_guid}` в этот снимок не входит: путь уже
+  удалён в 0.19.0.
+- Пункт анонса за 16 октября 2026 (`articles.barcodes` и `articles.type` в
+  ответе `/v1/return/giveout/info`) в этот снимок не входит: поля уже выпущены
+  в 0.19.0.
+
 ## [0.19.0] - 2026-10-22
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 16 и 22 октября
