@@ -43688,13 +43688,13 @@ export interface operations {
                      *           "id": 5055881,
                      *           "value": "Sunshine",
                      *           "info": "Здоровье и красота",
-                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-i/6010930878.jpg"
+                     *           "picture": "https://ir.ozone.ru/s3/multimedia-i/6010930878.jpg"
                      *         },
                      *         {
                      *           "id": 5056737,
                      *           "value": "Essence",
                      *           "info": "Красота и здоровье",
-                     *           "picture": "https://ir-3.ozone.ru/s3/multimedia-v/6088253599.jpg"
+                     *           "picture": "https://ir.ozone.ru/s3/multimedia-v/6088253599.jpg"
                      *         }
                      *       ],
                      *       "has_next": true
@@ -45145,15 +45145,15 @@ export interface operations {
                      *           "dimension_unit": "mm",
                      *           "weight": 50,
                      *           "weight_unit": "g",
-                     *           "primary_image": "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *           "primary_image": "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
                      *           "sku": 423434534,
                      *           "model_info": {
                      *             "model_id": 43445453,
                      *             "count": 4
                      *           },
                      *           "images": [
-                     *             "https://ir-3.ozone.ru/s3/multimedia-4/6804736960.jpg",
-                     *             "https://ir-3.ozone.ru/s3/multimedia-j/6835412647.jpg"
+                     *             "https://ir.ozone.ru/s3/multimedia-4/6804736960.jpg",
+                     *             "https://ir.ozone.ru/s3/multimedia-j/6835412647.jpg"
                      *           ],
                      *           "pdf_list": [],
                      *           "attributes": [
@@ -60650,7 +60650,7 @@ export interface operations {
                      *       "result": {
                      *         "error": "",
                      *         "status": "completed",
-                     *         "file_url": "https://ir-3.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
+                     *         "file_url": "https://ir.ozone.ru/s3/ord-tmp-12/small_label/ticket-00-0000-0000.pdf",
                      *         "printed_postings_count": 1,
                      *         "unprinted_postings_count": 0,
                      *         "unprinted_postings": []
@@ -63113,7 +63113,7 @@ export interface operations {
                      *         "status": "success",
                      *         "error": "",
                      *         "expires_at": "2025-11-10T11:16:00.267Z",
-                     *         "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *         "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *         "report_type": "seller_products",
                      *         "params": {},
                      *         "created_at": "2021-11-25T14:54:55.688260Z"
@@ -63216,7 +63216,7 @@ export interface operations {
                      *             "status": "success",
                      *             "error": "",
                      *             "expires_at": "2025-11-10T11:35:10.028Z",
-                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
+                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csvv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
@@ -63227,7 +63227,7 @@ export interface operations {
                      *             "code": "REPORT_seller_products_924336_1720170405_a9ea2f27-a473-4b13-99f9-d0cfcb5b1a69",
                      *             "status": "success",
                      *             "error": "",
-                     *             "file": "https://ir-3.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
+                     *             "file": "https://ir.ozone.ru/s3/item-picture-6/f3/ce/f4ceae54b323213d3e61e59c323bd8e5.csv",
                      *             "report_type": "seller_products",
                      *             "params": {
                      *               "visibility": "3"
