@@ -5,6 +5,42 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.19.2] - 2026-11-03
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 и 28 октября
+и 2 ноября 2026.
+Пути: 482 → 482 (+0 / −0); схемы: 2307 → 2307 (+0 / −0); новые поля в
+существующих схемах: 0.
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Changed
+
+- В примерах ответов хост `ir-3.ozone.ru` заменён на `ir.ozone.ru`:
+  `picture` у `/v1/description-category/attribute/values`, `primary_image` и
+  `images` у `/v4/product/info/attributes`, `file_url` у
+  `/v1/posting/fbs/package-label/get`, `file` у `/v1/report/info` и
+  `/v1/report/list`.
+
+### Notes
+
+- Сверка с анонсом Ozon за 22 октября 2026: удаление
+  `/v1/cargoes-label/file/{file_guid}` в этот снимок не входит — путь уже
+  удалён в 0.19.0. Напоминание о единой предельной цене в этот снимок не
+  входит: уточнения описаний `prices.price` и `products.action_price` уже
+  выпущены в 0.19.1.
+- Анонс за 28 октября 2026 — приглашение на вебинар по Ozon Доставке.
+  Изменений поверхности API не содержит.
+- Сверка с анонсом за 2 ноября 2026: полное отключение
+  `/v1/posting/fbs/package-label/get`,
+  `/v2/posting/fbs/package-label/create`, `/v2/posting/fbs/package-label` и
+  `/v1/posting/fbs/package-label/create` в снимок не вошло. Пути на месте,
+  пометки deprecated и формулировка «С 2 ноября 2026 года метод будет
+  отключён» не изменились.
+- Анонс о поддержке новой этикетки scanit и миграции методов (22 сентября
+  2026) новых путей и полей в этот снимок не добавил. Пометки deprecated
+  этих четырёх методов и их замены уже выпущены в 0.18.0.
+- В анонсах не названа замена хоста в примерах ответов.
+
 ## [0.19.1] - 2026-10-24
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 октября
