@@ -5,857 +5,490 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
-## [0.19.1] - 2026-10-24
+## [0.19.2] - 2026-11-03
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 октября
-2026.
-Пути: 482 → 482 (+0 / −0); схемы: 2307 → 2307 (+0 / −0); новые поля в
-существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 и 28 октября
+и 2 ноября 2026.
 
 ### Changed
 
-- В описании `prices.price` запроса `/v1/product/import/prices`
-  (`productImportProductsPricesRequestPrice`) уточнено: предельная цена,
-  изменённая через `/v1/product/import/prices` или
-  `/v1/actions/products/update`, обновляется в карточке товара. Добавлена
-  ссылка на базу знаний продавца про единую цену.
-- В описании `products.action_price` запроса `/v1/actions/products/update`
-  (схема `money.MoneyAction_price`) добавлено то же уточнение и та же ссылка.
+- В примерах ответов хост `ir-3.ozone.ru` заменён на `ir.ozone.ru`:
+  `picture` у `/v1/description-category/attribute/values`, `primary_image` и
+  `images` у `/v4/product/info/attributes`, `file_url` у
+  `/v1/posting/fbs/package-label/get`, `file` у `/v1/report/info` и
+  `/v1/report/list`.
 
-### Notes
+## [0.19.1] - 2026-10-24
 
-- Сверка с анонсом Ozon за 22 октября 2026: обновления описаний `prices.price`
-  в запросе `/v1/product/import/prices` и `products.action_price` в запросе
-  `/v1/actions/products/update` отражены в снимке. Удаление
-  `/v1/cargoes-label/file/{file_guid}` в этот снимок не входит: путь уже
-  удалён в 0.19.0.
-- Пункт анонса за 16 октября 2026 (`articles.barcodes` и `articles.type` в
-  ответе `/v1/return/giveout/info`) в этот снимок не входит: поля уже выпущены
-  в 0.19.0.
-- обновлены dev зависимости `npm audit fix`
-- Сверка по CVE-2026-111497 проблем не выявила.
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 октября 2026.
+
+### Changed
+
+- В описаниях `prices.price` (`/v1/product/import/prices`) и
+  `products.action_price` (`/v1/actions/products/update`) указано, что
+  предельная цена, изменённая любым из этих методов, обновляется в карточке
+  товара.
+- `npm audit fix` (devDependencies).
 
 ## [0.19.0] - 2026-10-22
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 16 и 22 октября
 2026.
-Пути: 483 → 482 (+0 / −1); схемы: 2305 → 2307 (+2 / −0); новые поля в
-существующих схемах: 2.
-Из сгенерированного `http-methods` удалён GET-путь
-`/v1/cargoes-label/file/{file_guid}`. Исходники транспорта клиента не менялись.
 
 ### Added
 
-- В ответ `/v1/return/giveout/info` (`GiveoutInfoResponseArticleDetails`,
-  элемент массива `articles`) добавлены `barcodes` и `type`.
-  `barcodes` — штрихкоды товара: `type` (`BT_DATA_MATRIX` — КИЗ, `BT_SCAN_IT` —
-  штрихкод ScanIt с этикетки, `BT_LOZON_ID` и `BT_BARCODE` — штрихкод с этикетки)
-  и `value`. `type` — тип возврата: `UNSPECIFIED`, `EXEMPLAR` (экземпляр),
-  `POSTING` (отправление), `TRANSIT_BOX` (транзитная коробка).
+- В элемент `articles` ответа `/v1/return/giveout/info` добавлены `barcodes`
+  (`type`: `BT_DATA_MATRIX`, `BT_SCAN_IT`, `BT_LOZON_ID`, `BT_BARCODE`;
+  `value`) и `type` (`UNSPECIFIED`, `EXEMPLAR`, `POSTING`, `TRANSIT_BOX`).
 
 ### Changed
 
-- В описании `/v2/actions/products/deactivate` порог удаления из акций
-  «Эластичный бустинг» и «Максимальный бустинг» изменён: `action_price` нужно
-  ставить больше или равной лимиту акции, а не меньше или равной.
-- В описаниях `action_price` запросов `/v1/seller-actions/products/add`,
+- В `/v2/actions/products/deactivate` порог `action_price` для акций
+  «Эластичный бустинг» и «Максимальный бустинг» — больше или равна лимиту
+  акции.
+- В `action_price` запросов `/v1/seller-actions/products/add`,
   `/v1/actions/auto-add/products/update` и
-  `/v2/actions/auto-add/products/update` указано, что нецелое число округляется
-  в большую сторону.
-- В описании `/v1/analytics/data` раздел личного кабинета переименован:
-  «Аналитика → Графики» → «Аналитика → Продажи моих товаров».
+  `/v2/actions/auto-add/products/update` нецелое число округляется вверх.
+- В описании `/v1/analytics/data` раздел кабинета переименован в
+  «Аналитика → Продажи моих товаров».
+- Пример `GET /v1/cargoes-label/file/{file_guid}` убран из README и
+  комментариев `requestRaw()`.
 
 ### Removed
 
-- Удалён `GET /v1/cargoes-label/file/{file_guid}` (операция
-  `CargoesAPI_CargoesLabelFile`) — PDF с этикетками грузовых мест. Путей с
-  шаблоном в снимке больше нет.
+- `GET /v1/cargoes-label/file/{file_guid}`. Путей с шаблоном в типах больше нет.
 
 ### Breaking
 
-- Вызов `GET /v1/cargoes-label/file/{file_guid}` через `requestRaw()` с
-  `method: 'GET'` больше не описан спецификацией. Замена —
-  `POST /v1/cargoes-label/get`: передать `operation_id` из
-  `/v1/cargoes-label/create` и при `status: SUCCESS` взять ссылку
-  `result.file_url`. Поле `result.file_guid` в этом ответе deprecated.
-
-### Notes
-
-- Сверка с анонсом Ozon за 22 октября 2026: удаление
-  `/v1/cargoes-label/file/{file_guid}` отражено в снимке. Замена из анонса —
-  `/v1/cargoes-label/get`.
-- Сверка с анонсом за 16 октября 2026: `articles.barcodes` и `articles.type` в
-  ответе `/v1/return/giveout/info` отражены в снимке.
-- Пункты анонса за 15 октября 2026 в этот снимок не входят: они уже выпущены
-  в 0.18.0.
-- В анонсе не названы правка порога `action_price`, округление цены, переименование
-  раздела аналитики, примеры тел запросов и ответов (поставки, экземпляры FBS,
-  `/v1/carriage/create`, `/v1/cargoes-label/get`) и замена ответа `default` на
-  `400` / `403` / `404` / `409` / `500` у `/v6/fbs/posting/product/exemplar/set`
-  (схема по-прежнему `rpcStatus`). На тип тела `request()` это не влияет.
-- Пример вызова `/v1/cargoes-label/file/{file_guid}` убран из README.
-  Комментарии к `requestRaw()` и `method` больше не ссылаются на этот путь.
+- Путь больше не описан спецификацией. Замена — `POST /v1/cargoes-label/get`:
+  передать `operation_id` из `/v1/cargoes-label/create` и при `status: SUCCESS`
+  взять `result.file_url`. Поле `result.file_guid` deprecated.
 
 ## [0.18.0] - 2026-10-16
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 15 октября
-2026.
-Пути: 483 → 483 (+0 / −0); схемы: 2302 → 2305 (+3 / −0); новые поля в
-существующих схемах: 5.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 15 октября 2026.
 
 ### Added
 
-- В ответ `/v1/returns/list` (`GetReturnsListResponseReturnsItem`) добавлен
-  `courier_delivery` — информация о доставке товара курьером:
-  `failed_attempts` (количество неудачных попыток) и `total_attempts`
-  (количество попыток).
-- В ответ `/v1/warehouse/fbs/return-mile/check`
-  (`v1WarehouseFbsReturnMileCheckResponse`) добавлены
-  `is_courier_return_mile_available` (`true`, если нужно установить возвратную
-  милю для вывоза курьером) и `is_dropoff_return_mile_available` (`true`, если
-  нужно установить возвратную милю для вывоза из пункта выдачи).
-- В запросы `/v1/warehouse/fbs/create` (`v1CreateWarehouseFBSRequest`) и
-  `/v1/warehouse/fbs/first-mile/update`
-  (`v1UpdateWarehouseFBSFirstMileRequest`) добавлен необязательный
-  `courier_return_warehouse_info`: `comment` (комментарий для курьера),
-  `courier_return_warehouse_id` (идентификатор пункта возврата из
-  `/v1/warehouse/fbs/create/return-point/list`) и
-  `is_courier_return_warehouse_match` (`true`, чтобы созданный склад стал
-  возвратным; при обновлении первой мили — чтобы выбрать склад как
-  возвратный).
+- В ответ `/v1/returns/list` добавлен `courier_delivery`: `failed_attempts`,
+  `total_attempts`.
+- В ответ `/v1/warehouse/fbs/return-mile/check` добавлены
+  `is_courier_return_mile_available` и `is_dropoff_return_mile_available`.
+- В запросы `/v1/warehouse/fbs/create` и `/v1/warehouse/fbs/first-mile/update`
+  добавлен необязательный `courier_return_warehouse_info`: `comment`,
+  `courier_return_warehouse_id`, `is_courier_return_warehouse_match`.
 
 ### Changed
 
-- Методы `/v2/posting/fbs/package-label`,
-  `/v1/posting/fbs/package-label/create`,
-  `/v2/posting/fbs/package-label/create` и
-  `/v1/posting/fbs/package-label/get` помечены deprecated. В предупреждении
-  формулировка про новые этикетки FBS с 5 октября 2026 сменена с «будет
-  возвращать» на «возвращает». Срок отключения в описании — 2 ноября 2026.
-  Замены: для `/v2/posting/fbs/package-label` —
-  `/v3/posting/fbs/package-label/create` и
-  `/v2/posting/fbs/package-label/get`; для обоих `package-label/create` —
-  `/v3/posting/fbs/package-label/create`; для
-  `/v1/posting/fbs/package-label/get` —
-  `/v2/posting/fbs/package-label/get`.
-
-### Notes
-
-- Сверка с анонсом Ozon за 15 октября 2026: `returns.courier_delivery` в ответе
-  `/v1/returns/list`, оба признака доступности возвратной мили в ответе
-  `/v1/warehouse/fbs/return-mile/check` и `courier_return_warehouse_info` в
-  запросах `/v1/warehouse/fbs/create` и `/v1/warehouse/fbs/first-mile/update`
-  отражены в снимке.
-- Пункты анонса за 13 октября 2026 (`result.is_blr_traceable` и `result.scanit`
-  в ответе `/v2/posting/fbs/act/get-postings`) в этот снимок не входят: они уже
-  выпущены в 0.17.0.
-- Пометки deprecated и правка формулировки про этикетки FBS в анонсе за
-  15 октября не названы; в снимке они есть.
+- Помечены deprecated, отключение 2 ноября 2026. В предупреждении про новые
+  этикетки FBS с 5 октября формулировка «будет возвращать» заменена на
+  «возвращает».
+  - `/v2/posting/fbs/package-label` → `/v3/posting/fbs/package-label/create` и
+    `/v2/posting/fbs/package-label/get`.
+  - `/v1/posting/fbs/package-label/create` и
+    `/v2/posting/fbs/package-label/create` →
+    `/v3/posting/fbs/package-label/create`.
+  - `/v1/posting/fbs/package-label/get` → `/v2/posting/fbs/package-label/get`.
 
 ## [0.17.0] - 2026-10-13
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13 октября
-2026.
-Пути: 483 → 483 (+0 / −0); схемы: 2302 → 2302 (+0 / −0); новые поля в
-существующих схемах: 2.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13 октября 2026.
 
 ### Added
 
-- В ответ `/v2/posting/fbs/act/get-postings`
-  (`v2PostingFBSActGetPostingsResult`, элемент массива `result`) добавлены
-  `is_blr_traceable` (`true`, если товар прослеживаемый) и `scanit`
-  (штрихкод ScanIt с этикетки).
-
-### Notes
-
-- Сверка с анонсом Ozon за 13 октября 2026: оба поля в ответе
-  `/v2/posting/fbs/act/get-postings` отражены в снимке.
+- В элемент `result` ответа `/v2/posting/fbs/act/get-postings` добавлены
+  `is_blr_traceable` и `scanit`.
 
 ## [0.16.0] - 2026-10-12
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 9 октября
-2026.
-Пути: 482 → 483 (+1 / −0); схемы: 2293 → 2302 (+9 / −0); новые поля в
-существующих схемах: 3.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 9 октября 2026.
 
 ### Added
 
-- `POST /v1/supply-order/shipment-plan-compliance/get` — бета-метод информации
-  о выполнении плана отгрузок (тело запроса не требуется). Ответ
-  `supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse`:
-  `compliance_rate_percent`, `interval_days`, `min_compliance_percent`,
-  `rate_details` (`max_total_quantity_sum`, `total_quantity_sum`) и
-  `restrictions` (`is_restriction_active`, лимит количества товаров в поставке
-  и лимит переноса таймслотов; у обоих ограничений статус `DISABLED` или
-  `ENABLED`).
-- В ответ `/v2/product/certification/options`
-  (`ProductCertificateOptionsResponse.Option`) добавлено поле `variants`
-  (`name`, `value`).
-- В ответ `/v2/product/certification/params`
-  (`ProductCertificateParamsResponse.Param`) добавлено поле `variants`
-  (`name`, `value`). Для `CERTIFICATE_COUNTRY` значение `NotEAEU` означает,
-  что в `params.certificate_country` можно передать код любой страны.
-- В ответ `/v2/product/certificate/create`
-  (`ProductCertificateCreateResponse.Param`) добавлено поле `number_mask` —
-  маски или регулярные выражения номера сертификата, если
+- `POST /v1/supply-order/shipment-plan-compliance/get` — выполнение плана
+  отгрузок (бета). Ответ: `compliance_rate_percent`, `interval_days`,
+  `min_compliance_percent`, `rate_details`, `restrictions` (статусы
+  `DISABLED` / `ENABLED`).
+- В ответы `/v2/product/certification/options` и
+  `/v2/product/certification/params` добавлено `variants` (`name`, `value`).
+  Для `CERTIFICATE_COUNTRY` значение `NotEAEU` разрешает любой код страны в
+  `params.certificate_country`.
+- В ответ `/v2/product/certificate/create` добавлено `number_mask` при
   `params.name = NUMBER`.
 
 ### Changed
 
-- Методы `/v2/product/certification/options`, `/v2/product/certification/params`
-  и `/v2/product/certificate/create` перенесены из бета-раздела в основной
-  (из описаний убраны ссылки на бета-обсуждение).
+- `/v2/product/certification/options`, `/v2/product/certification/params` и
+  `/v2/product/certificate/create` выведены из беты.
 - В запросах `/v2/product/certification/params` и
-  `/v2/product/certificate/create` обновлены описания: у `params.files` указан
-  общий размер не больше 10 МБ; у `params.certificate_country` — код страны в
-  верхнем регистре; у `params.expired_date.date` — дата не раньше
-  `params.issue_date`, параметр не передаётся, если указан `infinite`.
-
-### Removed
-
-- Удалённых путей и схем в снимке нет.
-- Из `certification.v2.ProductCertificateParamsRequest.Params.AccordanceType.Enum`
-  удалены значения `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU` и
-  `GOST`.
+  `/v2/product/certificate/create`: суммарный размер `params.files` до 10 МБ;
+  `params.certificate_country` — код страны в верхнем регистре;
+  `params.expired_date.date` не раньше `params.issue_date` и не передаётся при
+  `infinite`.
 
 ### Breaking
 
-- Поле `params.accordance_type` в запросах `/v2/product/certification/params` и
+- `params.accordance_type` в `/v2/product/certification/params` и
   `/v2/product/certificate/create` больше не принимает
-  `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU` и `GOST`. Оба запроса
-  используют один enum. Оставшиеся значения: `UNKNOWN`, `EAEU`, `NATIONAL`,
-  `CHEMICAL_PRODUCTS`, `SAFETY_DATA_SHEET`, `REJECTION_LETTER`.
-
-### Notes
-
-- Сверка с анонсом Ozon за 9 октября 2026: новый метод, перенос трёх методов
-  сертификатов из беты, поля `variants` и `number_mask`, обновления описаний и
-  удаление трёх значений `accordance_type` отражены в снимке.
-- Обновление раздела «Порядок работы с методами → Загрузите сертификаты
-  качества» — документация на сайте, в снимок не входит.
-- Анонс не называет замену удалённым значениям `accordance_type`. Миграция:
-  перестать передавать `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU`
-  и `GOST` в `params.accordance_type` методов `/v2/product/certification/params`
-  и `/v2/product/certificate/create`.
-- У deprecated `POST /v1/product/certificate/create` поле
-  `accordance_type_code` по-прежнему содержит `technical_regulations_rf`,
-  `technical_regulations_cu` и `gost`. Этот метод снимком не менялся.
+  `TECHNICAL_REGULATIONS_RF`, `TECHNICAL_REGULATIONS_CU` и `GOST`. Остались
+  `UNKNOWN`, `EAEU`, `NATIONAL`, `CHEMICAL_PRODUCTS`, `SAFETY_DATA_SHEET`,
+  `REJECTION_LETTER`.
 
 ## [0.15.0] - 2026-10-06
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 5–6 октября
-2026.
-Пути: 481 → 482 (+1 / −0); схемы: 2289 → 2293 (+4 / −0); новые поля в
-существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 5–6 октября 2026.
 
 ### Added
 
-- `POST /v1/barcode/delete` — отвязать штрихкод от товара (и связанные схемы
-  `barcode.v1.BarcodeDelete*`). В запросе список пар `barcode` и `sku`; в
-  ответе список `errors`. Пустой список ошибок означает, что все штрихкоды
-  отвязаны. Штрихкод нельзя отвязать, если на складе есть остатки товара с
-  таким штрихкодом или после продажи остатков прошло меньше 6 месяцев.
+- `POST /v1/barcode/delete` — отвязать штрихкод от товара. Запрос: пары
+  `barcode` и `sku`. Пустой `errors` — все штрихкоды отвязаны. Нельзя отвязать
+  при остатках или если с их продажи прошло меньше 6 месяцев.
 
 ### Changed
 
-- В описании `/v1/carriage/create` указано проверять возможность создания
-  отгрузки методом `/v2/carriage/delivery/list`: отгрузку можно создать, если
-  `methods.carriages.available_actions` содержит `create`.
-- В описании поля `available_actions` схемы `DeliveryMethodCarriage` (ответ
-  `/v2/carriage/delivery/list`) перечислены значения `create`, `get_details`
-  и `get_assembly_list`.
+- Создавать отгрузку `/v1/carriage/create` можно, если в ответе
+  `/v2/carriage/delivery/list` у `methods.carriages.available_actions` есть
+  `create`. Значения: `create`, `get_details`, `get_assembly_list`.
 - В запрос `/v2/product/certification/params` добавлен пример тела.
-- обновлены dev зависимости `npm audit fix`
-
-### Notes
-
-- Сверка с анонсом Ozon за 5–6 октября 2026: метод `/v1/barcode/delete` и
-  обновления описаний `/v1/carriage/create` и
-  `methods.carriages.available_actions` в ответе `/v2/carriage/delivery/list`
-  отражены в снимке. Обновление порядка создания отгрузки в разделах
-  «Схема FBS Стандарт» и «Схема FBS PickUp с доверительной приёмкой» —
-  документация на сайте, в снимок не входит.
-- Пример тела запроса `/v2/product/certification/params` пришёл со снимком,
-  но в анонсе Ozon не упоминается.
+- `npm audit fix` (devDependencies).
 
 ## [0.14.0] - 2026-09-28
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 28 сентября
-2026.
-Пути: 481 → 481 (+0 / −0); схемы: 2288 → 2289 (+1 / −0); новые поля в
-существующих схемах: 3.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 28 сентября 2026.
 
 ### Added
 
-- В ответ `/v5/product/info/prices` (`ItemPricev5`) добавлено поле
-  `declared_price` (`ProductDeclaredPriceMoney`: `amount`, `currency`).
-- В ответ `/v3/product/info/list` (`v3GetProductInfoListResponseItem`)
-  добавлено поле `declared_price` (`ProductDeclaredPriceMoney`).
-- В запрос `/v1/product/import/prices`
-  (`productImportProductsPricesRequestPrice`) добавлено поле
-  `declared_price` (строка).
-
-### Notes
-
-- Сверка с анонсом Ozon за 28 сентября 2026: все пункты анонса отражены в
-  снимке. Новая схема `ProductDeclaredPriceMoney` — тип `declared_price` в
-  ответах `/v5/product/info/prices` и `/v3/product/info/list`; в запросе
-  `/v1/product/import/prices` то же поле — строка.
-- Пункты анонса за 25 сентября 2026 (`SHOWCASE_SELECT_ACTIVE` в
-  `filter.visibility` запросов `/v3/product/list` и
-  `/v4/product/info/attributes`) уже отражены в 0.13.0. Раздел «Лимиты» —
-  документация на сайте, в снимок не входит (то же зафиксировано в 0.13.0).
+- `declared_price`: строка в запросе `/v1/product/import/prices`; `amount` и
+  `currency` в ответах `/v5/product/info/prices` и `/v3/product/info/list`.
 
 ## [0.13.0] - 2026-09-25
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 24–25 сентября
 2026.
-Пути: 480 → 481 (+1 / −0); схемы: 2273 → 2288 (+15 / −0); новые поля в
-существующих схемах: 6.
-Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Added
 
-- `POST /v1/warehouse/rfbs/return-point/list` — бета-метод списка пунктов
-  возврата для склада rFBS (и связанные схемы
-  `v1WarehouseRfbsReturnPointList*`).
-- В `filter.visibility` запросов `/v3/product/list` и
-  `/v4/product/info/attributes` добавлено значение `SHOWCASE_SELECT_ACTIVE`
-  (`productv3GetProductListRequestFilterFilterVisibility`,
-  `productv2GetProductListRequestFilterFilterVisibility`).
-- В ответы `/v3/product/list` (`productv3GetProductListResponseResult`),
-  `/v4/product/info/stocks` (`v4GetProductInfoStocksResponse`) и
-  `/v5/product/info/prices` (`productv5GetProductInfoPricesV5Response`)
-  добавлено поле `total_items`.
-- В ответ `/v1/delivery-method/return/settings/get`
-  (`GetDeliveryMethodReturnSettingsV1ResponseReturnSetting`) добавлено поле
-  `return_point` (и связанные схемы `ReturnSettingReturnPoint*`).
-- В запросы `/v1/warehouse/erfbs/aggregator/create` и
-  `/v1/warehouse/erfbs/aggregator/delivery-method/update` добавлено поле
-  `return_point_id`.
+- `POST /v1/warehouse/rfbs/return-point/list` — пункты возврата склада rFBS
+  (бета).
+- `SHOWCASE_SELECT_ACTIVE` в `filter.visibility` запросов `/v3/product/list` и
+  `/v4/product/info/attributes`.
+- `total_items` в ответах `/v3/product/list`, `/v4/product/info/stocks` и
+  `/v5/product/info/prices`.
+- `return_point` в ответе `/v1/delivery-method/return/settings/get`.
+- `return_point_id` в запросах `/v1/warehouse/erfbs/aggregator/create` и
+  `/v1/warehouse/erfbs/aggregator/delivery-method/update`.
 
 ### Changed
 
-- В ответах `/v3/product/list`, `/v4/product/info/stocks` и
-  `/v5/product/info/prices` параметр `total` помечен как `@deprecated`
-  (отключение 23 ноября 2026).
-- Методы `/v3/posting/fbs/package-label/create` и
-  `/v2/posting/fbs/package-label/get` перенесены из бета-раздела в основной
-  (из описаний убраны ссылки на бета-обсуждение).
+- `total` в ответах `/v3/product/list`, `/v4/product/info/stocks` и
+  `/v5/product/info/prices` помечен deprecated (отключение 23 ноября 2026).
+- `/v3/posting/fbs/package-label/create` и
+  `/v2/posting/fbs/package-label/get` выведены из беты.
 - В описаниях `/v2/posting/fbs/package-label`,
   `/v1/posting/fbs/package-label/create`,
   `/v2/posting/fbs/package-label/create` и
-  `/v1/posting/fbs/package-label/get` указано, что с 5 октября 2026 методы
-  будут возвращать новые этикетки для отправлений FBS.
-- обновлены dev зависимости `npm audit fix`
-
-### Notes
-
-- Сверка с анонсом Ozon за 24–25 сентября 2026: все пункты анонса, которые
-  входят в снимок OpenAPI, отражены. Раздел «Лимиты» — документация на сайте,
-  в снимок не входит.
-- Новый путь `/v1/warehouse/rfbs/return-point/list` и поля `return_point` /
-  `return_point_id` в методах складов rFBS Express пришли со снимком, но в
-  анонсе Ozon не упоминаются.
+  `/v1/posting/fbs/package-label/get`: с 5 октября 2026 методы возвращают новые
+  этикетки FBS.
+- `npm audit fix` (devDependencies).
 
 ## [0.12.0] - 2026-09-22
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 сентября
-2026.
-Пути: 470 → 480 (+10 / −0); схемы: 2214 → 2273 (+59 / −0); новые поля в
-существующих схемах: 3.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 сентября 2026.
 
 ### Added
 
-- `POST /v1/actions/products/update` — добавить или обновить товар в акции
-  (и связанные схемы `actions.v1.ActionsProductsUpdate*`).
-- `POST /v2/actions/candidates`, `POST /v2/actions/products` и
-  `POST /v2/actions/products/deactivate` — новые версии методов работы
-  с товарами в акциях (и связанные схемы `actions.v2.ActionsCandidates*`,
-  `actions.v2.ActionsProducts*`).
-- `POST /v2/actions/auto-add/products/list`,
-  `POST /v2/actions/auto-add/products/candidates`,
-  `POST /v2/actions/auto-add/products/delete` и
-  `POST /v2/actions/auto-add/products/update` — новые версии методов
-  автодобавления в акцию (и связанные схемы
-  `actions.v2.ActionsAutoAddProducts*`).
+- `POST /v1/actions/products/update`.
+- `POST /v2/actions/candidates`, `/v2/actions/products`,
+  `/v2/actions/products/deactivate`.
+- `POST /v2/actions/auto-add/products/list`, `.../candidates`, `.../delete`,
+  `.../update`.
 - `POST /v3/posting/fbs/package-label/create` и
-  `POST /v2/posting/fbs/package-label/get` — новые версии методов
-  формирования и получения этикеток FBS (и связанные схемы
-  `posting.v3.PostingFbsPackageLabelCreate*`,
-  `posting.v2.PostingFbsPackageLabelGet*`).
-- В ответы `/v4/posting/fbs/list` и `/v4/posting/fbs/unfulfilled/list`
-  (`posting.v4.PostingFbs*Response.Postings`) добавлено поле `scanit`.
-- В ответ `/v3/posting/fbs/get` (`v3FbsPostingDetail`) добавлено поле
-  `scanit`.
+  `POST /v2/posting/fbs/package-label/get`.
+- `scanit` в ответах `/v4/posting/fbs/list`,
+  `/v4/posting/fbs/unfulfilled/list` и `/v3/posting/fbs/get`.
 
 ### Changed
 
-- Методы `/v1/actions/candidates`, `/v1/actions/products`,
-  `/v1/actions/products/activate`, `/v1/actions/products/deactivate`,
-  `/v1/actions/auto-add/products/list`,
-  `/v1/actions/auto-add/products/candidates`,
-  `/v1/actions/auto-add/products/delete` и
-  `/v1/actions/auto-add/products/update` помечены как `@deprecated`
-  (отключение 13 октября 2026).
-- В описаниях `/v2/posting/fbs/package-label`,
-  `/v1/posting/fbs/package-label/create`,
-  `/v2/posting/fbs/package-label/create` и
-  `/v1/posting/fbs/package-label/get` указана дата отключения
-  2 ноября 2026.
-- В описании параметра `barcode` запроса `/v2/posting/fbs/get-by-barcode`
-  указано, что штрихкод можно получить в `barcodes` или `scanit`.
-
-### Notes
-
-- Сверка с анонсом Ozon за 22 сентября 2026: все пункты анонса отражены в
-  снимке. Методы этикеток в анонсе сформулированы как устаревающие; в типах
-  дата отключения есть в описаниях, флаг `@deprecated` у этих путей не
-  выставлен.
-- Пункты анонса за 17 сентября 2026 (`/v2/draft/create/info`,
-  `/v1/supply-order/content/update/status`) уже отражены в 0.11.0.
-- Обновление раздела «Порядок работы с методами» для этикеток —
-  документация на сайте, в снимок OpenAPI не входит.
-- Уточнение описания `total` в ответах
-  `/v1/actions/auto-add/products/list` и
-  `/v1/actions/auto-add/products/candidates` пришло со снимком, но в анонсе
-  Ozon не упоминается.
+- Помечены deprecated (отключение 13 октября 2026): `/v1/actions/candidates`,
+  `/v1/actions/products`, `/v1/actions/products/activate`,
+  `/v1/actions/products/deactivate` и четыре метода
+  `/v1/actions/auto-add/products/*` (`list`, `candidates`, `delete`, `update`).
+- В описаниях `/v2/posting/fbs/package-label`, `/v1` и `/v2`
+  `package-label/create`, `/v1/posting/fbs/package-label/get` указано
+  отключение 2 ноября 2026. Флаг `@deprecated` не выставлен.
+- В `/v2/posting/fbs/get-by-barcode` штрихкод для `barcode` берётся из
+  `barcodes` или `scanit`.
 
 ## [0.11.0] - 2026-09-18
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 14–17 сентября
 2026.
-Пути: 466 → 470 (+4 / −0); схемы: 2154 → 2214 (+60 / −0); новые поля в
-существующих схемах: 9.
-Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Added
 
-- `POST /v1/analytics/category/comparison` — бета-метод сравнения категорий
-  (и связанные схемы `analytics.v1.AnalyticsCategoryComparison*`).
-- `POST /v1/analytics/local-sale/total`,
-  `POST /v1/analytics/local-sale/clusters-items/info` и
-  `POST /v1/analytics/local-sale/items-clusters/info` — бета-методы локальности
-  продаж (и связанные схемы `analytics.v1.AnalyticsLocalSale*`).
-- В ответ `/v2/draft/create/info` (`ErrorItemsValidation`) добавлены `limit` и
-  `supply_id`.
+- `POST /v1/analytics/category/comparison` (бета).
+- `POST /v1/analytics/local-sale/total`, `.../clusters-items/info`,
+  `.../items-clusters/info` (бета).
+- В ответ `/v2/draft/create/info` добавлены `limit` и `supply_id`.
 - В `ErrorErrorMessageEnum` добавлены
   `LIMIT_EXCEEDED_ACCORDING_TO_SHIPMENT_DISCIPLINE` и
   `BACKUP_SUPPLY_ALREADY_USED`.
-- В ответ `/v1/supply-order/content/update/status` добавлено `error_details`
-  (и связанные схемы
-  `supply_order.v1.SupplyOrderContentUpdateStatusResponse.ErrorDetails*`).
-- В ответ `/v1/analytics/stocks` (`v1AnalyticsStocksResponseItem`) добавлены
-  `inbound_replenishment`, `outbound_pending_delivery`,
-  `outbound_returns_picking`, `outbound_returns_ready_to_ship`,
-  `outbound_returns_return_to_seller` и `stock_not_being_sold`.
+- В ответ `/v1/supply-order/content/update/status` добавлено `error_details`.
+- В ответ `/v1/analytics/stocks` добавлены `inbound_replenishment`,
+  `outbound_pending_delivery`, `outbound_returns_picking`,
+  `outbound_returns_ready_to_ship`, `outbound_returns_return_to_seller`,
+  `stock_not_being_sold`.
 
 ### Changed
 
-- В описании `/v1/analytics/data` указан лимит 50 запросов в сутки для продавцов
-  без Premium Plus / Premium Pro.
+- `/v1/analytics/data`: лимит 50 запросов в сутки без Premium Plus / Premium Pro.
 - Обновлены описания ценовых параметров в `/v3/product/import`,
   `/v1/product/import-by-sku`, `/v3/product/info/list`,
   `/v1/product/import/prices`, `/v5/product/info/prices` и
   `/v1/product/prices/details`.
-- В описаниях `integration_type_flow` у части схем отправлений убран пункт про
+- Из описаний `integration_type_flow` у части схем отправлений убран пункт про
   `FBP`.
-
-### Notes
-
-- Сверка с анонсом Ozon за 14–17 сентября 2026: все пункты анонса отражены в
-  снимке. Расширение `ErrorErrorMessageEnum` в анонсе сформулировано как
-  обновление описания `errors.error_message`; в типах добавлены два значения.
-- Новые поля `/v1/analytics/stocks` и правка описаний `integration_type_flow`
-  пришли со снимком, но в анонсе Ozon не упоминаются.
 
 ## [0.10.0] - 2026-09-11
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 сентября
-2026.
-Пути: 465 → 466 (+1 / −0); схемы: 2150 → 2154 (+4 / −0); новые поля в
-существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 сентября 2026.
 
 ### Added
 
-- `POST /v1/fbp/order/direct/tpl-dlv/edit` — бета-метод обновления информации о
-  доставке сторонней транспортной компанией (и связанные схемы
-  `fbp.v1.FbpOrderDirectTplDlvEditRequest`,
-  `fbp.v1.FbpOrderDirectTplDlvEditResponse`,
-  `fbp.v1.OrderValidationError`,
-  `fbp.v1.OrderValidationError.ErrorType`).
+- `POST /v1/fbp/order/direct/tpl-dlv/edit` — обновление доставки сторонней
+  транспортной компанией (бета).
 
 ### Changed
 
-- В запросе `/v1/product/import/prices`
-  (`productImportProductsPricesRequestPrice`) параметры `auto_action_enabled` и
-  `manage_elastic_boosting_through_price` помечены как `@deprecated`.
-- В `v3ImportProductsRequestItem` поле `geo_names` помечено как `@deprecated`.
-
-### Notes
-
-- Сверка с анонсом Ozon за 11 сентября 2026: новый путь
-  `/v1/fbp/order/direct/tpl-dlv/edit` и deprecation параметров цен в
-  `/v1/product/import/prices` отражены в снимке.
-- Deprecation `geo_names` пришло со снимком, но в анонсе Ozon не упоминается.
+- В `/v1/product/import/prices` параметры `auto_action_enabled` и
+  `manage_elastic_boosting_through_price` помечены deprecated.
+- В `v3ImportProductsRequestItem` поле `geo_names` помечено deprecated.
 
 ## [0.9.1] - 2026-09-09
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 9
-сентября 2026. Сверка с анонсом Ozon не проводилась.
-Пути: 465 → 465 (+0 / −0); схемы: 2150 → 2150 (+0 / −0); новые поля в
-существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
-
-### Added
-
-- Изменений в API-поверхности нет.
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на
+9 сентября 2026.
 
 ### Changed
 
-- В описаниях загрузки изображений для товарных методов и связанных схем
-  уточнён лимит: до 50 изображений (вместо 30), включая сценарий с
-  `primary_image`.
-
-### Notes
-
-- Изменения пришли только в текстовых описаниях `src/generated/types.ts`;
-  сигнатуры типов, пути и методы не изменились.
+- В описаниях загрузки изображений лимит 50 штук, включая `primary_image`
+  (было 30).
 
 ## [0.9.0] - 2026-09-08
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 7-8 сентября
-2026.
-Пути: 467 → 465 (+0 / −2); схемы: 2162 → 2150 (+1 / −13); новые поля в
-существующих схемах: 1.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 7–8 сентября 2026.
 
 ### Added
 
-- В ответ `/v1/product/prices/details` добавлено поле `prices.weight_index`.
+- В ответ `/v1/product/prices/details` добавлено `prices.weight_index`.
 
 ### Changed
 
-- Схема `v1SellerActionsProductsAddRequestProduct` изменилась с обычного объекта
-  на `oneOf`-вариант (`... & (unknown | unknown)` в сгенерированном типе) и
-  получила `action_price`.
+- В товаре запроса `/v1/seller-actions/products/add` добавлен `action_price`,
+  схема стала `oneOf`.
 
 ### Removed
 
-- Удалены пути `POST /v1/product/quant/info` и `POST /v1/product/quant/list`.
-- Удалены связанные схемы:
-  `ProductV1QuantInfoRequest`,
-  `ProductV1QuantInfoResponse`,
-  `ProductV1QuantInfoResponseResultItems`,
-  `ProductV1QuantInfoResponseResultItemsQuantInfo`,
-  `ProductV1QuantInfoResponseResultItemsQuantInfoQuants`,
-  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsBarcodesExtended`,
-  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsDimensions`,
-  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsMarketingPrice`,
-  `ProductV1QuantInfoResponseResultItemsQuantInfoQuantsTexts`,
-  `ProductV1QuantListRequest`,
-  `ProductV1QuantListResponse`,
-  `ProductV1QuantListResponseProducts`,
-  `ProductV1QuantListResponseProductsQuants`.
+- `POST /v1/product/quant/info` и `POST /v1/product/quant/list`.
 
 ### Breaking
 
-- Вызовы `client.request('/v1/product/quant/info', ...)` и
-  `client.request('/v1/product/quant/list', ...)` больше не типизируются:
-  пути удалены из снимка.
-- Для `/v1/seller-actions/products/add` изменилась форма товара в
-  `v1SellerActionsProductsAddRequestProduct`: добавлен `action_price` и
-  введено `oneOf`-ограничение в схеме.
-
-### Notes
-
-- Сверка с анонсом Ozon за 7-8 сентября 2026: удаление
-  `/v1/product/quant/*` и добавление `prices.weight_index` отражены в снимке.
-- Пункты анонса про `/v2/review/list`, `/v1/analytics/stocks`,
-  `/v2/product/certification/options`, `/v2/product/certification/params` и
-  `/v2/product/certificate/create` носят описательный характер и в сигнатурах
-  типов текущего снимка не проявились.
-- Изменение `v1SellerActionsProductsAddRequestProduct` пришло со снимком
-  спецификации, но в анонсе Ozon не упоминается.
-- Миграция: прекратить использование удалённых `/v1/product/quant/*`; для
-  добавления товаров в акцию перепроверить payload и типизацию запроса
-  `/v1/seller-actions/products/add` под новую `oneOf`-схему.
+- Эти два пути больше не типизируются.
+- Для `/v1/seller-actions/products/add` тело запроса нужно сверить с новой
+  `oneOf`-схемой и полем `action_price`.
 
 ## [0.8.0] - 2026-09-03
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 2–3 сентября
-2026.
-Пути: 465 → 467 (+2 / −0); схемы: 2143 → 2162 (+19 / −0); новые поля в
-существующих схемах: 7.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 2–3 сентября 2026.
 
 ### Added
 
-- `POST /v1/analytics/decommissioned-goods` — бета-метод отчёта о списанных
-  товарах.
-- `POST /v2/product/pictures/import` — новая версия импорта/обновления
-  изображений товара.
+- `POST /v1/analytics/decommissioned-goods` — отчёт о списанных товарах (бета).
+- `POST /v2/product/pictures/import`.
 
 ### Changed
 
-- `POST /v1/product/pictures/import` помечен как `@deprecated`; в описании
-  указано отключение с 1 октября 2026 года и переход на
-  `/v2/product/pictures/import`.
-- В `POST /v1/product/certificate/products/list` в описании зафиксирован
-  будущий отказ от `page`/`page_size` (с 28 сентября 2026) в пользу
-  `last_id`/`limit`; также уточнено описание `last_id` в схеме запроса.
-- Для `POST /v1/notification/list` в типах добавлена структура запроса
-  `notification.v1.NotificationListRequest` (`availability_statuses`, `limit`,
-  `offset`, `sort_dir`) и расширен ответ информацией о статусе доступности URL.
-
-### Removed
-
-- Удалённых путей и схем в снимке нет.
+- `POST /v1/product/pictures/import` deprecated, отключение 1 октября 2026.
+  Замена — `/v2/product/pictures/import`.
+- В `POST /v1/product/certificate/products/list` с 28 сентября 2026
+  `page`/`page_size` заменяются на `last_id`/`limit`.
 
 ### Breaking
 
-- В операции `NotificationList` сигнатура изменилась с `requestBody?: never` на
-  обязательный `requestBody` (`application/json:
-  notification.v1.NotificationListRequest`). Типизированный вызов
-  `client.request('/v1/notification/list')` без body больше не проходит.
-- В `notification.v1.NotificationListResponse` поля
-  `availability_status_thresholds` и `total_count` стали required.
-- В `notification.v1.NotificationListResponse.Notification` поля
-  `availability_status`, `availability_status_date`, `disable_reason`,
-  `problematic_type`, `reason_details` стали required.
-
-### Notes
-
-- Миграция: для `/v1/notification/list` передавать JSON-body минимум `{}`; при
-  фильтрации использовать `availability_statuses`, пагинацию `limit`/`offset`,
-  сортировку `sort_dir`.
-- При использовании response-типов как контракта (моки, адаптеры,
-  сериализация) учесть новые required-поля в
-  `notification.v1.NotificationListResponse*`.
-- Сверка с анонсом Ozon за 2-3 сентября 2026: пункты про новые
-  `/v2/product/pictures/import`,
-  deprecated `/v1/product/pictures/import`, новый
-  `/v1/analytics/decommissioned-goods` и изменения `/v1/notification/list`
-  отражены в снимке; пункт про `params.files.name` и заметка о
-  `file extension is not available` относятся к описательной документации и в
-  сгенерированных типах не проявились.
+- `/v1/notification/list`: тело запроса обязательно
+  (`availability_statuses`, `limit`, `offset`, `sort_dir`). Вызов без body не
+  типизируется; минимум — `{}`.
+- В ответе обязательны `availability_status_thresholds` и `total_count`. У
+  элемента уведомления обязательны `availability_status`,
+  `availability_status_date`, `disable_reason`, `problematic_type`,
+  `reason_details`.
 
 ## [0.7.0] - 2026-09-01
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 1 сентября 2026. Сверка с анонсом Ozon не проводилась.
-Пути: 463 → 465 (+2 / −0); схемы: 2136 → 2143 (+7 / −0); новые поля в существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на
+1 сентября 2026.
 
 ### Added
 
-- `POST /v1/description-category/dependent-attributes` — пары идентификаторов
-  родительской и дочерней характеристик категории.
-- `POST /v1/description-category/dependent-attributes/values` — возможные
-  значения дочерней характеристики для значений родительской.
+- `POST /v1/description-category/dependent-attributes` — пары родительской и
+  дочерней характеристик.
+- `POST /v1/description-category/dependent-attributes/values` — значения
+  дочерней характеристики.
 
 ### Changed
 
-- Transitive `esbuild` закреплён на `0.27.2` (`npm audit fix`, GHSA-g7r4-m6w7-qqqr;
-  уязвимы `0.27.3`–`0.28.0`). Только toolchain; runtime-зависимостей нет.
+- `esbuild` закреплён на `0.27.2` (`npm audit fix`, GHSA-g7r4-m6w7-qqqr).
+  Только dev toolchain.
 
 ## [0.6.1] - 2026-08-28
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 28 августа 2026. Сверка с анонсом Ozon не проводилась.
-Пути: 463 → 463 (+0 / −0); схемы: 2136 → 2136 (+0 / −0); новые поля в существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на
+28 августа 2026.
 
 ### Changed
 
-- В примерах ответов домен ссылок на изображения и файлы обновлён с `ir-3.ozone.ru` на `ir.ozone.ru`.
+- В примерах ответов домен `ir-3.ozone.ru` заменён на `ir.ozone.ru`.
 
 ## [0.6.0] - 2026-08-21
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 14–19 августа 2026.
-Пути: 463 → 463 (+0 / −0); схемы: 2136 → 2136 (+0 / −0); новые поля в существующих схемах: 0.
-Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Changed
 
-- В `/v2/posting/fbs/act/get-container-labels` уточнено описание `id`: идентификатор перевозки из `/v1/carriage/create`.
-- В `/v1/carriage/create` обновлено описание метода.
-- В `/v3/chat/list` (и связанных схемах чатов) обновлено описание `chat_type`.
-- В `/v3/product/info/list` поле `availabilities[].availability` типизировано как enum
-  `HIDDEN` | `AVAILABLE` | `UNAVAILABLE` (раньше — `string`).
-- В описании `/v4/product/info/stocks` уточнена формулировка про схемы и ссылку на analytics/stocks.
+- Уточнены описания: `id` в `/v2/posting/fbs/act/get-container-labels`
+  (идентификатор перевозки из `/v1/carriage/create`), метод
+  `/v1/carriage/create`, `chat_type` в `/v3/chat/list`, формулировка схем в
+  `/v4/product/info/stocks`.
 
 ### Breaking
 
-- В `ChatInfoChatTypeEnum` добавлены значения:
-  `SELLER_PERSONAL_MANAGER_UNITY_CRM`, `SELLER_BUSINESS_DEVELOPMENT_GROUP`.
-- В `GetProductInfoListResponseAvailability.availability` тип сужен с `string`
-  до `"HIDDEN" | "AVAILABLE" | "UNAVAILABLE"`.
-- В `reportCreateCompanyPostingsReportRequestFilter` поле `delivery_schema` стало обязательным.
-
-### Notes
-
-- Миграция: при создании отчёта по отправлениям всегда передавать `filter.delivery_schema`
-  (например `["fbo"]` или `["fbs"]`). Для `availability` опираться на новые значения enum,
-  а не на произвольные строки (в примерах Ozon вместо `in_stock` — `AVAILABLE`).
-- Сверка с анонсом Ozon за 14–19 августа 2026 проведена: пункты анонса отражены;
-  методы courier-contact уже в 0.5.0. Изменения `availability` и `delivery_schema`
-  в анонсе не упоминались — пришли со снимком спецификации.
+- В `ChatInfoChatTypeEnum` добавлены `SELLER_PERSONAL_MANAGER_UNITY_CRM` и
+  `SELLER_BUSINESS_DEVELOPMENT_GROUP`.
+- `availability` в ответе `/v3/product/info/list` сужен до
+  `"HIDDEN" | "AVAILABLE" | "UNAVAILABLE"`. В примерах Ozon вместо `in_stock`
+  стоит `AVAILABLE`.
+- `filter.delivery_schema` в запросе отчёта по отправлениям обязателен,
+  например `["fbo"]` или `["fbs"]`.
 
 ## [0.5.0] - 2026-08-14
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 13–14 августа 2026.
-Пути: 458 → 463 (+5 / −0); схемы: 2112 → 2136 (+24 / −0); новые поля в существующих схемах: 6.
-Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Added
 
-- `POST /v1/carriage/courier-contact/set` и `POST /v1/carriage/courier-contact/get` —
-  контактные данные продавца для курьера.
-- Бета-методы сертификатов:
-  `POST /v2/product/certification/options`,
-  `POST /v2/product/certification/params`,
-  `POST /v2/product/certificate/create`.
+- `POST /v1/carriage/courier-contact/set` и
+  `POST /v1/carriage/courier-contact/get`.
+- Бета-методы сертификатов: `POST /v2/product/certification/options`,
+  `POST /v2/product/certification/params`, `POST /v2/product/certificate/create`.
 - В `/v1/analytics/stocks`: запрос — `placement_zone`, `unmarked_stocks_only`;
   ответ — `items.waiting_docs_to_export_stock_count`, `items.placement_zone`.
-- В ответе `/v2/delivery/checkout`: `splits.commissions`.
-- В bind/unbind сертификата: параметр `skus`.
-- В `/v1/product/certificate/products/list`: параметры `last_id`, `limit`;
-  в ответе — `result.items.sku`.
+- В ответе `/v2/delivery/checkout` добавлено `splits.commissions`.
+- В bind/unbind сертификата добавлен `skus`.
+- В `/v1/product/certificate/products/list` добавлены `last_id` и `limit`; в
+  ответе — `result.items.sku`.
 
 ### Changed
 
-- `/v1/product/certificate/create` помечен `@deprecated` (отключение 31 августа 2026).
-- В bind/unbind: `product_id` помечен `@deprecated`.
-- В products/list: `page` и `page_size` помечены `@deprecated`.
-- В `/v1/analytics/stocks` обновлены описания и enum `item_tags`
-  (в запросе добавлен `MARKABLE`, в ответе — `MARKABLE` и `UNSPECIFIED`).
+- `/v1/product/certificate/create` deprecated (отключение 31 августа 2026).
+  Замена — v2 options / params / create.
+- В bind/unbind `product_id` deprecated. Для привязки использовать `skus`.
+- В списке товаров сертификата `page` и `page_size` deprecated. Для пагинации
+  использовать `last_id` и `limit`.
+- В enum `item_tags` метода `/v1/analytics/stocks` добавлены `MARKABLE` (запрос
+  и ответ) и `UNSPECIFIED` (ответ).
 
 ### Breaking
 
-- В запросах bind/unbind `product_id` больше не всегда required: схема — `oneOf`
-  (`product_id` | `skus`); в типах `product_id` стал optional.
-- В запросе products/list `page`/`page_size` больше не всегда required: схема — `oneOf`
-  (`page`+`page_size` | `limit`); в типах эти поля стали optional.
-- Расширены enum `item_tags` в запросе и ответе `/v1/analytics/stocks`
-  (новые значения в подписи типа).
-
-### Notes
-
-- Миграция по анонсу Ozon: для bind/unbind предпочитать `skus`; для products/list —
-  `last_id`/`limit`; вместо `/v1/product/certificate/create` — v2 options/params/create
-  до 31 августа 2026.
-- Сверка с анонсом Ozon за 13–14 августа 2026 проведена: все пункты отражены в снимке.
+- bind/unbind: `oneOf` (`product_id` | `skus`), `product_id` больше не required.
+- Список товаров сертификата: `oneOf` (`page`+`page_size` | `limit`),
+  `page` и `page_size` больше не required.
+- Новые значения `item_tags` вошли в подпись типа `/v1/analytics/stocks`.
 
 ## [0.4.0] - 2026-08-11
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 августа 2026.
-Пути: 459 → 458 (+4 / −5); схемы: 2089 → 2112 (+28 / −5). Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Added
 
-- Бета-методы работы с актами FBO:
-  `POST /v1/supply-order/act/summary/get`,
-  `POST /v1/supply-order/act/product/get`,
-  `POST /v1/supply-order/act/accept`,
-  `POST /v1/supply-order/act/accept/status`
-  и связанные схемы запросов/ответов.
+- Бета-методы актов FBO: `POST /v1/supply-order/act/summary/get`,
+  `.../product/get`, `.../accept`, `.../accept/status`.
 
 ### Changed
 
-- В ответе `/v2/returns/rfbs/get` поле `returns.return_method_description` помечено как `@deprecated`.
+- В ответе `/v2/returns/rfbs/get` поле `returns.return_method_description`
+  помечено deprecated.
+- `npm audit fix` (devDependencies): `@redocly/openapi-core` 1.34.17 → 1.34.19,
+  `js-yaml` 4.2.0 → 4.3.1, `brace-expansion` 2.1.2 → 2.1.4, `nanoid` 3.3.16 →
+  3.3.18.
 
 ### Removed
 
-- Из снимка удалены методы (и request-схемы):
-  `/v2/returns/rfbs/reject`,
-  `/v2/returns/rfbs/compensate`,
-  `/v2/returns/rfbs/verify`,
-  `/v2/returns/rfbs/receive-return`,
-  `/v2/returns/rfbs/return-money`.
+- `/v2/returns/rfbs/reject`, `compensate`, `verify`, `receive-return`,
+  `return-money`.
 
 ### Breaking
 
-- Вызовы удалённых `/v2/returns/rfbs/*` больше не типизируются через `request()`: типы путей и схем убраны из сгенерированной карты.
-
-### Notes
-
-- Миграция по анонсу Ozon: вместо удалённых методов использовать `/v1/returns/rfbs/action/set`.
-- В анонсе также указано обновление `v2/delivery/checkout` (предварительная стоимость услуг) — в этом снимке OpenAPI изменений нет.
-- В ветку также вошёл `npm audit fix` по транзитивным devDependencies: `@redocly/openapi-core` 1.34.17 → 1.34.19, `js-yaml` 4.2.0 → 4.3.1, `brace-expansion` 2.1.2 → 2.1.4, `nanoid` 3.3.16 → 3.3.18. На рантайм пакета не влияет.
+- Эти пути больше не типизируются. Замена — `/v1/returns/rfbs/action/set`.
 
 ## [0.3.0] - 2026-08-07
 
-Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на 7 августа 2026. Сверка с анонсом Ozon не проводилась.
-Число путей и схем не изменилось. Рантайм клиента не менялся (`http-methods` без изменений).
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon по состоянию на
+7 августа 2026.
 
 ### Breaking
 
-- `deletion_sku_mode` стал обязательным в `v1DraftCrossdockCreateRequest`, `v1DraftDirectCreateRequest` и `v1DraftMultiClusterCreateRequest`.
-- В комментариях к сгенерированным типам для `deletion_sku_mode` больше не указан `@default PARTIAL`, поэтому на неявное значение по умолчанию полагаться нельзя.
-
-### Notes
-
-- Миграция: все вызовы создания черновиков поставок должны явно задавать `deletion_sku_mode` со значением `PARTIAL` или `FULL`.
-- В диффе также уточнено текстовое описание `deletion_sku_mode`; допустимые значения enum не изменились.
+- `deletion_sku_mode` обязателен в запросах создания черновиков поставок
+  (crossdock, direct, multi-cluster). Значения: `PARTIAL` или `FULL`.
+  Комментарий `@default PARTIAL` убран.
 
 ## [0.2.1] - 2026-08-05
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 4 августа 2026.
-Число путей и схем не изменилось. Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Added
 
-- Восемь типов пуш-уведомлений в enum `types` / `urls.types.type` / `types.type` для `/v1/notification/set`, `/v1/notification/update`, `/v1/notification/list`, `/v1/notification/push-type/list`:
-  `TYPE_FBO_POSTING_NEW`, `TYPE_FBO_POSTING_CANCELLED`, `TYPE_FBO_POSTING_STATE_CHANGED`, `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED`, `TYPE_FBO_STOCKS_CHANGED`, `TYPE_ORDER_NEW`, `TYPE_ORDER_CANCELLED`, `TYPE_ORDER_STATE_CHANGED`.
+- Восемь значений enum уведомлений для `/v1/notification/set`, `update`,
+  `list`, `push-type/list`: `TYPE_FBO_POSTING_NEW`,
+  `TYPE_FBO_POSTING_CANCELLED`, `TYPE_FBO_POSTING_STATE_CHANGED`,
+  `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED`, `TYPE_FBO_STOCKS_CHANGED`,
+  `TYPE_ORDER_NEW`, `TYPE_ORDER_CANCELLED`, `TYPE_ORDER_STATE_CHANGED`.
 
 ### Changed
 
-- Уточнены описания `types` (запрос) и `urls.types.type` / `types.type` (ответ) в методах notification выше.
-- Уточнено описание `is_marketplace_buyout` в ответах FBS/FBO list/get (`/v4/posting/fbs/*`, `/v3/posting/fbs/*`, `/v3/posting/fbo/list`, `/v2/posting/fbo/*`): признак выкупа товара Ozon, без привязки только к ЕАЭС.
+- Уточнены описания этих enum и `is_marketplace_buyout` в ответах FBS/FBO
+  list/get: выкуп товара Ozon, не только ЕАЭС.
 - Уточнено описание `/v1/finance/products/buyout`.
 
 ## [0.2.0] - 2026-08-01
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon за 16–30 июля 2026.
-Пути: 458 → 459; схемы: 2083 → 2089. Рантайм клиента не менялся (`http-methods` без изменений).
 
 ### Added
 
-- `POST /v1/report/realization/posting/create` — бета-метод позаказного отчёта о реализации товаров.
-- `result.additional_data` / `result.reports.additional_data` в ответах `/v1/report/info` и `/v1/report/list`.
-- В `/v1/finance/accrual/by-day`: `accruals.container_fees` и значение `CONTAINER_FEES` в `accruals.accrued_category`.
+- `POST /v1/report/realization/posting/create` — позаказный отчёт о реализации
+  (бета).
+- `additional_data` в ответах `/v1/report/info` и `/v1/report/list`.
+- В `/v1/finance/accrual/by-day` добавлены `accruals.container_fees` и значение
+  `CONTAINER_FEES` в `accruals.accrued_category`.
 
 ### Changed
 
-- Уточнены описания `date` и `last_id` (и связанных полей ответа) в `/v1/finance/accrual/by-day`.
-- Уточнено описание `message` в теле ошибки 400 для `/v1/finance/realization/posting` (в том числе отсылка к новому методу отчёта).
-
-### Notes
-
-Из опубликованного changelog Ozon за этот период в снимке спеки **не отразились** (или уже были раньше):
-
-- `integration_type_flow` / `sorting_center` для FBS list/get/unfulfilled — уже присутствовали в предыдущих типах;
-- описание realtime для `/v1/analytics/stocks` (с 17 августа 2026), `PRODUCT_IS_ARCHIVED` для `/v2/products/stocks`, правки `/v1/product/unarchive` — в этом снимке OpenAPI нет.
+- Уточнены описания `date` и `last_id` в `/v1/finance/accrual/by-day`.
+- Уточнено `message` ошибки 400 у `/v1/finance/realization/posting`.
 
 ## [0.1.1] - 2026-07-25
 
 ### Fixed
 
-- Резолв типов вложенного пути `/limiter` при `moduleResolution: node` / `node10` через `typesVersions` (рантайм не затрагивался).
-- Дедупликация `.d.mts`: декларации больше не дублируют многомегабайтный сгенерированный typeship.
+- Резолв типов `/limiter` при `moduleResolution: node` / `node10` через
+  `typesVersions`.
+- Декларации `.d.mts` больше не дублируют сгенерированный typeship.
 
 ### Changed
 
-- В дефолты лимитера добавлены все пометодные лимиты, явно указанные в спецификации.
+- В дефолты лимитера добавлены все пометодные лимиты из спецификации.
 - Лицензия: GPL-3.0 → MIT.
-- README на русском; добавлен английский `README.en.md`.
+- README на русском; добавлен `README.en.md`.
 
 ## [0.1.0] - 2026-07-25
 
@@ -863,7 +496,8 @@
 
 ### Added
 
-- Типизированный `OzonClient.request()` / `requestRaw()` по снимку OpenAPI Seller API.
-- Ошибки `OzonApiError`, повторы только на 429 и «Circle is open».
-- Встроенный лимитер как отдельный экспорт `artefactby-ozon-seller-api/limiter`.
-- Граница пакета зафиксирована как transport-only: один вызов — один логический запрос API.
+- Типизированный `OzonClient.request()` / `requestRaw()` по снимку OpenAPI
+  Seller API.
+- `OzonApiError`; повторы только на 429 и «Circle is open».
+- Лимитер: `artefactby-ozon-seller-api/limiter`.
+- Один вызов клиента — один запрос API.
