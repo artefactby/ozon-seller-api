@@ -5,6 +5,27 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.20.0] - 2026-11-06
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 5 и 6 ноября
+2026.
+
+Пути: 482 → 484 (+2 / −0). Схемы: 2307 → 2319 (+12 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v1/order/code/get` — код выдачи заказа для покупателя. Запрос:
+  `order_number`. Ответ: `code`, `valid_until`. Код используется, чтобы
+  сформировать QR.
+- `POST /v1/return/box/get-by-barcode` — информация о возвратной коробке по
+  штрихкоду с этикетки (бета). Запрос: `barcode` (`lozon_id`). Ответ:
+  `box_id`, `box_barcode`, `label_barcode`, `cargo_box_id`, `supply_id`,
+  `state`, `type`, `return_type`, `warehouse`, `destination_warehouse`,
+  `dimensions`, `weight`, `volume_in_litres`, `utilization_reason`,
+  `updated_at`.
+- В `buyer` запроса `/v2/order/create` добавлен необязательный `email`.
+
 ## [0.19.2] - 2026-11-03
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 22 и 28 октября

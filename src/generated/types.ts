@@ -7191,6 +7191,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/return/box/get-by-barcode": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о возвратных коробках по штрихкоду с этикетки
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2177-Novyi-metod-dlia-polucheniia-ostatkov-FBO/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReturnAPI_BoxGetByBarcode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/supply-order/act/summary/get": {
         parameters: {
             query?: never;
@@ -10415,6 +10435,26 @@ export interface paths {
          *     Значение параметра `delivery_schema` должно совпадать с тем, что вы передали в [/v2/delivery/checkout](#operation/DeliveryCheckout).
          */
         post: operations["OrderAPI_OrderCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/order/code/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить код выдачи заказа
+         * @description Метод возвращает код выдачи заказа для покупателя. Используйте полученный код, чтобы сформировать QR-код.
+         */
+        post: operations["OrderAPI_OrderCodeGet"];
         delete?: never;
         options?: never;
         head?: never;
@@ -34754,6 +34794,172 @@ export interface components {
             rate_details?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.RateDetails"];
             restrictions?: components["schemas"]["supply_order.v1.SupplyOrderShipmentPlanComplianceGetResponse.Restrictions"];
         };
+        /** object */
+        "return.v1.BoxGetByBarcodeRequest": {
+            /**
+             * Format: int64
+             * @description Штрихкод с возвратной этикетки — `lozon_id`.
+             */
+            barcode: number;
+        };
+        /**
+         * @description Тип склада:
+         *     - `UNSPECIFIED` — не указан;
+         *     - `SELLER_WAREHOUSE` — склад продавца;
+         *     - `OZON_WAREHOUSE` — склад Ozon.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "return.v1.BoxGetByBarcodeResponse.DestinationWarehouse.Type.Enum": "UNSPECIFIED" | "SELLER_WAREHOUSE" | "OZON_WAREHOUSE";
+        /**
+         * object
+         * @description Склад назначения.
+         */
+        "return.v1.BoxGetByBarcodeResponse.DestinationWarehouse": {
+            /**
+             * Format: int64
+             * @description Идентификатор склада.
+             */
+            id?: number;
+            /** @description Название склада. */
+            name?: string;
+            type?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.DestinationWarehouse.Type.Enum"];
+        };
+        /**
+         * object
+         * @description Габариты коробки в сантиметрах.
+         */
+        "return.v1.BoxGetByBarcodeResponse.Dimensions": {
+            /**
+             * Format: int32
+             * @description Высота.
+             */
+            height?: number;
+            /**
+             * Format: int32
+             * @description Длина.
+             */
+            length?: number;
+            /**
+             * Format: int32
+             * @description Ширина.
+             */
+            width?: number;
+        };
+        /**
+         * @description Тип возврата:
+         *     - `UNSPECIFIED` — не указан;
+         *     - `SUPPLY_RETURN` — возврат с поставки;
+         *     - `STOCK_RETURN` — возврат со стока.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "return.v1.BoxGetByBarcodeResponse.ReturnType.Enum": "UNSPECIFIED" | "SUPPLY_RETURN" | "STOCK_RETURN";
+        /**
+         * string
+         * @description Статус коробки:
+         *     - `UNSPECIFIED` — не указан;
+         *     - `IN_STORAGE` — доступна к вывозу;
+         *     - `CONFIRMED` — добавлена в заявку на вывоз или доступна к вывозу;
+         *     - `APPROVAL`, `BLOCKED`, `PROCESSING`, `NOT_SHIPPED` — готова к вывозу;
+         *     - `REMOVED`, `LOST_IN_TRANSIT`, `LOST` — потеряна;
+         *     - `SHIPPED` — в пути;
+         *     - `COMPENSATED` — отправили компенсацию продавцу;
+         *     - `UTILIZED` — утилизирована;
+         *     - `LOADED` — собрана;
+         *     - `READY_FOR_DELIVERY` — на сортировке в сортировочном центре;
+         *     - `GIVEN_OUT` — у курьера;
+         *     - `DELIVERY_ATTEMPT_FAILED` — неудачная попытка доставки;
+         *     - `DELIVERED` — получена;
+         *     - `DELIVERY_CANCELLED` — доставка отменена;
+         *     - `UTILIZING` — в процессе утилизации;
+         *     - `STORED_AT_DELIVERY_POINT` — в пункте вывоза;
+         *     - `UNPACKED` — расформирована.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "return.v1.BoxGetByBarcodeResponse.State.Enum": "UNSPECIFIED" | "IN_STORAGE" | "CONFIRMED" | "APPROVAL" | "BLOCKED" | "PROCESSING" | "REMOVED" | "SHIPPED" | "COMPENSATED" | "UTILIZED" | "LOADED" | "NOT_SHIPPED" | "LOST_IN_TRANSIT" | "READY_FOR_DELIVERY" | "GIVEN_OUT" | "DELIVERY_ATTEMPT_FAILED" | "DELIVERED" | "DELIVERY_CANCELLED" | "UTILIZING" | "STORED_AT_DELIVERY_POINT" | "LOST" | "UNPACKED";
+        /**
+         * string
+         * @description Тип коробки:
+         *     - `UNSPECIFIED` — не указан;
+         *     - `SUPPLY_SURPLUS` — излишки;
+         *     - `SUPPLY_DEFECT` — брак;
+         *     - `STOCK` — остатки.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "return.v1.BoxGetByBarcodeResponse.Type.Enum": "UNSPECIFIED" | "SUPPLY_SURPLUS" | "SUPPLY_DEFECT" | "STOCK";
+        /**
+         * string
+         * @description Причина утилизации:
+         *     - `UNSPECIFIED` — не указана;
+         *     - `SELLER_DEMAND` — вы заказали утилизацию;
+         *     - `EXPIRATION` — истёк срок годности у товара;
+         *     - `DEFECT_1P` — брак;
+         *     - `COMPENSATED_BOX_WAS_FOUND` — обнаружена компенсированная коробка;
+         *     - `STORAGE_FAULT` — складская ошибка;
+         *     - `STORAGE_RULES_VIOLATION` — нарушены правила хранения.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "return.v1.BoxGetByBarcodeResponse.UtilizationReason.Enum": "UNSPECIFIED" | "SELLER_DEMAND" | "EXPIRATION" | "DEFECT_1P" | "COMPENSATED_BOX_WAS_FOUND" | "STORAGE_FAULT" | "STORAGE_RULES_VIOLATION";
+        /**
+         * object
+         * @description Информация о складе.
+         */
+        "return.v1.BoxGetByBarcodeResponse.Warehouse": {
+            /**
+             * Format: int64
+             * @description Идентификатор склада.
+             */
+            id?: number;
+            /** @description Название склада. */
+            name?: string;
+        };
+        "return.v1.BoxGetByBarcodeResponse": {
+            /** @description Штрихкод коробки. */
+            box_barcode?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор коробки.
+             */
+            box_id?: number;
+            /** @description Идентификатор груза. */
+            cargo_box_id?: string;
+            destination_warehouse?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.DestinationWarehouse"];
+            dimensions?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.Dimensions"];
+            /**
+             * Format: int64
+             * @description Штрихкод этикетки возврата. Если `0`, получить штрихкод не удалось.
+             */
+            label_barcode?: number;
+            return_type?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.ReturnType.Enum"];
+            state?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.State.Enum"];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+            type?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.Type.Enum"];
+            /**
+             * Format: date-time
+             * @description Дата последнего обновления.
+             */
+            updated_at?: string;
+            utilization_reason?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.UtilizationReason.Enum"];
+            /**
+             * Format: double
+             * @description Объём коробки в литрах.
+             */
+            volume_in_litres?: number;
+            warehouse?: components["schemas"]["return.v1.BoxGetByBarcodeResponse.Warehouse"];
+            /**
+             * Format: int32
+             * @description Вес коробки в граммах.
+             */
+            weight?: number;
+        };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
              * Format: int64
@@ -43042,6 +43248,8 @@ export interface components {
         };
         /** @description Информация о покупателе. */
         OrderCreateRequestBuyer: {
+            /** @description Электронная почта. */
+            email?: string;
             /** @description Имя. */
             first_name: string;
             /** @description Фамилия. */
@@ -43228,6 +43436,19 @@ export interface components {
             order_number?: string;
             /** @description Отправления. */
             postings?: string[];
+        };
+        "order.v1.OrderCodeGetRequest": {
+            /** @description Номер заказа. */
+            order_number: string;
+        };
+        "order.v1.OrderCodeGetResponse": {
+            /** @description Код выдачи. */
+            code?: string;
+            /**
+             * Format: date-time
+             * @description Дата и время, до которого действует код выдачи.
+             */
+            valid_until?: string;
         };
         v1PostingCancelRequest: {
             /** @description Номер отправления. */
@@ -68217,6 +68438,39 @@ export interface operations {
             };
         };
     };
+    ReturnAPI_BoxGetByBarcode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["return.v1.BoxGetByBarcodeRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о возвратных коробках */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["return.v1.BoxGetByBarcodeResponse"];
+                };
+            };
+            /** @description Ошибка */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     SupplyOrderActSummaryGet: {
         parameters: {
             query?: never;
@@ -76174,6 +76428,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["v1OrderCreateResponse"];
+                };
+            };
+            /** @description Ошибка */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    OrderAPI_OrderCodeGet: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["order.v1.OrderCodeGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Код выдачи заказа */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["order.v1.OrderCodeGetResponse"];
                 };
             };
             /** @description Ошибка */
