@@ -5,6 +5,48 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.21.0] - 2026-11-10
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 10 ноября 2026.
+
+Пути: 484 → 484 (+0 / −0). Схемы: 2319 → 2319 (+0 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- В ответ `/v1/finance/accrual/by-day` добавлен необязательный `quantity`
+  (`int32`, количество товара):
+  - `accruals.item_fees.fees.quantity` — у элемента начисления по товару;
+  - `accruals.posting.products.quantity` — у товара в отправлении.
+    В обновлении Ozon поле названо `accruals.posting_products.quantity`.
+
+### Changed
+
+- Перенос методов из бета-раздела в основной отражён только в описаниях:
+  убраны ссылки на обсуждения в сообществе разработчиков. У методов
+  транспортных грузомест также убрана ссылка «Подробнее о работе с
+  транспортными грузоместами». Пути, запросы и ответы не менялись.
+  - `/v2/cargoes/get`, `/v2/cargoes/delete`, `/v2/cargoes/delete/status`,
+    `/v1/cargoes/transport/activate`, `/v1/cargoes/transport/activate/status`,
+    `/v1/cargoes/transport/create`, `/v1/cargoes/transport/create/status`,
+    `/v1/cargoes/transport/bind`, `/v1/cargoes/transport/bind/status`,
+    `/v1/cargoes/supplies/get`,
+    `/v1/cargoes/label/transport-by-order/create`,
+    `/v1/cargoes/label/transport-by-order/status`,
+    `/v1/cargoes/label/transport/create`,
+    `/v1/cargoes/label/transport/status`;
+  - `/v1/notification/set`, `/v1/notification/update`,
+    `/v1/notification/delete`, `/v1/notification/check`,
+    `/v1/notification/enable`, `/v1/notification/list`,
+    `/v1/notification/push-type/list`;
+  - `/v1/supply-order/act/summary/get`, `/v1/supply-order/act/product/get`,
+    `/v1/supply-order/act/accept`, `/v1/supply-order/act/accept/status`;
+  - `/v1/report/realization/posting/create` — текст отчёта сохранён.
+- У `/v1/product/info/stocks-by-warehouse/fbo` в заголовке и в описании
+  ответа 200 «стоках» заменено на «остатках». Ссылка на обсуждение убрана.
+- У `/v1/supply-order/cancel` и `/v1/supply-order/cancel/status` убрано
+  пустое описание (`description: null`). В обновлении Ozon этих методов нет.
+
 ## [0.20.0] - 2026-11-06
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 5 и 6 ноября

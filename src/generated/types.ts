@@ -987,6 +987,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/product/info/stocks-by-warehouse/fbo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию об остатках на складах FBO
+         * @description Передайте в запросе `offer_ids` или `skus`.
+         */
+        post: operations["GetProductInfoStocksByWarehouseFbo"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/product/info/warehouse/stocks": {
         parameters: {
             query?: never;
@@ -3077,6 +3097,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/cargoes/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить информацию о грузоместах */
+        post: operations["CargoesGetV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/cargoes/delete": {
         parameters: {
             query?: never;
@@ -3099,6 +3136,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/cargoes/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Удалить грузоместа и транспортные грузоместа в заявке на поставку */
+        post: operations["CargoesDeleteV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/cargoes/delete/status": {
         parameters: {
             query?: never;
@@ -3113,6 +3167,23 @@ export interface paths {
          * @description Метод для получения статуса удаления грузомест в заявке на поставку.
          */
         post: operations["CargoesAPI_CargoesDeleteStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/cargoes/delete/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить информацию о статусе удаления грузомест и транспортных грузомест */
+        post: operations["CargoesDeleteStatusV2"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3188,10 +3259,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Отменить заявку на поставку
-         * @description null
-         */
+        /** Отменить заявку на поставку */
         post: operations["SupplyOrderAPI_SupplyOrderCancel"];
         delete?: never;
         options?: never;
@@ -3208,10 +3276,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Получить статус отмены заявки на поставку
-         * @description null
-         */
+        /** Получить статус отмены заявки на поставку */
         post: operations["SupplyOrderAPI_SupplyOrderCancelStatus"];
         delete?: never;
         options?: never;
@@ -3334,6 +3399,196 @@ export interface paths {
         put?: never;
         /** Получить список складов продавца */
         post: operations["WarehouseFboSellerList"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/transport/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Включить или отключить транспортные грузоместа в поставке
+         * @description Если в поставке создано грузоместо, отключить транспортные грузоместа не получится.
+         */
+        post: operations["CargoesTransportActivate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/transport/activate/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить статус включения или отключения транспортных грузомест */
+        post: operations["CargoesTransportActivateStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/transport/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Создать транспортное грузоместо */
+        post: operations["CargoesTransportCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/transport/create/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить статус создания транспортного грузоместа */
+        post: operations["CargoesTransportCreateStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/transport/bind": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Связать или отвязать грузоместа и транспортные грузоместа */
+        post: operations["CargoesTransportBind"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/transport/bind/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить статус связывания или отвязывания грузомест и транспортных грузомест */
+        post: operations["CargoesTransportBindStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/supplies/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить информацию о грузоместах в поставках */
+        post: operations["CargoesSuppliesGet"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/label/transport-by-order/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Сгенерировать этикетки для транспортных грузомест по идентификатору поставки */
+        post: operations["CargoesLabelTransportByOrderCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/label/transport-by-order/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить статус генерации этикеток для транспортных грузомеcт по идентификатору поставки */
+        post: operations["CargoesLabelTransportByOrderStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/label/transport/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Сгенерировать этикетки транспортных грузомест по идентификатору грузоместа */
+        post: operations["CargoesLabelTransportCreate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/cargoes/label/transport/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить статус генерации этикеток транспортных грузомест по идентификатору грузоместа */
+        post: operations["CargoesLabelTransportStatus"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4933,28 +5188,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/product/info/stocks-by-warehouse/fbo": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить информацию о стоках на складах FBO
-         * @description Передайте в запросе `offer_ids` или `skus`.
-         *
-         *     Вы можете оставить обратную связь по этому методу в комментариях к [обсуждению](https://dev.ozon.ru/community/2177-Novyi-metod-dlia-polucheniia-ostatkov-FBO/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["GetProductInfoStocksByWarehouseFbo"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v2/returns/rfbs/list": {
         parameters: {
             query?: never;
@@ -5705,6 +5938,26 @@ export interface paths {
          * @description В одном отчёте вы можете получить не больше 50 000 кодов маркировки. Чтобы получить остальные данные, уменьшите период формирования отчёта.
          */
         post: operations["CreateCompanyMarkedProductsSalesReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/report/realization/posting/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить позаказный отчёт о реализации товаров
+         * @description Отчёт о реализации доставленных и возвращённых товаров с детализацией по каждому заказу. Не включает отмены и невыкупы. Отчёт доступен с настоящего времени по август 2023 года включительно.
+         */
+        post: operations["CreateCompanyFinanceRealizationPostingReport"];
         delete?: never;
         options?: never;
         head?: never;
@@ -7015,28 +7268,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v1/report/realization/posting/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить позаказный отчёт о реализации товаров
-         * @description Отчёт о реализации доставленных и возвращённых товаров с детализацией по каждому заказу. Не включает отмены и невыкупы. Отчёт доступен с настоящего времени по август 2023 года включительно.
-         *
-         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2280-Novyi-beta-metod-dlia-polucheniia-otcheta-o-realizatsii-po-postingam/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["CreateCompanyFinanceRealizationPostingReport"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v1/description-category/dependent-attributes": {
         parameters: {
             query?: never;
@@ -7220,10 +7451,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Получить информацию об акте
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
-         */
+        /** Получить информацию об акте */
         post: operations["SupplyOrderActSummaryGet"];
         delete?: never;
         options?: never;
@@ -7240,10 +7468,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Получить информацию о товарах в акте
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
-         */
+        /** Получить информацию о товарах в акте */
         post: operations["SupplyOrderActProductGet"];
         delete?: never;
         options?: never;
@@ -7260,10 +7485,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Согласовать акт
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
-         */
+        /** Согласовать акт */
         post: operations["SupplyOrderActAccept"];
         delete?: never;
         options?: never;
@@ -7280,10 +7502,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Получить статус согласования акта
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2294-Novye-beta-metody-dlia-raboty-s-aktami-FBO/) в сообществе разработчиков Ozon for dev.
-         */
+        /** Получить статус согласования акта */
         post: operations["SupplyOrderActAcceptStatus"];
         delete?: never;
         options?: never;
@@ -8296,450 +8515,6 @@ export interface paths {
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ActionsAutoAddProductsUpdate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/set": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Подключить URL-адрес для уведомлений
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["SetNotification"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Изменить URL-адрес для уведомлений
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["UpdateNotification"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/delete": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Удалить URL-адрес для уведомлений
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["DeleteNotification"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/check": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Проверить URL-адрес для уведомлений
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["CheckNotification"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/enable": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Включить или выключить уведомления на URL-адрес
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["EnableNotification"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/list": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить информацию по подключённым URL-адресам
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["NotificationList"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/notification/push-type/list": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить типы пуш-уведомлений
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/1978-Novye-beta-metody-dlia-upravleniia-podkliucheniiami-PUSH-uvedomlenii/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["GetNotificationPushTypeList"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/cargoes/get": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить информацию о грузоместах
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["CargoesGetV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/cargoes/delete": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Удалить грузоместа и транспортные грузоместа в заявке на поставку
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["CargoesDeleteV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/cargoes/delete/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить информацию о статусе удаления грузомест и транспортных грузомест
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         */
-        post: operations["CargoesDeleteStatusV2"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/transport/activate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Включить или отключить транспортные грузоместа в поставке
-         * @description Если в поставке создано грузоместо, отключить транспортные грузоместа не получится.
-         *
-         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesTransportActivate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/transport/activate/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить статус включения или отключения транспортных грузомест
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesTransportActivateStatus"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/transport/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Создать транспортное грузоместо
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesTransportCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/transport/create/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить статус создания транспортного грузоместа
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesTransportCreateStatus"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/transport/bind": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Связать или отвязать грузоместа и транспортные грузоместа
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesTransportBind"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/transport/bind/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить статус связывания или отвязывания грузомест и транспортных грузомест
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesTransportBindStatus"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/supplies/get": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить информацию о грузоместах в поставках
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesSuppliesGet"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/label/transport-by-order/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Сгенерировать этикетки для транспортных грузомест по идентификатору поставки
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesLabelTransportByOrderCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/label/transport-by-order/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить статус генерации этикеток для транспортных грузомеcт по идентификатору поставки
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesLabelTransportByOrderStatus"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/label/transport/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Сгенерировать этикетки транспортных грузомест по идентификатору грузоместа
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesLabelTransportCreate"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1/cargoes/label/transport/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Получить статус генерации этикеток транспортных грузомест по идентификатору грузоместа
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2179-Novye-beta-metody-dlia-raboty-s-transportnymi-gruzr/) в сообществе разработчиков Ozon for dev.
-         *
-         *     [Подробнее о работе с транспортными грузоместами](https://dev.ozon.ru/start/525-Rabota-s-transportnymi-gruzomestami-TGM-v-postavkakh-FBO/)
-         */
-        post: operations["CargoesLabelTransportStatus"];
         delete?: never;
         options?: never;
         head?: never;
@@ -10514,6 +10289,125 @@ export interface paths {
          *     Укажите в чеке и выведите из оборота маркировки экземпляров из параметра `issued_exemplars` в ответе.
          */
         post: operations["PostingAPI_PostingMarks"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/set": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Подключить URL-адрес для уведомлений */
+        post: operations["SetNotification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Изменить URL-адрес для уведомлений */
+        post: operations["UpdateNotification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Удалить URL-адрес для уведомлений */
+        post: operations["DeleteNotification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/check": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Проверить URL-адрес для уведомлений */
+        post: operations["CheckNotification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Включить или выключить уведомления на URL-адрес */
+        post: operations["EnableNotification"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить информацию по подключённым URL-адресам */
+        post: operations["NotificationList"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/notification/push-type/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить типы пуш-уведомлений */
+        post: operations["GetNotificationPushTypeList"];
         delete?: never;
         options?: never;
         head?: never;
@@ -12990,6 +12884,59 @@ export interface components {
              * @description Количество уникальных товаров, для которых выводится информация об остатках.
              */
             total_items?: number;
+        };
+        /** object */
+        "product.v1.GetProductInfoStocksByWarehouseFboRequest": {
+            /** @description Указатель для выборки следующих данных. */
+            cursor?: string;
+            /**
+             * Format: uint64
+             * @description Количество значений в ответе.
+             */
+            limit: number;
+            /** @description Идентификатор товаров в системе продавца — артикул. */
+            offer_ids?: string[];
+            /** @description Идентификатор товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /** object */
+        "product.v1.GetProductInfoStocksByWarehouseFboResponse.Product": {
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id?: string;
+            /**
+             * Format: int64
+             * @description Общее количество товара на складе.
+             */
+            present?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — `product_id`.
+             */
+            product_id?: number;
+            /**
+             * Format: int64
+             * @description Количество зарезервированных товаров на складе.
+             */
+            reserved?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            /**
+             * Format: int64
+             * @description Идентификатор склада. Можно получить с помощью метода [/v1/warehouse/ozon/list](#operation/WarehouseOZONList).
+             */
+            warehouse_id?: number;
+        };
+        /** object */
+        "product.v1.GetProductInfoStocksByWarehouseFboResponse": {
+            /** @description Указатель для выборки следующих данных. */
+            cursor?: string;
+            /** @description `true`, если в ответе вернулись не все значения. */
+            has_next?: boolean;
+            /** @description Остатки товаров FBO. */
+            products?: components["schemas"]["product.v1.GetProductInfoStocksByWarehouseFboResponse.Product"][];
         };
         v1ProductInfoWarehouseStocksRequest: {
             /** @description Указатель для выборки следующих данных. */
@@ -19926,6 +19873,236 @@ export interface components {
             /** @description Информация о грузоместах. */
             supply?: components["schemas"]["CargoesGetResponseSupply"][];
         };
+        "cargoes.v2.CargoesGetRequest.Supplies": {
+            /** @description Идентификаторы грузомест. */
+            cargo_ids: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id: number;
+        };
+        "cargoes.v2.CargoesGetRequest": {
+            /** @description Информация о поставках. */
+            supplies: components["schemas"]["cargoes.v2.CargoesGetRequest.Supplies"][];
+        };
+        /**
+         * @description Тип ассортимента грузоместа:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `MONO` — палета-моно или коробка-моно;
+         *     - `MIX` —  палета-микс или коробка-микс;
+         *     - `NONE` — отсутствует.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.ContentType.Enum": "UNSPECIFIED" | "MONO" | "MIX" | "NONE";
+        /**
+         * @description Тип зоны размещения:
+         *      - `UNSPECIFIED` — не требуется распределение по зонам размещения;
+         *      - `UNDEFINED` — не определён;
+         *      - `SINGLE` — одинаковая зона размещения в составе грузоместа;
+         *      - `MULTI` — разные зоны размещения в составе грузоместа.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.PlacementZoneType.Enum": "UNSPECIFIED" | "UNDEFINED" | "TYPE_SINGLE" | "MULTI";
+        /** @description Часовой пояс. */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt.TimezoneInfo": {
+            /** @description Название часового пояса. */
+            iana_name?: string;
+            /**
+             * Format: int64
+             * @description Смещение часового пояса от UTC-0 в секундах.
+             */
+            offset?: number;
+        };
+        /** @description Информация о приёме грузоместа. */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt": {
+            /**
+             * Format: date-time
+             * @description Дата приёма грузоместа.
+             */
+            date?: string;
+            timezone_info?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt.TimezoneInfo"];
+        };
+        /**
+         * @description Статус грузоместа:
+         *      - `UNSPECIFIED` — не определён;
+         *      - `READY_TO_SUPPLY` — готово к отгрузке;
+         *      - `REFUSED` — отказано;
+         *      - `ON_WAREHOUSE` — на складе размещения;
+         *      - `NOT_DELIVERED` — не сдано;
+         *      - `ACCEPTING` — приёмка;
+         *      - `PROCESSED` — обработано;
+         *      - `ON_POINT_SHIPMENT` — на точке отгрузки;
+         *      - `ON_TRANSIT_WAREHOUSE` — в пути;
+         *      - `LOST` — потеряно;
+         *      - `CREATED` — создано;
+         *      - `DELETED` — удалено;
+         *      - `DECLARED_IN_TRANSPORT_CARGO` — заявлено в транспортном грузоместе.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Status.Enum": "UNSPECIFIED" | "READY_TO_SUPPLY" | "REFUSED" | "ON_WAREHOUSE" | "NOT_DELIVERED" | "ACCEPTING" | "PROCESSED" | "ON_POINT_SHIPMENT" | "ON_TRANSIT_WAREHOUSE" | "LOST" | "CREATED" | "DELETED" | "DECLARED_IN_TRANSPORT_CARGO";
+        /**
+         * @description Тип отслеживания грузоместа:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `EXPECTED_ARRIVAL` — плановая дата отгрузки;
+         *     - `ACTUAL_ARRIVAL` — фактическая дата отгрузки.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Type.Enum": "UNSPECIFIED" | "EXPECTED_ARRIVAL" | "ACTUAL_ARRIVAL";
+        /** @description Отслеживание грузоместа. */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo": {
+            arrival_at?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt"];
+            status?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Status.Enum"];
+            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Type.Enum"];
+        };
+        /**
+         * @description Тип грузоместа:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `BOX` — коробка;
+         *     - `PALLET` — палета.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.Type.Enum": "UNSPECIFIED" | "BOX" | "PALLET";
+        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes": {
+            /** @description Идентификатор товарного состава. */
+            bundle_id?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор грузоместа.
+             */
+            cargo_id?: number;
+            content_type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.ContentType.Enum"];
+            placement_zone_type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.PlacementZoneType.Enum"];
+            tracking_info?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo"];
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            transport_cargo_id?: number;
+            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.Type.Enum"];
+        };
+        /** @description Количество грузомест и товаров в поставке. */
+        "cargoes.v2.CargoesGetResponse.Supplies.Limits": {
+            /**
+             * Format: int32
+             * @description Максимальное количество коробок.
+             */
+            max_box_count?: number;
+            /**
+             * Format: int32
+             * @description Максимальное количество товаров в коробке.
+             */
+            max_box_sku_count?: number;
+            /**
+             * Format: int32
+             * @description Максимальное количество палет.
+             */
+            max_pallet_count?: number;
+            /**
+             * Format: int32
+             * @description Максимальное количество транспортных грузомест.
+             */
+            max_transport_pallet_count?: number;
+        };
+        /** @description Часовой пояс. */
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt.Timezone": {
+            /** @description Название часового пояса. */
+            iana_name?: string;
+            /**
+             * Format: int64
+             * @description Смещение часового пояса от UTC-0 в секундах.
+             */
+            offset?: number;
+        };
+        /** @description Информация о приёме транспортного грузоместа. */
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt": {
+            /**
+             * Format: date-time
+             * @description Дата приёма транспортного грузоместа.
+             */
+            date?: string;
+            timezone?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt.Timezone"];
+        };
+        /**
+         * @description Статус транспортного грузоместа:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `READY_TO_SUPPLY` — готово к отгрузке;
+         *     - `REFUSED` — отказано;
+         *     - `ON_WAREHOUSE` — на складе размещения;
+         *     - `NOT_DELIVERED` — не сдано;
+         *     - `ON_POINT_SHIPMENT` — на точке отгрузки;
+         *     - `ON_TRANSIT_WAREHOUSE` — в пути;
+         *     - `LOST` — потеряно;
+         *     - `CREATED` — создано;
+         *     - `CARGO_DISASSEMBLED` — удалено.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Status.Enum": "UNSPECIFIED" | "READY_TO_SUPPLY" | "REFUSED" | "ON_WAREHOUSE" | "NOT_DELIVERED" | "ON_POINT_SHIPMENT" | "ON_TRANSIT_WAREHOUSE" | "LOST" | "CREATED" | "CARGO_DISASSEMBLED";
+        /**
+         * @description Тип отслеживания транспортного грузоместа:
+         *      - `UNSPECIFIED` — не определён;
+         *      - `EXPECTED_ARRIVAL` — плановая дата отгрузки;
+         *      - `ACTUAL_ARRIVAL` — фактическая дата отгрузки.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Type.Enum": "UNSPECIFIED" | "EXPECTED_ARRIVAL" | "ACTUAL_ARRIVAL";
+        /** @description Отслеживание транспортного грузоместа. */
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo": {
+            arrival_at?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt"];
+            status?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Status.Enum"];
+            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Type.Enum"];
+        };
+        /**
+         * @description Тип грузоместа:
+         *      - `UNSPECIFIED` — не определён;
+         *      - `PALLET` — палета.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.Type.Enum": "UNSPECIFIED" | "PALLET";
+        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes": {
+            /**
+             * Format: int32
+             * @description Количество грузомест в транспортном грузоместе.
+             */
+            box_count?: number;
+            /** @description Идентификатор товарного состава транспортного грузоместа. */
+            summary_bundle_id?: string;
+            tracking_info?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo"];
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            transport_cargo_id?: number;
+            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.Type.Enum"];
+        };
+        "cargoes.v2.CargoesGetResponse.Supplies": {
+            /** @description Идентификатор товарного состава. */
+            bundle_id?: string;
+            /** @description Грузоместа. */
+            cargoes?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes"][];
+            /** @description Товарный состав грузомест. */
+            cargoes_bundle_id?: string;
+            limits?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Limits"];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+            /** @description Информация о транспортных грузоместах. */
+            transport_cargoes?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes"][];
+        };
+        "cargoes.v2.CargoesGetResponse": {
+            /** @description Информация о грузоместах и транспортных грузоместах. */
+            supplies?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies"][];
+        };
         v1CargoesDeleteRequest: {
             /**
              * @description Список идентификаторов грузомест, которые нужно удалить.
@@ -19975,6 +20152,93 @@ export interface components {
         v1CargoesDeleteResponse: {
             errors?: components["schemas"]["v1CargoesDeleteResponseError"];
             /** @description Идентификатор операции. */
+            operation_id?: string;
+        };
+        /**
+         * @description Тип удаления транспортного грузоместа:
+         *      - `UNBIND_CONTAINED_CARGOES` —  удалить только транспортное грузоместо и отвязать от него все грузоместа;
+         *      - `DELETE_CONTAINED_CARGOES` — удалить транспортное грузоместо вместе с грузоместами.
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteRequest.TransportCargoDeletionType.Enum": "UNBIND_CONTAINED_CARGOES" | "DELETE_CONTAINED_CARGOES";
+        "cargoes.v2.CargoesDeleteRequest": {
+            /** @description Список идентификаторов грузомест, которые нужно удалить. */
+            cargo_ids?: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
+             */
+            supply_id: number;
+            transport_cargo_deletion_type: components["schemas"]["cargoes.v2.CargoesDeleteRequest.TransportCargoDeletionType.Enum"];
+            /** @description Список идентификаторов транспортных грузомест, которые нужно удалить. */
+            transport_cargo_ids?: string[];
+        } & (unknown | unknown);
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
+        "cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons": {
+            /**
+             * Format: int64
+             * @description Идентификатор грузоместа.
+             */
+            cargo_id?: number;
+            /**
+             * @description Список ошибок грузоместа:
+             *      - `UNSPECIFIED` — не определена;
+             *      - `CARGO_NOT_FOUND` — грузоместо не найдено.
+             */
+            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons.ErrorReasons.Enum"][];
+        };
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteResponse.Errors.SupplyErrorReasons.Enum": "UNSPECIFIED" | "SUPPLY_NOT_FOUND" | "CANT_DELETE_ALL_CARGOES" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "CANT_DELETE_ALL_TRANSPORT_CARGOES" | "UNDEFINED";
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
+        "cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons": {
+            /**
+             * @description Список ошибок транспортного грузоместа:
+             *      - `UNSPECIFIED` — не определена;
+             *      - `CARGO_NOT_FOUND` — транспортное грузоместо не найдено.
+             */
+            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum"][];
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            transport_cargo_id?: number;
+        };
+        /** @description Ошибки. */
+        "cargoes.v2.CargoesDeleteResponse.Errors": {
+            /** @description Ошибки при удалении грузомест. */
+            cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons"][];
+            /**
+             * @description Ошибки поставки:
+             *     - `UNSPECIFIED` — не определена;
+             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
+             *     - `CANT_DELETE_ALL_CARGOES` — нельзя удалять все грузоместа;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — не принадлежит вашему юридическому лицу;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — не принадлежит вашему кабинету;
+             *     - `SUPPLY_CARGOES_IS_FINALIZED` — грузоместа поставки нельзя редактировать;
+             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `ETTN_IS_UPLOADED` — электронная ТТН загружена;
+             *     - `CANT_DELETE_ALL_TRANSPORT_CARGOES` — нельзя удалять все транспортные грузоместа;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            supply_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.SupplyErrorReasons.Enum"][];
+            /** @description Ошибки при удалении транспортных грузомест. */
+            transport_cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons"][];
+        };
+        "cargoes.v2.CargoesDeleteResponse": {
+            errors?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors"];
+            /** @description Идентификатор операции. Получите статус операции методом [/v2/cargoes/delete/status](#operation/CargoesDeleteStatusV2). */
             operation_id?: string;
         };
         v1CargoesDeleteStatusRequest: {
@@ -20027,6 +20291,87 @@ export interface components {
         v1CargoesDeleteStatusResponse: {
             errors?: components["schemas"]["v1CargoesDeleteStatusResponseError"];
             status?: components["schemas"]["CargoesDeleteStatusResponseStatusEnum"];
+        };
+        "cargoes.v2.CargoesDeleteStatusRequest": {
+            /** @description Идентификатор операции из метода [/v2/cargoes/delete](#operation/CargoesDeleteV2). */
+            operation_id: string;
+        };
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
+        "cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons": {
+            /**
+             * Format: int64
+             * @description Идентификатор грузоместа.
+             */
+            cargo_id?: number;
+            /**
+             * @description Список ошибок грузоместа:
+             *      - `UNSPECIFIED` — не определена;
+             *      - `CARGO_NOT_FOUND` — грузоместо не найдено.
+             */
+            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons.ErrorReasons.Enum"][];
+        };
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteStatusResponse.Errors.SupplyErrorReasons.Enum": "UNSPECIFIED" | "SUPPLY_NOT_FOUND" | "CANT_DELETE_ALL_CARGOES" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "CANT_DELETE_ALL_TRANSPORT_CARGOES" | "UNDEFINED";
+        /**
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
+        "cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons": {
+            /**
+             * @description Список ошибок транспортного грузоместа:
+             *      - `UNSPECIFIED` — не определена;
+             *      - `CARGO_NOT_FOUND` — транспортное грузоместо не найдено.
+             */
+            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum"][];
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            transport_cargo_id?: number;
+        };
+        /** @description Ошибки. */
+        "cargoes.v2.CargoesDeleteStatusResponse.Errors": {
+            /** @description Ошибки при удалении грузомест. */
+            cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons"][];
+            /**
+             * @description Ошибки поставки:
+             *     - `UNSPECIFIED` — не определена;
+             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
+             *     - `CANT_DELETE_ALL_CARGOES` — нельзя удалять все грузоместа;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — не принадлежит вашему юридическому лицу;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — не принадлежит вашему кабинету;
+             *     - `SUPPLY_CARGOES_IS_FINALIZED` — грузоместа поставки нельзя редактировать;
+             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `ETTN_IS_UPLOADED` — электронная ТТН загружена;
+             *     - `CANT_DELETE_ALL_TRANSPORT_CARGOES` — нельзя удалять все транспортные грузоместа;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            supply_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.SupplyErrorReasons.Enum"][];
+            /** @description Ошибки при удалении транспортных грузомест. */
+            transport_cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons"][];
+        };
+        /**
+         * @description Статус удаления грузоместа:
+         *     - `UNSPECIFIED` — не определён;
+         *     - `SUCCESS` — грузоместо удалено;
+         *     - `IN_PROGRESS` — грузоместо в процессе удаления;
+         *     - `ERROR` — возникла ошибка при удалении грузоместа.
+         * @default UNSPECIFIED
+         * @enum {string}
+         */
+        "cargoes.v2.CargoesDeleteStatusResponse.Status.Enum": "UNSPECIFIED" | "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "cargoes.v2.CargoesDeleteStatusResponse": {
+            errors?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors"];
+            status?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Status.Enum"];
         };
         v1CargoesRulesGetRequest: {
             /**
@@ -20875,6 +21220,390 @@ export interface components {
         v1WarehouseFboSellerListResponse: {
             /** @description Список складов продавца. */
             warehouses?: components["schemas"]["v1WarehouseFboSellerListResponseWarehouse"][];
+        };
+        "cargoes.v1.CargoesTransportActivateRequest": {
+            /** @description `true`, чтобы включить транспортные грузоместа. */
+            is_transport: boolean;
+            /**
+             * Format: int64
+             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
+             */
+            supply_id: number;
+        };
+        "cargoes.v1.CargoesTransportActivateResponse": {
+            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/transport/activate/status](#operation/CargoesTransportActivateStatus). */
+            operation_id?: string;
+        };
+        "cargoes.v1.CargoesTransportActivateStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/cargoes/transport/activate](#operation/CargoesTransportActivate). */
+            operation_id: string;
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesTransportActivateStatusResponse.ErrorReasons.Enum": "OPERATION_NOT_FOUND" | "SUPPLY_IS_FINALIZED" | "CAN_NOT_EDIT_TAG" | "UNDEFINED";
+        /**
+         * @description Статус включения или отключения транспортных грузомест:
+         *     - `SUCCESS` — успешно;
+         *     - `IN_PROGRESS` — в процессе;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesTransportActivateStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "cargoes.v1.CargoesTransportActivateStatusResponse": {
+            /**
+             * @description Ошибки при включении или отключении транспортных грузомест:
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `SUPPLY_IS_FINALIZED`, `CAN_NOT_EDIT_TAG` — нельзя изменить поставку;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportActivateStatusResponse.ErrorReasons.Enum"][];
+            status?: components["schemas"]["cargoes.v1.CargoesTransportActivateStatusResponse.Status.Enum"];
+        };
+        /**
+         * @description Тип транспортного грузоместа: `PALLET` — палета.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesTransportCreateRequest.TransportCargoes.Type.Enum": "PALLET";
+        "cargoes.v1.CargoesTransportCreateRequest.TransportCargoes": {
+            /**
+             * Format: int32
+             * @description Количество транспортных грузомест.
+             */
+            count: number;
+            type: components["schemas"]["cargoes.v1.CargoesTransportCreateRequest.TransportCargoes.Type.Enum"];
+        };
+        "cargoes.v1.CargoesTransportCreateRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
+             */
+            supply_id: number;
+            /** @description Количество транспортных грузомест по типам. */
+            transport_cargoes: components["schemas"]["cargoes.v1.CargoesTransportCreateRequest.TransportCargoes"][];
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesTransportCreateResponse.ErrorReasons.Enum": "SUPPLY_NOT_FOUND" | "WAREHOUSE_LIMITS_EXCEED" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "PALLET_SUPPLY_CONTAINS_BOXES" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "BOX_SUPPLY_CONTAINS_PALLETS" | "UNDEFINED";
+        "cargoes.v1.CargoesTransportCreateResponse": {
+            /**
+             * @description Ошибки при создании транспортных грузомест:
+             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
+             *     - `WAREHOUSE_LIMITS_EXCEED` — превышены лимиты склада;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — заявка на поставку не принадлежит юридическому лицу;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — заявка на поставку не принадлежит продавцу;
+             *     - `PALLET_SUPPLY_CONTAINS_BOXES` — палетная поставка не может содержать коробки;
+             *     - `SUPPLY_CARGOES_IS_FINALIZED` — нельзя редактировать заявку на поставку;
+             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН;
+             *     - `BOX_SUPPLY_CONTAINS_PALLETS` — поставка может содержать только коробки;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportCreateResponse.ErrorReasons.Enum"][];
+            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/transport/create/status](#operation/CargoesTransportCreateStatus). */
+            operation_id?: string;
+        };
+        "cargoes.v1.CargoesTransportCreateStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/cargoes/transport/create](#operation/CargoesTransportCreate). */
+            operation_id?: string;
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesTransportCreateStatusResponse.ErrorReasons.Enum": "SUPPLY_NOT_FOUND" | "WAREHOUSE_LIMITS_EXCEED" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "PALLET_SUPPLY_CONTAINS_BOXES" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "BOX_SUPPLY_CONTAINS_PALLETS" | "UNDEFINED";
+        /**
+         * @description Тип транспортного грузоместа: `PALLET` — палета.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes.Type.Enum": "PALLET";
+        "cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes": {
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            id?: number;
+            type?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes.Type.Enum"];
+        };
+        /** @description Созданные транспортные грузоместа. */
+        "cargoes.v1.CargoesTransportCreateStatusResponse.Result": {
+            /** @description Информация о созданных транспортных грузоместах. */
+            transport_cargoes?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes"][];
+        };
+        /**
+         * @description Статус создания транспортных грузомест:
+         *     - `SUCCESS` — успешно;
+         *     - `IN_PROGRESS` — в процессе;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesTransportCreateStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "cargoes.v1.CargoesTransportCreateStatusResponse": {
+            /**
+             * @description Ошибки при создании транспортных грузомест:
+             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
+             *     - `WAREHOUSE_LIMITS_EXCEED` — превышены лимиты склада;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — заявка на поставку не принадлежит юридическому лицу;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — заявка на поставку не принадлежит продавцу;
+             *     - `PALLET_SUPPLY_CONTAINS_BOXES` — палетная поставка не может содержать коробки;
+             *     - `SUPPLY_CARGOES_IS_FINALIZED` — нельзя редактировать заявку на поставку;
+             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН;
+             *     - `BOX_SUPPLY_CONTAINS_PALLETS` — поставка может содержать только коробки;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.ErrorReasons.Enum"][];
+            result?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Result"];
+            status?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Status.Enum"];
+        };
+        "cargoes.v1.CargoesTransportBindRequest.TransportCargoBind": {
+            /** @description Идентификаторы грузомест. */
+            cargo_ids: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            transport_cargo_id: number;
+        };
+        "cargoes.v1.CargoesTransportBindRequest": {
+            /** @description Идентификаторы транспортных грузомест, которые надо отвязать. */
+            cargoes_unbind_transport_cargoes?: string[];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
+             */
+            supply_id: number;
+            /** @description Идентификаторы грузомест и транспортных грузомест, которые надо связать. */
+            transport_cargo_bind?: components["schemas"]["cargoes.v1.CargoesTransportBindRequest.TransportCargoBind"][];
+        } & (unknown | unknown);
+        /** @enum {string} */
+        "cargoes.v1.CargoesTransportBindResponse.ErrorReasons.Enum": "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_FOUND" | "SUPPLY_DOES_NOT_BELONG_TO_COMPANY" | "SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR" | "TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY" | "INVALID_SUPPLY_STATE" | "SUPPLY_IS_FINALIZED" | "CARGO_IDS_NOT_FOUND" | "TRANSPORT_CARGO_IDS_NOT_FOUND" | "ETTN_IS_UPLOADED";
+        "cargoes.v1.CargoesTransportBindResponse": {
+            /**
+             * @description Ошибки связывания или отвязывания грузомест:
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
+             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_COMPANY` — заявка на поставку не принадлежит продавцу;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR` — поставка не принадлежит юридическому лицу;
+             *     - `TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY` — для поставки не включены транспортные грузоместа;
+             *     - `INVALID_SUPPLY_STATE` — неверный статус поставки;
+             *     - `SUPPLY_IS_FINALIZED` — нельзя редактировать поставку;
+             *     - `CARGO_IDS_NOT_FOUND` — грузоместа не найдены;
+             *     - `TRANSPORT_CARGO_IDS_NOT_FOUND` — траспортные грузоместа не найдены;
+             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportBindResponse.ErrorReasons.Enum"][];
+            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/transport/bind/status](#operation/CargoesTransportBindStatus). */
+            operation_id?: string;
+        };
+        "cargoes.v1.CargoesTransportBindStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/cargoes/transport/bind](#operation/CargoesTransportBind). */
+            operation_id: string;
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesTransportBindStatusResponse.ErrorReasons.Enum": "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_FOUND" | "SUPPLY_DOES_NOT_BELONG_TO_COMPANY" | "SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR" | "TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY" | "INVALID_SUPPLY_STATE" | "SUPPLY_IS_FINALIZED" | "CARGO_IDS_NOT_FOUND" | "TRANSPORT_CARGO_IDS_NOT_FOUND" | "ETTN_IS_UPLOADED";
+        /**
+         * @description Статус связывания или отвязывания грузомест:
+         *     - `SUCCESS` — успешно;
+         *     - `IN_PROGRESS` — в процессе;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesTransportBindStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "cargoes.v1.CargoesTransportBindStatusResponse": {
+            /**
+             * @description Ошибки связывания или отвязывания грузомест:
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
+             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_COMPANY` — заявка на поставку не принадлежит продавцу;
+             *     - `SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR` — поставка не принадлежит юридическому лицу;
+             *     - `TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY` — для поставки не включены транспортные грузоместа;
+             *     - `INVALID_SUPPLY_STATE` — неверный статус поставки;
+             *     - `SUPPLY_IS_FINALIZED` — нельзя редактировать поставку;
+             *     - `CARGO_IDS_NOT_FOUND` — грузоместа не найдены;
+             *     - `TRANSPORT_CARGO_IDS_NOT_FOUND` — траспортные грузоместа не найдены;
+             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportBindStatusResponse.ErrorReasons.Enum"][];
+            status?: components["schemas"]["cargoes.v1.CargoesTransportBindStatusResponse.Status.Enum"];
+        };
+        "cargoes.v1.CargoesSuppliesGetRequest": {
+            /** @description Список идентификаторов поставок. */
+            supply_ids: string[];
+        };
+        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.CargoesWithoutTransportCargoes": {
+            /** @description Штрихкод грузоместа. */
+            barcode?: string;
+            /** @description Идентификатор состава грузоместа. */
+            bundle_id?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор грузоместа.
+             */
+            cargo_id?: number;
+        };
+        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Cargoes": {
+            /** @description Штрихкод грузоместа. */
+            barcode?: string;
+            /** @description Идентификатор состава грузоместа. */
+            bundle_id?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор грузоместа.
+             */
+            cargo_id?: number;
+        };
+        /**
+         * @description Тип транспортного грузоместа: `PALLET` — палета.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Type.Enum": "PALLET";
+        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes": {
+            /** @description Идентификатор состава грузоместа. */
+            bundle_id?: string;
+            /** @description Грузоместа в транспортном грузоместе. */
+            cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Cargoes"][];
+            /**
+             * Format: int64
+             * @description Идентификатор транспортного грузоместа.
+             */
+            transport_cargo_id?: number;
+            type?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Type.Enum"];
+        };
+        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes": {
+            /** @description Идентификатор состава поставки. */
+            bundle_id?: string;
+            /** @description Грузоместа, которые не связаны с транспортными грузоместами. */
+            cargoes_without_transport_cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.CargoesWithoutTransportCargoes"][];
+            /**
+             * Format: int64
+             * @description Идентификатор поставки.
+             */
+            supply_id?: number;
+            /** @description Список транспортных грузомест в поставке. */
+            transport_cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes"][];
+        };
+        "cargoes.v1.CargoesSuppliesGetResponse": {
+            /** @description Поставки, которые не удалось найти. */
+            not_found_supply_ids?: string[];
+            /** @description Информация о грузоместах в поставках. */
+            supplies_cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes"][];
+        };
+        "cargoes.v1.CargoesLabelTransportByOrderCreateRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
+             */
+            order_id: number;
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesLabelTransportByOrderCreateResponse.ErrorReasons.Enum": "ORDER_NOT_FOUND" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "ALL_SUPPLIES_SKIPPED" | "LABELS_COUNT_EXCEED" | "UNDEFINED";
+        "cargoes.v1.CargoesLabelTransportByOrderCreateResponse": {
+            /**
+             * @description Ошибки при генерации этикеток транспортных грузомест:
+             *     - `ORDER_NOT_FOUND` — заявка не найдена;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
+             *     - `ALL_SUPPLIES_SKIPPED` — нет этикеток для поставок;
+             *     - `LABELS_COUNT_EXCEED` — превышено количество генерируемых этикеток;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderCreateResponse.ErrorReasons.Enum"][];
+            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/label/transport-by-order/status](#operation/CargoesLabelTransportByOrderStatus). */
+            operation_id?: string;
+        };
+        "cargoes.v1.CargoesLabelTransportByOrderStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/cargoes/label/transport-by-order/create](#operation/CargoesLabelTransportByOrderCreate). */
+            operation_id: string;
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse.ErrorReasons.Enum": "ORDER_NOT_FOUND" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "ALL_SUPPLIES_SKIPPED" | "LABELS_COUNT_EXCEED" | "UNDEFINED";
+        /** @description Этикетки транспортных грузомест. */
+        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Result": {
+            /** @description Ссылка на PDF-файл с этикетками. */
+            file_url?: string;
+            /** @description Поставки, по которым не сгенерированы этикетки. */
+            skipped_supplies_ids?: string[];
+        };
+        /**
+         * @description Статус генерации этикеток:
+         *     - `SUCCESS` — успешно;
+         *     - `IN_PROGRESS` — в процессе;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse": {
+            /**
+             * @description Ошибки при генерации этикеток транспортных грузомест:
+             *     - `ORDER_NOT_FOUND` — заявка не найдена;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
+             *     - `ALL_SUPPLIES_SKIPPED` — нет этикеток для поставок;
+             *     - `LABELS_COUNT_EXCEED` — превышено количество генерируемых этикеток;
+             *     - `UNDEFINED` — неизвестная ошибка.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse.ErrorReasons.Enum"][];
+            result?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Result"];
+            status?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Status.Enum"];
+        };
+        "cargoes.v1.CargoesLabelTransportCreateRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
+             */
+            supply_id: number;
+            /** @description Идентификаторы транспортных грузомест. Если ничего не передать, в ответе вернутся этикетки для всех транспортных грузомест в поставке. */
+            transport_cargo_ids?: string[];
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesLabelTransportCreateResponse.ErrorReasons.Enum": "INVALID_STATE" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_BELONG_CONTRACTOR" | "SUPPLY_NOT_BELONG_COMPANY" | "SUPPLY_IS_EMPTY" | "CARGOES_NOT_FOUND";
+        "cargoes.v1.CargoesLabelTransportCreateResponse": {
+            /**
+             * @description Ошибки при генерации этикеток транспортных грузомест:
+             *     - `INVALID_STATE` — недопустимое состояние поставки;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
+             *     - `SUPPLY_NOT_BELONG_CONTRACTOR` — поставка не принадлежит юридическому лицу;
+             *     - `SUPPLY_NOT_BELONG_COMPANY` — заявка на поставку не принадлежит продавцу;
+             *     - `SUPPLY_IS_EMPTY` — в поставке нет грузомест;
+             *     - `CARGOES_NOT_FOUND` — грузоместа не найдены.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportCreateResponse.ErrorReasons.Enum"][];
+            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/label/transport-by-order/status](#operation/CargoesLabelTransportStatus). */
+            operation_id?: string;
+        };
+        "cargoes.v1.CargoesLabelTransportStatusRequest": {
+            /** @description Идентификатор операции из метода [/v1/cargoes/label/transport/create](#operation/CargoesLabelTransportCreate). */
+            operation_id?: string;
+        };
+        /** @enum {string} */
+        "cargoes.v1.CargoesLabelTransportStatusResponse.ErrorReasons.Enum": "INVALID_STATE" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_BELONG_CONTRACTOR" | "SUPPLY_NOT_BELONG_COMPANY" | "SUPPLY_IS_EMPTY" | "CARGOES_NOT_FOUND";
+        /** @description Этикетки транспортных грузомест. */
+        "cargoes.v1.CargoesLabelTransportStatusResponse.Result": {
+            /** @description Ссылка на PDF-файл с этикетками. */
+            file_url?: string;
+        };
+        /**
+         * @description Статус генерации этикеток:
+         *     - `SUCCESS` — успешно;
+         *     - `IN_PROGRESS` — в процессе;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "cargoes.v1.CargoesLabelTransportStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
+        "cargoes.v1.CargoesLabelTransportStatusResponse": {
+            /**
+             * @description Ошибки при генерации этикеток транспортных грузомест:
+             *     - `INVALID_STATE` — недопустимое состояние поставки;
+             *     - `OPERATION_NOT_FOUND` — операция не найдена;
+             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
+             *     - `SUPPLY_NOT_BELONG_CONTRACTOR` — поставка не принадлежит юридическому лицу;
+             *     - `SUPPLY_NOT_BELONG_COMPANY` — заявка на поставку не принадлежит продавцу;
+             *     - `SUPPLY_IS_EMPTY` — в поставке нет грузомест;
+             *     - `CARGOES_NOT_FOUND` — грузоместа не найдены.
+             */
+            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse.ErrorReasons.Enum"][];
+            result?: components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse.Result"];
+            status?: components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse.Status.Enum"];
         };
         /** object */
         FbsPostingShipV4RequestPackageProduct: {
@@ -26421,59 +27150,6 @@ export interface components {
             /** @description Указатель для выборки следующих данных. */
             cursor?: string;
         };
-        /** object */
-        "product.v1.GetProductInfoStocksByWarehouseFboRequest": {
-            /** @description Указатель для выборки следующих данных. */
-            cursor?: string;
-            /**
-             * Format: uint64
-             * @description Количество значений в ответе.
-             */
-            limit: number;
-            /** @description Идентификатор товаров в системе продавца — артикул. */
-            offer_ids?: string[];
-            /** @description Идентификатор товаров в системе Ozon — SKU. */
-            skus?: string[];
-        };
-        /** object */
-        "product.v1.GetProductInfoStocksByWarehouseFboResponse.Product": {
-            /** @description Идентификатор товара в системе продавца — артикул. */
-            offer_id?: string;
-            /**
-             * Format: int64
-             * @description Общее количество товара на складе.
-             */
-            present?: number;
-            /**
-             * Format: int64
-             * @description Идентификатор товара в системе Ozon — `product_id`.
-             */
-            product_id?: number;
-            /**
-             * Format: int64
-             * @description Количество зарезервированных товаров на складе.
-             */
-            reserved?: number;
-            /**
-             * Format: int64
-             * @description Идентификатор товара в системе Ozon — SKU.
-             */
-            sku?: number;
-            /**
-             * Format: int64
-             * @description Идентификатор склада. Можно получить с помощью метода [/v1/warehouse/ozon/list](#operation/WarehouseOZONList).
-             */
-            warehouse_id?: number;
-        };
-        /** object */
-        "product.v1.GetProductInfoStocksByWarehouseFboResponse": {
-            /** @description Указатель для выборки следующих данных. */
-            cursor?: string;
-            /** @description `true`, если в ответе вернулись не все значения. */
-            has_next?: boolean;
-            /** @description Остатки товаров FBO. */
-            products?: components["schemas"]["product.v1.GetProductInfoStocksByWarehouseFboResponse.Product"][];
-        };
         /**
          * object
          * @description Период создания заявки.
@@ -28857,6 +29533,22 @@ export interface components {
         };
         v1ReportMarkedProductsSalesCreateRequest: {
             date?: components["schemas"]["ReportMarkedProductsSalesCreateRequestDate"];
+        };
+        "report.v1.CreateCompanyFinanceRealizationPostingReportRequest": {
+            /**
+             * Format: int32
+             * @description Месяц.
+             */
+            month: number;
+            /**
+             * Format: int32
+             * @description Год.
+             */
+            year: number;
+        };
+        "report.v1.CreateCompanyFinanceRealizationPostingReportResponse": {
+            /** @description Уникальный идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
+            code?: string;
         };
         /**
          * @description Фильтр по типу склада:
@@ -33515,6 +34207,11 @@ export interface components {
             /** @description Начисления. */
             fees?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.ItemFees.ItemFee.Fee"][];
             /**
+             * Format: int32
+             * @description Количество товара.
+             */
+            quantity?: number;
+            /**
              * Format: int64
              * @description Идентификатор товара в системе Ozon — SKU.
              */
@@ -33612,6 +34309,11 @@ export interface components {
         "finance.v1.GetFinanceAccrualByDayResponse.Accrual.Posting.Product": {
             commission?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.Posting.Product.Commission"];
             delivery?: components["schemas"]["finance.v1.GetFinanceAccrualByDayResponse.Accrual.Posting.Product.Delivery"];
+            /**
+             * Format: int32
+             * @description Количество товара.
+             */
+            quantity?: number;
             /**
              * Format: int64
              * @description Идентификатор товара в системе Ozon — SKU.
@@ -33934,22 +34636,6 @@ export interface components {
         };
         "posting.v1.GetFbpPostingResponse": {
             posting?: components["schemas"]["posting.v1.GetFbpPostingResponse.Posting"];
-        };
-        "report.v1.CreateCompanyFinanceRealizationPostingReportRequest": {
-            /**
-             * Format: int32
-             * @description Месяц.
-             */
-            month: number;
-            /**
-             * Format: int32
-             * @description Год.
-             */
-            year: number;
-        };
-        "report.v1.CreateCompanyFinanceRealizationPostingReportResponse": {
-            /** @description Уникальный идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
-            code?: string;
         };
         "category.description.v1.DescriptionCategoryDependentAttributesRequest": {
             /**
@@ -37900,1078 +38586,6 @@ export interface components {
             rejected?: components["schemas"]["actions.v1.ActionsAutoAddProductsUpdateResponse.Rejected"][];
             /** @description Идентификаторы товаров, которые получилось добавить или обновить. */
             updated_ids?: string[];
-        };
-        /** @enum {string} */
-        "notification.v1.SetNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
-        "notification.v1.SetNotificationRequest": {
-            /**
-             * @description Типы уведомлений:
-             *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
-             *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
-             *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
-             *     - `TYPE_CHAT_CLOSED` — чат закрыт;
-             *     - `TYPE_NEW_POSTING` — новое отправление;
-             *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
-             *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
-             *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
-             *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
-             *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
-             *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
-             *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
-             *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
-             *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
-             *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
-             *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
-             *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
-             *     - `TYPE_ORDER_NEW` — новый заказ;
-             *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
-             *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
-             */
-            types: components["schemas"]["notification.v1.SetNotificationRequest.Type.Enum"][];
-            /** @description URL-адрес. */
-            url: string;
-        };
-        /** @enum {string} */
-        "notification.v1.UpdateNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
-        "notification.v1.UpdateNotificationRequest": {
-            /**
-             * Format: int64
-             * @description Идентификатор URL-адреса.
-             */
-            id: number;
-            /**
-             * @description Типы уведомлений:
-             *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
-             *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
-             *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
-             *     - `TYPE_CHAT_CLOSED` — чат закрыт;
-             *     - `TYPE_NEW_POSTING` — новое отправление;
-             *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
-             *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
-             *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
-             *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
-             *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
-             *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
-             *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
-             *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
-             *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
-             *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
-             *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
-             *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
-             *     - `TYPE_ORDER_NEW` — новый заказ;
-             *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
-             *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
-             */
-            types?: components["schemas"]["notification.v1.UpdateNotificationRequest.Type.Enum"][];
-            /** @description Новый URL-адрес. */
-            url?: string;
-        };
-        "notification.v1.DeleteNotificationRequest": {
-            /**
-             * Format: int64
-             * @description Идентификатор URL-адреса.
-             */
-            id: number;
-        };
-        "notification.v1.CheckNotificationRequest": {
-            /** @description URL-адрес. */
-            url: string;
-        };
-        /**
-         * @description Тип ошибки:
-         *     - `REQUEST_ERROR` — нет подключения по URL-адресу;
-         *     - `REQUEST_TIMEOUT` — превышено время ожидания запроса;
-         *     - `SERVER_FAULT` — сервис вернул внутреннюю ошибку;
-         *     - `STATUS_CODE_NOT_OK` — HTTP-статус ответа не `200`;
-         *     - `EMPTY_BODY` — тело ответа пустое или отсутствует;
-         *     - `INVALID_BODY` — некорректный формат тела ответа;
-         *     - `INVALID_JSON` — ошибка при разборе или валидации JSON-данных;
-         *     - `WRONG_RESULT_FIELD` — сервис вернул тело ответа не по шаблону;
-         *     - `WRONG_RESULT_TIME_FIELD` — параметр `time` в теле ответа некорректный.
-         * @enum {string}
-         */
-        "notification.v1.CheckNotificationResponse.Error.Type.Enum": "REQUEST_ERROR" | "REQUEST_TIMEOUT" | "SERVER_FAULT" | "STATUS_CODE_NOT_OK" | "EMPTY_BODY" | "INVALID_BODY" | "INVALID_JSON" | "WRONG_RESULT_FIELD" | "WRONG_RESULT_TIME_FIELD";
-        "notification.v1.CheckNotificationResponse.Error": {
-            /** @description Описание ошибки. */
-            description?: string;
-            type?: components["schemas"]["notification.v1.CheckNotificationResponse.Error.Type.Enum"];
-        };
-        "notification.v1.CheckNotificationResponse": {
-            /** @description Ошибки, возникшие при проверке. */
-            errors?: components["schemas"]["notification.v1.CheckNotificationResponse.Error"][];
-            /** @description `true`, если URL-адрес активен. */
-            is_active: boolean;
-        };
-        "notification.v1.EnableNotificationRequest": {
-            /**
-             * @description Передайте:
-             *     - `true` — чтобы включить уведомления;
-             *     - `false` — чтобы выключить уведомления.
-             */
-            enabled: boolean;
-            /**
-             * Format: int64
-             * @description Идентификатор URL-адреса.
-             */
-            id: number;
-        };
-        /** @enum {string} */
-        "notification.v1.NotificationListRequest.AvailabilityStatus.Enum": "GREEN" | "YELLOW" | "RED";
-        /**
-         * @description Направление сортировки:
-         *     - `ASC` — по возрастанию;
-         *     - `DESC` — по убыванию.
-         * @enum {string}
-         */
-        "notification.v1.NotificationListRequest.SortDir.Enum": "ASC" | "DESC";
-        "notification.v1.NotificationListRequest": {
-            /**
-             * @description Информация о доступности URL-адресов:
-             *      - `GREEN` — активен;
-             *      - `YELLOW` — нестабилен;
-             *      - `RED` — недоступен.
-             */
-            availability_statuses?: components["schemas"]["notification.v1.NotificationListRequest.AvailabilityStatus.Enum"][];
-            /**
-             * Format: uint64
-             * @description Количество элементов в ответе.
-             * @default 100
-             */
-            limit: number;
-            /**
-             * Format: uint64
-             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
-             */
-            offset?: number;
-            sort_dir?: components["schemas"]["notification.v1.NotificationListRequest.SortDir.Enum"];
-        };
-        /** @description Пороговое значение статуса доступности URL-адреса. */
-        "notification.v1.NotificationListResponse.Threshold": {
-            /**
-             * @description Статус доступности URL-адреса:
-             *     - `GREEN` — активен;
-             *     - `YELLOW` — нестабилен;
-             *     - `RED` — недоступен.
-             */
-            status: string;
-            /**
-             * Format: int64
-             * @description Пороговое значение времени ответа в миллисекундах.
-             */
-            threshold: number;
-        };
-        /**
-         * @description Тип уведомления:
-         *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
-         *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
-         *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
-         *     - `TYPE_CHAT_CLOSED` — чат закрыт;
-         *     - `TYPE_NEW_POSTING` — новое отправление;
-         *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
-         *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
-         *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
-         *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
-         *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
-         *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
-         *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
-         *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
-         *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
-         *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
-         *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
-         *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
-         *     - `TYPE_ORDER_NEW` — новый заказ;
-         *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
-         *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
-         * @enum {string}
-         */
-        "notification.v1.NotificationListResponse.Notification.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
-        "notification.v1.NotificationListResponse.Notification.NotificationType": {
-            /** @description Описание типа уведомлений. */
-            description: string;
-            type: components["schemas"]["notification.v1.NotificationListResponse.Notification.NotificationType.Type.Enum"];
-        };
-        "notification.v1.NotificationListResponse.Notification": {
-            /**
-             * @description Статус доступности URL-адреса:
-             *     - `GREEN` — активен;
-             *     - `YELLOW` — нестабилен;
-             *     - `RED` — недоступен.
-             */
-            availability_status: string;
-            /**
-             * Format: date-time
-             * @description Дата и время последнего обновления статуса доступности URL-адреса.
-             */
-            availability_status_date: string;
-            /**
-             * Format: date-time
-             * @description Дата подключения URL-адреса.
-             */
-            created_at: string;
-            /**
-             * @description Причина отключения URL-адреса:
-             *     - `SELLER` — отключён продавцом;
-             *     - `AVAILABILITY` — отключён из-за недоступности;
-             *     - `ADMIN` — отключён администратором.
-             */
-            disable_reason: string;
-            /** @description `true`, если URL-адрес включён. */
-            enable: boolean;
-            /**
-             * Format: int64
-             * @description Идентификатор URL-адреса.
-             */
-            id: number;
-            /** @description Тип пуш-уведомления, из-за которого отключён URL-адрес. */
-            problematic_type: string;
-            /** @description Причина отключения администратором. */
-            reason_details: string;
-            /** @description Типы уведомлений. */
-            types: components["schemas"]["notification.v1.NotificationListResponse.Notification.NotificationType"][];
-            /** @description URL-адрес. */
-            url: string;
-        };
-        "notification.v1.NotificationListResponse": {
-            /** @description Информация о пороговых значениях статусов доступности URL-адресов. */
-            availability_status_thresholds: components["schemas"]["notification.v1.NotificationListResponse.Threshold"][];
-            /**
-             * Format: int64
-             * @description Общее количество подключённых URL-адресов.
-             */
-            total_count: number;
-            /** @description Подключённые URL-адреса. */
-            urls: components["schemas"]["notification.v1.NotificationListResponse.Notification"][];
-        };
-        /** @description URL-адрес, на который приходит тип уведомлений. */
-        "notification.v1.GetNotificationPushTypeListResponse.NotificationType.SellerEndpoint": {
-            /**
-             * Format: int64
-             * @description Идентификатор URL-адреса.
-             */
-            id: number;
-            /** @description URL-адрес. */
-            url: string;
-        };
-        /**
-         * @description Тип уведомления:
-         *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
-         *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
-         *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
-         *     - `TYPE_CHAT_CLOSED` — чат закрыт;
-         *     - `TYPE_NEW_POSTING` — новое отправление;
-         *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
-         *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
-         *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
-         *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
-         *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
-         *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
-         *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
-         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
-         *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
-         *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
-         *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
-         *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
-         *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
-         *     - `TYPE_ORDER_NEW` — новый заказ;
-         *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
-         *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
-         * @enum {string}
-         */
-        "notification.v1.GetNotificationPushTypeListResponse.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
-        "notification.v1.GetNotificationPushTypeListResponse.NotificationType": {
-            /** @description Описание. */
-            description: string;
-            seller_endpoint?: components["schemas"]["notification.v1.GetNotificationPushTypeListResponse.NotificationType.SellerEndpoint"];
-            type: components["schemas"]["notification.v1.GetNotificationPushTypeListResponse.NotificationType.Type.Enum"];
-        };
-        "notification.v1.GetNotificationPushTypeListResponse": {
-            /** @description Типы пуш-уведомлений. */
-            types: components["schemas"]["notification.v1.GetNotificationPushTypeListResponse.NotificationType"][];
-        };
-        "cargoes.v2.CargoesGetRequest.Supplies": {
-            /** @description Идентификаторы грузомест. */
-            cargo_ids: string[];
-            /**
-             * Format: int64
-             * @description Идентификатор поставки.
-             */
-            supply_id: number;
-        };
-        "cargoes.v2.CargoesGetRequest": {
-            /** @description Информация о поставках. */
-            supplies: components["schemas"]["cargoes.v2.CargoesGetRequest.Supplies"][];
-        };
-        /**
-         * @description Тип ассортимента грузоместа:
-         *     - `UNSPECIFIED` — не определён;
-         *     - `MONO` — палета-моно или коробка-моно;
-         *     - `MIX` —  палета-микс или коробка-микс;
-         *     - `NONE` — отсутствует.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.ContentType.Enum": "UNSPECIFIED" | "MONO" | "MIX" | "NONE";
-        /**
-         * @description Тип зоны размещения:
-         *      - `UNSPECIFIED` — не требуется распределение по зонам размещения;
-         *      - `UNDEFINED` — не определён;
-         *      - `SINGLE` — одинаковая зона размещения в составе грузоместа;
-         *      - `MULTI` — разные зоны размещения в составе грузоместа.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.PlacementZoneType.Enum": "UNSPECIFIED" | "UNDEFINED" | "TYPE_SINGLE" | "MULTI";
-        /** @description Часовой пояс. */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt.TimezoneInfo": {
-            /** @description Название часового пояса. */
-            iana_name?: string;
-            /**
-             * Format: int64
-             * @description Смещение часового пояса от UTC-0 в секундах.
-             */
-            offset?: number;
-        };
-        /** @description Информация о приёме грузоместа. */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt": {
-            /**
-             * Format: date-time
-             * @description Дата приёма грузоместа.
-             */
-            date?: string;
-            timezone_info?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt.TimezoneInfo"];
-        };
-        /**
-         * @description Статус грузоместа:
-         *      - `UNSPECIFIED` — не определён;
-         *      - `READY_TO_SUPPLY` — готово к отгрузке;
-         *      - `REFUSED` — отказано;
-         *      - `ON_WAREHOUSE` — на складе размещения;
-         *      - `NOT_DELIVERED` — не сдано;
-         *      - `ACCEPTING` — приёмка;
-         *      - `PROCESSED` — обработано;
-         *      - `ON_POINT_SHIPMENT` — на точке отгрузки;
-         *      - `ON_TRANSIT_WAREHOUSE` — в пути;
-         *      - `LOST` — потеряно;
-         *      - `CREATED` — создано;
-         *      - `DELETED` — удалено;
-         *      - `DECLARED_IN_TRANSPORT_CARGO` — заявлено в транспортном грузоместе.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Status.Enum": "UNSPECIFIED" | "READY_TO_SUPPLY" | "REFUSED" | "ON_WAREHOUSE" | "NOT_DELIVERED" | "ACCEPTING" | "PROCESSED" | "ON_POINT_SHIPMENT" | "ON_TRANSIT_WAREHOUSE" | "LOST" | "CREATED" | "DELETED" | "DECLARED_IN_TRANSPORT_CARGO";
-        /**
-         * @description Тип отслеживания грузоместа:
-         *     - `UNSPECIFIED` — не определён;
-         *     - `EXPECTED_ARRIVAL` — плановая дата отгрузки;
-         *     - `ACTUAL_ARRIVAL` — фактическая дата отгрузки.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Type.Enum": "UNSPECIFIED" | "EXPECTED_ARRIVAL" | "ACTUAL_ARRIVAL";
-        /** @description Отслеживание грузоместа. */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo": {
-            arrival_at?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.ArrivalAt"];
-            status?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Status.Enum"];
-            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo.Type.Enum"];
-        };
-        /**
-         * @description Тип грузоместа:
-         *     - `UNSPECIFIED` — не определён;
-         *     - `BOX` — коробка;
-         *     - `PALLET` — палета.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes.Type.Enum": "UNSPECIFIED" | "BOX" | "PALLET";
-        "cargoes.v2.CargoesGetResponse.Supplies.Cargoes": {
-            /** @description Идентификатор товарного состава. */
-            bundle_id?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор грузоместа.
-             */
-            cargo_id?: number;
-            content_type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.ContentType.Enum"];
-            placement_zone_type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.PlacementZoneType.Enum"];
-            tracking_info?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.TrackingInfo"];
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            transport_cargo_id?: number;
-            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes.Type.Enum"];
-        };
-        /** @description Количество грузомест и товаров в поставке. */
-        "cargoes.v2.CargoesGetResponse.Supplies.Limits": {
-            /**
-             * Format: int32
-             * @description Максимальное количество коробок.
-             */
-            max_box_count?: number;
-            /**
-             * Format: int32
-             * @description Максимальное количество товаров в коробке.
-             */
-            max_box_sku_count?: number;
-            /**
-             * Format: int32
-             * @description Максимальное количество палет.
-             */
-            max_pallet_count?: number;
-            /**
-             * Format: int32
-             * @description Максимальное количество транспортных грузомест.
-             */
-            max_transport_pallet_count?: number;
-        };
-        /** @description Часовой пояс. */
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt.Timezone": {
-            /** @description Название часового пояса. */
-            iana_name?: string;
-            /**
-             * Format: int64
-             * @description Смещение часового пояса от UTC-0 в секундах.
-             */
-            offset?: number;
-        };
-        /** @description Информация о приёме транспортного грузоместа. */
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt": {
-            /**
-             * Format: date-time
-             * @description Дата приёма транспортного грузоместа.
-             */
-            date?: string;
-            timezone?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt.Timezone"];
-        };
-        /**
-         * @description Статус транспортного грузоместа:
-         *     - `UNSPECIFIED` — не определён;
-         *     - `READY_TO_SUPPLY` — готово к отгрузке;
-         *     - `REFUSED` — отказано;
-         *     - `ON_WAREHOUSE` — на складе размещения;
-         *     - `NOT_DELIVERED` — не сдано;
-         *     - `ON_POINT_SHIPMENT` — на точке отгрузки;
-         *     - `ON_TRANSIT_WAREHOUSE` — в пути;
-         *     - `LOST` — потеряно;
-         *     - `CREATED` — создано;
-         *     - `CARGO_DISASSEMBLED` — удалено.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Status.Enum": "UNSPECIFIED" | "READY_TO_SUPPLY" | "REFUSED" | "ON_WAREHOUSE" | "NOT_DELIVERED" | "ON_POINT_SHIPMENT" | "ON_TRANSIT_WAREHOUSE" | "LOST" | "CREATED" | "CARGO_DISASSEMBLED";
-        /**
-         * @description Тип отслеживания транспортного грузоместа:
-         *      - `UNSPECIFIED` — не определён;
-         *      - `EXPECTED_ARRIVAL` — плановая дата отгрузки;
-         *      - `ACTUAL_ARRIVAL` — фактическая дата отгрузки.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Type.Enum": "UNSPECIFIED" | "EXPECTED_ARRIVAL" | "ACTUAL_ARRIVAL";
-        /** @description Отслеживание транспортного грузоместа. */
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo": {
-            arrival_at?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.ArrivalAt"];
-            status?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Status.Enum"];
-            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo.Type.Enum"];
-        };
-        /**
-         * @description Тип грузоместа:
-         *      - `UNSPECIFIED` — не определён;
-         *      - `PALLET` — палета.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.Type.Enum": "UNSPECIFIED" | "PALLET";
-        "cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes": {
-            /**
-             * Format: int32
-             * @description Количество грузомест в транспортном грузоместе.
-             */
-            box_count?: number;
-            /** @description Идентификатор товарного состава транспортного грузоместа. */
-            summary_bundle_id?: string;
-            tracking_info?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.TrackingInfo"];
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            transport_cargo_id?: number;
-            type?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes.Type.Enum"];
-        };
-        "cargoes.v2.CargoesGetResponse.Supplies": {
-            /** @description Идентификатор товарного состава. */
-            bundle_id?: string;
-            /** @description Грузоместа. */
-            cargoes?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Cargoes"][];
-            /** @description Товарный состав грузомест. */
-            cargoes_bundle_id?: string;
-            limits?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.Limits"];
-            /**
-             * Format: int64
-             * @description Идентификатор поставки.
-             */
-            supply_id?: number;
-            /** @description Информация о транспортных грузоместах. */
-            transport_cargoes?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies.TransportCargoes"][];
-        };
-        "cargoes.v2.CargoesGetResponse": {
-            /** @description Информация о грузоместах и транспортных грузоместах. */
-            supplies?: components["schemas"]["cargoes.v2.CargoesGetResponse.Supplies"][];
-        };
-        /**
-         * @description Тип удаления транспортного грузоместа:
-         *      - `UNBIND_CONTAINED_CARGOES` —  удалить только транспортное грузоместо и отвязать от него все грузоместа;
-         *      - `DELETE_CONTAINED_CARGOES` — удалить транспортное грузоместо вместе с грузоместами.
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteRequest.TransportCargoDeletionType.Enum": "UNBIND_CONTAINED_CARGOES" | "DELETE_CONTAINED_CARGOES";
-        "cargoes.v2.CargoesDeleteRequest": {
-            /** @description Список идентификаторов грузомест, которые нужно удалить. */
-            cargo_ids?: string[];
-            /**
-             * Format: int64
-             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
-             */
-            supply_id: number;
-            transport_cargo_deletion_type: components["schemas"]["cargoes.v2.CargoesDeleteRequest.TransportCargoDeletionType.Enum"];
-            /** @description Список идентификаторов транспортных грузомест, которые нужно удалить. */
-            transport_cargo_ids?: string[];
-        } & (unknown | unknown);
-        /**
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
-        "cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons": {
-            /**
-             * Format: int64
-             * @description Идентификатор грузоместа.
-             */
-            cargo_id?: number;
-            /**
-             * @description Список ошибок грузоместа:
-             *      - `UNSPECIFIED` — не определена;
-             *      - `CARGO_NOT_FOUND` — грузоместо не найдено.
-             */
-            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons.ErrorReasons.Enum"][];
-        };
-        /**
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteResponse.Errors.SupplyErrorReasons.Enum": "UNSPECIFIED" | "SUPPLY_NOT_FOUND" | "CANT_DELETE_ALL_CARGOES" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "CANT_DELETE_ALL_TRANSPORT_CARGOES" | "UNDEFINED";
-        /**
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
-        "cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons": {
-            /**
-             * @description Список ошибок транспортного грузоместа:
-             *      - `UNSPECIFIED` — не определена;
-             *      - `CARGO_NOT_FOUND` — транспортное грузоместо не найдено.
-             */
-            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum"][];
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            transport_cargo_id?: number;
-        };
-        /** @description Ошибки. */
-        "cargoes.v2.CargoesDeleteResponse.Errors": {
-            /** @description Ошибки при удалении грузомест. */
-            cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.CargoErrorReasons"][];
-            /**
-             * @description Ошибки поставки:
-             *     - `UNSPECIFIED` — не определена;
-             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
-             *     - `CANT_DELETE_ALL_CARGOES` — нельзя удалять все грузоместа;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — не принадлежит вашему юридическому лицу;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — не принадлежит вашему кабинету;
-             *     - `SUPPLY_CARGOES_IS_FINALIZED` — грузоместа поставки нельзя редактировать;
-             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `ETTN_IS_UPLOADED` — электронная ТТН загружена;
-             *     - `CANT_DELETE_ALL_TRANSPORT_CARGOES` — нельзя удалять все транспортные грузоместа;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            supply_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.SupplyErrorReasons.Enum"][];
-            /** @description Ошибки при удалении транспортных грузомест. */
-            transport_cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors.TransportCargoErrorReasons"][];
-        };
-        "cargoes.v2.CargoesDeleteResponse": {
-            errors?: components["schemas"]["cargoes.v2.CargoesDeleteResponse.Errors"];
-            /** @description Идентификатор операции. Получите статус операции методом [/v2/cargoes/delete/status](#operation/CargoesDeleteStatusV2). */
-            operation_id?: string;
-        };
-        "cargoes.v2.CargoesDeleteStatusRequest": {
-            /** @description Идентификатор операции из метода [/v2/cargoes/delete](#operation/CargoesDeleteV2). */
-            operation_id: string;
-        };
-        /**
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
-        "cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons": {
-            /**
-             * Format: int64
-             * @description Идентификатор грузоместа.
-             */
-            cargo_id?: number;
-            /**
-             * @description Список ошибок грузоместа:
-             *      - `UNSPECIFIED` — не определена;
-             *      - `CARGO_NOT_FOUND` — грузоместо не найдено.
-             */
-            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons.ErrorReasons.Enum"][];
-        };
-        /**
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteStatusResponse.Errors.SupplyErrorReasons.Enum": "UNSPECIFIED" | "SUPPLY_NOT_FOUND" | "CANT_DELETE_ALL_CARGOES" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "CANT_DELETE_ALL_TRANSPORT_CARGOES" | "UNDEFINED";
-        /**
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum": "UNSPECIFIED" | "CARGO_NOT_FOUND";
-        "cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons": {
-            /**
-             * @description Список ошибок транспортного грузоместа:
-             *      - `UNSPECIFIED` — не определена;
-             *      - `CARGO_NOT_FOUND` — транспортное грузоместо не найдено.
-             */
-            error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons.ErrorReasons.Enum"][];
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            transport_cargo_id?: number;
-        };
-        /** @description Ошибки. */
-        "cargoes.v2.CargoesDeleteStatusResponse.Errors": {
-            /** @description Ошибки при удалении грузомест. */
-            cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.CargoErrorReasons"][];
-            /**
-             * @description Ошибки поставки:
-             *     - `UNSPECIFIED` — не определена;
-             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
-             *     - `CANT_DELETE_ALL_CARGOES` — нельзя удалять все грузоместа;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — не принадлежит вашему юридическому лицу;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — не принадлежит вашему кабинету;
-             *     - `SUPPLY_CARGOES_IS_FINALIZED` — грузоместа поставки нельзя редактировать;
-             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `ETTN_IS_UPLOADED` — электронная ТТН загружена;
-             *     - `CANT_DELETE_ALL_TRANSPORT_CARGOES` — нельзя удалять все транспортные грузоместа;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            supply_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.SupplyErrorReasons.Enum"][];
-            /** @description Ошибки при удалении транспортных грузомест. */
-            transport_cargo_error_reasons?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors.TransportCargoErrorReasons"][];
-        };
-        /**
-         * @description Статус удаления грузоместа:
-         *     - `UNSPECIFIED` — не определён;
-         *     - `SUCCESS` — грузоместо удалено;
-         *     - `IN_PROGRESS` — грузоместо в процессе удаления;
-         *     - `ERROR` — возникла ошибка при удалении грузоместа.
-         * @default UNSPECIFIED
-         * @enum {string}
-         */
-        "cargoes.v2.CargoesDeleteStatusResponse.Status.Enum": "UNSPECIFIED" | "SUCCESS" | "IN_PROGRESS" | "FAILED";
-        "cargoes.v2.CargoesDeleteStatusResponse": {
-            errors?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Errors"];
-            status?: components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse.Status.Enum"];
-        };
-        "cargoes.v1.CargoesTransportActivateRequest": {
-            /** @description `true`, чтобы включить транспортные грузоместа. */
-            is_transport: boolean;
-            /**
-             * Format: int64
-             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
-             */
-            supply_id: number;
-        };
-        "cargoes.v1.CargoesTransportActivateResponse": {
-            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/transport/activate/status](#operation/CargoesTransportActivateStatus). */
-            operation_id?: string;
-        };
-        "cargoes.v1.CargoesTransportActivateStatusRequest": {
-            /** @description Идентификатор операции из метода [/v1/cargoes/transport/activate](#operation/CargoesTransportActivate). */
-            operation_id: string;
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesTransportActivateStatusResponse.ErrorReasons.Enum": "OPERATION_NOT_FOUND" | "SUPPLY_IS_FINALIZED" | "CAN_NOT_EDIT_TAG" | "UNDEFINED";
-        /**
-         * @description Статус включения или отключения транспортных грузомест:
-         *     - `SUCCESS` — успешно;
-         *     - `IN_PROGRESS` — в процессе;
-         *     - `FAILED` — ошибка.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesTransportActivateStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
-        "cargoes.v1.CargoesTransportActivateStatusResponse": {
-            /**
-             * @description Ошибки при включении или отключении транспортных грузомест:
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `SUPPLY_IS_FINALIZED`, `CAN_NOT_EDIT_TAG` — нельзя изменить поставку;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportActivateStatusResponse.ErrorReasons.Enum"][];
-            status?: components["schemas"]["cargoes.v1.CargoesTransportActivateStatusResponse.Status.Enum"];
-        };
-        /**
-         * @description Тип транспортного грузоместа: `PALLET` — палета.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesTransportCreateRequest.TransportCargoes.Type.Enum": "PALLET";
-        "cargoes.v1.CargoesTransportCreateRequest.TransportCargoes": {
-            /**
-             * Format: int32
-             * @description Количество транспортных грузомест.
-             */
-            count: number;
-            type: components["schemas"]["cargoes.v1.CargoesTransportCreateRequest.TransportCargoes.Type.Enum"];
-        };
-        "cargoes.v1.CargoesTransportCreateRequest": {
-            /**
-             * Format: int64
-             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
-             */
-            supply_id: number;
-            /** @description Количество транспортных грузомест по типам. */
-            transport_cargoes: components["schemas"]["cargoes.v1.CargoesTransportCreateRequest.TransportCargoes"][];
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesTransportCreateResponse.ErrorReasons.Enum": "SUPPLY_NOT_FOUND" | "WAREHOUSE_LIMITS_EXCEED" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "PALLET_SUPPLY_CONTAINS_BOXES" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "BOX_SUPPLY_CONTAINS_PALLETS" | "UNDEFINED";
-        "cargoes.v1.CargoesTransportCreateResponse": {
-            /**
-             * @description Ошибки при создании транспортных грузомест:
-             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
-             *     - `WAREHOUSE_LIMITS_EXCEED` — превышены лимиты склада;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — заявка на поставку не принадлежит юридическому лицу;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — заявка на поставку не принадлежит продавцу;
-             *     - `PALLET_SUPPLY_CONTAINS_BOXES` — палетная поставка не может содержать коробки;
-             *     - `SUPPLY_CARGOES_IS_FINALIZED` — нельзя редактировать заявку на поставку;
-             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН;
-             *     - `BOX_SUPPLY_CONTAINS_PALLETS` — поставка может содержать только коробки;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportCreateResponse.ErrorReasons.Enum"][];
-            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/transport/create/status](#operation/CargoesTransportCreateStatus). */
-            operation_id?: string;
-        };
-        "cargoes.v1.CargoesTransportCreateStatusRequest": {
-            /** @description Идентификатор операции из метода [/v1/cargoes/transport/create](#operation/CargoesTransportCreate). */
-            operation_id?: string;
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesTransportCreateStatusResponse.ErrorReasons.Enum": "SUPPLY_NOT_FOUND" | "WAREHOUSE_LIMITS_EXCEED" | "SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR" | "SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY" | "PALLET_SUPPLY_CONTAINS_BOXES" | "SUPPLY_CARGOES_IS_FINALIZED" | "SUPPLY_CARGOES_LOCKED" | "OPERATION_NOT_FOUND" | "ETTN_IS_UPLOADED" | "BOX_SUPPLY_CONTAINS_PALLETS" | "UNDEFINED";
-        /**
-         * @description Тип транспортного грузоместа: `PALLET` — палета.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes.Type.Enum": "PALLET";
-        "cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes": {
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            id?: number;
-            type?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes.Type.Enum"];
-        };
-        /** @description Созданные транспортные грузоместа. */
-        "cargoes.v1.CargoesTransportCreateStatusResponse.Result": {
-            /** @description Информация о созданных транспортных грузоместах. */
-            transport_cargoes?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Result.TransportCargoes"][];
-        };
-        /**
-         * @description Статус создания транспортных грузомест:
-         *     - `SUCCESS` — успешно;
-         *     - `IN_PROGRESS` — в процессе;
-         *     - `FAILED` — ошибка.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesTransportCreateStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
-        "cargoes.v1.CargoesTransportCreateStatusResponse": {
-            /**
-             * @description Ошибки при создании транспортных грузомест:
-             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
-             *     - `WAREHOUSE_LIMITS_EXCEED` — превышены лимиты склада;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_CONTRACTOR` — заявка на поставку не принадлежит юридическому лицу;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_THE_COMPANY` — заявка на поставку не принадлежит продавцу;
-             *     - `PALLET_SUPPLY_CONTAINS_BOXES` — палетная поставка не может содержать коробки;
-             *     - `SUPPLY_CARGOES_IS_FINALIZED` — нельзя редактировать заявку на поставку;
-             *     - `SUPPLY_CARGOES_LOCKED` — другой процесс блокирует редактирование грузомест поставки;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН;
-             *     - `BOX_SUPPLY_CONTAINS_PALLETS` — поставка может содержать только коробки;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.ErrorReasons.Enum"][];
-            result?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Result"];
-            status?: components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse.Status.Enum"];
-        };
-        "cargoes.v1.CargoesTransportBindRequest.TransportCargoBind": {
-            /** @description Идентификаторы грузомест. */
-            cargo_ids: string[];
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            transport_cargo_id: number;
-        };
-        "cargoes.v1.CargoesTransportBindRequest": {
-            /** @description Идентификаторы транспортных грузомест, которые надо отвязать. */
-            cargoes_unbind_transport_cargoes?: string[];
-            /**
-             * Format: int64
-             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
-             */
-            supply_id: number;
-            /** @description Идентификаторы грузомест и транспортных грузомест, которые надо связать. */
-            transport_cargo_bind?: components["schemas"]["cargoes.v1.CargoesTransportBindRequest.TransportCargoBind"][];
-        } & (unknown | unknown);
-        /** @enum {string} */
-        "cargoes.v1.CargoesTransportBindResponse.ErrorReasons.Enum": "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_FOUND" | "SUPPLY_DOES_NOT_BELONG_TO_COMPANY" | "SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR" | "TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY" | "INVALID_SUPPLY_STATE" | "SUPPLY_IS_FINALIZED" | "CARGO_IDS_NOT_FOUND" | "TRANSPORT_CARGO_IDS_NOT_FOUND" | "ETTN_IS_UPLOADED";
-        "cargoes.v1.CargoesTransportBindResponse": {
-            /**
-             * @description Ошибки связывания или отвязывания грузомест:
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
-             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_COMPANY` — заявка на поставку не принадлежит продавцу;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR` — поставка не принадлежит юридическому лицу;
-             *     - `TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY` — для поставки не включены транспортные грузоместа;
-             *     - `INVALID_SUPPLY_STATE` — неверный статус поставки;
-             *     - `SUPPLY_IS_FINALIZED` — нельзя редактировать поставку;
-             *     - `CARGO_IDS_NOT_FOUND` — грузоместа не найдены;
-             *     - `TRANSPORT_CARGO_IDS_NOT_FOUND` — траспортные грузоместа не найдены;
-             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportBindResponse.ErrorReasons.Enum"][];
-            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/transport/bind/status](#operation/CargoesTransportBindStatus). */
-            operation_id?: string;
-        };
-        "cargoes.v1.CargoesTransportBindStatusRequest": {
-            /** @description Идентификатор операции из метода [/v1/cargoes/transport/bind](#operation/CargoesTransportBind). */
-            operation_id: string;
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesTransportBindStatusResponse.ErrorReasons.Enum": "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_FOUND" | "SUPPLY_DOES_NOT_BELONG_TO_COMPANY" | "SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR" | "TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY" | "INVALID_SUPPLY_STATE" | "SUPPLY_IS_FINALIZED" | "CARGO_IDS_NOT_FOUND" | "TRANSPORT_CARGO_IDS_NOT_FOUND" | "ETTN_IS_UPLOADED";
-        /**
-         * @description Статус связывания или отвязывания грузомест:
-         *     - `SUCCESS` — успешно;
-         *     - `IN_PROGRESS` — в процессе;
-         *     - `FAILED` — ошибка.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesTransportBindStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
-        "cargoes.v1.CargoesTransportBindStatusResponse": {
-            /**
-             * @description Ошибки связывания или отвязывания грузомест:
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
-             *     - `SUPPLY_NOT_FOUND` — поставка не найдена;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_COMPANY` — заявка на поставку не принадлежит продавцу;
-             *     - `SUPPLY_DOES_NOT_BELONG_TO_CONTRACTOR` — поставка не принадлежит юридическому лицу;
-             *     - `TRANSPORT_CARGOES_NOT_ENABLED_FOR_SUPPLY` — для поставки не включены транспортные грузоместа;
-             *     - `INVALID_SUPPLY_STATE` — неверный статус поставки;
-             *     - `SUPPLY_IS_FINALIZED` — нельзя редактировать поставку;
-             *     - `CARGO_IDS_NOT_FOUND` — грузоместа не найдены;
-             *     - `TRANSPORT_CARGO_IDS_NOT_FOUND` — траспортные грузоместа не найдены;
-             *     - `ETTN_IS_UPLOADED` — нельзя редактировать поставку с загруженной эТТН.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesTransportBindStatusResponse.ErrorReasons.Enum"][];
-            status?: components["schemas"]["cargoes.v1.CargoesTransportBindStatusResponse.Status.Enum"];
-        };
-        "cargoes.v1.CargoesSuppliesGetRequest": {
-            /** @description Список идентификаторов поставок. */
-            supply_ids: string[];
-        };
-        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.CargoesWithoutTransportCargoes": {
-            /** @description Штрихкод грузоместа. */
-            barcode?: string;
-            /** @description Идентификатор состава грузоместа. */
-            bundle_id?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор грузоместа.
-             */
-            cargo_id?: number;
-        };
-        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Cargoes": {
-            /** @description Штрихкод грузоместа. */
-            barcode?: string;
-            /** @description Идентификатор состава грузоместа. */
-            bundle_id?: string;
-            /**
-             * Format: int64
-             * @description Идентификатор грузоместа.
-             */
-            cargo_id?: number;
-        };
-        /**
-         * @description Тип транспортного грузоместа: `PALLET` — палета.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Type.Enum": "PALLET";
-        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes": {
-            /** @description Идентификатор состава грузоместа. */
-            bundle_id?: string;
-            /** @description Грузоместа в транспортном грузоместе. */
-            cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Cargoes"][];
-            /**
-             * Format: int64
-             * @description Идентификатор транспортного грузоместа.
-             */
-            transport_cargo_id?: number;
-            type?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes.Type.Enum"];
-        };
-        "cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes": {
-            /** @description Идентификатор состава поставки. */
-            bundle_id?: string;
-            /** @description Грузоместа, которые не связаны с транспортными грузоместами. */
-            cargoes_without_transport_cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.CargoesWithoutTransportCargoes"][];
-            /**
-             * Format: int64
-             * @description Идентификатор поставки.
-             */
-            supply_id?: number;
-            /** @description Список транспортных грузомест в поставке. */
-            transport_cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes.TransportCargoes"][];
-        };
-        "cargoes.v1.CargoesSuppliesGetResponse": {
-            /** @description Поставки, которые не удалось найти. */
-            not_found_supply_ids?: string[];
-            /** @description Информация о грузоместах в поставках. */
-            supplies_cargoes?: components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse.SuppliesCargoes"][];
-        };
-        "cargoes.v1.CargoesLabelTransportByOrderCreateRequest": {
-            /**
-             * Format: int64
-             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
-             */
-            order_id: number;
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesLabelTransportByOrderCreateResponse.ErrorReasons.Enum": "ORDER_NOT_FOUND" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "ALL_SUPPLIES_SKIPPED" | "LABELS_COUNT_EXCEED" | "UNDEFINED";
-        "cargoes.v1.CargoesLabelTransportByOrderCreateResponse": {
-            /**
-             * @description Ошибки при генерации этикеток транспортных грузомест:
-             *     - `ORDER_NOT_FOUND` — заявка не найдена;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
-             *     - `ALL_SUPPLIES_SKIPPED` — нет этикеток для поставок;
-             *     - `LABELS_COUNT_EXCEED` — превышено количество генерируемых этикеток;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderCreateResponse.ErrorReasons.Enum"][];
-            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/label/transport-by-order/status](#operation/CargoesLabelTransportByOrderStatus). */
-            operation_id?: string;
-        };
-        "cargoes.v1.CargoesLabelTransportByOrderStatusRequest": {
-            /** @description Идентификатор операции из метода [/v1/cargoes/label/transport-by-order/create](#operation/CargoesLabelTransportByOrderCreate). */
-            operation_id: string;
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse.ErrorReasons.Enum": "ORDER_NOT_FOUND" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "ALL_SUPPLIES_SKIPPED" | "LABELS_COUNT_EXCEED" | "UNDEFINED";
-        /** @description Этикетки транспортных грузомест. */
-        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Result": {
-            /** @description Ссылка на PDF-файл с этикетками. */
-            file_url?: string;
-            /** @description Поставки, по которым не сгенерированы этикетки. */
-            skipped_supplies_ids?: string[];
-        };
-        /**
-         * @description Статус генерации этикеток:
-         *     - `SUCCESS` — успешно;
-         *     - `IN_PROGRESS` — в процессе;
-         *     - `FAILED` — ошибка.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
-        "cargoes.v1.CargoesLabelTransportByOrderStatusResponse": {
-            /**
-             * @description Ошибки при генерации этикеток транспортных грузомест:
-             *     - `ORDER_NOT_FOUND` — заявка не найдена;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
-             *     - `ALL_SUPPLIES_SKIPPED` — нет этикеток для поставок;
-             *     - `LABELS_COUNT_EXCEED` — превышено количество генерируемых этикеток;
-             *     - `UNDEFINED` — неизвестная ошибка.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse.ErrorReasons.Enum"][];
-            result?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Result"];
-            status?: components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse.Status.Enum"];
-        };
-        "cargoes.v1.CargoesLabelTransportCreateRequest": {
-            /**
-             * Format: int64
-             * @description Идентификатор поставки. Получите значение параметра методом [/v3/supply-order/get](#operation/SupplyOrderGet).
-             */
-            supply_id: number;
-            /** @description Идентификаторы транспортных грузомест. Если ничего не передать, в ответе вернутся этикетки для всех транспортных грузомест в поставке. */
-            transport_cargo_ids?: string[];
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesLabelTransportCreateResponse.ErrorReasons.Enum": "INVALID_STATE" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_BELONG_CONTRACTOR" | "SUPPLY_NOT_BELONG_COMPANY" | "SUPPLY_IS_EMPTY" | "CARGOES_NOT_FOUND";
-        "cargoes.v1.CargoesLabelTransportCreateResponse": {
-            /**
-             * @description Ошибки при генерации этикеток транспортных грузомест:
-             *     - `INVALID_STATE` — недопустимое состояние поставки;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
-             *     - `SUPPLY_NOT_BELONG_CONTRACTOR` — поставка не принадлежит юридическому лицу;
-             *     - `SUPPLY_NOT_BELONG_COMPANY` — заявка на поставку не принадлежит продавцу;
-             *     - `SUPPLY_IS_EMPTY` — в поставке нет грузомест;
-             *     - `CARGOES_NOT_FOUND` — грузоместа не найдены.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportCreateResponse.ErrorReasons.Enum"][];
-            /** @description Идентификатор операции. Получите статус операции методом [/v1/cargoes/label/transport-by-order/status](#operation/CargoesLabelTransportStatus). */
-            operation_id?: string;
-        };
-        "cargoes.v1.CargoesLabelTransportStatusRequest": {
-            /** @description Идентификатор операции из метода [/v1/cargoes/label/transport/create](#operation/CargoesLabelTransportCreate). */
-            operation_id?: string;
-        };
-        /** @enum {string} */
-        "cargoes.v1.CargoesLabelTransportStatusResponse.ErrorReasons.Enum": "INVALID_STATE" | "OPERATION_NOT_FOUND" | "OPERATION_FAILED" | "SUPPLY_NOT_BELONG_CONTRACTOR" | "SUPPLY_NOT_BELONG_COMPANY" | "SUPPLY_IS_EMPTY" | "CARGOES_NOT_FOUND";
-        /** @description Этикетки транспортных грузомест. */
-        "cargoes.v1.CargoesLabelTransportStatusResponse.Result": {
-            /** @description Ссылка на PDF-файл с этикетками. */
-            file_url?: string;
-        };
-        /**
-         * @description Статус генерации этикеток:
-         *     - `SUCCESS` — успешно;
-         *     - `IN_PROGRESS` — в процессе;
-         *     - `FAILED` — ошибка.
-         * @enum {string}
-         */
-        "cargoes.v1.CargoesLabelTransportStatusResponse.Status.Enum": "SUCCESS" | "IN_PROGRESS" | "FAILED";
-        "cargoes.v1.CargoesLabelTransportStatusResponse": {
-            /**
-             * @description Ошибки при генерации этикеток транспортных грузомест:
-             *     - `INVALID_STATE` — недопустимое состояние поставки;
-             *     - `OPERATION_NOT_FOUND` — операция не найдена;
-             *     - `OPERATION_FAILED` — операция завершилась с ошибкой;
-             *     - `SUPPLY_NOT_BELONG_CONTRACTOR` — поставка не принадлежит юридическому лицу;
-             *     - `SUPPLY_NOT_BELONG_COMPANY` — заявка на поставку не принадлежит продавцу;
-             *     - `SUPPLY_IS_EMPTY` — в поставке нет грузомест;
-             *     - `CARGOES_NOT_FOUND` — грузоместа не найдены.
-             */
-            error_reasons?: components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse.ErrorReasons.Enum"][];
-            result?: components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse.Result"];
-            status?: components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse.Status.Enum"];
         };
         /** @description Детали доставки. */
         v1FbpDraftDirectSellerDlvCreateRequestDirectDetails: {
@@ -43525,6 +43139,296 @@ export interface components {
             /** @description Список не выданных покупателям экземпляров товаров. */
             non_issued_exemplars?: components["schemas"]["PostingMarksResponseNonIssuedExemplar"][];
         };
+        /** @enum {string} */
+        "notification.v1.SetNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
+        "notification.v1.SetNotificationRequest": {
+            /**
+             * @description Типы уведомлений:
+             *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
+             *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
+             *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
+             *     - `TYPE_CHAT_CLOSED` — чат закрыт;
+             *     - `TYPE_NEW_POSTING` — новое отправление;
+             *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
+             *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
+             *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
+             *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
+             *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
+             *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
+             *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
+             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+             *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+             *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+             *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+             *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+             *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+             *     - `TYPE_ORDER_NEW` — новый заказ;
+             *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+             *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
+             */
+            types: components["schemas"]["notification.v1.SetNotificationRequest.Type.Enum"][];
+            /** @description URL-адрес. */
+            url: string;
+        };
+        /** @enum {string} */
+        "notification.v1.UpdateNotificationRequest.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
+        "notification.v1.UpdateNotificationRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор URL-адреса.
+             */
+            id: number;
+            /**
+             * @description Типы уведомлений:
+             *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
+             *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
+             *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
+             *     - `TYPE_CHAT_CLOSED` — чат закрыт;
+             *     - `TYPE_NEW_POSTING` — новое отправление;
+             *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
+             *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
+             *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
+             *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
+             *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
+             *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
+             *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
+             *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+             *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+             *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+             *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+             *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+             *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+             *     - `TYPE_ORDER_NEW` — новый заказ;
+             *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+             *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
+             */
+            types?: components["schemas"]["notification.v1.UpdateNotificationRequest.Type.Enum"][];
+            /** @description Новый URL-адрес. */
+            url?: string;
+        };
+        "notification.v1.DeleteNotificationRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор URL-адреса.
+             */
+            id: number;
+        };
+        "notification.v1.CheckNotificationRequest": {
+            /** @description URL-адрес. */
+            url: string;
+        };
+        /**
+         * @description Тип ошибки:
+         *     - `REQUEST_ERROR` — нет подключения по URL-адресу;
+         *     - `REQUEST_TIMEOUT` — превышено время ожидания запроса;
+         *     - `SERVER_FAULT` — сервис вернул внутреннюю ошибку;
+         *     - `STATUS_CODE_NOT_OK` — HTTP-статус ответа не `200`;
+         *     - `EMPTY_BODY` — тело ответа пустое или отсутствует;
+         *     - `INVALID_BODY` — некорректный формат тела ответа;
+         *     - `INVALID_JSON` — ошибка при разборе или валидации JSON-данных;
+         *     - `WRONG_RESULT_FIELD` — сервис вернул тело ответа не по шаблону;
+         *     - `WRONG_RESULT_TIME_FIELD` — параметр `time` в теле ответа некорректный.
+         * @enum {string}
+         */
+        "notification.v1.CheckNotificationResponse.Error.Type.Enum": "REQUEST_ERROR" | "REQUEST_TIMEOUT" | "SERVER_FAULT" | "STATUS_CODE_NOT_OK" | "EMPTY_BODY" | "INVALID_BODY" | "INVALID_JSON" | "WRONG_RESULT_FIELD" | "WRONG_RESULT_TIME_FIELD";
+        "notification.v1.CheckNotificationResponse.Error": {
+            /** @description Описание ошибки. */
+            description?: string;
+            type?: components["schemas"]["notification.v1.CheckNotificationResponse.Error.Type.Enum"];
+        };
+        "notification.v1.CheckNotificationResponse": {
+            /** @description Ошибки, возникшие при проверке. */
+            errors?: components["schemas"]["notification.v1.CheckNotificationResponse.Error"][];
+            /** @description `true`, если URL-адрес активен. */
+            is_active: boolean;
+        };
+        "notification.v1.EnableNotificationRequest": {
+            /**
+             * @description Передайте:
+             *     - `true` — чтобы включить уведомления;
+             *     - `false` — чтобы выключить уведомления.
+             */
+            enabled: boolean;
+            /**
+             * Format: int64
+             * @description Идентификатор URL-адреса.
+             */
+            id: number;
+        };
+        /** @enum {string} */
+        "notification.v1.NotificationListRequest.AvailabilityStatus.Enum": "GREEN" | "YELLOW" | "RED";
+        /**
+         * @description Направление сортировки:
+         *     - `ASC` — по возрастанию;
+         *     - `DESC` — по убыванию.
+         * @enum {string}
+         */
+        "notification.v1.NotificationListRequest.SortDir.Enum": "ASC" | "DESC";
+        "notification.v1.NotificationListRequest": {
+            /**
+             * @description Информация о доступности URL-адресов:
+             *      - `GREEN` — активен;
+             *      - `YELLOW` — нестабилен;
+             *      - `RED` — недоступен.
+             */
+            availability_statuses?: components["schemas"]["notification.v1.NotificationListRequest.AvailabilityStatus.Enum"][];
+            /**
+             * Format: uint64
+             * @description Количество элементов в ответе.
+             * @default 100
+             */
+            limit: number;
+            /**
+             * Format: uint64
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
+             */
+            offset?: number;
+            sort_dir?: components["schemas"]["notification.v1.NotificationListRequest.SortDir.Enum"];
+        };
+        /** @description Пороговое значение статуса доступности URL-адреса. */
+        "notification.v1.NotificationListResponse.Threshold": {
+            /**
+             * @description Статус доступности URL-адреса:
+             *     - `GREEN` — активен;
+             *     - `YELLOW` — нестабилен;
+             *     - `RED` — недоступен.
+             */
+            status: string;
+            /**
+             * Format: int64
+             * @description Пороговое значение времени ответа в миллисекундах.
+             */
+            threshold: number;
+        };
+        /**
+         * @description Тип уведомления:
+         *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
+         *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
+         *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
+         *     - `TYPE_CHAT_CLOSED` — чат закрыт;
+         *     - `TYPE_NEW_POSTING` — новое отправление;
+         *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
+         *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
+         *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
+         *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
+         *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
+         *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
+         *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
+         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+         *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+         *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+         *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+         *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+         *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+         *     - `TYPE_ORDER_NEW` — новый заказ;
+         *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+         *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
+         * @enum {string}
+         */
+        "notification.v1.NotificationListResponse.Notification.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
+        "notification.v1.NotificationListResponse.Notification.NotificationType": {
+            /** @description Описание типа уведомлений. */
+            description: string;
+            type: components["schemas"]["notification.v1.NotificationListResponse.Notification.NotificationType.Type.Enum"];
+        };
+        "notification.v1.NotificationListResponse.Notification": {
+            /**
+             * @description Статус доступности URL-адреса:
+             *     - `GREEN` — активен;
+             *     - `YELLOW` — нестабилен;
+             *     - `RED` — недоступен.
+             */
+            availability_status: string;
+            /**
+             * Format: date-time
+             * @description Дата и время последнего обновления статуса доступности URL-адреса.
+             */
+            availability_status_date: string;
+            /**
+             * Format: date-time
+             * @description Дата подключения URL-адреса.
+             */
+            created_at: string;
+            /**
+             * @description Причина отключения URL-адреса:
+             *     - `SELLER` — отключён продавцом;
+             *     - `AVAILABILITY` — отключён из-за недоступности;
+             *     - `ADMIN` — отключён администратором.
+             */
+            disable_reason: string;
+            /** @description `true`, если URL-адрес включён. */
+            enable: boolean;
+            /**
+             * Format: int64
+             * @description Идентификатор URL-адреса.
+             */
+            id: number;
+            /** @description Тип пуш-уведомления, из-за которого отключён URL-адрес. */
+            problematic_type: string;
+            /** @description Причина отключения администратором. */
+            reason_details: string;
+            /** @description Типы уведомлений. */
+            types: components["schemas"]["notification.v1.NotificationListResponse.Notification.NotificationType"][];
+            /** @description URL-адрес. */
+            url: string;
+        };
+        "notification.v1.NotificationListResponse": {
+            /** @description Информация о пороговых значениях статусов доступности URL-адресов. */
+            availability_status_thresholds: components["schemas"]["notification.v1.NotificationListResponse.Threshold"][];
+            /**
+             * Format: int64
+             * @description Общее количество подключённых URL-адресов.
+             */
+            total_count: number;
+            /** @description Подключённые URL-адреса. */
+            urls: components["schemas"]["notification.v1.NotificationListResponse.Notification"][];
+        };
+        /** @description URL-адрес, на который приходит тип уведомлений. */
+        "notification.v1.GetNotificationPushTypeListResponse.NotificationType.SellerEndpoint": {
+            /**
+             * Format: int64
+             * @description Идентификатор URL-адреса.
+             */
+            id: number;
+            /** @description URL-адрес. */
+            url: string;
+        };
+        /**
+         * @description Тип уведомления:
+         *     - `TYPE_NEW_MESSAGE` — новое сообщение в чате;
+         *     - `TYPE_UPDATE_MESSAGE` — изменение сообщения в чате;
+         *     - `TYPE_MESSAGE_READ` — ваше сообщение прочитано покупателем или поддержкой;
+         *     - `TYPE_CHAT_CLOSED` — чат закрыт;
+         *     - `TYPE_NEW_POSTING` — новое отправление;
+         *     - `TYPE_POSTING_CANCELLED` — отмена отправления;
+         *     - `TYPE_STATE_CHANGED` — изменение статуса отправления;
+         *     - `TYPE_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления;
+         *     - `TYPE_CUTOFF_DATE_CHANGED` — изменение даты отгрузки отправления;
+         *     - `TYPE_CREATE_ITEM` — создание товара или ошибка при его создании;
+         *     - `TYPE_UPDATE_ITEM` — обновление товара или ошибка при обновлении;
+         *     - `TYPE_CREATE_OR_UPDATE_ITEM` — создание и обновление товара или ошибка в процессе;
+         *     - `TYPE_STOCKS_CHANGED` — изменение остатков на складах продавца;
+         *     - `TYPE_FBO_POSTING_NEW` — новое отправление FBO;
+         *     - `TYPE_FBO_POSTING_CANCELLED` — отмена отправления FBO;
+         *     - `TYPE_FBO_POSTING_STATE_CHANGED` — изменение статуса отправления FBO;
+         *     - `TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED` — изменение даты доставки отправления FBO;
+         *     - `TYPE_FBO_STOCKS_CHANGED` — изменение остатков на складах Ozon;
+         *     - `TYPE_ORDER_NEW` — новый заказ;
+         *     - `TYPE_ORDER_CANCELLED` — отмена заказа;
+         *     - `TYPE_ORDER_STATE_CHANGED` — изменение статуса заказа.
+         * @enum {string}
+         */
+        "notification.v1.GetNotificationPushTypeListResponse.NotificationType.Type.Enum": "TYPE_NEW_MESSAGE" | "TYPE_UPDATE_MESSAGE" | "TYPE_MESSAGE_READ" | "TYPE_CHAT_CLOSED" | "TYPE_NEW_POSTING" | "TYPE_POSTING_CANCELLED" | "TYPE_STATE_CHANGED" | "TYPE_DELIVERY_DATE_CHANGED" | "TYPE_CUTOFF_DATE_CHANGED" | "TYPE_CREATE_ITEM" | "TYPE_UPDATE_ITEM" | "TYPE_CREATE_OR_UPDATE_ITEM" | "TYPE_STOCKS_CHANGED" | "TYPE_FBO_POSTING_NEW" | "TYPE_FBO_POSTING_CANCELLED" | "TYPE_FBO_POSTING_STATE_CHANGED" | "TYPE_FBO_POSTING_DELIVERY_DATE_CHANGED" | "TYPE_FBO_STOCKS_CHANGED" | "TYPE_ORDER_NEW" | "TYPE_ORDER_CANCELLED" | "TYPE_ORDER_STATE_CHANGED";
+        "notification.v1.GetNotificationPushTypeListResponse.NotificationType": {
+            /** @description Описание. */
+            description: string;
+            seller_endpoint?: components["schemas"]["notification.v1.GetNotificationPushTypeListResponse.NotificationType.SellerEndpoint"];
+            type: components["schemas"]["notification.v1.GetNotificationPushTypeListResponse.NotificationType.Type.Enum"];
+        };
+        "notification.v1.GetNotificationPushTypeListResponse": {
+            /** @description Типы пуш-уведомлений. */
+            types: components["schemas"]["notification.v1.GetNotificationPushTypeListResponse.NotificationType"][];
+        };
     };
     responses: never;
     parameters: {
@@ -46765,6 +46669,39 @@ export interface operations {
                 };
             };
             /** @description Ошибка */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    GetProductInfoStocksByWarehouseFbo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["product.v1.GetProductInfoStocksByWarehouseFboRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация об остатках. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["product.v1.GetProductInfoStocksByWarehouseFboResponse"];
+                };
+            };
+            /** @description Ошибка. */
             default: {
                 headers: {
                     [name: string]: unknown;
@@ -54214,6 +54151,80 @@ export interface operations {
             };
         };
     };
+    CargoesGetV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v2.CargoesGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о грузоместах */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v2.CargoesGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     CargoesAPI_CargoesDelete: {
         parameters: {
             query?: never;
@@ -54251,6 +54262,80 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["googlerpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesDeleteV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v2.CargoesDeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description Грузоместа и транспортные грузоместа удалены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v2.CargoesDeleteResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
                 };
             };
         };
@@ -54298,6 +54383,80 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["googlerpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesDeleteStatusV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v2.CargoesDeleteStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус удаления грузомест и транспортных грузомест */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
                 };
             };
         };
@@ -55005,6 +55164,820 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["googlerpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesTransportActivate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateRequest"];
+            };
+        };
+        responses: {
+            /** @description Транспортные грузоместа включены или отключены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesTransportActivateStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateStatusResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesTransportCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Транспортное грузоместо создано */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesTransportCreateStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesTransportBind: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindRequest"];
+            };
+        };
+        responses: {
+            /** @description Грузоместа связаны или отвязаны */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesTransportBindStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindStatusResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesSuppliesGet: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesSuppliesGetRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о грузоместах в поставках */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesLabelTransportByOrderCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Этикетки сгенерированы */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesLabelTransportByOrderStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesLabelTransportCreate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Этикетки сгенерированы */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportCreateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CargoesLabelTransportStatus: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description Статус */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
                 };
             };
         };
@@ -61788,39 +62761,6 @@ export interface operations {
             };
         };
     };
-    GetProductInfoStocksByWarehouseFbo: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["product.v1.GetProductInfoStocksByWarehouseFboRequest"];
-            };
-        };
-        responses: {
-            /** @description Информация о стоках. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["product.v1.GetProductInfoStocksByWarehouseFboResponse"];
-                };
-            };
-            /** @description Ошибка. */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
     RFBSReturnsAPI_ReturnsRfbsListV2: {
         parameters: {
             query?: never;
@@ -64245,6 +65185,80 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CreateCompanyFinanceRealizationPostingReport: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Позаказный отчёт о реализации */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -67698,80 +68712,6 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CreateCompanyFinanceRealizationPostingReport: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportRequest"];
-            };
-        };
-        responses: {
-            /** @description Позаказный отчёт о реализации */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["report.v1.CreateCompanyFinanceRealizationPostingReportResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -71427,1548 +72367,6 @@ export interface operations {
             };
         };
     };
-    SetNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["notification.v1.SetNotificationRequest"];
-            };
-        };
-        responses: {
-            /** @description URL-адрес подключён */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    UpdateNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["notification.v1.UpdateNotificationRequest"];
-            };
-        };
-        responses: {
-            /** @description URL-адрес изменён */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    DeleteNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["notification.v1.DeleteNotificationRequest"];
-            };
-        };
-        responses: {
-            /** @description URL-адрес удалён */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CheckNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["notification.v1.CheckNotificationRequest"];
-            };
-        };
-        responses: {
-            /** @description Результат проверки */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["notification.v1.CheckNotificationResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    EnableNotification: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["notification.v1.EnableNotificationRequest"];
-            };
-        };
-        responses: {
-            /** @description Уведомления включены или выключены */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    NotificationList: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["notification.v1.NotificationListRequest"];
-            };
-        };
-        responses: {
-            /** @description Подключённые URL-адреса */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["notification.v1.NotificationListResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    GetNotificationPushTypeList: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Типы пуш-уведомлений */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["notification.v1.GetNotificationPushTypeListResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesGetV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v2.CargoesGetRequest"];
-            };
-        };
-        responses: {
-            /** @description Информация о грузоместах */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v2.CargoesGetResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesDeleteV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v2.CargoesDeleteRequest"];
-            };
-        };
-        responses: {
-            /** @description Грузоместа и транспортные грузоместа удалены */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v2.CargoesDeleteResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesDeleteStatusV2: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v2.CargoesDeleteStatusRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус удаления грузомест и транспортных грузомест */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v2.CargoesDeleteStatusResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesTransportActivate: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateRequest"];
-            };
-        };
-        responses: {
-            /** @description Транспортные грузоместа включены или отключены */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesTransportActivateStatus: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateStatusRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportActivateStatusResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesTransportCreate: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Транспортное грузоместо создано */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesTransportCreateStatus: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateStatusRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportCreateStatusResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesTransportBind: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindRequest"];
-            };
-        };
-        responses: {
-            /** @description Грузоместа связаны или отвязаны */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesTransportBindStatus: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindStatusRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesTransportBindStatusResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesSuppliesGet: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesSuppliesGetRequest"];
-            };
-        };
-        responses: {
-            /** @description Информация о грузоместах в поставках */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesSuppliesGetResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesLabelTransportByOrderCreate: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Этикетки сгенерированы */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderCreateResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesLabelTransportByOrderStatus: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportByOrderStatusResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesLabelTransportCreate: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportCreateRequest"];
-            };
-        };
-        responses: {
-            /** @description Этикетки сгенерированы */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportCreateResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
-    CargoesLabelTransportStatus: {
-        parameters: {
-            query?: never;
-            header: {
-                /** @description Идентификатор клиента. */
-                "Client-Id": components["parameters"]["Client-Id"];
-                /** @description API-ключ. */
-                "Api-Key": components["parameters"]["Api-Key"];
-            };
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportStatusRequest"];
-            };
-        };
-        responses: {
-            /** @description Статус */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["cargoes.v1.CargoesLabelTransportStatusResponse"];
-                };
-            };
-            /** @description Неверный параметр */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Доступ запрещён */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Ответ не найден */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Конфликт запроса */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-            /** @description Внутренняя ошибка сервера */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["rpcStatus"];
-                };
-            };
-        };
-    };
     FbpDraftDirectSellerDlvCreate: {
         parameters: {
             query?: never;
@@ -76564,6 +75962,512 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    SetNotification: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.SetNotificationRequest"];
+            };
+        };
+        responses: {
+            /** @description URL-адрес подключён */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    UpdateNotification: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.UpdateNotificationRequest"];
+            };
+        };
+        responses: {
+            /** @description URL-адрес изменён */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    DeleteNotification: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.DeleteNotificationRequest"];
+            };
+        };
+        responses: {
+            /** @description URL-адрес удалён */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CheckNotification: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.CheckNotificationRequest"];
+            };
+        };
+        responses: {
+            /** @description Результат проверки */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["notification.v1.CheckNotificationResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    EnableNotification: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.EnableNotificationRequest"];
+            };
+        };
+        responses: {
+            /** @description Уведомления включены или выключены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    NotificationList: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["notification.v1.NotificationListRequest"];
+            };
+        };
+        responses: {
+            /** @description Подключённые URL-адреса */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["notification.v1.NotificationListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    GetNotificationPushTypeList: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Типы пуш-уведомлений */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["notification.v1.GetNotificationPushTypeListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
