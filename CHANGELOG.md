@@ -5,6 +5,19 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.22.0] - 2026-11-11
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 ноября 2026.
+
+Пути: 484 → 484 (+0 / −0). Схемы: 2319 → 2320 (+1 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- В элемент `products` ответа `/v2/actions/products` добавлен необязательный
+  `action_price_before_auto_add` (`amount`, `currency`): предельная цена
+  товара до автодобавления в акцию.
+
 ## [0.21.0] - 2026-11-10
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 10 ноября 2026.
