@@ -14048,6 +14048,13 @@ export interface components {
              */
             limit: number;
         };
+        /** @description Предельная цена товара до автодобавления в акцию. */
+        "money.MoneyAction_price_before_auto_add": {
+            /** @description Сумма. */
+            amount?: string;
+            /** @description Валюта. */
+            currency?: string;
+        };
         /**
          * @description Тип добавления товара в акцию:
          *     - `AUTO` — автоматически;
@@ -14070,6 +14077,7 @@ export interface components {
         };
         "actions.v2.ActionsProductsResponse.Product": {
             action_price?: components["schemas"]["money.MoneyAction_price_to_auto_add"];
+            action_price_before_auto_add?: components["schemas"]["money.MoneyAction_price_before_auto_add"];
             add_mode?: components["schemas"]["actions.v2.ActionsProductsResponse.Product.AddMode.Enum"];
             alert_max_action_price?: components["schemas"]["money.MoneyAlert_max_action_price"];
             /** @description `true`, если цена товара выше рекомендуемой. Товар может быть исключён из акции. */
