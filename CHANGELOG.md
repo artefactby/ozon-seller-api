@@ -5,6 +5,32 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.23.0] - 2026-11-13
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 12 ноября 2026.
+
+Пути: 484 → 486 (+2 / −0). Схемы: 2320 → 2328 (+8 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- `POST /v2/product/certificate/products/list` — список товаров, привязанных
+  к сертификату. Запрос: `certificate_id` (`int32`), `limit` (`int64`),
+  необязательные `last_id` (`int64`, пагинация по `products.sku`) и
+  `filter.status` (`awaiting_verification`, `approved`, `declined`,
+  `background_check`). Ответ: `products` (`image`, `name`, `offer_id`, `sku`,
+  `status`), `total`.
+- `POST /v1/product/mismatches/list` — несоответствия характеристик товаров.
+  Запрос: `skus`. Ответ: `result` (`sku`, `has_mismatches`, `mismatches`:
+  `id`, `mismatch_text`, `attribute_ids`). В обновлении Ozon от 12 ноября
+  этого метода нет.
+
+### Changed
+
+- `/v1/product/certificate/products/list` помечен deprecated, отключение
+  12 декабря 2026. Замена — `/v2/product/certificate/products/list`. Путь,
+  запрос и ответ v1 не менялись.
+
 ## [0.22.0] - 2026-11-11
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 11 ноября 2026.
