@@ -2212,6 +2212,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/product/certificate/products/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Получить список товаров, которые привязаны к сертификату */
+        post: operations["ProductCertificateProductsListV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/product/certificate/products/list": {
         parameters: {
             query?: never;
@@ -2223,7 +2240,8 @@ export interface paths {
         put?: never;
         /**
          * Список товаров, привязанных к сертификату
-         * @description <aside class="warning"> 28 сентября 2026 года отключим параметры <code>page</code> и <code>page_size</code> в запросе метода. Используйте параметры <code>last_id</code> и <code>limit</code>. </aside>
+         * @deprecated
+         * @description <aside class="warning"> 12 декабря 2026 года отключим метод. Переключитесь на <a href="#operation/ProductCertificateProductsListV2">/v2/product/certificate/products/list</a>. </aside>
          */
         post: operations["CertificateProductsList"];
         delete?: never;
@@ -7436,6 +7454,28 @@ export interface paths {
          * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2177-Novyi-metod-dlia-polucheniia-ostatkov-FBO/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ReturnAPI_BoxGetByBarcode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/product/mismatches/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить несоответствия характеристик товаров
+         * @description Метод возвращает информацию о несоответствиях характеристик товаров.<br>[Подробнее о несоответствиях в Базе знаний продавца](https://seller-edu.ozon.ru/libra/work-with-goods/zagruzka-tovarov/creating-goods/oshibki-pri-rabote-s-kartochkami#несоответствия-между-полями-карточки)
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2232-Novyi-metod-polucheniia-nesootvetstvii-po-tovaram/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ProductMismatchesList"];
         delete?: never;
         options?: never;
         head?: never;
@@ -15941,6 +15981,67 @@ export interface components {
         v1ProductCertificateProductStatusListResponse: {
             /** @description Список статусов товаров. */
             result?: components["schemas"]["v1StatusCodeNamePair"][];
+        };
+        /** @description Фильтр. */
+        "certification.v2.ProductCertificateProductsListV2Request.Filter": {
+            /**
+             * @description Статус проверки товара при привязке к сертификату:
+             *     - `awaiting_verification` — ожидает проверки;
+             *     - `approved` — проверка пройдена;
+             *     - `declined` — проверка не пройдена;
+             *     - `background_check` — на проверке.
+             */
+            status?: string;
+        };
+        "certification.v2.ProductCertificateProductsListV2Request": {
+            /**
+             * Format: int32
+             * @description Идентификатор сертификата. Получите методом [/v1/product/certificate/list](#operation/CertificateList).
+             */
+            certificate_id: number;
+            filter?: components["schemas"]["certification.v2.ProductCertificateProductsListV2Request.Filter"];
+            /**
+             * Format: int64
+             * @description Идентификатор последнего значения на странице. При первом запросе оставьте это поле пустым.
+             *
+             *     Чтобы получить следующие значения, укажите последнее значение `products.sku` из ответа предыдущего запроса.
+             */
+            last_id?: number;
+            /**
+             * Format: int64
+             * @description Количество значений в ответе.
+             */
+            limit: number;
+        };
+        "certification.v2.ProductCertificateProductsListV2Response.Product": {
+            /** @description Изображение товара. */
+            image?: string;
+            /** @description Название товара. */
+            name?: string;
+            /** @description Идентификатор товара в системе продавца — артикул. */
+            offer_id?: string;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            /**
+             * @description Статус проверки товара при привязке к сертификату:
+             *     - `awaiting_verification` — ожидает проверки;
+             *     - `approved` — проверка пройдена;
+             *     - `declined` — проверка не пройдена;
+             *     - `background_check` — на проверке.
+             */
+            status?: string;
+        };
+        "certification.v2.ProductCertificateProductsListV2Response": {
+            /** @description Товары, которые привязаны к сертификату. */
+            products?: components["schemas"]["certification.v2.ProductCertificateProductsListV2Response.Product"][];
+            /**
+             * Format: int64
+             * @description Общее количество товаров, которые привязаны к сертификату.
+             */
+            total?: number;
         };
         /** object */
         v1ProductCertificateProductsListRequest: {
@@ -35654,6 +35755,33 @@ export interface components {
              */
             weight?: number;
         };
+        "product.v1.ProductMismatchesListRequest": {
+            /** @description Список идентификаторов товаров в системе Ozon — SKU. */
+            skus: string[];
+        };
+        "product.v1.ProductMismatchesListResponse.Result.Mismatches": {
+            /** @description Список идентификаторов характеристик, в которых есть несоответствия. */
+            attribute_ids?: string[];
+            /** @description Идентификатор несоответствия. */
+            id?: string;
+            /** @description Описание несоответствия. */
+            mismatch_text?: string;
+        };
+        "product.v1.ProductMismatchesListResponse.Result": {
+            /** @description `true`, если в характеристиках товара есть несоответствия. */
+            has_mismatches?: boolean;
+            /** @description Список несоответствий. */
+            mismatches?: components["schemas"]["product.v1.ProductMismatchesListResponse.Result.Mismatches"][];
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+        };
+        "product.v1.ProductMismatchesListResponse": {
+            /** @description Информация о несоответствиях товаров. */
+            result?: components["schemas"]["product.v1.ProductMismatchesListResponse.Result"][];
+        };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
              * Format: int64
@@ -51187,6 +51315,80 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductCertificateProductsListV2: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["certification.v2.ProductCertificateProductsListV2Request"];
+            };
+        };
+        responses: {
+            /** @description Список товаров */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["certification.v2.ProductCertificateProductsListV2Response"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -69410,6 +69612,80 @@ export interface operations {
             };
             /** @description Ошибка */
             default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ProductMismatchesList: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["product.v1.ProductMismatchesListRequest"];
+            };
+        };
+        responses: {
+            /** @description Несоответствия характеристик */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["product.v1.ProductMismatchesListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
                 headers: {
                     [name: string]: unknown;
                 };
