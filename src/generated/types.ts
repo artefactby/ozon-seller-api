@@ -939,7 +939,7 @@ export interface paths {
          * @description Позволяет изменить информацию о количестве товара в наличии.
          *
          *     <aside class="warning">
-         *     Переданный остаток — количество товара в наличии без учёта зарезервированных товаров. Перед обновлением остатков проверьте количество зарезервированных товаров с помощью метода <a href="#operation/ProductAPI_GetProductInfoStocksByWarehouseFbsV2">/v2/product/info/stocks-by-warehouse/fbs</a>.
+         *     Переданный остаток — количество товара в наличии без учёта зарезервированных товаров. Перед обновлением остатков проверьте количество зарезервированных товаров с помощью метода <a href="#operation/ProductAPI_GetProductInfoStocksByWarehouseFbsV2">/v2/product/info/stocks-by-warehouse/fbs</a> или <a href="#operation/ProductInfoWarehouseStocks">/v1/product/info/warehouse/stocks</a>.
          *     </aside>
          *
          *     За один запрос можно изменить наличие для 100 пар товар-склад. С одного аккаунта продавца можно отправить до 80 запросов в минуту.
@@ -2709,6 +2709,8 @@ export interface paths {
         /**
          * Список заявок на поставку на склад Ozon
          * @description Учитываются заявки с поставкой на конкретный склад и через [виртуальный распределительный центр (вРЦ)](https://seller-edu.ozon.ru/fbo/scheme-of-work/about#чем-отличаются-процессы-при-заявках-через-врц-и-напрямую-на-склад).
+         *
+         *     Вы можете отправить не больше 1800 запросов в час.
          */
         post: operations["SupplyOrderList"];
         delete?: never;
@@ -2729,6 +2731,8 @@ export interface paths {
         /**
          * Информация о заявке на поставку
          * @description Учитываются заявки с поставкой на конкретный склад и через [виртуальный распределительный центр (вРЦ)](https://seller-edu.ozon.ru/fbo/scheme-of-work/about#чем-отличаются-процессы-при-заявках-через-врц-и-напрямую-на-склад).
+         *
+         *     Вы можете отправить не больше 1800 запросов в час.
          */
         post: operations["SupplyOrderGet"];
         delete?: never;
@@ -2783,7 +2787,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Обновить интервал поставки */
+        /**
+         * Обновить интервал поставки
+         * @description Вы можете отправить не больше 300 запросов в час.
+         */
         post: operations["SupplyOrderAPI_UpdateSupplyOrderTimeslot"];
         delete?: never;
         options?: never;
@@ -5973,7 +5980,12 @@ export interface paths {
         put?: never;
         /**
          * Получить позаказный отчёт о реализации товаров
-         * @description Отчёт о реализации доставленных и возвращённых товаров с детализацией по каждому заказу. Не включает отмены и невыкупы. Отчёт доступен с настоящего времени по август 2023 года включительно.
+         * @deprecated
+         * @description <aside class="warning">
+         *     17 января 2027 года отключим метод. Переключитесь на <a href="#operation/ReportFinanceRealizationList">/v1/report/finance/realization/list</a> и <a href="#operation/CreateFinanceRealizationNumberPostingReport">/v1/report/finance/realization/number/posting/create</a>.
+         *     </aside>
+         *
+         *     Отчёт о реализации доставленных и возвращённых товаров с детализацией по каждому заказу. Не включает отмены и невыкупы. Отчёт доступен с настоящего времени по август 2023 года включительно.
          */
         post: operations["CreateCompanyFinanceRealizationPostingReport"];
         delete?: never;
@@ -6067,7 +6079,10 @@ export interface paths {
         put?: never;
         /**
          * Отчёт о реализации товаров (версия 2)
+         * @deprecated
          * @description <aside class="warning">
+         *     17 января 2027 года отключим метод. Переключитесь на <a href="#operation/ReportFinanceRealizationList">/v1/report/finance/realization/list</a>, <a href="#operation/CreateFinanceRealizationNumberReport">/v1/report/finance/realization/number/create</a> и <a href="#operation/ReportAPI_ReportInfo">/v1/report/info</a>.
+         *
          *     Метод недоступен для продавцов, которые заключили договор с ТОО «ОЗОН Маркетплейс Казахстан».
          *
          *     Метод позволяет получить отчёт за период не раньше августа 2023 года. Отчёты за более ранние периоды доступны в личном кабинете.
@@ -6098,7 +6113,10 @@ export interface paths {
         put?: never;
         /**
          * Позаказный отчёт о реализации товаров
+         * @deprecated
          * @description <aside class="warning">
+         *     17 января 2027 года отключим метод. Переключитесь на <a href="#operation/ReportFinanceRealizationList">/v1/report/finance/realization/list</a>, <a href="#operation/CreateFinanceRealizationNumberPostingReport">/v1/report/finance/realization/number/posting/create</a> и <a href="#operation/ReportAPI_ReportInfo">/v1/report/info</a>.
+         *
          *     Метод недоступен для продавцов, которые заключили договор с ТОО «ОЗОН Маркетплейс Казахстан».
          *     </aside>
          *
@@ -7482,6 +7500,68 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/report/finance/realization/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить список номеров отчётов о реализации товаров
+         * @description Отчёты доступны с настоящего времени по сентябрь 2023 года включительно.
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2481-Novye-metody-dlia-polucheniia-otcheta-o-realizatsii-i-pozakaznnogo-otchet-o-realizatsii/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReportFinanceRealizationList"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/report/finance/realization/number/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить идентификатор отчёта о реализации товаров по номеру
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2481-Novye-metody-dlia-polucheniia-otcheta-o-realizatsii-i-pozakaznnogo-otchet-o-realizatsii/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["CreateFinanceRealizationNumberReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/report/finance/realization/number/posting/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить идентификатор позаказного отчёта о реализации товаров по номеру
+         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2481-Novye-metody-dlia-polucheniia-otcheta-o-realizatsii-i-pozakaznnogo-otchet-o-realizatsii/) в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["CreateFinanceRealizationNumberPostingReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/supply-order/act/summary/get": {
         parameters: {
             query?: never;
@@ -8555,6 +8635,166 @@ export interface paths {
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2009-Novye-metody-dlia-upravleniia-avtodobavleniem-tovarov-v-aktsii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["ActionsAutoAddProductsUpdate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/planned-product/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Запустить запланированный сбор отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionPlannedProductActivate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/add": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Добавить товары в сбор отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductAdd"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Удалить товары из сбора отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductDelete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить список товаров, которые участвуют в сборе отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductList"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/list-detailed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Получить информацию о товарах в сборе отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductListDetailed"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/repeat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Повторить сбор отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductRepeat"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/toggle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Остановить или продолжить сбор отзывов
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductToggle"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/review/first-reviews-collection/product/update-target": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Изменить цель по отзывам
+         * @description Вы можете оставить обратную связь по этому методу в [комментариях](https://dev.ozon.ru/community/2405-Novaia-gruppa-metodov-po-rabote-s-kampaniei-Sbor-pervykh-otzyvov/) к обсуждению в сообществе разработчиков Ozon for dev.
+         */
+        post: operations["ReviewFirstReviewsCollectionProductUpdateTarget"];
         delete?: never;
         options?: never;
         head?: never;
@@ -10068,7 +10308,12 @@ export interface paths {
         put?: never;
         /**
          * Проверить доступность доставки для покупателя
-         * @description Проверяет доступность доставки Ozon для покупателя. Не учитывает ограничения по сумме покупки, категории товаров и географии.
+         * @deprecated
+         * @description <aside class="warning">
+         *     Метод устаревает и будет отключён.
+         *     </aside>
+         *
+         *     Проверяет доступность доставки Ozon для покупателя. Не учитывает ограничения по сумме покупки, категории товаров и географии.
          */
         post: operations["DeliveryCheck"];
         delete?: never;
@@ -10155,16 +10400,6 @@ export interface paths {
         /**
          * Получить список точек самовывоза
          * @description Возвращает координаты всех точек самовывоза без объединения в кластеры.
-         * @default {
-         *       "description": "Ошибка",
-         *       "content": {
-         *         "application/json": {
-         *           "schema": {
-         *             "$ref": "../../components/schemas/rpcStatus.yaml"
-         *           }
-         *         }
-         *       }
-         *     }
          */
         post: operations["DeliveryAPI_DeliveryPointList"];
         delete?: never;
@@ -13321,6 +13556,14 @@ export interface components {
             statuses?: unknown;
         };
         /**
+         * @description Фильтр по валюте индекса цены:
+         *     - `RU` — рубли;
+         *     - `KZ` — тенге.
+         * @default RU
+         * @enum {string}
+         */
+        "product.v5.Filter.PriceIndexCountry.Enum": "RU" | "KZ";
+        /**
          * string
          * @description Фильтр по видимости товара:
          *       - `ALL` — все товары, кроме архивных;
@@ -13361,6 +13604,7 @@ export interface components {
         productv5Filter: {
             /** @description Фильтр по параметру `offer_id`. Можно передавать до 1000 значений. */
             offer_id?: unknown;
+            price_index_country?: components["schemas"]["product.v5.Filter.PriceIndexCountry.Enum"];
             /** @description Фильтр по параметру `product_id`. Можно передавать до 1000 значений. */
             product_id?: unknown;
             visibility?: components["schemas"]["productv5GetProductListRequestFilterFilterVisibility"];
@@ -13555,6 +13799,40 @@ export interface components {
             vat?: number;
         };
         /**
+         * @description Индекс цены товара:
+         *     - `WITHOUT_INDEX` — нет индекса;
+         *     - `GREEN` — выгодный;
+         *     - `YELLOW` — умеренный;
+         *     - `RED` — невыгодный;
+         *     - `SUPER` — супервыгодный.
+         * @default WITHOUT_INDEX
+         * @enum {string}
+         */
+        "product.v5.ColorIndex": "WITHOUT_INDEX" | "GREEN" | "YELLOW" | "RED" | "SUPER";
+        /** @description Цена товара у конкурентов. */
+        "product.v5.GetProductInfoPricesV5Response.Item.PriceIndexes.Index": {
+            /**
+             * Format: double
+             * @description Минимальная цена товара у конкурентов.
+             */
+            min_price?: number;
+            /** @description Валюта минимальной цены товара у конкурентов. */
+            min_price_currency?: string;
+            /**
+             * Format: double
+             * @description Минимальная цена товара у конкурентов в валюте продавца.
+             */
+            min_price_in_seller?: number;
+            /** @description Валюта продавца. */
+            min_price_in_seller_currency?: string;
+            price_index_color?: components["schemas"]["product.v5.ColorIndex"];
+            /**
+             * Format: double
+             * @description Значение индекса цены.
+             */
+            price_index_value?: number;
+        };
+        /**
          * object
          * @description Цена товара у конкурентов на других площадках.
          */
@@ -13566,6 +13844,14 @@ export interface components {
             min_price?: number;
             /** @description Валюта цены. */
             min_price_currency?: string;
+            /**
+             * Format: double
+             * @description Минимальная цена товара у конкурентов на другой площадке в валюте продавца.
+             */
+            min_price_in_seller?: number;
+            /** @description Валюта продавца. */
+            min_price_in_seller_currency?: string;
+            price_index_color?: components["schemas"]["product.v5.ColorIndex"];
             /**
              * Format: double
              * @description Значение индекса цены.
@@ -13586,6 +13872,14 @@ export interface components {
             min_price_currency?: string;
             /**
              * Format: double
+             * @description Минимальная цена товара у конкурентов на Ozon в валюте продавца.
+             */
+            min_price_in_seller?: number;
+            /** @description Валюта продавца. */
+            min_price_in_seller_currency?: string;
+            price_index_color?: components["schemas"]["product.v5.ColorIndex"];
+            /**
+             * Format: double
              * @description Значение индекса цены.
              */
             price_index_value?: number;
@@ -13602,6 +13896,14 @@ export interface components {
             min_price?: number;
             /** @description Валюта цены. */
             min_price_currency?: string;
+            /**
+             * Format: double
+             * @description Минимальная цена товара на других площадках в валюте продавца.
+             */
+            min_price_in_seller?: number;
+            /** @description Валюта продавца. */
+            min_price_in_seller_currency?: string;
+            price_index_color?: components["schemas"]["product.v5.ColorIndex"];
             /**
              * Format: double
              * @description Значение индекса цены.
@@ -13626,6 +13928,7 @@ export interface components {
              * @enum {string}
              */
             color_index: "WITHOUT_INDEX" | "GREEN" | "YELLOW" | "RED" | "SUPER";
+            competitor_index_data?: components["schemas"]["product.v5.GetProductInfoPricesV5Response.Item.PriceIndexes.Index"];
             external_index_data?: components["schemas"]["PriceIndexesIndexExternalData"];
             ozon_index_data?: components["schemas"]["PriceIndexesIndexOzonData"];
             self_marketplaces_index_data?: components["schemas"]["PriceIndexesIndexSelfData"];
@@ -21823,9 +22126,10 @@ export interface components {
             mark?: string;
             /**
              * @description Тип кода маркировки:
-             *      - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
-             *      - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
-             *      - `imei` — IMEI мобильного устройства.
+             *     - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
+             *     - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
+             *     - `imei` — IMEI мобильного устройства;
+             *     - `seal_number` — номер пломбы.
              */
             mark_type?: string;
         };
@@ -21880,9 +22184,10 @@ export interface components {
             mark?: string;
             /**
              * @description Тип кода маркировки:
-             *      - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
-             *      - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
-             *      - `imei` — IMEI мобильного устройства.
+             *     - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
+             *     - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
+             *     - `imei` — IMEI мобильного устройства;
+             *     - `seal_number` — номер пломбы.
              */
             mark_type?: string;
         };
@@ -21937,6 +22242,8 @@ export interface components {
              * @description Количество экземпляров.
              */
             quantity?: number;
+            /** @description `true`, если товар можно опломбировать. */
+            sealing_allowed?: boolean;
             /** @description `true`, если товар весовой. */
             is_weight_needed?: boolean;
             /**
@@ -21979,9 +22286,10 @@ export interface components {
             mark?: string;
             /**
              * @description Тип кода маркировки:
-             *      - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
-             *      - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
-             *      - `imei` — IMEI мобильного устройства.
+             *     - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
+             *     - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
+             *     - `imei` — IMEI мобильного устройства;
+             *     - `seal_number` — номер пломбы.
              */
             mark_type?: string;
         };
@@ -22027,6 +22335,8 @@ export interface components {
              * @description Идентификатор товара в системе Ozon — SKU.
              */
             product_id?: number;
+            /** @description `true`, если товар можно опломбировать. */
+            sealing_allowed?: boolean;
         };
         v5FbsPostingProductExemplarStatusV5Response: {
             /** @description Номер отправления. */
@@ -22048,9 +22358,10 @@ export interface components {
             mark?: string;
             /**
              * @description Тип кода маркировки:
-             *      - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
-             *      - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
-             *      - `imei` — IMEI мобильного устройства.
+             *     - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
+             *     - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
+             *     - `imei` — IMEI мобильного устройства;
+             *     - `seal_number` — номер пломбы.
              */
             mark_type?: string;
         };
@@ -22089,9 +22400,10 @@ export interface components {
             mark?: string;
             /**
              * @description Тип кода маркировки:
-             *      - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
-             *      - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
-             *      - `imei` — IMEI мобильного устройства.
+             *     - `mandatory_mark` — обязательная маркировка «Честный ЗНАК»;
+             *     - `jw_uin` — уникальный идентификационный номер (УИН) ювелирного изделия;
+             *     - `imei` — IMEI мобильного устройства;
+             *     - `seal_number` — номер пломбы.
              */
             mark_type?: string;
             /** @description Результат прохождения проверки. `true`, если контрольный идентификационный знак (КИЗ) и другие маркировки соответствуют требованиям. */
@@ -24952,6 +25264,8 @@ export interface components {
              * @description Количество товара в отправлении.
              */
             quantity?: number;
+            /** @description `true`, если товар можно опломбировать. */
+            sealing_allowed?: boolean;
             /**
              * Format: int64
              * @description Идентификатор товара в системе Ozon — SKU.
@@ -25111,7 +25425,9 @@ export interface components {
              *     - `ship_async` — собрать отправление;
              *     - `ship_with_additional_info` — заполните дополнительную информацию методом [/v6/fbs/posting/product/exemplar/set](https://docs.ozon.ru/api/seller/#operation/PostingAPI_FbsPostingProductExemplarSetV6);
              *     - `ship` — собрать отправление;
-             *     - `update_cis` — изменить дополнительную информацию.
+             *     - `update_cis` — изменить дополнительную информацию;
+             *     - `edit_seal_number` — изменить номера пломб товаров в отправлении;
+             *     - `set_seal_number` — указать номера пломб товаров в отправлении.
              */
             available_actions?: string[];
             barcodes?: components["schemas"]["posting.v4.PostingFbsUnfulfilledListResponse.Postings.Barcodes"];
@@ -25837,6 +26153,8 @@ export interface components {
              * @description Количество товара в отправлении.
              */
             quantity?: number;
+            /** @description `true`, если товар можно опломбировать. */
+            sealing_allowed?: boolean;
             /**
              * Format: int64
              * @description Идентификатор товара в системе Ozon — SKU.
@@ -25966,7 +26284,9 @@ export interface components {
              *     - `ship_async` — собрать отправление;
              *     - `ship_with_additional_info` — заполните дополнительную информацию методом [/v6/fbs/posting/product/exemplar/set](https://docs.ozon.ru/api/seller/#operation/PostingAPI_FbsPostingProductExemplarSetV6);
              *     - `ship` — собрать отправление;
-             *     - `update_cis` — изменить дополнительную информацию.
+             *     - `update_cis` — изменить дополнительную информацию;
+             *     - `edit_seal_number` — изменить номера пломб товаров в отправлении;
+             *     - `set_seal_number` — указать номера пломб товаров в отправлении.
              */
             available_actions?: string[];
             barcodes?: components["schemas"]["posting.v4.PostingFbsListResponse.Postings.Barcodes"];
@@ -26275,6 +26595,8 @@ export interface components {
             rnpt?: string;
             /** @description Признак того, что не указан регистрационный номер партии товара (РНПТ). */
             is_rnpt_absent?: boolean;
+            /** @description Номер пломбы экземпляра. */
+            seal_number?: string;
             /**
              * Format: float
              * @description Фактический вес экземпляра.
@@ -26364,6 +26686,8 @@ export interface components {
              * @description Количество товара.
              */
             quantity?: number;
+            /** @description `true`, если товар можно опломбировать. */
+            sealing_allowed?: boolean;
             /**
              * Format: int64
              * @description Идентификатор товара на Ozon.
@@ -26463,7 +26787,9 @@ export interface components {
              *     - `ship_async` — собрать отправление;
              *     - `ship_with_additional_info` — необходимо заполнить дополнительную информацию;
              *     - `ship` — собрать отправление;
-             *     - `update_cis` — изменить дополнительную информацию.
+             *     - `update_cis` — изменить дополнительную информацию;
+             *     - `edit_seal_number` — изменить номера пломб товаров в отправлении;
+             *     - `set_seal_number` — указать номера пломб товаров в отправлении.
              */
             available_actions?: unknown;
             barcodes?: components["schemas"]["v3Barcodes"];
@@ -26666,7 +26992,11 @@ export interface components {
         };
         /** object */
         postingGetFbsPostingByBarcodeRequest: {
-            /** @description Штрихкод отправления. Можно получить с помощью методов [/v3/posting/fbs/get](#operation/PostingAPI_GetFbsPostingV3), [/v4/posting/fbs/list](#operation/PostingFbsList) и [/v4/posting/fbs/unfulfilled/list](#operation/PostingFbsUnfulfilledList) в массиве `barcodes` или параметре `scanit`. */
+            /**
+             * @description Штрихкод отправления или номер пломбы товара.
+             *
+             *     Получите штрихкод отправления с помощью методов [/v3/posting/fbs/get](#operation/PostingAPI_GetFbsPostingV3), [/v4/posting/fbs/list](#operation/PostingFbsList) и [/v4/posting/fbs/unfulfilled/list](#operation/PostingFbsUnfulfilledList) в массиве `barcodes` или параметре `scanit`.
+             */
             barcode: string;
         };
         /**
@@ -26679,8 +27009,19 @@ export interface components {
             /** @description Верхний штрихкод на маркировке отправления. */
             upper_barcode?: string;
         };
+        "posting.v2.FbsPostingProduct.Exemplar": {
+            /**
+             * Format: int64
+             * @description Идентификатор экземпляра.
+             */
+            exemplar_id?: number;
+            /** @description Номер пломбы экземпляра. */
+            seal_number?: string;
+        };
         /** object */
         v2FbsPostingProduct: {
+            /** @description Список экземпляров товара. */
+            exemplars?: components["schemas"]["posting.v2.FbsPostingProduct.Exemplar"][];
             /** @description Название товара. */
             name?: string;
             /** @description Идентификатор товара в системе продавца — артикул. */
@@ -28893,7 +29234,9 @@ export interface components {
              *       - `DECOMPENSATION_REPORT` — отчёт о декомпенсациях;
              *       - `MARKED_PRODUCTS_SALES` — отчёт по продажам маркированных товаров;
              *       - `SELLER_PLACEMENT_BY_PRODUCTS` — отчёт о стоимости размещения по товарам;
-             *       - `SELLER_PLACEMENT_BY_SUPPLIES` — отчёт о стоимости размещения по поставкам.
+             *       - `SELLER_PLACEMENT_BY_SUPPLIES` — отчёт о стоимости размещения по поставкам;
+             *       - `FINANCE_REALIZATION_NUMBER` — отчёт о реализации товаров;
+             *       - `FINANCE_REALIZATION_NUMBER_POSTING` — позаказный отчёт о реализации товаров.
              */
             report_type?: string;
             /**
@@ -28924,7 +29267,9 @@ export interface components {
          *       - `DECOMPENSATION_REPORT` — отчёт о декомпенсациях;
          *       - `MARKED_PRODUCTS_SALES` — отчёт по продажам маркированных товаров;
          *       - `SELLER_PLACEMENT_BY_PRODUCTS` — отчёт о стоимости размещения по товарам;
-         *       - `SELLER_PLACEMENT_BY_SUPPLIES` — отчёт о стоимости размещения по поставкам.
+         *       - `SELLER_PLACEMENT_BY_SUPPLIES` — отчёт о стоимости размещения по поставкам;
+         *       - `FINANCE_REALIZATION_NUMBER` — отчёт о реализации товаров;
+         *       - `FINANCE_REALIZATION_NUMBER_POSTING` — позаказный отчёт о реализации товаров.
          * @default ALL
          */
         ReportListRequestReportType: string;
@@ -28989,7 +29334,9 @@ export interface components {
              *     - `DECOMPENSATION_REPORT` — отчёт о декомпенсациях;
              *     - `MARKED_PRODUCTS_SALES` — отчёт по продажам маркированных товаров;
              *     - `SELLER_PLACEMENT_BY_PRODUCTS` — отчёт о стоимости размещения по товарам;
-             *     - `SELLER_PLACEMENT_BY_SUPPLIES` — отчёт о стоимости размещения по поставкам.
+             *     - `SELLER_PLACEMENT_BY_SUPPLIES` — отчёт о стоимости размещения по поставкам;
+             *     - `FINANCE_REALIZATION_NUMBER` — отчёт о реализации товаров;
+             *     - `FINANCE_REALIZATION_NUMBER_POSTING` — позаказный отчёт о реализации товаров.
              */
             report_type?: string;
             /**
@@ -35782,6 +36129,44 @@ export interface components {
             /** @description Информация о несоответствиях товаров. */
             result?: components["schemas"]["product.v1.ProductMismatchesListResponse.Result"][];
         };
+        "report.v1.ReportFinanceRealizationListRequest": {
+            /** @description Дата начала отчётного периода. */
+            from: string;
+            /** @description Дата окончания отчётного периода. Максимальный период — 31 день. */
+            to: string;
+        };
+        "report.v1.ReportFinanceRealizationListResponse.Report": {
+            /** @description Начало отчётного периода. */
+            from?: string;
+            /**
+             * @description Номер отчёта. Получите идентификатор:
+             *     - отчёта о реализации товаров — методом [/v1/report/finance/realization/number/create](#operation/CreateFinanceRealizationNumberReport);
+             *     - позаказного отчёта о реализации товаров — методом [/v1/report/finance/realization/number/posting/create](#operation/CreateFinanceRealizationNumberPostingReport).
+             */
+            number?: string;
+            /** @description Конец отчётного периода. */
+            to?: string;
+        };
+        "report.v1.ReportFinanceRealizationListResponse": {
+            /** @description Список отчётов. */
+            reports?: components["schemas"]["report.v1.ReportFinanceRealizationListResponse.Report"][];
+        };
+        "report.v1.CreateFinanceRealizationNumberReportRequest": {
+            /** @description Номер отчёта о реализации. Получите методом [/v1/report/finance/realization/list](#operation/ReportFinanceRealizationList). */
+            number?: string;
+        };
+        "report.v1.CreateFinanceRealizationNumberReportResponse": {
+            /** @description Идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
+            code?: string;
+        };
+        "report.v1.CreateFinanceRealizationNumberPostingReportRequest": {
+            /** @description Номер отчёта о реализации. Получите методом [/v1/report/finance/realization/list](#operation/ReportFinanceRealizationList). */
+            number?: string;
+        };
+        "report.v1.CreateFinanceRealizationNumberPostingReportResponse": {
+            /** @description Идентификатор отчёта. Получите отчёт методом [/v1/report/info](#operation/ReportAPI_ReportInfo). */
+            code?: string;
+        };
         "supply_order.v1.SupplyOrderActSummaryGetRequest": {
             /**
              * Format: int64
@@ -37641,12 +38026,10 @@ export interface components {
             action_id?: number;
         };
         /**
-         * @description Тип скидки:
-         *     - `PERCENT` — скидка в процентах;
-         *     - `CURRENCY` — скидка в валюте.
+         * @description Тип скидки: `PERCENT` — скидка в процентах.
          * @enum {string}
          */
-        v1SellerActionsCreateDiscountWithConditionRequestDiscountTypeEnum: "PERCENT" | "CURRENCY";
+        v1SellerActionsCreateDiscountWithConditionRequestDiscountTypeEnum: "PERCENT";
         v1SellerActionsCreateDiscountWithConditionRequest: {
             /**
              * Format: date-time
@@ -37708,12 +38091,10 @@ export interface components {
             order_amount: number;
         };
         /**
-         * @description Тип скидки:
-         *      - `PERCENT` — скидка в процентах;
-         *      - `CURRENCY` — скидка в валюте.
+         * @description Тип скидки: `PERCENT` — скидка в процентах.
          * @enum {string}
          */
-        v1SellerActionsCreateMultiLevelDiscountRequestDiscountTypeEnum: "PERCENT" | "CURRENCY";
+        v1SellerActionsCreateMultiLevelDiscountRequestDiscountTypeEnum: "PERCENT";
         v1SellerActionsCreateMultiLevelDiscountRequest: {
             /**
              * Format: date-time
@@ -37741,12 +38122,10 @@ export interface components {
             action_id?: number;
         };
         /**
-         * @description Тип скидки:
-         *      - `PERCENT` — скидка в процентах;
-         *      - `CURRENCY` — скидка в валюте.
+         * @description Тип скидки: `PERCENT` — скидка в процентах.
          * @enum {string}
          */
-        v1SellerActionsCreateVoucherRequestDiscountTypeEnum: "PERCENT" | "CURRENCY";
+        v1SellerActionsCreateVoucherRequestDiscountTypeEnum: "PERCENT";
         /**
          * @description Тип промокода:
          *      - `ONE` — промокод для всех покупателей на 1 заказ;
@@ -38722,6 +39101,266 @@ export interface components {
             rejected?: components["schemas"]["actions.v1.ActionsAutoAddProductsUpdateResponse.Rejected"][];
             /** @description Идентификаторы товаров, которые получилось добавить или обновить. */
             updated_ids?: string[];
+        };
+        "review.v1.ReviewFirstReviewsCollectionPlannedProductActivateRequest": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus: string[];
+        };
+        /** @description Информация о товарах, которые не прошли проверку. */
+        "review.v1.ReviewFirstReviewsCollectionPlannedProductActivateResponse.SkuValidationError": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /**
+         * @description Статус запуска сбора отзывов:
+         *     - `SUCCESS` — сбор отзывов запущен;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionPlannedProductActivateResponse.Status.Enum": "SUCCESS" | "FAILED";
+        "review.v1.ReviewFirstReviewsCollectionPlannedProductActivateResponse": {
+            sku_validation_error?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionPlannedProductActivateResponse.SkuValidationError"];
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionPlannedProductActivateResponse.Status.Enum"];
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductAddRequest": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus: string[];
+            /**
+             * Format: int32
+             * @description Цель по отзывам для каждого товара.
+             */
+            target: number;
+        };
+        /** @description Информация о товарах, которые не прошли проверку. */
+        "review.v1.ReviewFirstReviewsCollectionProductAddResponse.SkuValidationError": {
+            /** @description Причина, по которой товары не прошли проверку. */
+            reason?: string;
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /**
+         * @description Статус добавления товаров:
+         *     - `SUCCESS` — товары добавлены;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductAddResponse.Status.Enum": "SUCCESS" | "FAILED";
+        "review.v1.ReviewFirstReviewsCollectionProductAddResponse": {
+            sku_validation_error?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductAddResponse.SkuValidationError"];
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductAddResponse.Status.Enum"];
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductDeleteRequest": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus: string[];
+        };
+        /** @description Информация о товарах, которые не прошли проверку. */
+        "review.v1.ReviewFirstReviewsCollectionProductDeleteResponse.SkuValidationError": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /**
+         * @description Статус удаления товаров:
+         *     - `SUCCESS` — товары удалены;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductDeleteResponse.Status.Enum": "SUCCESS" | "FAILED";
+        "review.v1.ReviewFirstReviewsCollectionProductDeleteResponse": {
+            sku_validation_error?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductDeleteResponse.SkuValidationError"];
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductDeleteResponse.Status.Enum"];
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductListRequest": {
+            /**
+             * Format: int32
+             * @description Количество товаров в ответе.
+             * @default 100
+             */
+            limit: number;
+            /**
+             * Format: int32
+             * @description Количество элементов, которое будет пропущено в ответе. Например, если `offset = 10`, то ответ начнётся с 11-го найденного элемента.
+             */
+            offset?: number;
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductListResponse.Items": {
+            /**
+             * Format: date-time
+             * @description Дата и время активации товара.
+             */
+            activation_at?: string;
+            /** @description `true`, если товар участвует в сборе отзывов. */
+            in_promotion?: boolean;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductListResponse": {
+            /** @description `true`, если у продавца есть товары в исключённых категориях. Такие товары не возвращаются в ответе. */
+            has_excluded_categories?: boolean;
+            /** @description `true`, если в ответе вернули не все товары. */
+            has_next?: boolean;
+            /** @description `true`, если все товары продавца в исключённых категориях. */
+            is_only_excluded_categories?: boolean;
+            /** @description Информация о товарах. */
+            items?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListResponse.Items"][];
+        };
+        /**
+         * @description Статус сбора отзывов:
+         *     - `ALL` — все статусы;
+         *     - `ACTIVE` — активен;
+         *     - `STOPPED` — остановлен;
+         *     - `COLLECTED` — завершён;
+         *     - `PLANNED` — запланирован.
+         * @default ALL
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductListDetailedRequest.Status.Enum": "ALL" | "ACTIVE" | "STOPPED" | "COLLECTED" | "PLANNED";
+        "review.v1.ReviewFirstReviewsCollectionProductListDetailedRequest": {
+            /**
+             * Format: int64
+             * @description Идентификатор последнего значения на странице. При первом запросе оставьте это поле пустым.
+             *
+             *     Чтобы получить следующие значения, укажите `last_id` из ответа предыдущего запроса.
+             */
+            last_id?: number;
+            /**
+             * Format: int32
+             * @description Количество значений на странице.
+             * @default 100
+             */
+            limit: number;
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListDetailedRequest.Status.Enum"];
+        };
+        /** @enum {string} */
+        "review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse.Items.Actions.Enum": "UPDATE_TARGET" | "DELETE_ITEM" | "CONTINUE_COLLECTING" | "REPEAT_COLLECTING" | "STOP_COLLECTING";
+        /**
+         * @description Статус сбора отзывов:
+         *     - `ACTIVE` — активен;
+         *     - `COLLECTED` — завершён;
+         *     - `STOPPED` — остановлен;
+         *     - `PLANNED` — запланирован.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse.Items.Status.Enum": "ACTIVE" | "COLLECTED" | "STOPPED" | "PLANNED";
+        "review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse.Items": {
+            /**
+             * @description Доступные действия с товаром:
+             *     - `UPDATE_TARGET` — изменить цель по отзывам;
+             *     - `DELETE_ITEM` — удалить товар из сбора отзывов;
+             *     - `CONTINUE_COLLECTING` — продолжить сбор отзывов;
+             *     - `REPEAT_COLLECTING` — повторить сбор отзывов;
+             *     - `STOP_COLLECTING` — остановить сбор отзывов.
+             */
+            actions?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse.Items.Actions.Enum"][];
+            /**
+             * Format: int64
+             * @description Количество собранных отзывов.
+             */
+            activated_count?: number;
+            /**
+             * Format: date-time
+             * @description Дата и время активации товара.
+             */
+            activation_at?: string;
+            /** @description `true`, если товар доступен. */
+            is_available?: boolean;
+            /**
+             * Format: int64
+             * @description Идентификатор товара в системе Ozon — SKU.
+             */
+            sku?: number;
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse.Items.Status.Enum"];
+            /**
+             * Format: int64
+             * @description Цель по отзывам для товара.
+             */
+            target?: number;
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse": {
+            /** @description `true`, если в ответе вернули не все товары. */
+            has_next?: boolean;
+            /** @description Информация о товарах. */
+            items?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse.Items"][];
+            /**
+             * Format: int64
+             * @description Идентификатор последнего значения на странице. Чтобы получить следующие значения, передайте полученное значение в следующем запросе в параметре `last_id`.
+             */
+            last_id?: number;
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductRepeatRequest": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus: string[];
+        };
+        /** @description Информация о товарах, которые не прошли проверку. */
+        "review.v1.ReviewFirstReviewsCollectionProductRepeatResponse.SkuValidationError": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /**
+         * @description Статус сбора отзывов:
+         *     - `SUCCESS` — сбор отзывов запущен;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductRepeatResponse.Status.Enum": "SUCCESS" | "FAILED";
+        "review.v1.ReviewFirstReviewsCollectionProductRepeatResponse": {
+            sku_validation_error?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductRepeatResponse.SkuValidationError"];
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductRepeatResponse.Status.Enum"];
+        };
+        /**
+         * @description Действие со сбором отзывов:
+         *     - `ON` — продолжить сбор отзывов;
+         *     - `OFF` — остановить сбор отзывов.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductToggleRequest.Toggle.Enum": "ON" | "OFF";
+        "review.v1.ReviewFirstReviewsCollectionProductToggleRequest": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus: string[];
+            toggle: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductToggleRequest.Toggle.Enum"];
+        };
+        /** @description Информация о товарах, которые не прошли проверку. */
+        "review.v1.ReviewFirstReviewsCollectionProductToggleResponse.SkuValidationError": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /**
+         * @description Статус сбора отзывов:
+         *     - `SUCCESS` — статус сбора отзывов изменён;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductToggleResponse.Status.Enum": "SUCCESS" | "FAILED";
+        "review.v1.ReviewFirstReviewsCollectionProductToggleResponse": {
+            sku_validation_error?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductToggleResponse.SkuValidationError"];
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductToggleResponse.Status.Enum"];
+        };
+        "review.v1.ReviewFirstReviewsCollectionProductUpdateTargetRequest": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus: string[];
+            /**
+             * Format: int32
+             * @description Новая цель по отзывам для каждого товара.
+             */
+            target: number;
+        };
+        /** @description Информация о товарах, которые не прошли проверку. */
+        "review.v1.ReviewFirstReviewsCollectionProductUpdateTargetResponse.SkuValidationError": {
+            /** @description Идентификаторы товаров в системе Ozon — SKU. */
+            skus?: string[];
+        };
+        /**
+         * @description Статус изменения цели по отзывам:
+         *     - `SUCCESS` — цель по отзывам изменена;
+         *     - `FAILED` — ошибка.
+         * @enum {string}
+         */
+        "review.v1.ReviewFirstReviewsCollectionProductUpdateTargetResponse.Status.Enum": "SUCCESS" | "FAILED";
+        "review.v1.ReviewFirstReviewsCollectionProductUpdateTargetResponse": {
+            sku_validation_error?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductUpdateTargetResponse.SkuValidationError"];
+            status?: components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductUpdateTargetResponse.Status.Enum"];
         };
         /** @description Детали доставки. */
         v1FbpDraftDirectSellerDlvCreateRequestDirectDetails: {
@@ -42999,7 +43638,7 @@ export interface components {
         /** @description Информация о покупателе. */
         OrderCreateRequestBuyer: {
             /** @description Электронная почта. */
-            email?: string;
+            email: string;
             /** @description Имя. */
             first_name: string;
             /** @description Фамилия. */
@@ -47263,6 +47902,7 @@ export interface operations {
                  *         "offer_id": [
                  *           "356792"
                  *         ],
+                 *         "price_index_country": "RU",
                  *         "product_id": [
                  *           "243686911"
                  *         ],
@@ -47311,14 +47951,28 @@ export interface operations {
                      *           },
                      *           "price_indexes": {
                      *             "color_index": "GREEN",
+                     *             "competitor_index_data": {
+                     *               "min_price": 2899.99,
+                     *               "min_price_currency": "RUB",
+                     *               "min_price_in_seller": 2899.99,
+                     *               "min_price_in_seller_currency": "RUB",
+                     *               "price_index_color": "GREEN",
+                     *               "price_index_value": 0.95
+                     *             },
                      *             "ozon_index_data": {
                      *               "min_price": 2899.99,
                      *               "min_price_currency": "RUB",
+                     *               "min_price_in_seller": 2899.99,
+                     *               "min_price_in_seller_currency": "RUB",
+                     *               "price_index_color": "GREEN",
                      *               "price_index_value": 0.95
                      *             },
                      *             "external_index_data": {
                      *               "min_price": 2799.99,
                      *               "min_price_currency": "RUB",
+                     *               "min_price_in_seller": 2799.99,
+                     *               "min_price_in_seller_currency": "RUB",
+                     *               "price_index_color": "GREEN",
                      *               "price_index_value": 0.93
                      *             }
                      *           },
@@ -47361,9 +48015,20 @@ export interface operations {
                      *           },
                      *           "price_indexes": {
                      *             "color_index": "YELLOW",
+                     *             "competitor_index_data": {
+                     *               "min_price": 5899.99,
+                     *               "min_price_currency": "RUB",
+                     *               "min_price_in_seller": 5899.99,
+                     *               "min_price_in_seller_currency": "RUB",
+                     *               "price_index_color": "YELLOW",
+                     *               "price_index_value": 0.98
+                     *             },
                      *             "ozon_index_data": {
                      *               "min_price": 5899.99,
                      *               "min_price_currency": "RUB",
+                     *               "min_price_in_seller": 5899.99,
+                     *               "min_price_in_seller_currency": "RUB",
+                     *               "price_index_color": "YELLOW",
                      *               "price_index_value": 0.98
                      *             }
                      *           },
@@ -56506,6 +57171,7 @@ export interface operations {
                      *           "is_rnpt_needed": true,
                      *           "product_id": 987654321,
                      *           "quantity": 2,
+                     *           "sealing_allowed": false,
                      *           "is_weight_needed": true,
                      *           "weight_max": 2000,
                      *           "weight_min": 1000
@@ -56530,6 +57196,7 @@ export interface operations {
                      *           "is_rnpt_needed": false,
                      *           "product_id": 987654322,
                      *           "quantity": 1,
+                     *           "sealing_allowed": false,
                      *           "is_weight_needed": false,
                      *           "weight_max": 0,
                      *           "weight_min": 0
@@ -56647,7 +57314,8 @@ export interface operations {
                      *               ]
                      *             }
                      *           ],
-                     *           "product_id": 123456789
+                     *           "product_id": 123456789,
+                     *           "sealing_allowed": false
                      *         },
                      *         {
                      *           "exemplars": [
@@ -56678,7 +57346,8 @@ export interface operations {
                      *               "weight_error_codes": []
                      *             }
                      *           ],
-                     *           "product_id": 987654321
+                     *           "product_id": 987654321,
+                     *           "sealing_allowed": false
                      *         }
                      *       ],
                      *       "status": "PROCESSING_COMPLETED"
@@ -60068,6 +60737,7 @@ export interface operations {
                      *               "offer_id": "S5200657-28",
                      *               "name": "Кроссовки для мальчика демисезонные из натуральной кожи",
                      *               "sku": 4116250392,
+                     *               "sealing_allowed": false,
                      *               "quantity": 1,
                      *               "imei": [],
                      *               "weight": 0.549,
@@ -60855,6 +61525,7 @@ export interface operations {
                      *               },
                      *               "product_color": "чёрный",
                      *               "quantity": 1,
+                     *               "sealing_allowed": false,
                      *               "sku": 1904686181,
                      *               "weight": 0.42
                      *             },
@@ -61080,6 +61751,7 @@ export interface operations {
                      *             "offer_id": "SK-58 (малиновый)",
                      *             "name": "Профессиональная плойка Cronier cr-2013 для афро кудрей 9 мм",
                      *             "sku": 827098843,
+                     *             "sealing_allowed": false,
                      *             "quantity": 1,
                      *             "dimensions": {
                      *               "height": "150.00",
@@ -61334,6 +62006,12 @@ export interface operations {
                      *         "shipment_date": "2025-01-29T18:00:00Z",
                      *         "products": [
                      *           {
+                     *             "exemplars": [
+                     *               {
+                     *                 "exemplar_id": 0,
+                     *                 "seal_number": "string"
+                     *               }
+                     *             ],
                      *             "sku": 498274975,
                      *             "name": "Стульчик для кормления ребенка",
                      *             "quantity": 1,
@@ -69695,6 +70373,228 @@ export interface operations {
             };
         };
     };
+    ReportFinanceRealizationList: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["report.v1.ReportFinanceRealizationListRequest"];
+            };
+        };
+        responses: {
+            /** @description Список номеров отчётов */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["report.v1.ReportFinanceRealizationListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CreateFinanceRealizationNumberReport: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["report.v1.CreateFinanceRealizationNumberReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Идентификатор отчёта */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["report.v1.CreateFinanceRealizationNumberReportResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    CreateFinanceRealizationNumberPostingReport: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["report.v1.CreateFinanceRealizationNumberPostingReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Идентификатор отчёта */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["report.v1.CreateFinanceRealizationNumberPostingReportResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     SupplyOrderActSummaryGet: {
         parameters: {
             query?: never;
@@ -72651,6 +73551,756 @@ export interface operations {
             };
         };
     };
+    ReviewFirstReviewsCollectionPlannedProductActivate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "skus": [
+                 *         "179737222"
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionPlannedProductActivateRequest"];
+            };
+        };
+        responses: {
+            /** @description Сбор отзывов запущен */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "sku_validation_error": {
+                     *         "skus": [
+                     *           "179737222"
+                     *         ]
+                     *       },
+                     *       "status": "FAILED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionPlannedProductActivateResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductAdd: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "skus": [
+                 *         "179737222"
+                 *       ],
+                 *       "target": 3
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductAddRequest"];
+            };
+        };
+        responses: {
+            /** @description Товары добавлены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "sku_validation_error": {
+                     *         "reason": "Не подходит под условия продвижения",
+                     *         "skus": [
+                     *           "179737222"
+                     *         ]
+                     *       },
+                     *       "status": "FAILED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductAddResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductDelete: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "skus": [
+                 *         "179737222"
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductDeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description Товары удалены */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "sku_validation_error": {
+                     *         "skus": [
+                     *           "179737222"
+                     *         ]
+                     *       },
+                     *       "status": "FAILED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductDeleteResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductList: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "limit": 100,
+                 *       "offset": 0
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListRequest"];
+            };
+        };
+        responses: {
+            /** @description Список товаров */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "has_excluded_categories": false,
+                     *       "has_next": false,
+                     *       "is_only_excluded_categories": false,
+                     *       "items": [
+                     *         {
+                     *           "activation_at": "2026-11-03T03:00:00Z",
+                     *           "in_promotion": true,
+                     *           "sku": 9880276314
+                     *         },
+                     *         {
+                     *           "activation_at": "2026-11-03T03:00:00Z",
+                     *           "in_promotion": false,
+                     *           "sku": 9870291352
+                     *         }
+                     *       ]
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductListDetailed: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "last_id": 0,
+                 *       "limit": 1,
+                 *       "status": "ACTIVE"
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListDetailedRequest"];
+            };
+        };
+        responses: {
+            /** @description Информация о товарах */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "has_next": true,
+                     *       "items": [
+                     *         {
+                     *           "actions": [
+                     *             "UPDATE_TARGET",
+                     *             "STOP_COLLECTING"
+                     *           ],
+                     *           "activated_count": 2,
+                     *           "activation_at": "2026-11-03T03:00:00Z",
+                     *           "is_available": true,
+                     *           "sku": 179737222,
+                     *           "status": "ACTIVE",
+                     *           "target": 3
+                     *         }
+                     *       ],
+                     *       "last_id": 179737222
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductListDetailedResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductRepeat: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "skus": [
+                 *         "179737222"
+                 *       ]
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductRepeatRequest"];
+            };
+        };
+        responses: {
+            /** @description Сбор отзывов повторён */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "sku_validation_error": {
+                     *         "skus": [
+                     *           "179737222"
+                     *         ]
+                     *       },
+                     *       "status": "FAILED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductRepeatResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductToggle: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "skus": [
+                 *         "179737222"
+                 *       ],
+                 *       "toggle": "ON"
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductToggleRequest"];
+            };
+        };
+        responses: {
+            /** @description Сбор отзывов остановлен или продолжен */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "sku_validation_error": {
+                     *         "skus": [
+                     *           "179737222"
+                     *         ]
+                     *       },
+                     *       "status": "FAILED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductToggleResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
+    ReviewFirstReviewsCollectionProductUpdateTarget: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Идентификатор клиента. */
+                "Client-Id": components["parameters"]["Client-Id"];
+                /** @description API-ключ. */
+                "Api-Key": components["parameters"]["Api-Key"];
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /**
+                 * @example {
+                 *       "skus": [
+                 *         "179737222"
+                 *       ],
+                 *       "target": 5
+                 *     }
+                 */
+                "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductUpdateTargetRequest"];
+            };
+        };
+        responses: {
+            /** @description Цель по отзывам изменена */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /**
+                     * @example {
+                     *       "sku_validation_error": {
+                     *         "skus": [
+                     *           "179737222"
+                     *         ]
+                     *       },
+                     *       "status": "FAILED"
+                     *     }
+                     */
+                    "application/json": components["schemas"]["review.v1.ReviewFirstReviewsCollectionProductUpdateTargetResponse"];
+                };
+            };
+            /** @description Неверный параметр */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+        };
+    };
     FbpDraftDirectSellerDlvCreate: {
         parameters: {
             query?: never;
@@ -75371,6 +77021,42 @@ export interface operations {
                     "application/json": components["schemas"]["rpcStatus"];
                 };
             };
+            /** @description Доступ запрещён */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Ответ не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Конфликт запроса */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
+            /** @description Внутренняя ошибка сервера */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
+                };
+            };
         };
     };
     FinanceAPI_GetRealizationByDayReportV1: {
@@ -75987,6 +77673,15 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["v1DeliveryPointListResponse"];
+                };
+            };
+            /** @description Ошибка */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["rpcStatus"];
                 };
             };
         };
