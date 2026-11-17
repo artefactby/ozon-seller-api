@@ -5,6 +5,64 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.24.0] - 2026-11-17
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 17 ноября 2026.
+
+Пути: 486 → 497 (+11 / −0). Схемы: 2328 → 2373 (+45 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- Бета-методы «Сбор первых отзывов». В описаниях — ссылка на обсуждение в сообществе разработчиков.
+  - `POST /v1/review/first-reviews-collection/planned-product/activate` — запустить запланированный сбор. Запрос: `skus`. Ответ: `status` (`SUCCESS`, `FAILED`), `sku_validation_error.skus`.
+  - `POST /v1/review/first-reviews-collection/product/add` — добавить товары. Запрос: `skus`, `target` (`int32`). Ответ: `status`, `sku_validation_error` (`reason`, `skus`).
+  - `POST /v1/review/first-reviews-collection/product/delete` — удалить товары. Запрос: `skus`. Ответ: `status`, `sku_validation_error.skus`.
+  - `POST /v1/review/first-reviews-collection/product/repeat` — повторить сбор. Запрос: `skus`. Ответ: `status`, `sku_validation_error.skus`.
+  - `POST /v1/review/first-reviews-collection/product/toggle` — остановить или продолжить. Запрос: `skus`, `toggle` (`ON`, `OFF`). Ответ: `status`, `sku_validation_error.skus`.
+  - `POST /v1/review/first-reviews-collection/product/update-target` — изменить цель. Запрос: `skus`, `target` (`int32`). Ответ: `status`, `sku_validation_error.skus`.
+  - `POST /v1/review/first-reviews-collection/product/list` — товары в сборе. Запрос: `limit`, `offset`. Ответ: `has_next`, `has_excluded_categories`, `is_only_excluded_categories`, `items` (`sku`, `in_promotion`, `activation_at`).
+  - `POST /v1/review/first-reviews-collection/product/list-detailed` — подробный список. Запрос: `last_id`, `limit`, `status` (`ACTIVE`, `ALL`, `COLLECTED`, `PLANNED`, `STOPPED`). Ответ: `has_next`, `last_id`, `items` (`sku`, `status` `ACTIVE`/`COLLECTED`/`PLANNED`/`STOPPED`, `target`, `activated_count`, `activation_at`, `is_available`, `actions`: `CONTINUE_COLLECTING`, `DELETE_ITEM`, `REPEAT_COLLECTING`, `STOP_COLLECTING`, `UPDATE_TARGET`).
+- Бета-методы отчётов о реализации. В описаниях — ссылка на обсуждение в сообществе разработчиков.
+  - `POST /v1/report/finance/realization/list` — номера отчётов. Запрос: `from`, `to`. Ответ: `reports` (`number`, `from`, `to`). Отчёты доступны с настоящего времени по сентябрь 2023 года включительно.
+  - `POST /v1/report/finance/realization/number/create` — идентификатор отчёта по номеру. Запрос: `number`. Ответ: `code`.
+  - `POST /v1/report/finance/realization/number/posting/create` — идентификатор позаказного отчёта по номеру. Запрос: `number`. Ответ: `code`.
+- В запрос `/v5/product/info/prices` добавлен необязательный `filter.price_index_country` (`RU`, `KZ`).
+- В `items.price_indexes` ответа `/v5/product/info/prices` добавлен необязательный `competitor_index_data` (`min_price`, `min_price_currency`, `min_price_in_seller`, `min_price_in_seller_currency`, `price_index_color`, `price_index_value`). В `external_index_data`, `ozon_index_data` и `self_marketplaces_index_data` добавлены необязательные `min_price_in_seller`, `min_price_in_seller_currency` и `price_index_color` (`WITHOUT_INDEX`, `GREEN`, `YELLOW`, `RED`, `SUPER`).
+- В описания типов отчёта добавлены `FINANCE_REALIZATION_NUMBER` и `FINANCE_REALIZATION_NUMBER_POSTING`. Тип полей остаётся `string`:
+  - `result.report_type` в ответе `/v1/report/info`;
+  - `report_type` в запросе `/v1/report/list` и `result.reports.report_type` в ответе.
+- Пломбы в отправлениях FBS. Новые поля необязательные. `available_actions` и `mark_type` остаются `string` / `string[]` / `unknown`, в описания добавлены значения.
+  - В `postings.available_actions` ответов `/v4/posting/fbs/list` и `/v4/posting/fbs/unfulfilled/list` и в `result.available_actions` ответа `/v3/posting/fbs/get`: `edit_seal_number`, `set_seal_number`.
+  - `postings.products.sealing_allowed` в ответах `/v4/posting/fbs/list` и `/v4/posting/fbs/unfulfilled/list`; `result.products.sealing_allowed` в ответе `/v3/posting/fbs/get`.
+  - `result.product_exemplars.products.exemplars.seal_number` в ответе `/v3/posting/fbs/get`.
+  - `result.products.exemplars` (`exemplar_id`, `seal_number`) в ответе `/v2/posting/fbs/get-by-barcode`.
+  - `products.sealing_allowed` в ответах `/v6/fbs/posting/product/exemplar/create-or-get` и `/v5/fbs/posting/product/exemplar/status`.
+  - Значение `seal_number` у `products.exemplars.marks.mark_type`: в ответах create-or-get и status, в запросе `/v6/fbs/posting/product/exemplar/set`, в запросе и ответе `/v5/fbs/posting/product/exemplar/validate`.
+
+### Changed
+
+- Помечены deprecated, отключение 17 января 2027 года. Пути, запросы и ответы не менялись.
+  - `/v1/report/realization/posting/create` → `/v1/report/finance/realization/list` и `/v1/report/finance/realization/number/posting/create`.
+  - `/v2/finance/realization` → `/v1/report/finance/realization/list`, `/v1/report/finance/realization/number/create` и `/v1/report/info`.
+  - `/v1/finance/realization/posting` → `/v1/report/finance/realization/list`, `/v1/report/finance/realization/number/posting/create` и `/v1/report/info`.
+- В описании `barcode` запроса `/v2/posting/fbs/get-by-barcode`: штрихкод отправления или номер пломбы товара. Тип поля не менялся.
+- В описаниях лимиты запросов. Контракты не менялись.
+  - `/v3/supply-order/list` и `/v3/supply-order/get` — не больше 1800 запросов в час.
+  - `/v1/supply-order/timeslot/update` — не больше 300 запросов в час.
+- В описании `/v2/products/stocks` к проверке зарезервированных товаров добавлен `/v1/product/info/warehouse/stocks` рядом с `/v2/product/info/stocks-by-warehouse/fbs`.
+- `/v1/delivery/check` помечен deprecated: «метод устаревает и будет отключён». Даты и замены в снимке нет. В обновлении Ozon от 17 ноября этого метода нет.
+
+### Breaking
+
+- `discount_type` в запросах `/v1/seller-actions/create/discount-with-condition`, `/v1/seller-actions/create/multi-level-discount` и `/v1/seller-actions/create/voucher` больше не принимает `CURRENCY`. Остался `PERCENT`.
+- `buyer.email` в запросе `/v2/order/create` обязателен. В обновлении Ozon от 17 ноября смена обязательности не указана.
+
+### Notes
+
+- В обновлении Ozon для `/v2/order/create` описаны ошибки `DELIVERY_WAREHOUSE_NOT_FOUND`, `DELIVERY_NO_ROUTE`, `DELIVERY_SLOT_NOT_FOUND`, `DELIVERY_METHOD_NOT_FOUND`, `INVALID_ITEM` и `USER_DELIVERY_UNAVAILABLE`. В снимок спецификации они не попали.
+- Из описания `/v1/delivery/point/list` убран ошибочный блок `@default` со схемой ошибки. Запрос и ответ не менялись. В обновлении Ozon от 17 ноября этого метода нет.
+
 ## [0.23.0] - 2026-11-13
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 12 ноября 2026.
