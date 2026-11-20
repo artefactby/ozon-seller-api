@@ -5,6 +5,31 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.24.1] - 2026-11-20
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 20 ноября 2026.
+
+Пути: 497 → 497 (+0 / −0). Схемы: 2373 → 2373 (+0 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Changed
+
+- В описании `/v1/carriage/act-discrepancy/pdf` акт о расхождениях доступен только для отгрузок с `integration_type = ozon_trip` в статусе `closed` и только для продавцов из СНГ. Запрос и ответ не менялись.
+- В описании `/v1/posting/cutoff/set` добавлено предупреждение: метод только для отправлений в статусе «Уточнение сроков доставки». Разметка `<aside class="warning">` попала в комментарий как есть. Текст про продавца или неинтегрированного перевозчика сохранён. Запрос и ответ не менялись.
+- В описании `status` ответа `/v1/carriage/get` обновлён перечень статусов перевозки. Тип поля остаётся `string`.
+  - ожидает подтверждения: `new`, `awaiting_retry`, `in_process`, `success`, `pending`;
+  - в перевозке найдены ошибки: `error`;
+  - сформирована: `received`, `formed`, `sended`, `completion_enqueued`, `completion_processing`, `completion_failed`;
+  - завершена: `completed`;
+  - отменена: `cancelation_enqueued`, `cancelation_processing`, `cancelation_failed`.
+  Из описания ушли `closed` («завершена после приёмки») и `cancelled` («отменена»). `received` и `sended` отнесены к группе «сформирована».
+- В описании `/v1/finance/accrual/by-day`: если запрашивать начисления за недавнюю дату, состав ответа может меняться из-за появления новых начислений. Запрос и ответ не менялись.
+- В описании `last_id` ответа `/v1/finance/accrual/by-day`: если параметр пустой, начислений больше нет. Срок жизни идентификатора — 15 минут — сохранён. Тип поля не менялся.
+
+### Notes
+
+- Описание `/v1/carriage/act-discrepancy/pdf` по-прежнему указывает статус отгрузки `closed`, тогда как описание `status` ответа `/v1/carriage/get` больше не содержит `closed` и `cancelled`.
+
 ## [0.24.0] - 2026-11-17
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 17 ноября 2026.
