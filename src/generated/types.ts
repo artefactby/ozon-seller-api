@@ -4267,7 +4267,7 @@ export interface paths {
         put?: never;
         /**
          * Получить акт о расхождениях по отгрузке FBS
-         * @description Акт о расхождениях доступен только для отгрузок в статусе `closed` и только для продавцов из СНГ.
+         * @description Акт о расхождениях доступен только для отгрузок с `integration_type = ozon_trip` в статусе `closed` и только для продавцов из СНГ.
          */
         post: operations["CarriageActDiscrepancyPDF"];
         delete?: never;
@@ -4602,7 +4602,11 @@ export interface paths {
         put?: never;
         /**
          * Уточнить дату отгрузки отправления
-         * @description Метод для отправлений, которые доставляет продавец или неинтегрированный перевозчик.
+         * @description <aside class="warning">
+         *     Только для отправлений в статусе «Уточнение сроков доставки».
+         *     </aside>
+         *
+         *     Используйте метод для отправлений, которые доставляет продавец или неинтегрированный перевозчик.
          */
         post: operations["PostingAPI_SetPostingCutoff"];
         delete?: never;
@@ -7254,6 +7258,8 @@ export interface paths {
         /**
          * Получить начисления за день
          * @description Если укажете `last_id` в запросе, передайте значение `date` из предыдущего запроса, иначе вернётся ошибка `400 Bad Request`.
+         *
+         *     Если вы запрашиваете информацию о начислениях за недавнюю дату, состав ответа может меняться из-за появления новых начислений.
          *
          *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.
          */
@@ -23087,10 +23093,11 @@ export interface components {
             retry_count?: number;
             /**
              * @description Статус перевозки:
-             *     - `received` — идёт приёмка,
-             *     - `closed` — завершена после приёмки,
-             *     - `sended` — отправлена,
-             *     - `cancelled` — отменена.
+             *     - `new`, `awaiting_retry`, `in_process`, `success`, `pending` — ожидает подтверждения;
+             *     - `error` — в перевозке найдены ошибки;
+             *     - `received`, `formed`, `sended`, `completion_enqueued`, `completion_processing`, `completion_failed` — сформирована;
+             *     - `completed` — завершена;
+             *     - `cancelation_enqueued`, `cancelation_processing`, `cancelation_failed` — отменена.
              */
             status?: string;
             /**
@@ -34819,6 +34826,8 @@ export interface components {
              * @description Идентификатор последнего значения на странице.
              *
              *     Срок жизни идентификатора — 15 минут.
+             *
+             *     Если параметр пустой, начислений больше нет.
              */
             last_id?: string;
         };
