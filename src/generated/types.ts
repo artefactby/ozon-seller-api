@@ -547,7 +547,7 @@ export interface paths {
         /**
          * Список товаров
          * @description <aside class="warning">
-         *       23 ноября 2026 года отключим параметр <code>result.total</code> в ответе метода. Переключитесь на <code>result.total_items</code>.
+         *       7 декабря 2026 года отключим параметр <code>result.total</code> в ответе метода. Переключитесь на <code>result.total_items</code>.
          *     </aside>
          *
          *     Метод для получения списка всех товаров.
@@ -971,7 +971,7 @@ export interface paths {
         /**
          * Информация о количестве товаров
          * @description <aside class="warning">
-         *       23 ноября 2026 года отключим параметр <code>total</code> в ответе метода. Переключитесь на <code>total_items</code>.
+         *       7 декабря 2026 года отключим параметр <code>total</code> в ответе метода. Переключитесь на <code>total_items</code>.
          *     </aside>
          *
          *     Возвращает информацию о ĸоличестве товаров по схемам FBO, FBS, rFBS и FBP:
@@ -1145,7 +1145,7 @@ export interface paths {
         /**
          * Получить информацию о цене товара
          * @description <aside class="warning">
-         *     23 ноября 2026 года отключим параметр <code>total</code> в ответе метода. Переключитесь на <code>total_items</code>.
+         *     7 декабря 2026 года отключим параметр <code>total</code> в ответе метода. Переключитесь на <code>total_items</code>.
          *
          *     Вы можете посмотреть историю обновления цен только в личном кабинете продавца.<br> <a href="https://seller-edu.ozon.ru/libra/ceny-i-akcii/rabota-s-cenami/price-control#как-посмотреть-историю-обновления-цен">Подробнее об истории обновления цен в Базе знаний продавца</a>
          *     </aside>
@@ -4602,7 +4602,10 @@ export interface paths {
         put?: never;
         /**
          * Уточнить дату отгрузки отправления
+         * @deprecated
          * @description <aside class="warning">
+         *     20 декабря 2026 года отключим метод.
+         *
          *     Только для отправлений в статусе «Уточнение сроков доставки».
          *     </aside>
          *
@@ -18041,6 +18044,10 @@ export interface components {
              * @description Дата и время начала обработки отправления.
              */
             in_process_at?: string;
+            /** @description `true`, если в отправлении есть товары, которые нужно доупаковать при отгрузке. */
+            is_extra_packed?: boolean;
+            /** @description `true`, если в отправлении есть товары, которые нужно опломбировать при отгрузке. */
+            is_sealed?: boolean;
             legal_info?: components["schemas"]["posting.v3.PostingFboListResponse.Postings.LegalInfo"];
             /**
              * Format: int64
@@ -18214,6 +18221,10 @@ export interface components {
              * @description Дата и время начала обработки отправления.
              */
             in_process_at?: string;
+            /** @description `true`, если в отправлении есть товары, которые нужно доупаковать при отгрузке. */
+            is_extra_packed?: boolean;
+            /** @description `true`, если в отправлении есть товары, которые нужно опломбировать при отгрузке. */
+            is_sealed?: boolean;
             legal_info?: components["schemas"]["v2FboSinglePostingLegalInfo"];
             /**
              * Format: int64
@@ -53508,6 +53519,8 @@ export interface operations {
                      *           "cancel_reason_id": 0,
                      *           "created_at": "2026-05-10T23:59:51.653736Z",
                      *           "in_process_at": "2026-05-11T00:00:07.716614Z",
+                     *           "is_extra_packed": false,
+                     *           "is_sealed": false,
                      *           "additional_data": []
                      *         }
                      *       ]
@@ -53614,6 +53627,8 @@ export interface operations {
                      *         },
                      *         "fact_delivery_date": "string",
                      *         "in_process_at": "2021-09-01T00:34:56.103Z",
+                     *         "is_extra_packed": false,
+                     *         "is_sealed": false,
                      *         "legal_info": {
                      *           "company_name": "string",
                      *           "inn": "string",

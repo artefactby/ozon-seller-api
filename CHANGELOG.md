@@ -5,6 +5,27 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [0.25.0] - 2026-11-24
+
+Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 23 и 24 ноября 2026.
+
+Пути: 497 → 497 (+0 / −0). Схемы: 2373 → 2373 (+0 / −0).
+Рантайм клиента не менялся (`http-methods` без изменений).
+
+### Added
+
+- Необязательные `is_extra_packed` и `is_sealed` (`boolean`) в ответах отправлений FBO.
+  - `postings.is_extra_packed` и `postings.is_sealed` в ответе `/v3/posting/fbo/list`;
+  - `result.is_extra_packed` и `result.is_sealed` в ответе `/v2/posting/fbo/get`.
+  `is_extra_packed` — в отправлении есть товары, которые нужно доупаковать при отгрузке. `is_sealed` — есть товары, которые нужно опломбировать при отгрузке.
+
+### Changed
+
+- `/v1/posting/cutoff/set` помечен deprecated, отключение 20 декабря 2026 года. Запрос и ответ не менялись. Предупреждение про статус «Уточнение сроков доставки» и текст про продавца или неинтегрированного перевозчика сохранены.
+- Срок отключения устаревших счётчиков перенесён с 23 ноября 2026 года на 7 декабря 2026 года. Поля не удалены.
+  - `result.total` в ответе `/v3/product/list` — замена `result.total_items`;
+  - `total` в ответах `/v4/product/info/stocks` и `/v5/product/info/prices` — замена `total_items`.
+
 ## [0.24.1] - 2026-11-20
 
 Синхронизация снимка OpenAPI Seller API с обновлениями Ozon от 20 ноября 2026.
