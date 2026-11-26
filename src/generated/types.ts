@@ -7220,7 +7220,9 @@ export interface paths {
         put?: never;
         /**
          * Получить начисления по отправлениям
-         * @description Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.
+         * @description Чтобы получить полный список начислений, используйте вместе с методом [/v1/finance/accrual/by-day](#operation/GetFinanceAccrualByDay).
+         *
+         *     Вы можете оставить обратную связь о работе метода в [комментариях](https://dev.ozon.ru/community/2008-Novye-beta-metody-dlia-polucheniia-nachislenii/) в сообществе разработчиков Ozon for dev.
          */
         post: operations["GetFinanceAccrualPostings"];
         delete?: never;
@@ -7260,7 +7262,9 @@ export interface paths {
         put?: never;
         /**
          * Получить начисления за день
-         * @description Если укажете `last_id` в запросе, передайте значение `date` из предыдущего запроса, иначе вернётся ошибка `400 Bad Request`.
+         * @description Чтобы получить полный список начислений, используйте вместе с методом [/v1/finance/accrual/postings](#operation/GetFinanceAccrualPostings).
+         *
+         *     Если укажете `last_id` в запросе, передайте значение `date` из предыдущего запроса, иначе вернётся ошибка `400 Bad Request`.
          *
          *     Если вы запрашиваете информацию о начислениях за недавнюю дату, состав ответа может меняться из-за появления новых начислений.
          *
